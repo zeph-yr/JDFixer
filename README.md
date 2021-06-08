@@ -3,6 +3,7 @@
 Based on NjsFixer by Kylemc1413
 
 I wanted a stripped down mod that focused only on JD modification to fix floaty maps, and that doesn't include NJS/BPM modification since I don't use those features. I felt there is a gap between Njsfixer and Leveltweaks that isn't filled for JD-focused players and this is my interpretation for meeting those needs.
+
 Works in multiplayer. Score submission is unaffected.
 
 ## New Features:
