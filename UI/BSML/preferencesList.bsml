@@ -1,0 +1,21 @@
+﻿<bg xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd'>
+  <vertical>
+    <page-button event-click='prefList#PageUp' direction='Up'></page-button>
+    <list id='prefList' list-style='Simple' select-cell='prefSelect'></list>
+    <page-button event-click='prefList#PageDown' direction='Down'></page-button>
+    <horizontal>
+      <button pref-height='8' align='Center' text='Add' event-click='addPressed'></button>
+      <button pref-height='8' active='~prefIsSelected' align='Center' text='Remove Selected' on-click='removePressed'></button>
+    </horizontal>
+  </vertical>
+  <modal id='AddModal' show-event='addPressed' hide-event='closeModals' click-off-closes='false' size-delta-x='110' size-delta-y='40'>
+    <settings-container child-expand-height='false' pad-top='3' pad-bottom='3' child-control-width='true' child-expand-width='true' anchor-pos-y='-3' size-delta-y='0'>
+      <slider-setting  value='njsValue' on-change='setNjs' text='NJS' increment='1' min='0' max='50' ></slider-setting>
+      <slider-setting  value ='jumpDisValue' on-change='setJumpDis' text='Desired Jump Distance' increment='0.1' min='~minJump' max='~maxJump' ></slider-setting>
+      <horizontal>
+        <button text='Add' on-click='addPressed' click-event='closeModals'></button>
+        <button text='Cancel' click-event='closeModals'></button>
+      </horizontal>  
+    </settings-container>
+  </modal>
+</bg>
