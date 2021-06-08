@@ -21,4 +21,7 @@ Score submission is unaffected.
 
 ## About:
 This is my first time writing a mod. I made it for myself initially but friends thought it useful so I think it would be beneficial to share it. I hope others find this useful.
-I welcome feedback and suggestions :) Thanks Kyle for the original NjsFixer and thanks to BSMG help and advice :)
+I welcome feedback and suggestions :) 
+
+## Credits
+Thanks Kyle for the original NjsFixer and thanks to BSMG discord for the help and advice :)
