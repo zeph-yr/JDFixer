@@ -1,6 +1,6 @@
 # JDFixer
 
-Based on NjsFixer by Kylemc1413 (https://github.com/Kylemc1413/NjsFixer)
+Based on NjsFixer by Kylemc1413
 
 I wanted a stripped down mod that focused only on JD modification to fix floaty maps, and that doesn't include NJS/BPM modification since I don't use those features. 
 Works in multiplayer.
@@ -24,4 +24,4 @@ This is my first time writing a mod. I made it for myself initially but friends 
 I welcome feedback and suggestions :) 
 
 ## Credits
-Thanks Kyle for the original NjsFixer and thanks to BSMG discord for the help and advice :)
+Thanks Kyle for the original NjsFixer (https://github.com/Kylemc1413/NjsFixer) and thanks to BSMG discord for the help and advice :)
