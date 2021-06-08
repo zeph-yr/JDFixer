@@ -18,6 +18,7 @@ Works in multiplayer. Score submission is unaffected.
 
 ## How To Use:
 - Place JDFixer.dll in Plugins folder
+- To see the current map difficulty's JD, click the Map JD button to refresh it (it does not update automatically)
 - Upper and Lower NJS Thresholds can be set in JDFixer.json in UserData folder
 - Min and max range in the JD slider can be edited in JDFixer.json
 - Preferences for NJS-JD pairs are set in-game like original Njsfixer mod
