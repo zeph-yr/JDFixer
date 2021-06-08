@@ -11,6 +11,7 @@ Score submission is unaffected.
 - Automated JD fixing. The behavior of the Preferences has been changed to selecting the NJS-JD pair that is equal or lower to the selected map's NJS. This allows you to cover large ranges without having to add many values and also handles the rare non-integer NJS
 - There is an added heuristic in the Preferences, where if the selected map's original JD is lower than the JD in the matching NJS-JD pair, the map will run at its original JD. If you don't like this feature, you can still use the slider which will force JD as much as possible.
 - Also included are Upper and Lower NJS Thresholds where Preferences will be ignored: If a map's NJS is at or above the upper threshold, the map will run at its original JD (and vice versa for lower threshold)
+- Swapped Enable the Practice Mode buttons because I keep toggling the wrong one lol
 
 ![screenshot](https://github.com/zeph-yr/JDFixer/blob/master/menu1_small.png)
 ![screenshot](https://github.com/zeph-yr/JDFixer/blob/master/menu2_small.png)
