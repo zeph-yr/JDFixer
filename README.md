@@ -8,7 +8,7 @@ Score submission is unaffected.
 
 ## New Features:
 - The map's original JD is displayed in the Mod menu. You can easily decide if you want to use the JDFixer without having to play the map to feel it. Saves time.
-- The behavior of the Preferences has also been changed to selecting the NJS-JD pair that is equal or lower to the selected map's NJS. This allows you to cover large ranges without having to add many values, and also handles the rare non-integer NJS
+- Automated JD fixing. The behavior of the Preferences has been changed to selecting the NJS-JD pair that is equal or lower to the selected map's NJS. This allows you to cover large ranges without having to add many values and also handles the rare non-integer NJS
 - There is an added heuristic in the Preferences, where if the selected map's original JD is lower than the JD in the matching NJS-JD pair, the map will run at its original JD. If you don't like this feature, you can still use the slider which will force JD as much as possible.
 - Also included are Upper and Lower NJS Thresholds where Preferences will be ignored: If a map's NJS is at or above the upper threshold, the map will run at its original JD (and vice versa for lower threshold)
 
