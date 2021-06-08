@@ -12,8 +12,8 @@ Score submission is unaffected.
 - There is an added heuristic in the Preferences, where if the selected map's original JD is lower than the JD in the matching NJS-JD pair, the map will run at its original JD. If you don't like this feature, you can still use the slider which will force JD as much as possible.
 - Also included are Upper and Lower NJS Thresholds where Preferences will be ignored: If a map's NJS is at or above the upper threshold, the map will run at its original JD (and vice versa for lower threshold)
 
-!(https://github.com/zeph-yr/JDFixer/blob/master/menu1_small.png)
-!(https://github.com/zeph-yr/JDFixer/blob/master/menu2_small.png)
+![screenshot](https://github.com/zeph-yr/JDFixer/blob/master/menu1_small.png)
+![screenshot](https://github.com/zeph-yr/JDFixer/blob/master/menu2_small.png)
 
 ## How To Use:
 - Place JDFixer.dll in Plugins folder
