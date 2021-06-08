@@ -25,6 +25,7 @@ Works in multiplayer. Score submission is unaffected.
 - Enabling "Use Preferred JD Values" will override the JD value in the slider
 - Hover over menu in-game for explanations
 - **Not compatible with NjsFixer.** Using both mods may result in conflicts and unexpected behavior
+- Requires BSIPA, BSML and BS_Utils
 
 ## About
 This is my first time writing a mod. I made it for my own needs but friends thought it useful so I think it would be beneficial to share it. I hope others find this useful.
