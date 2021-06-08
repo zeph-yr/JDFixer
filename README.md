@@ -21,7 +21,7 @@ Score submission is unaffected.
 - Upper and Lower NJS Thresholds can be set in JDFixer.json
 - Min and Max range in the JD slider can be edited in JDFixer.json
 - Preferences for NJS-JD pairs are set in-game like original Njsfixer mod
-- Enabling Preferences will override the JD value in the slider
+- Enabling "Use Preferred JD Values" will override the JD value in the slider
 - Hover over menu items in-game for explanations
 
 ## About:
