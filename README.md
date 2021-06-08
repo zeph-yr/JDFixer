@@ -23,6 +23,7 @@ Works in multiplayer. Score submission is unaffected.
 - Preferences for NJS-JD pairs are set in-game like original Njsfixer mod
 - Enabling "Use Preferred JD Values" will override the JD value in the slider
 - Hover over menu items in-game for explanations
+- **Not compatible with NjsFixer** Using both mods may result in conflicts and unexpected behavior.
 
 ## About:
 This is my first time writing a mod. I made it for myself initially but friends thought it useful so I think it would be beneficial to share it. I hope others find this useful.
