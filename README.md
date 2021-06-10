@@ -1,10 +1,10 @@
 # JDFixer
 
-Based on NjsFixer by Kylemc1413
+Fork of Kylemc1413's NjsFixer
 
 I wanted a stripped down mod that focused only on JD modification to fix floaty maps without NJS/BPM modification since I don't use those features. I felt there was a gap between Njsfixer and Leveltweaks that isn't filled for JD-focused players and this is my interpretation for meeting those needs.
 
-Works in multiplayer. Score submission is unaffected.
+Works in multiplayer. Score submission is unaffected. For Beat Saber 1.16.1.
 
 ## New Features
 - Selected map's original JD is displayed in the Mod menu. You can easily decide if you want to use the JDFixer without having to play the map to feel it. Saves time.
@@ -21,11 +21,14 @@ Works in multiplayer. Score submission is unaffected.
 - To see the current map difficulty's JD, click the Map JD button to refresh (it does not update automatically)
 - Upper and Lower NJS Thresholds can be set in JDFixer.json in UserData folder
 - Min and max range in the JD slider can be edited in JDFixer.json
-- Preferences for NJS-JD pairs are set in-game like original Njsfixer mod
+- Preferences for NJS-JD pairs are set in-game
 - Enabling "Use Preferred JD Values" will override the JD value in the slider
 - Hover over menu in-game for explanations
 - **Not compatible with NjsFixer.** Using both mods may result in conflicts and unexpected behavior
 - Requires BSIPA, BSML and BS_Utils
+
+## Understanding The Preferences Behavior
+(to be updated with example)
 
 ## About
 This is my first time writing a mod. I made it for my own needs but friends thought it useful so I think it would be beneficial to share it. I hope others find this useful.
