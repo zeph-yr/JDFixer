@@ -1,6 +1,6 @@
 # JDFixer
 
-Fork of Kylemc1413's NjsFixer
+Based on Kylemc1413's NjsFixer
 
 I wanted a stripped down mod that focused only on JD modification to fix floaty maps without NJS/BPM modification since I don't use those features. I felt there was a gap between Njsfixer and Leveltweaks that isn't filled for JD-focused players and this is my interpretation for meeting those needs.
 
