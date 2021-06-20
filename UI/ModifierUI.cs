@@ -58,48 +58,12 @@ namespace JDFixer.UI
         }
 
 
-        //#####################################################
-        // Jump Distance Refresh Button
-        // Yes, i tried everything make an autoupdating text tag lol
-        /*
-        [UIComponent("jdbutton")]
-        private string jdbutton;
-        [UIValue("button-text")]
-        public string ButtonText
-        {
-            get => "<#ebbd52>" + Config.UserConfig.selected_mapJumpDistance.ToString();
-            set
-            {
-                NotifyPropertyChanged();
-            }
-        }
-
-        [UIAction("refresh")]
-        void Refresh()
-        {
-            ButtonText = "something changed"; // This is a hack. Without this the button text doesn't update when clicked lol
-            //Logger.log.Debug($"After click {ButtonText}");
-        }
-        */
-
-
-        //[UIComponent("mapJDButton")]
-        //private string MapJDButton;
-        //[UIValue("mapJDLabel")]
-        //public string MapJDLabel => "Map Jump Distance\nMin. JD";
-
-        //[UIValue("mapJDText")]
-        //public string MapJDText => $"<#ffff00>" + _selectedBeatmap.JumpDistance.ToString() + "\n" + "<#c4c4c4>" + _selectedBeatmap.MinJumpDistance.ToString();
-
-
         [UIValue("mapDefaultJD")]
         public string MapDefaultJDText => "<#ffff00>" + _selectedBeatmap.JumpDistance.ToString();
 
 
         [UIValue("mapMinJD")]
         public string MapMinJDText => "<#c4c4c4>" + _selectedBeatmap.MinJumpDistance.ToString();
-
-        //#####################################################
 
 
         [UIComponent("jumpDisSlider")]
