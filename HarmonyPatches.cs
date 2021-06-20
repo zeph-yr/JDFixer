@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using HarmonyLib;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HarmonyLib;
+
 namespace JDFixer
 {
 
@@ -27,15 +24,8 @@ namespace JDFixer
             // NJS-JD setpoints from Preferences
             if (Config.UserConfig.usePreferredJumpDistanceValues)
             {
-                //Written as separate if else if's for additional behaviors to be added
-                // For Acc Maps:
-                if (mapNJS <= Config.UserConfig.lower_threshold)
-                {
-                    return;
-                }
-
-                // For Speed Maps:
-                else if (mapNJS >= Config.UserConfig.upper_threshold)
+                // For Acc and Speed Maps:
+                if (mapNJS <= Config.UserConfig.lower_threshold || mapNJS >= Config.UserConfig.upper_threshold)
                 {
                     return;
                 }
@@ -53,7 +43,7 @@ namespace JDFixer
                 // Heuristic: If map's original JD is less than the matching preference entry, play map at original JD
                 // Rationale: I created this mod because I don't like floaty maps. If the original JD chosen by the
                 // mapper is lower than my pick, it's probably more optimal than my pick.
-                if (Config.UserConfig.selected_mapJumpDistance <= desiredJumpDis)
+                if (Config.UserConfig.selected_mapJumpDistance <= desiredJumpDis && Config.UserConfig.use_heuristic)
                 {
                     //Logger.log.Debug("Not Fixing: Original JD below or equal setpoint");
                     //Logger.log.Debug($"BPM/NJS/Offset {startBpm}/{startNoteJumpMovementSpeed}/{noteJumpStartBeatOffset}");

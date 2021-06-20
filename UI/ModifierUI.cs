@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BeatSaberMarkupLanguage;
-using HMUI;
-using BeatSaberMarkupLanguage.Components;
+﻿using BeatSaberMarkupLanguage;
 using BeatSaberMarkupLanguage.Attributes;
-using UnityEngine;
-using BeatSaberMarkupLanguage.MenuButtons;
+using BeatSaberMarkupLanguage.Components;
 using BeatSaberMarkupLanguage.Components.Settings;
+using HMUI;
+using UnityEngine;
 
 namespace JDFixer.UI
 {
@@ -56,6 +50,7 @@ namespace JDFixer.UI
         //#####################################################
         // Jump Distance Refresh Button
         // Yes, i tried everything make an autoupdating text tag lol
+        /*
         [UIComponent("jdbutton")]
         private string jdbutton;
         [UIValue("button-text")]
@@ -73,6 +68,32 @@ namespace JDFixer.UI
         {
             ButtonText = "something changed"; // This is a hack. Without this the button text doesn't update when clicked lol
             //Logger.log.Debug($"After click {ButtonText}");
+        }
+        */
+
+        [UIValue("mapJDText")]
+        private string MapJDText
+        {
+            get => "Map Jump Distance\nMin. JD";
+        }
+
+        //[UIComponent("mapJDButton")]
+        //private string MapJDButton;
+        [UIValue("mapJDButton")]
+        public string MapJDButton
+        {
+            get => "<#ffff00>" + Config.UserConfig.selected_mapJumpDistance.ToString() + "\n" + "<#c4c4c4>" + Config.UserConfig.selected_mapLowest.ToString();
+            set
+            {
+                NotifyPropertyChanged();
+            }
+        }
+
+        [UIAction("mapJD-refresh")]
+        void MapJDRefresh()
+        {
+            MapJDButton = "something changed"; // This is a hack. Without an assignment button doesn't update when clicked lol
+            //Logger.log.Debug($"After click {MapJDButton}");
         }
         //#####################################################
 
@@ -118,8 +139,23 @@ namespace JDFixer.UI
             ActiveFlowCoordinator.PresentFlowCoordinator(_prefFlow, null, ViewController.AnimationDirection.Horizontal, true);
         }
 
-
         //###################################
+        [UIValue("useHeuristic")]
+        public bool heuristicEnabled
+        {
+            get => Config.UserConfig.use_heuristic;
+            set
+            {
+                Config.UserConfig.use_heuristic = value;
+            }
+        }
+        [UIAction("setUseHeuristic")]
+        void SetHeuristic(bool value)
+        {
+            heuristicEnabled = value;
+        }
+
+
         // Thresholds Display
         [UIValue("upperthreshold")]
         public float upperthreshold
@@ -166,7 +202,7 @@ namespace JDFixer.UI
             {               
                 float map_bpm = arg1.selectedDifficultyBeatmap.level.beatsPerMinute;
                 float map_njs = arg1.selectedDifficultyBeatmap.noteJumpMovementSpeed;
-                float map_halfjump = 4f;
+                //float map_halfjump = 4f;
                 float map_offset = arg1.selectedDifficultyBeatmap.noteJumpStartBeatOffset;
 
                 // NOTE THESE DONT WORK: SONG LOADS FOREVER
@@ -174,20 +210,14 @@ namespace JDFixer.UI
                 //float offset = arg1.beatmapLevel.songTimeOffset;
                 //String songname = arg1.beatmapLevel.songName;
 
-                //Calculate Original Jump Distance:
-                float map_num = 60f / map_bpm;
-                while (map_njs * map_num * map_halfjump > 18)
-                    map_halfjump /= 2;
+                float map_jumpdistance = JDFixer.Plugin.Calculate_JD(map_bpm, map_njs, map_offset);
+                float min_map_jumpdistance = JDFixer.Plugin.Calculate_JD(map_bpm, map_njs, -50f);
 
-                map_halfjump += map_offset;
-                if (map_halfjump < 1) map_halfjump = 1f;
-                
-                float map_jumpdistance = map_njs * map_num * map_halfjump * 2;
+                Logger.log.Debug($"UI: BPM: {map_bpm} | NJS: {map_njs} | Offset: {map_offset} | Jump Distance: { map_jumpdistance} | Minimum: { min_map_jumpdistance}");
 
                 Config.UserConfig.selected_mapJumpDistance = map_jumpdistance;
+                Config.UserConfig.selected_mapLowest = min_map_jumpdistance;
                 Config.Write();
-
-                //Logger.log.Debug($"UI: BPM: {map_bpm} | NJS: {map_njs} | Offset: {map_offset} | Jump Distance: { map_jumpdistance}");
             }
         }
     }

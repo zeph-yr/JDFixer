@@ -10,7 +10,8 @@
 		</horizontal>
 		<slider-setting id='jumpDisSlider' value ='jumpDisValue' on-change='setJumpDis' text='Desired Jump Distance' increment='0.1' min='~minJump' max='~maxJump' hover-hint='Will attempt run map at this JD or as close as possible'></slider-setting>
 		<checkbox-setting value='usePrefJumpValues' on-change='setUsePrefJumpValues' text='Use Preferred JD values'></checkbox-setting>
-		<button align='Center' on-click='prefButtonClicked' text='Jump Distance Preferences' hover-hint='If original JD is lower than the matching preference, map will run at original JD'></button>
+		<checkbox-setting value='useHeuristic' on-change='setUseHeuristic' text='Use Map JD If Lower' hover-hint='If original JD is lower than the matching preference, map will run at original JD'></checkbox-setting>
+		<button align='Center' on-click='prefButtonClicked' text='Jump Distance Preferences' hover-hint='Selects matching or lower NJS'></button>
 
 		<horizontal>
 			<grid cell-size-y='9' cell-size-x='28' spacing-x='2' align='Right'>

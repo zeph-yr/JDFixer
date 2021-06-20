@@ -1,19 +1,19 @@
 ﻿{
   "$schema": "https://raw.githubusercontent.com/nike4613/ModSaber-MetadataFileSchema/master/Schema.json",
   "author": "Zephyr",
-  "description": "Allows you to change jump distance without changing NJS",
-  "gameVersion": "1.16.1",
+  "description": "Automatically change jump distance according to your preferences",
+  "gameVersion": "1.16.2",
   "id": "JDFixer",
   "name": "JDFixer",
-  "version": "1.8.0",
+  "version": "1.1.2",
   "dependsOn": {
-    "BSIPA": "^4.1.2",
-    "BS Utils": "^1.6.0",
-    "BeatSaberMarkupLanguage": "^1.4.0"
+    "BSIPA": "^4.1.6",
+    "BS Utils": "^1.10.0",
+    "BeatSaberMarkupLanguage": "^1.5.3"
   },
-  "links": {
-    "donate": "none"
-  },
+    "links": {
+        "donate": "paypal.me/zeph3yr"
+    },
   "features": [
   ]
 } 

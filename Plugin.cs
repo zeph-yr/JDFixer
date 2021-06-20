@@ -1,14 +1,7 @@
-﻿using IPA;
-using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using HarmonyLib;
+using IPA;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
-using BeatSaberMarkupLanguage;
-using TMPro;
-using HarmonyLib;
 
 namespace JDFixer
 {
@@ -26,8 +19,8 @@ namespace JDFixer
             BS_Utils.Utilities.BSEvents.difficultySelected += BSEvents_difficultySelected;
             //BS_Utils.Utilities.BSEvents.gameSceneLoaded += BSEvents_gameSceneLoaded;
 
-            BeatSaberMarkupLanguage.GameplaySetup.GameplaySetup.instance.AddTab("JDFixer", "JDFixer.UI.BSML.modifierUI.bsml", UI.ModifierUI.instance, BeatSaberMarkupLanguage.GameplaySetup.MenuType.Solo);
-            BeatSaberMarkupLanguage.GameplaySetup.GameplaySetup.instance.AddTab("JDFixerOnline", "JDFixer.UI.BSML.modifierOnlineUI.bsml", UI.ModifierUI.instance, BeatSaberMarkupLanguage.GameplaySetup.MenuType.Online);
+            BeatSaberMarkupLanguage.GameplaySetup.GameplaySetup.instance.AddTab("JDFixer", "JDFixer.UI.BSML.modifierUI.bsml", UI.ModifierUI.instance);
+            //BeatSaberMarkupLanguage.GameplaySetup.GameplaySetup.instance.AddTab("JDFixerOnline", "JDFixer.UI.BSML.modifierOnlineUI.bsml", UI.ModifierUI.instance, BeatSaberMarkupLanguage.GameplaySetup.MenuType.Online);
             UnityEngine.SceneManagement.SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
         }
 
@@ -40,6 +33,23 @@ namespace JDFixer
         public void Init(IPA.Logging.Logger logger)
         {
             Logger.log = logger;
+        }
+
+        public static float Calculate_JD(float bpm, float njs, float offset)
+        {
+            float jumpdistance = 0f; // In case
+            float halfjump = 4f;
+            float num = 60f / bpm;
+
+            while (njs * num * halfjump > 18)
+                halfjump /= 2;
+
+            halfjump += offset;
+            if (halfjump < 1) halfjump = 1f;
+
+            jumpdistance = njs * num * halfjump * 2;
+
+            return jumpdistance;
         }
 
         // For when user selects a map with only 1 difficulty or selects a map but does not click a difficulty
@@ -57,37 +67,30 @@ namespace JDFixer
         private void BSEvents_difficultySelected(StandardLevelDetailViewController arg1, IDifficultyBeatmap level)
         {
             float bpm = arg1.beatmapLevel.beatsPerMinute;
-            float halfjump = 4f;
+            //float halfjump = 4f;
             float njs = level.noteJumpMovementSpeed;
             float offset = level.noteJumpStartBeatOffset;
+            
+            float map_jumpdistance = Calculate_JD(bpm, njs, offset);
+            float min_map_jumpdistance = Calculate_JD(bpm, njs, -50f);
 
-            //Logger.log.Debug($"Difficulty Selected. BPM: {bpm} | NJS: {njs} | Offset: {offset}");
+            Logger.log.Debug($"Difficulty Selected. BPM: {bpm} | NJS: {njs} | Offset: {offset} | Jump Distance: {map_jumpdistance} | Minimum: {min_map_jumpdistance}");
 
-            float num = 60f / bpm;
-            while (njs * num * halfjump > 18)
-                halfjump /= 2;
-
-            halfjump += offset;
-            if (halfjump < 1) halfjump = 1f;
-
-            float jumpdistance = njs * num * halfjump * 2;
-
-            //Logger.log.Debug($"Difficulty Jump Distance: {jumpdistance}");
-
-            Config.UserConfig.selected_mapJumpDistance = jumpdistance;
+            Config.UserConfig.selected_mapJumpDistance = map_jumpdistance;
+            Config.UserConfig.selected_mapLowest = min_map_jumpdistance;
             Config.Write();
         }
-        
 
-        // Think this is not necessary anymore:
+
+        // Not necessary anymore:
         /*private void BSEvents_gameSceneLoaded()
         {
             bool WillOverride = BS_Utils.Plugin.LevelData.IsSet && !BS_Utils.Gameplay.Gamemode.IsIsolatedLevel
                 && Config.UserConfig.enabled && BS_Utils.Plugin.LevelData.Mode == BS_Utils.Gameplay.Mode.Standard && BS_Utils.Plugin.LevelData.GameplayCoreSceneSetupData.practiceSettings == null;
             if(WillOverride && false) // false is from "!Config.User.Config.dontForceNJS"
                 BS_Utils.Gameplay.ScoreSubmission.DisableSubmission("JDFixer");
-
         }*/
+
 
         [OnExit]
         public void OnApplicationQuit()
