@@ -37,8 +37,8 @@ namespace JDFixer
         //public float selected_mapBPM = 1f;
         //public float selected_mapNJS = 1f;
         //public float selected_mapOffset = 1f;
-        public float selected_mapJumpDistance = 1f;
-        public float selected_mapLowest = 1f;
+        //public float selected_mapJumpDistance = 1f;
+        //public float selected_mapLowest = 1f;
 
 
         public JDFixerConfig()
@@ -48,7 +48,7 @@ namespace JDFixer
         [JsonConstructor]
         //public JDFixerConfig(bool enabled, bool enabledInPractice, float jumpDistance, int minJumpDistance, int maxJumpDistance, bool usePreferredJumpDistanceValues, List<NjsPref> preferredValues,float upper_threshold, float lower_threshold, float selected_mapBPM, float selected_mapNJS, float selected_mapOffset, float selected_mapJumpDistance)
         public JDFixerConfig(bool enabled, bool enabledInPractice, float jumpDistance, int minJumpDistance, int maxJumpDistance, bool usePreferredJumpDistanceValues, List<JDPref> preferredValues, 
-            float upper_threshold, float lower_threshold, bool use_heuristic, float selected_mapJumpDistance, float selected_mapLowest)
+            float upper_threshold, float lower_threshold, bool use_heuristic)
         {
             this.enabled = enabled;
             this.enabledInPractice = enabledInPractice;
@@ -66,8 +66,8 @@ namespace JDFixer
             //this.selected_mapBPM = selected_mapBPM;
             //this.selected_mapNJS = selected_mapNJS;
             //this.selected_mapOffset = selected_mapOffset;
-            this.selected_mapJumpDistance = selected_mapJumpDistance;
-            this.selected_mapLowest = selected_mapLowest;
+            //this.selected_mapJumpDistance = selected_mapJumpDistance;
+            //this.selected_mapLowest = selected_mapLowest;
     }
     }
 
@@ -101,8 +101,8 @@ namespace JDFixer
                     //UserConfig.selected_mapBPM = oldConfig.GetFloat("JDFixer", "selected_mapBPM", 1f, true);
                     //UserConfig.selected_mapNJS = oldConfig.GetFloat("JDFixer", "selected_mapNJS", 1f, true);
                     //UserConfig.selected_mapNJS = oldConfig.GetFloat("JDFixer", "selected_mapOffset", 1f, true);
-                    UserConfig.selected_mapJumpDistance = oldConfig.GetFloat("JDFixer", "selected_mapJumpDistance", 1f, true);
-                    UserConfig.selected_mapLowest = oldConfig.GetFloat("JDFixer", "selected_mapLowest", 1f, true);
+                    //UserConfig.selected_mapJumpDistance = oldConfig.GetFloat("JDFixer", "selected_mapJumpDistance", 1f, true);
+                    //UserConfig.selected_mapLowest = oldConfig.GetFloat("JDFixer", "selected_mapLowest", 1f, true);
 
                     try
                     {

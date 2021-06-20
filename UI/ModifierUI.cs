@@ -9,6 +9,17 @@ namespace JDFixer.UI
 {
     public class ModifierUI : NotifiableSingleton<ModifierUI>
     {
+        private BeatmapInfo _selectedBeatmap = BeatmapInfo.Empty; 
+        public ModifierUI()
+        {
+            BeatmapInfo.SelectedChanged += beatmapInfo =>
+            {
+                _selectedBeatmap = beatmapInfo;
+                NotifyPropertyChanged(nameof(MapDefaultJDText));
+                NotifyPropertyChanged(nameof(MapMinJDText));
+            };
+        }
+
         private PreferencesFlowCoordinator _prefFlow;
         [UIValue("minJump")]
         private int minJump => Config.UserConfig.minJumpDistance;
@@ -71,30 +82,23 @@ namespace JDFixer.UI
         }
         */
 
-        [UIValue("mapJDText")]
-        private string MapJDText
-        {
-            get => "Map Jump Distance\nMin. JD";
-        }
 
         //[UIComponent("mapJDButton")]
         //private string MapJDButton;
-        [UIValue("mapJDButton")]
-        public string MapJDButton
-        {
-            get => "<#ffff00>" + Config.UserConfig.selected_mapJumpDistance.ToString() + "\n" + "<#c4c4c4>" + Config.UserConfig.selected_mapLowest.ToString();
-            set
-            {
-                NotifyPropertyChanged();
-            }
-        }
+        //[UIValue("mapJDLabel")]
+        //public string MapJDLabel => "Map Jump Distance\nMin. JD";
 
-        [UIAction("mapJD-refresh")]
-        void MapJDRefresh()
-        {
-            MapJDButton = "something changed"; // This is a hack. Without an assignment button doesn't update when clicked lol
-            //Logger.log.Debug($"After click {MapJDButton}");
-        }
+        //[UIValue("mapJDText")]
+        //public string MapJDText => $"<#ffff00>" + _selectedBeatmap.JumpDistance.ToString() + "\n" + "<#c4c4c4>" + _selectedBeatmap.MinJumpDistance.ToString();
+
+
+        [UIValue("mapDefaultJD")]
+        public string MapDefaultJDText => "<#ffff00>" + _selectedBeatmap.JumpDistance.ToString();
+
+
+        [UIValue("mapMinJD")]
+        public string MapMinJDText => "<#c4c4c4>" + _selectedBeatmap.MinJumpDistance.ToString();
+
         //#####################################################
 
 
@@ -193,32 +197,6 @@ namespace JDFixer.UI
                 return flow;
             }
             return DeepestChildFlowCoordinator(flow);
-        }
-
-        // For when user selects a map with only 1 difficulty or selects a map but does not click a difficulty
-        public static void Leveldetail_didChangeContentEvent(StandardLevelDetailViewController arg1, StandardLevelDetailViewController.ContentType arg2)
-        {
-            if (arg1 != null && arg1.selectedDifficultyBeatmap != null)
-            {               
-                float map_bpm = arg1.selectedDifficultyBeatmap.level.beatsPerMinute;
-                float map_njs = arg1.selectedDifficultyBeatmap.noteJumpMovementSpeed;
-                //float map_halfjump = 4f;
-                float map_offset = arg1.selectedDifficultyBeatmap.noteJumpStartBeatOffset;
-
-                // NOTE THESE DONT WORK: SONG LOADS FOREVER
-                //float bpm = arg1.beatmapLevel.beatsPerMinute;
-                //float offset = arg1.beatmapLevel.songTimeOffset;
-                //String songname = arg1.beatmapLevel.songName;
-
-                float map_jumpdistance = JDFixer.Plugin.Calculate_JD(map_bpm, map_njs, map_offset);
-                float min_map_jumpdistance = JDFixer.Plugin.Calculate_JD(map_bpm, map_njs, -50f);
-
-                Logger.log.Debug($"UI: BPM: {map_bpm} | NJS: {map_njs} | Offset: {map_offset} | Jump Distance: { map_jumpdistance} | Minimum: { min_map_jumpdistance}");
-
-                Config.UserConfig.selected_mapJumpDistance = map_jumpdistance;
-                Config.UserConfig.selected_mapLowest = min_map_jumpdistance;
-                Config.Write();
-            }
         }
     }
 }
