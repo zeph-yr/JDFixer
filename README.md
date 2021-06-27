@@ -4,12 +4,13 @@ Based on Kylemc1413's NjsFixer
 
 I wanted a stripped down mod that focused only on JD modification to fix floaty maps without NJS/BPM modification since I don't use those features. I felt there was a gap between Njsfixer and Leveltweaks that isn't filled for JD-focused players and this is my interpretation for meeting those needs.
 
-Works in multiplayer. Score submission is unaffected. For Beat Saber 1.16.1.
+Works in multiplayer. Score submission is unaffected. For Beat Saber 1.16.2.
 
 ## New Features
 - Selected map's original JD is displayed in the Mod menu. You can easily decide if you want to use the JDFixer without having to play the map to feel it. Saves time.
+- Selected map's lowest JD allowed by the game is displayed. When it seems like JDFixer "isn't working", check if you exceeded this value.
 - Automated JD fixing. The behavior of the Preferences has been changed to selecting the NJS-JD pair that is equal or lower to the selected map's NJS. This allows you to cover large ranges without having to add many values and also handles the rare non-integer NJS
-- Added heuristic in the Preferences, where if the selected map's original JD is lower than the JD in the matching NJS-JD pair, the map will run at its original JD. If you don't like this feature, you can still use the slider to force JD as much as possible
+- Added heuristic in the Preferences, where if the selected map's original JD is lower than the JD in the matching NJS-JD pair, the map will run at its original JD. You can toggle this feature.
 - Included Upper and Lower NJS Thresholds where Preferences will be ignored: If a map's NJS is at or above the upper threshold, the map will run at its original JD (and vice versa for lower threshold)
 - Swapped Enable and Practice Mode buttons because I keep toggling the wrong one lol
 
@@ -18,7 +19,7 @@ Works in multiplayer. Score submission is unaffected. For Beat Saber 1.16.1.
 
 ## How To Use
 - Place JDFixer.dll in Plugins folder
-- To see the current map difficulty's JD, click the Map JD button to refresh (it does not update automatically)
+- Select a map / difficulty to see the current original JD
 - Upper and Lower NJS Thresholds can be set in JDFixer.json in UserData folder
 - Min and max range in the JD slider can be edited in JDFixer.json
 - Preferences for NJS-JD pairs are set in-game
@@ -35,4 +36,5 @@ This is my first time writing a mod. I made it for my own needs but friends thou
 I welcome feedback and suggestions :) 
 
 ## Credits
+Thanks a ton Shurdoof for making the autoupdate!!
 Thanks Kyle for the original NjsFixer (https://github.com/Kylemc1413/NjsFixer) and thanks to the cool peeps in BSMG discord for the help and advice :)
