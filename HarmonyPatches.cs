@@ -43,7 +43,7 @@ namespace JDFixer
                 // Heuristic: If map's original JD is less than the matching preference entry, play map at original JD
                 // Rationale: I created this mod because I don't like floaty maps. If the original JD chosen by the
                 // mapper is lower than my pick, it's probably more optimal than my pick.
-                if (Config.UserConfig.selected_mapJumpDistance <= desiredJumpDis && Config.UserConfig.use_heuristic)
+                if (BeatmapInfo.Selected.JumpDistance <= desiredJumpDis && Config.UserConfig.use_heuristic)
                 {
                     //Logger.log.Debug("Not Fixing: Original JD below or equal setpoint");
                     //Logger.log.Debug($"BPM/NJS/Offset {startBpm}/{startNoteJumpMovementSpeed}/{noteJumpStartBeatOffset}");

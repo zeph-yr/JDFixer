@@ -132,6 +132,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BeatmapUtils.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="HarmonyPatches.cs" />
     <Compile Include="Logger.cs" />
@@ -144,6 +145,7 @@
     </Compile>
     <Compile Include="ReflectionUtil.cs" />
     <Compile Include="SliderButton.cs" />
+    <Compile Include="BeatmapInfo.cs" />
     <Compile Include="UI\ModifierUI.cs" />
     <Compile Include="UI\PreferencesFlowCoordinator.cs" />
     <Compile Include="UI\PreferencesListViewController.cs" />
