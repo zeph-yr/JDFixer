@@ -19,7 +19,7 @@ Works in multiplayer. Score submission is unaffected. For Beat Saber 1.16.2.
 
 ## How To Use
 - Place JDFixer.dll in Plugins folder
-- Select a map / difficulty to see the current original JD
+- Select a map / difficulty to see its original JD
 - Upper and Lower NJS Thresholds can be set in JDFixer.json in UserData folder
 - Min and max range in the JD slider can be edited in JDFixer.json
 - Preferences for NJS-JD pairs are set in-game
@@ -29,7 +29,19 @@ Works in multiplayer. Score submission is unaffected. For Beat Saber 1.16.2.
 - Requires BSIPA, BSML and BS_Utils
 
 ## Understanding The Preferences Behavior
-(to be updated with example)
+Suppose your Preferences contain these NJS-JD pairs: 22-18, 21-16, 18-15.
+
+**Example 1:**
+The map's NJS is 22 and JD is 20. 
+The map will run at 18 JD because there is a match for 21 NJS
+
+**Example 2:**
+The map's NJS is 21.5 and JD is 20. 
+The map will run at 16 JD because 21 NJS is the closest lower match.
+
+**Example 3:**
+The map's NJS is 21.5 and JD is 14. And "Use Lower JD" is toggled ON.
+The map will run at its original 14 JD because it is lower than your matching preference (21-16). 
 
 ## About
 This is my first time writing a mod. I made it for my own needs but friends thought it useful so I think it would be beneficial to share it. I hope others find this useful.
