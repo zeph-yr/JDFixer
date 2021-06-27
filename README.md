@@ -32,15 +32,15 @@ Works in multiplayer. Score submission is unaffected. For Beat Saber 1.16.2.
 Suppose your Preferences contain these NJS-JD pairs: 22-18, 21-16, 18-15.
 
 **Example 1:**
-The map's NJS is 22 and JD is 20. 
+Your selected map's NJS is 22 and JD is 20. 
 The map will run at 18 JD because there is a match for 21 NJS
 
 **Example 2:**
-The map's NJS is 21.5 and JD is 20. 
+Your selected map's NJS is 21.5 and JD is 20. 
 The map will run at 16 JD because 21 NJS is the closest lower match.
 
 **Example 3:**
-The map's NJS is 21.5 and JD is 14. And "Use Lower JD" is toggled ON.
+Your selected map's NJS is 21.5 and JD is 14. And "Use Lower JD" is toggled ON.
 The map will run at its original 14 JD because it is lower than your matching preference (21-16). 
 
 ## About
