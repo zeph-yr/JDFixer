@@ -4,7 +4,7 @@ Based on Kylemc1413's NjsFixer
 
 I wanted a stripped down mod that focused only on JD modification to fix floaty maps without NJS/BPM modification since I don't use those features. I felt there was a gap between Njsfixer and Leveltweaks that isn't filled for JD-focused players and this is my interpretation for meeting those needs.
 
-Works in multiplayer. Score submission is unaffected. For Beat Saber 1.16.2.
+Works in multiplayer and TA. Score submission is unaffected. For Beat Saber 1.16.2.
 
 ## New Features
 - Selected map's original JD is displayed in the Mod menu. You can easily decide if you want to use the JDFixer without having to play the map to feel it. Saves time.
@@ -28,7 +28,7 @@ Works in multiplayer. Score submission is unaffected. For Beat Saber 1.16.2.
 - **Not compatible with NjsFixer** Using both mods may result in conflicts and unexpected behavior
 - Requires BSIPA, BSML and BS_Utils
 
-## Understanding The Preferences Behavior
+## Understanding Preferences Behavior
 Suppose your Preferences contain these NJS-JD pairs: 22-18, 21-16, 18-15.
 
 **Example 1:**
@@ -40,8 +40,13 @@ Your selected map's NJS is 21.5 and JD is 20.
 The map will run at 16 JD because 21 NJS is the closest lower match.
 
 **Example 3:**
-Your selected map's NJS is 21.5 and JD is 14, and "Use Lower JD" is toggled ON.
-The map will run at its original 14 JD because it is lower than your matching preference (21-16). 
+Your selected map's NJS is 21.5 and JD is 14 *and* "Use Map JD If Lower" is toggled ON.
+The map will run at its original 14 JD because it is lower than your matching preference (21-16).
+
+## Tournaments and MP
+- TA: JD slider and Preferences work as normal. Map JD display does not function. Avoid opening the Preferences menu in TA! You will be stuck in it until you relaunch the game. However if you do choose to get yourself stuck inside just before a match, your match will still play fine KEKW
+- MP: JD slider and Preferences work as normal. Map JD display functions only when you select a map from the song browser.
+- CustomCampaigns: JDFixer is disabled to respect CustomCampaign rules.
 
 ## About
 This is my first time writing a mod. I made it for my own needs but friends thought it useful so I think it would be beneficial to share it. I hope others find this useful.
