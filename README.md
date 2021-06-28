@@ -25,7 +25,7 @@ Works in multiplayer and TA. Score submission is unaffected. For Beat Saber 1.16
 - Preferences for NJS-JD pairs are set in-game
 - Enabling "Use Preferred JD Values" will override the JD value in the slider
 - Hover over menu in-game for explanations
-- **Not compatible with NjsFixer** Using both mods may result in conflicts and unexpected behavior
+- **Not compatible with NjsFixer and LevelTweaks** Using with these mods may result in conflicts and unexpected behavior.
 - Requires BSIPA, BSML and BS_Utils
 
 ## Understanding Preferences Behavior
