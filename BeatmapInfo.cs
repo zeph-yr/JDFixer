@@ -41,7 +41,5 @@ namespace JDFixer
 
         public float JumpDistance { get; }
         public float MinJumpDistance { get; }
-
-
     }
 }
