@@ -44,7 +44,7 @@ Your selected map's NJS is 21.5 and JD is 14 *and* "Use Map JD If Lower" is togg
 The map will run at its original 14 JD because it is lower than your matching preference (21-16).
 
 ## Tournaments and MP
-- **Tournament Assistant:** JD slider and Preferences work as normal. Map JD display does not function. Avoid opening the Preferences menu in TA! You will be stuck in it until you relaunch the game. However if you do choose to get yourself stuck inside just before a match, your match will still play fine KEKW
+- **Tournament Assistant:** Works with Default, Dual Sync and AutoPause matches. JD slider and Preferences work as normal. Map JD display does not function. Avoid opening the Preferences menu in TA! You will be stuck in it until you relaunch the game. However if you do choose to get yourself stuck inside just before a match, your match will still play fine when the coordinator starts it KEKW
 - **Multiplayer:** JD slider and Preferences work as normal. Map JD display functions only when you select a map from the song browser.
 - **CustomCampaigns:** JDFixer is disabled to respect CustomCampaign rules.
 
@@ -53,5 +53,5 @@ This is my first time writing a mod. I made it for my own needs but friends thou
 I welcome feedback and suggestions :) 
 
 ## Credits
-Thanks a ton Shurdoof for making the autoupdate!!
+Thanks Shurdoof for autoupdate!
 Thanks Kyle for the original NjsFixer (https://github.com/Kylemc1413/NjsFixer) and thanks to the cool peeps in BSMG discord for the help and advice :)
