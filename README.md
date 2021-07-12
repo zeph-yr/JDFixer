@@ -25,7 +25,7 @@ Works in multiplayer and TA. Score submission is unaffected. For Beat Saber 1.16
 - Preferences for NJS-JD pairs are set in-game
 - Enabling "Use Preferred JD Values" will override the JD value in the slider
 - Hover over menu in-game for explanations
-- **Not compatible with NjsFixer** Using both mods may result in conflicts and unexpected behavior
+- **Not compatible with NjsFixer and LevelTweaks** Using with these mods may result in conflicts and unexpected behavior.
 - Requires BSIPA, BSML and BS_Utils
 
 ## Understanding Preferences Behavior
@@ -44,14 +44,14 @@ Your selected map's NJS is 21.5 and JD is 14 *and* "Use Map JD If Lower" is togg
 The map will run at its original 14 JD because it is lower than your matching preference (21-16).
 
 ## Tournaments and MP
-- TA: JD slider and Preferences work as normal. Map JD display does not function. Avoid opening the Preferences menu in TA! You will be stuck in it until you relaunch the game. However if you do choose to get yourself stuck inside just before a match, your match will still play fine KEKW
-- MP: JD slider and Preferences work as normal. Map JD display functions only when you select a map from the song browser.
-- CustomCampaigns: JDFixer is disabled to respect CustomCampaign rules.
+- **Tournament Assistant:** Works with Default, Dual Sync and AutoPause matches. JD slider and Preferences work as normal. Map JD display does not function. Avoid opening the Preferences menu in TA! You will be stuck in it until you relaunch the game. However if you do choose to get yourself stuck inside just before a match, your match will still play fine when the coordinator starts it KEKW
+- **Multiplayer:** JD slider and Preferences work as normal. Map JD display functions only when you select a map from the song browser.
+- **CustomCampaigns:** JDFixer is disabled to respect CustomCampaign rules.
 
 ## About
 This is my first time writing a mod. I made it for my own needs but friends thought it useful so I think it would be beneficial to share it. I hope others find this useful.
 I welcome feedback and suggestions :) 
 
 ## Credits
-Thanks a ton Shurdoof for making the autoupdate!!
+Thanks Shurdoof for autoupdate!
 Thanks Kyle for the original NjsFixer (https://github.com/Kylemc1413/NjsFixer) and thanks to the cool peeps in BSMG discord for the help and advice :)
