@@ -53,8 +53,6 @@ namespace JDFixer
             BeatmapInfo.SetSelected(level);
         }
 
-
-
         // For when user selects a map with only 1 difficulty or selects a map but does not click a difficulty
         private void Leveldetail_didChangeContentEvent(StandardLevelDetailViewController arg1, StandardLevelDetailViewController.ContentType arg2)
         {
@@ -63,7 +61,6 @@ namespace JDFixer
                 BeatmapInfo.SetSelected(arg1.selectedDifficultyBeatmap);
             }
         }
-
 
         // Not necessary anymore:
         /*private void BSEvents_gameSceneLoaded()
@@ -74,12 +71,10 @@ namespace JDFixer
                 BS_Utils.Gameplay.ScoreSubmission.DisableSubmission("JDFixer");
         }*/
 
-
         [OnExit]
         public void OnApplicationQuit()
         {
             Config.Write();
         }
-
     }
 }
