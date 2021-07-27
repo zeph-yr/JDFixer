@@ -15,14 +15,14 @@ namespace JDFixer
         {
             leftButton.gameObject.SetActive(true);
             leftButton.SetParent(slider.transform.Find("BSMLSlider"));
-            leftButton.localPosition = new Vector3(-41.5f, 0, 0);
+            leftButton.localPosition = new Vector3(-43f, 0, 0); // Default: -41.5f
             leftButton.localScale = new Vector3(0.5f, 1, 1);
             SliderButton sliderButton = leftButton.gameObject.AddComponent<SliderButton>();
             sliderButton.Setup(slider, -step);
 
             rightButton.gameObject.SetActive(true);
             rightButton.SetParent(slider.transform.Find("BSMLSlider"));
-            rightButton.localPosition = new Vector3(1.5f, 0, 0);
+            rightButton.localPosition = new Vector3(3f, 0, 0); // Default: 1.5f
             rightButton.localScale = new Vector3(0.5f, 1, 1);
             sliderButton = rightButton.gameObject.AddComponent<SliderButton>();
             sliderButton.Setup(slider, step);

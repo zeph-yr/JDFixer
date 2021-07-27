@@ -9,7 +9,7 @@ namespace JDFixer.UI
 {
     public class ModifierUI : NotifiableSingleton<ModifierUI>
     {
-        private BeatmapInfo _selectedBeatmap = BeatmapInfo.Empty; 
+        private BeatmapInfo _selectedBeatmap = BeatmapInfo.Empty;
         public ModifierUI()
         {
             BeatmapInfo.SelectedChanged += beatmapInfo =>
@@ -61,9 +61,8 @@ namespace JDFixer.UI
         [UIValue("mapDefaultJD")]
         public string MapDefaultJDText => "<#ffff00>" + _selectedBeatmap.JumpDistance.ToString();
 
-
         [UIValue("mapMinJD")]
-        public string MapMinJDText => "<#c4c4c4>" + _selectedBeatmap.MinJumpDistance.ToString();
+        public string MapMinJDText => "<#8c8c8c>" + _selectedBeatmap.MinJumpDistance.ToString();
 
 
         [UIComponent("jumpDisSlider")]
@@ -97,6 +96,7 @@ namespace JDFixer.UI
         {
             usePrefJumpValues = value;
         }
+
         [UIAction("prefButtonClicked")]
         void PrefButtonClicked()
         {

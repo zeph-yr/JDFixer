@@ -68,7 +68,7 @@ namespace JDFixer
             //this.selected_mapOffset = selected_mapOffset;
             //this.selected_mapJumpDistance = selected_mapJumpDistance;
             //this.selected_mapLowest = selected_mapLowest;
-    }
+        }
     }
 
     public class Config
@@ -76,48 +76,11 @@ namespace JDFixer
         public static JDFixerConfig UserConfig { get; private set; }
         public static string ConfigPath { get; private set; } = Path.Combine(IPA.Utilities.UnityGame.UserDataPath, "JDFixer.json");
 
-        private static bool CheckForOldConfig()
-        {
-            return File.Exists(Path.Combine(IPA.Utilities.UnityGame.UserDataPath, "JDFixer.ini")) && !File.Exists(Path.Combine(IPA.Utilities.UnityGame.UserDataPath, "JDFixer.json"));
-        }
         public static void Read()
         {
             if (!File.Exists(ConfigPath))
             {
-                if (CheckForOldConfig())
-                {
-                    var oldConfig = new BS_Utils.Utilities.Config("JDFixer");
-                    UserConfig = new JDFixerConfig();
-                    UserConfig.enabled = oldConfig.GetBool("JDFixer", "Enabled", false, true);
-                    UserConfig.enabledInPractice = oldConfig.GetBool("JDFixer", "EnabledInPractice", false, true);
-                    UserConfig.jumpDistance = oldConfig.GetFloat("JDFixer", "DesiredJumpDistance", 24f, true);
-                    UserConfig.minJumpDistance = oldConfig.GetInt("JDFixer", "minJumpDistance", 15, true);
-                    UserConfig.maxJumpDistance = oldConfig.GetInt("JDFixer", "maxJumpDistance", 35, true);
-
-                    UserConfig.upper_threshold = oldConfig.GetFloat("JDFixer", "upper_threshold", 100f, true);
-                    UserConfig.lower_threshold = oldConfig.GetFloat("JDFixer", "lower_threshold", 0f, true);
-                    UserConfig.use_heuristic = oldConfig.GetBool("JDFixer", "use_heuristic", true, true);
-
-                    //UserConfig.selected_mapBPM = oldConfig.GetFloat("JDFixer", "selected_mapBPM", 1f, true);
-                    //UserConfig.selected_mapNJS = oldConfig.GetFloat("JDFixer", "selected_mapNJS", 1f, true);
-                    //UserConfig.selected_mapNJS = oldConfig.GetFloat("JDFixer", "selected_mapOffset", 1f, true);
-                    //UserConfig.selected_mapJumpDistance = oldConfig.GetFloat("JDFixer", "selected_mapJumpDistance", 1f, true);
-                    //UserConfig.selected_mapLowest = oldConfig.GetFloat("JDFixer", "selected_mapLowest", 1f, true);
-
-                    try
-                    {
-                        File.Delete(Path.Combine(IPA.Utilities.UnityGame.UserDataPath, "JDFixer.ini"));
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.log.Warn($"Failed to delete old JDFixer Config file {ex}");
-                    }
-
-                }
-                else
-                {
-                    UserConfig = new JDFixerConfig();
-                }
+                UserConfig = new JDFixerConfig();
                 Write();
             }
             else
