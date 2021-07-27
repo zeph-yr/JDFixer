@@ -43,10 +43,14 @@ The map will run at 16 JD because 21 NJS is the closest lower match.
 Your selected map's NJS is 21.5 and JD is 14 *and* "Use Map JD If Lower" is toggled ON.
 The map will run at its original 14 JD because it is lower than your matching preference (21-16).
 
+- If "Use Preferred JD Values" is enabled but no Preferences are set, the map will run at JD value in the slider
+- Thresholds apply to Preferences only
+
 ## Tournaments and MP
 - **Tournament Assistant:** Works with Default, Dual Sync and AutoPause matches. JD slider and Preferences work as normal. Map JD display does not function. Avoid opening the Preferences menu in TA! You will be stuck in it until you relaunch the game. However if you do choose to get yourself stuck inside just before a match, your match will still play fine when the coordinator starts it KEKW
 - **Multiplayer:** JD slider and Preferences work as normal. Map JD display functions only when you select a map from the song browser.
-- **CustomCampaigns:** JDFixer is disabled to respect CustomCampaign rules.
+- **CustomCampaigns:** Now Enabled!! ^^ Thanks for the greenlight, 115 Guild and Boomer Campaign peeps :)
+- **OST Levels:** Now supported!
 
 ## About
 This is my first time writing a mod. I made it for my own needs but friends thought it useful so I think it would be beneficial to share it. I hope others find this useful.

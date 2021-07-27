@@ -8,7 +8,7 @@ namespace JDFixer
     {
         public static void Prefix(ref float startNoteJumpMovementSpeed, float startBpm, ref float noteJumpStartBeatOffset, ref BeatmapObjectSpawnMovementData __instance, ref bool __state)
         {
-            bool WillOverride = BS_Utils.Plugin.LevelData.IsSet && !BS_Utils.Gameplay.Gamemode.IsIsolatedLevel && Config.UserConfig.enabled 
+            bool WillOverride = BS_Utils.Plugin.LevelData.IsSet && Config.UserConfig.enabled 
                 && (BS_Utils.Plugin.LevelData.Mode == BS_Utils.Gameplay.Mode.Standard || BS_Utils.Plugin.LevelData.Mode == BS_Utils.Gameplay.Mode.Multiplayer) 
                 && (Config.UserConfig.enabledInPractice || BS_Utils.Plugin.LevelData.GameplayCoreSceneSetupData.practiceSettings == null);
             __state = WillOverride;
