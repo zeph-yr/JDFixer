@@ -14,6 +14,9 @@ namespace JDFixer
             float halfjump = 4f;
             float num = 60f / bpm;
 
+            if (njs == 0)
+                njs = 16f;
+
             while (njs * num * halfjump > 18)
                 halfjump /= 2;
 

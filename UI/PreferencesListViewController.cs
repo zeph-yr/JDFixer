@@ -6,7 +6,8 @@ using BeatSaberMarkupLanguage;
 using BeatSaberMarkupLanguage.Attributes;
 using BeatSaberMarkupLanguage.Components;
 using BeatSaberMarkupLanguage.ViewControllers;
-
+using UnityEngine;
+using BeatSaberMarkupLanguage.Components.Settings;
 
 namespace JDFixer.UI
 {
@@ -18,6 +19,7 @@ namespace JDFixer.UI
         private int minJump => Config.UserConfig.minJumpDistance;
         [UIValue("maxJump")]
         private int maxJump => Config.UserConfig.maxJumpDistance;
+
 
         [UIComponent("prefList")]
         public CustomListTableData prefList;
@@ -31,6 +33,17 @@ namespace JDFixer.UI
                 NotifyPropertyChanged();
             }
         }
+
+
+        [UIComponent("leftButton")]
+        private RectTransform leftButton;
+        [UIComponent("rightButton")]
+        private RectTransform rightButton;
+
+
+        [UIComponent("njsSlider")]
+        private SliderSetting njsSlider;
+
         private float _newNjs = 16f;
         [UIValue("njsValue")]
         public float njsValue
@@ -46,6 +59,10 @@ namespace JDFixer.UI
         {
             njsValue = value;
         }
+
+        [UIComponent("jdSlider")]
+        private SliderSetting jdSlider;
+
         private float _newJumpDis = 23f;
         [UIValue("jumpDisValue")]
         public float jumpDisValue
@@ -66,7 +83,12 @@ namespace JDFixer.UI
         private void Init()
         {
             ReloadListFromConfig();
+            SliderButton.Register(GameObject.Instantiate(leftButton), GameObject.Instantiate(rightButton), njsSlider, 1f);
+            SliderButton.Register(GameObject.Instantiate(leftButton), GameObject.Instantiate(rightButton), jdSlider, 0.1f);
+            GameObject.Destroy(leftButton.gameObject);
+            GameObject.Destroy(rightButton.gameObject);
         }
+        
         [UIAction("prefSelect")]
         private void SelectedPref(TableView tableView, int row)
         {
