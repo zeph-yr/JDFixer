@@ -78,16 +78,6 @@ namespace JDFixer.UI
         {
             jumpDisValue = value;
         }
-
-        [UIAction("#post-parse")]
-        private void Init()
-        {
-            ReloadListFromConfig();
-            SliderButton.Register(GameObject.Instantiate(leftButton), GameObject.Instantiate(rightButton), njsSlider, 1f);
-            SliderButton.Register(GameObject.Instantiate(leftButton), GameObject.Instantiate(rightButton), jdSlider, 0.1f);
-            GameObject.Destroy(leftButton.gameObject);
-            GameObject.Destroy(rightButton.gameObject);
-        }
         
         [UIAction("prefSelect")]
         private void SelectedPref(TableView tableView, int row)
@@ -132,13 +122,23 @@ namespace JDFixer.UI
             base.DidActivate(firstActivation, addedToHierarchy, screenSystemEnabling);
             if (!firstActivation)
             {
-                Init();
+                ReloadListFromConfig();
             }
         }
 
         protected override void DidDeactivate(bool removedFromHierarchy, bool screenSystemDisabling)
         {
             base.DidDeactivate(removedFromHierarchy, screenSystemDisabling);
+        }
+
+        [UIAction("#post-parse")]
+        private void PostParse()
+        {
+            ReloadListFromConfig();
+            SliderButton.Register(GameObject.Instantiate(leftButton), GameObject.Instantiate(rightButton), njsSlider, 1f);
+            SliderButton.Register(GameObject.Instantiate(leftButton), GameObject.Instantiate(rightButton), jdSlider, 0.1f);
+            GameObject.Destroy(leftButton.gameObject);
+            GameObject.Destroy(rightButton.gameObject);
         }
     }
 }
