@@ -48,7 +48,7 @@ The map will run at its original 14 JD because it is lower than your matching pr
 ## Tournaments and MP
 - **Tournament Assistant:** Works with Default, Dual Sync and AutoPause matches. JD slider and Preferences work as normal. Map JD display does not function. Avoid opening the Preferences menu in TA! You will be stuck in it until you relaunch the game. However if you do choose to get yourself stuck inside just before a match, your match will still play fine when the coordinator starts it KEKW
 - **Multiplayer:** JD slider and Preferences work as normal. Map JD display functions only when you select a map from the song browser.
-- **CustomCampaigns:** Now Enabled!! ^^ Thanks for the greenlight, 115 Guild and Boomer Campaign peeps :)
+- **CustomCampaigns:** Now Enabled!! Toggle on "Enable in Practice" to use. Map display does not function. Base game campaign also supported.
 - **OST Levels:** Now supported!
 
 ## About
