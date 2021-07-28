@@ -8,9 +8,9 @@ namespace JDFixer
     {
         public static void Prefix(ref float startNoteJumpMovementSpeed, float startBpm, ref float noteJumpStartBeatOffset, ref BeatmapObjectSpawnMovementData __instance, ref bool __state)
         {
-            bool WillOverride = BS_Utils.Plugin.LevelData.IsSet && Config.UserConfig.enabled 
-                && (BS_Utils.Plugin.LevelData.Mode == BS_Utils.Gameplay.Mode.Standard || BS_Utils.Plugin.LevelData.Mode == BS_Utils.Gameplay.Mode.Multiplayer) 
-                && (Config.UserConfig.enabledInPractice || BS_Utils.Plugin.LevelData.GameplayCoreSceneSetupData.practiceSettings == null);
+            bool WillOverride = BS_Utils.Plugin.LevelData.IsSet && Config.UserConfig.enabled && BS_Utils.Plugin.LevelData.GameplayCoreSceneSetupData.practiceSettings == null
+                && (BS_Utils.Plugin.LevelData.Mode == BS_Utils.Gameplay.Mode.Standard || BS_Utils.Plugin.LevelData.Mode == BS_Utils.Gameplay.Mode.Multiplayer || BS_Utils.Plugin.LevelData.Mode == BS_Utils.Gameplay.Mode.Mission)
+                || (Config.UserConfig.enabledInPractice && BS_Utils.Plugin.LevelData.GameplayCoreSceneSetupData.practiceSettings != null);
             __state = WillOverride;
             if (!WillOverride) return;
 
@@ -39,7 +39,6 @@ namespace JDFixer
                         desiredJumpDis = pref.jumpDistance;
                 }
                 
-
                 // Heuristic: If map's original JD is less than the matching preference entry, play map at original JD
                 // Rationale: I created this mod because I don't like floaty maps. If the original JD chosen by the
                 // mapper is lower than my pick, it's probably more optimal than my pick.
