@@ -21,7 +21,7 @@ namespace JDFixer
     public class JDFixerConfig
     {
         public bool enabled = false;
-        public bool enabledInPractice = false;
+        //public bool enabledInPractice = false;
         public float jumpDistance = 24f;
         public int minJumpDistance = 15;
         public int maxJumpDistance = 35;
@@ -43,15 +43,26 @@ namespace JDFixer
 
         public JDFixerConfig()
         {
+            enabled = false;
+            //enabledInPractice = false;
+            jumpDistance = 24f;
+            minJumpDistance = 15;
+            maxJumpDistance = 35;
+            usePreferredJumpDistanceValues = false;
+            preferredValues = new List<JDPref>();
 
-        }
+            // Defaults for when upper and lower thresholds not set by user (yes it's a bandaid)
+            upper_threshold = 100f;
+            lower_threshold = 1f;
+            use_heuristic = true;
+    }
         [JsonConstructor]
         //public JDFixerConfig(bool enabled, bool enabledInPractice, float jumpDistance, int minJumpDistance, int maxJumpDistance, bool usePreferredJumpDistanceValues, List<NjsPref> preferredValues,float upper_threshold, float lower_threshold, float selected_mapBPM, float selected_mapNJS, float selected_mapOffset, float selected_mapJumpDistance)
-        public JDFixerConfig(bool enabled, bool enabledInPractice, float jumpDistance, int minJumpDistance, int maxJumpDistance, bool usePreferredJumpDistanceValues, List<JDPref> preferredValues, 
+        public JDFixerConfig(bool enabled, float jumpDistance, int minJumpDistance, int maxJumpDistance, bool usePreferredJumpDistanceValues, List<JDPref> preferredValues, 
             float upper_threshold, float lower_threshold, bool use_heuristic)
         {
             this.enabled = enabled;
-            this.enabledInPractice = enabledInPractice;
+            //this.enabledInPractice = enabledInPractice;
             this.jumpDistance = jumpDistance;
             this.minJumpDistance = minJumpDistance;
             this.maxJumpDistance = maxJumpDistance;
