@@ -17,6 +17,7 @@ namespace JDFixer.UI
                 _selectedBeatmap = beatmapInfo;
                 NotifyPropertyChanged(nameof(MapDefaultJDText));
                 NotifyPropertyChanged(nameof(MapMinJDText));
+                NotifyPropertyChanged(nameof(ReactionTimeText));
             };
         }
 
@@ -42,7 +43,8 @@ namespace JDFixer.UI
             modEnabled = value;
         }
 
-        [UIValue("practiceEnabled")]
+        
+        /*[UIValue("practiceEnabled")]
         public bool practiceEnabled
         {
             get => Config.UserConfig.enabledInPractice;
@@ -55,7 +57,7 @@ namespace JDFixer.UI
         void SetPracticeEnabled(bool value)
         {
             practiceEnabled = value;
-        }
+        }*/
 
 
         [UIValue("mapDefaultJD")]
@@ -63,7 +65,6 @@ namespace JDFixer.UI
 
         [UIValue("mapMinJD")]
         public string MapMinJDText => "<#8c8c8c>" + _selectedBeatmap.MinJumpDistance.ToString();
-
 
         [UIComponent("jumpDisSlider")]
         private SliderSetting jumpDisSlider;
@@ -74,6 +75,10 @@ namespace JDFixer.UI
             set
             {
                 Config.UserConfig.jumpDistance = value;
+                NotifyPropertyChanged(nameof(ReactionTimeText));
+
+                //Logger.log.Debug(value.ToString());
+                //Logger.log.Debug(_selectedBeatmap.NJS.ToString());
             }
         }
         [UIAction("setJumpDis")]
@@ -81,6 +86,10 @@ namespace JDFixer.UI
         {
             jumpDisValue = value;
         }
+
+        [UIValue("reactionTime")]
+        public string ReactionTimeText => "<#000000>Reaction Time <#8c1aff>" + (jumpDisValue / (2 * _selectedBeatmap.NJS) * 1000).ToString() + " ms";
+
 
         [UIValue("usePrefJumpValues")]
         public bool usePrefJumpValues
@@ -124,18 +133,24 @@ namespace JDFixer.UI
         }
 
 
-        // Thresholds Display
-        [UIValue("upperthreshold")]
-        public float upperthreshold
+        [UIValue("thresholds")]
+        public string thresholds
         {
-            get => Config.UserConfig.upper_threshold;
+            get => "≤ " + Config.UserConfig.lower_threshold.ToString() + "  |  " + Config.UserConfig.upper_threshold.ToString() + " ≥";
         }
 
-        [UIValue("lowerthreshold")]
-        public float lowerthreshold
+        /*[UIValue("lowerthreshold")]
+        public string lowerthreshold
         {
-            get => Config.UserConfig.lower_threshold;
+            get => "≤ " + Config.UserConfig.lower_threshold.ToString() + " |";
         }
+
+        // Thresholds Display
+        [UIValue("upperthreshold")]
+        public string upperthreshold
+        {
+            get => Config.UserConfig.upper_threshold.ToString() + " ≥";
+        }*/
         //###################################
 
 

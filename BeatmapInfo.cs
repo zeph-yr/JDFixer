@@ -34,11 +34,16 @@ namespace JDFixer
             float njs = diff.noteJumpMovementSpeed;
             float offset = diff.noteJumpStartBeatOffset;
 
+            if (njs <= 0.01f)
+                njs = 10f;
+
             JumpDistance = BeatmapUtils.CalculateJumpDistance(bpm, njs, offset);
             MinJumpDistance = BeatmapUtils.CalculateJumpDistance(bpm, njs, -50f);
+            NJS = njs;
         }
 
         public float JumpDistance { get; }
         public float MinJumpDistance { get; }
+        public float NJS { get; }
     }
 }

@@ -24,10 +24,11 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <OutputPath>..\..\..\..\..\Program Files %28x86%29\Steam\steamapps\common\Beat Saber\Plugins\</OutputPath>
+    <DefineConstants>
+    </DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
@@ -165,9 +166,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="UI\BSML\preferencesList.bsml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="UI\BSML\modifierOnlineUI.bsml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

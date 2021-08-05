@@ -14,8 +14,9 @@ namespace JDFixer
             float halfjump = 4f;
             float num = 60f / bpm;
 
-            if (njs == 0)
-                njs = 16f;
+            // Need to repeat this here even tho it's in BeatmapInfo because sometimes we call this function directly
+            if (njs <= 0.01) // Is it ok to == a 0f?
+                njs = 10f;
 
             while (njs * num * halfjump > 18)
                 halfjump /= 2;
