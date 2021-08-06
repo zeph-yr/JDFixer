@@ -88,7 +88,8 @@ namespace JDFixer.UI
         }
 
         [UIValue("reactionTime")]
-        public string ReactionTimeText => "<#000000>Reaction Time <#8c1aff>" + (jumpDisValue / (2 * _selectedBeatmap.NJS) * 1000).ToString() + " ms";
+        public string ReactionTimeText => "<#8c1aff>" + (jumpDisValue / (2 * _selectedBeatmap.NJS) * 1000).ToString() + " ms";
+        //public string ReactionTimeText => "<#000000>Reaction Time <#8c1aff>" + (jumpDisValue / (2 * _selectedBeatmap.NJS) * 1000).ToString() + " ms";
 
 
         [UIValue("usePrefJumpValues")]
@@ -136,7 +137,7 @@ namespace JDFixer.UI
         [UIValue("thresholds")]
         public string thresholds
         {
-            get => "≤ " + Config.UserConfig.lower_threshold.ToString() + "  |  " + Config.UserConfig.upper_threshold.ToString() + " ≥";
+            get => "≤ " + Config.UserConfig.lower_threshold.ToString() + " and " + Config.UserConfig.upper_threshold.ToString() + " ≤";
         }
 
         /*[UIValue("lowerthreshold")]

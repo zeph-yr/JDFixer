@@ -4,26 +4,35 @@
 
     <horizontal>
 		<grid cell-size-y='5' cell-size-x='28' spacing-x='2' align='Right'>
-			<text text='Map Jump Distance' align='Left' hover-hint='Map JD and Reaction Time not applicable in Campaign and TA'/>
+			<text text='Map Jump Distance' align='Left'/>
 			<text text='----------------' align='Left' rich-text='true' font-color='#00000000'/>
-			<text text='~mapDefaultJD' min-width='29' align='Right'/>
+			<text text='~mapDefaultJD' min-width='29' align='Right' hover-hint='Map JD and Reaction Time not applicable in Campaign and TA'/>
 
 			<text text='Min. JD' align='Left'/>
 			<text text='----------------' align='Left' rich-text='true' font-color='#00000000'/>
-			<text text='~mapMinJD' min-width='29' align='Right' hover-hint='~reactionTime'/>
+			<text text='~mapMinJD' min-width='29' align='Right'/>
 		</grid>
     </horizontal>
 
     <slider-setting id='jumpDisSlider' value ='jumpDisValue' on-change='setJumpDis' text='Desired Jump Distance' increment='0.1' min='~minJump' max='~maxJump' hover-hint='Run map at this JD or as close to it as possible'></slider-setting>
+
+	  <horizontal>
+		  <grid cell-size-y='5' cell-size-x='28' spacing-x='2' align='Right'>
+			  <text text='Reaction Time' align='Left'/>
+			  <text text='----------------' align='Left' rich-text='true' font-color='#00000000'/>
+			  <text text='~reactionTime' min-width='29' align='Right' hover-hint='Map JD and Reaction Time not applicable in Campaign and TA'/>
+		  </grid>
+	  </horizontal>
+	  
     <checkbox-setting value='usePrefJumpValues' on-change='setUsePrefJumpValues' text='Use Preferences'></checkbox-setting>
     <checkbox-setting value='useHeuristic' on-change='setUseHeuristic' text='Use Map JD If Lower' hover-hint='If original JD is lower than the matching preference, map will run at original JD'></checkbox-setting>
     <button align='Center' on-click='prefButtonClicked' text='Jump Distance Preferences' hover-hint='Autoselect by matching or lower NJS'></button>
 
     <horizontal>
       <grid cell-size-y='5' cell-size-x='28' spacing-x='2' align='Right'>
-        <text text='Thresholds' min-width='29' align='Left' hover-hint='Set in Config'/>
+        <text text='Thresholds' min-width='29' align='Left'/>
         <text text='----------------' min-width='29' align='Left' rich-text='true' font-color='#00000000'/>
-        <text text='~thresholds' align='Right' hover-hint='Maps at and beyond these NJS will run at original JD'/>
+        <text text='~thresholds' align='Right' hover-hint='Maps at and beyond these NJS will run at original JD. Set in json'/>
       </grid>
     </horizontal>
 	<horizontal>
