@@ -55,7 +55,10 @@ namespace JDFixer.UI
             modEnabled = value;
         }
 
-        
+
+        //----------------------------------------------------
+        // KEEP: In case users want this back
+
         /*[UIValue("practiceEnabled")]
         public bool practiceEnabled
         {
@@ -70,6 +73,7 @@ namespace JDFixer.UI
         {
             practiceEnabled = value;
         }*/
+        //----------------------------------------------------
 
 
         [UIValue("mapDefaultJD")]
@@ -101,17 +105,7 @@ namespace JDFixer.UI
 
         [UIValue("reactionTime")]
         public string ReactionTimeText => CalculateReactionTime();
-        /*public string ReactionTimeText()
-        {
-            if (_selectedBeatmap.NJS != null)
-            {
-                return "<#8c1aff>" + (jumpDisValue / (2 * _selectedBeatmap.NJS) * 1000).ToString() + " ms";
-            }
-            return "<#8c1aff>0";
-        }*/
-        //public string ReactionTimeText => "<#8c1aff>" + (jumpDisValue / (2 * _selectedBeatmap.NJS) * 1000).ToString() + " ms";
-        //public string ReactionTimeText => "<#000000>Reaction Time <#8c1aff>" + (jumpDisValue / (2 * _selectedBeatmap.NJS) * 1000).ToString() + " ms";
-
+       
 
         [UIValue("usePrefJumpValues")]
         public bool usePrefJumpValues
@@ -161,17 +155,19 @@ namespace JDFixer.UI
             get => "≤ " + Config.UserConfig.lower_threshold.ToString() + " and " + Config.UserConfig.upper_threshold.ToString() + " ≤";
         }
 
+
+        // KEEP: In case
         /*[UIValue("lowerthreshold")]
         public string lowerthreshold
         {
-            get => "≤ " + Config.UserConfig.lower_threshold.ToString() + " |";
+            get => Config.UserConfig.lower_threshold.ToString();
         }
 
         // Thresholds Display
         [UIValue("upperthreshold")]
         public string upperthreshold
         {
-            get => Config.UserConfig.upper_threshold.ToString() + " ≥";
+            get => Config.UserConfig.upper_threshold.ToString();
         }*/
         //###################################
 

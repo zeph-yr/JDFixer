@@ -21,6 +21,8 @@ namespace JDFixer
             if (!WillOverride)
                 return;
 
+            Logger.log.Debug("Start Map");
+
 
             float mapNJS = startNoteJumpMovementSpeed;
             //Logger.log.Debug("mapNJS:" + mapNJS.ToString());
@@ -38,6 +40,7 @@ namespace JDFixer
                 // For Acc and Speed Maps:
                 if (mapNJS <= Config.UserConfig.lower_threshold || mapNJS >= Config.UserConfig.upper_threshold)
                 {
+                    //Logger.log.Debug("Using Threshold");
                     return;
                 }
 
@@ -96,14 +99,16 @@ namespace JDFixer
     }
 
 
+    // Note: Patching DidActivate works only when diff is clicked
     //[HarmonyPatch(typeof(StandardLevelDetailViewController), "DidActivate")]
+
     [HarmonyPatch(typeof(StandardLevelDetailViewController), MethodType.Constructor)]
     internal class StandardLevelDetailViewControllerPatch
     {
         public static void Postfix(ref StandardLevelDetailViewController __instance)
         {
             Plugin.leveldetail = __instance;
-            Logger.log.Debug("leveldetail found");
+            //Logger.log.Debug("leveldetail found");
         }
     }
 
@@ -115,7 +120,7 @@ namespace JDFixer
         public static void Postfix(ref MissionSelectionMapViewController __instance)
         {
             Plugin.missionselection = __instance;
-            Logger.log.Debug("missionselection found");
+            //Logger.log.Debug("missionselection found");
         }
     }
 }

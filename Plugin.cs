@@ -10,6 +10,7 @@ namespace JDFixer
     [Plugin(RuntimeOptions.SingleStartInit)]
     public class Plugin
     {
+        public static Harmony harmony;
         public static StandardLevelDetailViewController leveldetail;
         public static MissionSelectionMapViewController missionselection;
         //private static IPA.Loader.PluginMetadata hasTA;
@@ -24,24 +25,29 @@ namespace JDFixer
         public void OnApplicationStart()
         {
             Config.Read();
-            var harmony = new Harmony("com.zephyr.BeatSaber.JDFixer");
+
+            harmony = new Harmony("com.zephyr.BeatSaber.JDFixer");
             harmony.PatchAll(System.Reflection.Assembly.GetExecutingAssembly());
 
             BS_Utils.Utilities.BSEvents.lateMenuSceneLoadedFresh += BSEvents_lateMenuSceneLoadedFresh;
             BS_Utils.Utilities.BSEvents.difficultySelected += BSEvents_difficultySelected;
+            UnityEngine.SceneManagement.SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
 
             BeatSaberMarkupLanguage.GameplaySetup.GameplaySetup.instance.AddTab("JDFixer", "JDFixer.UI.BSML.modifierUI.bsml", UI.ModifierUI.instance);
             //BeatSaberMarkupLanguage.GameplaySetup.GameplaySetup.instance.AddTab("JDFixerOnline", "JDFixer.UI.BSML.modifierOnlineUI.bsml", UI.ModifierUI.instance, BeatSaberMarkupLanguage.GameplaySetup.MenuType.Online);
-            UnityEngine.SceneManagement.SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
+            
 
-            // Are these controllers always present?
+            // Note: Fails here, too early
             //leveldetail = Resources.FindObjectsOfTypeAll<StandardLevelDetailViewController>().FirstOrDefault();
-            leveldetail.didChangeContentEvent += Leveldetail_didChangeContentEvent;
+            //leveldetail.didChangeContentEvent += Leveldetail_didChangeContentEvent;
             //missionselection = Resources.FindObjectsOfTypeAll<MissionSelectionMapViewController>().FirstOrDefault();
-            missionselection.didSelectMissionLevelEvent += Missionselection_didSelectMissionLevelEvent;
+            //missionselection.didSelectMissionLevelEvent += Missionselection_didSelectMissionLevelEvent;
 
+
+            //-------------------------------------------------------------------------------------
             //hasTA = IPA.Loader.PluginManager.GetPluginFromId("TournamentAssistant");
             //Logger.log.Debug(hasTA.Name);
+            //-------------------------------------------------------------------------------------
         }
 
         private void SceneManager_activeSceneChanged(UnityEngine.SceneManagement.Scene arg0, UnityEngine.SceneManagement.Scene arg1)
@@ -56,19 +62,28 @@ namespace JDFixer
         {
             //Logger.log.Debug(obj.scenes[0].sceneName);
 
+
+            //-------------------------------------------------------------------------------------
+            // Attempt to set display in TA to 0s to avoid misleading player lol
             // Note: Doesn't work if you put a return here cuz TA is always enabled even when youre not in TA lol...
             // Seems like leveldetail is always existing even in TA but not after a song ends in Solo
+
             /*if (hasTA != null && IPA.Loader.PluginManager.IsEnabled(hasTA))
             {
                 Logger.log.Debug("TA ENABLED");
 
+                // Attempt to detect when player is in TA... This doesnt work. Seems like it never evaluates to true
+                // Maybe this needs to be another function
                 if (TournamentAssistant.Plugin.client != null && TournamentAssistant.Plugin.client.Connected)
                 {
                     Logger.log.Debug("INSIDE TA LOBBY");
                     //BeatmapInfo.SetSelected(null);
                 }
             }*/
+            //-------------------------------------------------------------------------------------
 
+
+            // Note: Is there a need to check if these are null? Are they ever null?
             //var leveldetail = Resources.FindObjectsOfTypeAll<StandardLevelDetailViewController>().FirstOrDefault();
             if (leveldetail != null)
             {
@@ -81,15 +96,9 @@ namespace JDFixer
             {
                 missionselection.didSelectMissionLevelEvent += Missionselection_didSelectMissionLevelEvent;
             }
-
-            // Note: Doesnt work here
-            /*else
-            {
-                BeatmapInfo.SetSelected(null);
-            }*/
         }
 
-        // When in Campaigns, set Map JD and Reaction Time displays to show zeroes
+        // QOL: When in Campaigns, set Map JD and Reaction Time displays to show zeroes to prevent misleading player
         private void Missionselection_didSelectMissionLevelEvent(MissionSelectionMapViewController arg1, MissionNode arg2)
         {
             BeatmapInfo.SetSelected(null);
@@ -104,7 +113,8 @@ namespace JDFixer
                 BeatmapInfo.SetSelected(arg1.selectedDifficultyBeatmap);
             }
 
-            // Note: Works to disable in Campaigns but causes it to reset to 0 after a map in Solo
+            // Note: This works to display 0s in Campaigns
+            // but also happens after every map in Solo until a diff is clicked again
             /*else if (arg1 == null)
             {
                 BeatmapInfo.SetSelected(null);
@@ -121,6 +131,11 @@ namespace JDFixer
         public void OnApplicationQuit()
         {
             Config.Write();
+
+            BS_Utils.Utilities.BSEvents.lateMenuSceneLoadedFresh -= BSEvents_lateMenuSceneLoadedFresh;
+            BS_Utils.Utilities.BSEvents.difficultySelected -= BSEvents_difficultySelected;
+            UnityEngine.SceneManagement.SceneManager.activeSceneChanged -= SceneManager_activeSceneChanged;
+            harmony.UnpatchAll("com.zephyr.BeatSaber.JDFixer");
         }
     }
 }

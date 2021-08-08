@@ -55,7 +55,8 @@ namespace JDFixer
             upper_threshold = 100f;
             lower_threshold = 1f;
             use_heuristic = true;
-    }
+        }
+
         [JsonConstructor]
         //public JDFixerConfig(bool enabled, bool enabledInPractice, float jumpDistance, int minJumpDistance, int maxJumpDistance, bool usePreferredJumpDistanceValues, List<NjsPref> preferredValues,float upper_threshold, float lower_threshold, float selected_mapBPM, float selected_mapNJS, float selected_mapOffset, float selected_mapJumpDistance)
         public JDFixerConfig(bool enabled, float jumpDistance, int minJumpDistance, int maxJumpDistance, bool usePreferredJumpDistanceValues, List<JDPref> preferredValues, 
