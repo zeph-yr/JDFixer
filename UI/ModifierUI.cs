@@ -21,6 +21,18 @@ namespace JDFixer.UI
             };
         }
 
+        private string CalculateReactionTime()
+        {
+            // Super hack way to prevent divide by zero and showing as "infinity" in Campaign
+            // Realistically how many maps will have less than 0.002 NJS, and if a map does...
+            // it wouldn't matter if you display 10^6 or 0 reaction time anyway
+            // 0.002 gives a margin: BeatmapInfo sets null to 0.001
+            if (_selectedBeatmap.NJS > 0.002)
+                return "<#8c1aff>" + (jumpDisValue / (2 * _selectedBeatmap.NJS) * 1000).ToString() + " ms";
+
+            return "<#8c1aff>0 ms";
+        }
+
         private PreferencesFlowCoordinator _prefFlow;
         [UIValue("minJump")]
         private int minJump => Config.UserConfig.minJumpDistance;
@@ -88,7 +100,16 @@ namespace JDFixer.UI
         }
 
         [UIValue("reactionTime")]
-        public string ReactionTimeText => "<#8c1aff>" + (jumpDisValue / (2 * _selectedBeatmap.NJS) * 1000).ToString() + " ms";
+        public string ReactionTimeText => CalculateReactionTime();
+        /*public string ReactionTimeText()
+        {
+            if (_selectedBeatmap.NJS != null)
+            {
+                return "<#8c1aff>" + (jumpDisValue / (2 * _selectedBeatmap.NJS) * 1000).ToString() + " ms";
+            }
+            return "<#8c1aff>0";
+        }*/
+        //public string ReactionTimeText => "<#8c1aff>" + (jumpDisValue / (2 * _selectedBeatmap.NJS) * 1000).ToString() + " ms";
         //public string ReactionTimeText => "<#000000>Reaction Time <#8c1aff>" + (jumpDisValue / (2 * _selectedBeatmap.NJS) * 1000).ToString() + " ms";
 
 

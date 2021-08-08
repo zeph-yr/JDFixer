@@ -25,7 +25,13 @@ namespace JDFixer
 
         private BeatmapInfo()
         {
+            // To enable Campaigns and TA to show 0 instead of values from the last selected map in Solo Mode,
+            // Better UX as players may forget to ignore the display.
+            JumpDistance = 0f;
+            MinJumpDistance = 0f;
 
+            // Ultra hack way to prevent divide by zero in Reaction Time Display
+            NJS = 0.001f; 
         }
         public BeatmapInfo(IDifficultyBeatmap diff)
         {
