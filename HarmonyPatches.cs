@@ -9,15 +9,15 @@ namespace JDFixer
         public static void Prefix(ref float startNoteJumpMovementSpeed, float startBpm, ref float noteJumpStartBeatOffset, ref BeatmapObjectSpawnMovementData __instance, ref bool __state)
         {
             bool WillOverride = BS_Utils.Plugin.LevelData.IsSet && Config.UserConfig.enabled
-                && (BS_Utils.Plugin.LevelData.Mode == BS_Utils.Gameplay.Mode.Standard 
-                || BS_Utils.Plugin.LevelData.Mode == BS_Utils.Gameplay.Mode.Multiplayer 
+                && (BS_Utils.Plugin.LevelData.Mode == BS_Utils.Gameplay.Mode.Standard
+                || BS_Utils.Plugin.LevelData.Mode == BS_Utils.Gameplay.Mode.Multiplayer
                 || BS_Utils.Plugin.LevelData.Mode == BS_Utils.Gameplay.Mode.Mission);
 
             //BS_Utils.Utilities.LevelType.Tutorial
             //BS_Utils.Plugin.LevelData.GameplayCoreSceneSetupData.practiceSettings != null
 
             __state = WillOverride;
-            
+
             if (!WillOverride)
                 return;
 
@@ -49,7 +49,7 @@ namespace JDFixer
                     if (pref != null)
                         desiredJumpDis = pref.jumpDistance;
                 }
-                
+
                 // Heuristic: If map's original JD is less than the matching preference entry, play map at original JD
                 // Rationale: I created this mod because I don't like floaty maps. If the original JD chosen by the
                 // mapper is lower than my pick, it's probably more optimal than my pick.
@@ -80,7 +80,7 @@ namespace JDFixer
             float jumpDurMul = desiredJumpDur / jumpDurCurr;
 
             simOffset = (num2Curr * jumpDurMul) - num2Curr;
-            
+
             noteJumpStartBeatOffset = simOffset;
 
             //Logger.log.Debug("Fixing");
@@ -90,8 +90,32 @@ namespace JDFixer
 
         public static void Postfix(ref float ____jumpDistance, bool __state)
         {
-            if(__state)
+            if (__state)
                 Logger.log.Debug("Final Jump Distance: " + ____jumpDistance);
+        }
+    }
+
+
+    //[HarmonyPatch(typeof(StandardLevelDetailViewController), "DidActivate")]
+    [HarmonyPatch(typeof(StandardLevelDetailViewController), MethodType.Constructor)]
+    internal class StandardLevelDetailViewControllerPatch
+    {
+        public static void Postfix(ref StandardLevelDetailViewController __instance)
+        {
+            Plugin.leveldetail = __instance;
+            Logger.log.Debug("leveldetail found");
+        }
+    }
+
+
+    //[HarmonyPatch(typeof(MissionSelectionMapViewController), "DidActivate")]
+    [HarmonyPatch(typeof(MissionSelectionMapViewController), MethodType.Constructor)]
+    internal class MissionSelectionMapViewControllerPatch
+    {
+        public static void Postfix(ref MissionSelectionMapViewController __instance)
+        {
+            Plugin.missionselection = __instance;
+            Logger.log.Debug("missionselection found");
         }
     }
 }

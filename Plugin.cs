@@ -10,7 +10,15 @@ namespace JDFixer
     [Plugin(RuntimeOptions.SingleStartInit)]
     public class Plugin
     {
+        public static StandardLevelDetailViewController leveldetail;
+        public static MissionSelectionMapViewController missionselection;
         //private static IPA.Loader.PluginMetadata hasTA;
+
+        [Init]
+        public void Init(IPA.Logging.Logger logger)
+        {
+            Logger.log = logger;
+        }
 
         [OnStart]
         public void OnApplicationStart()
@@ -26,6 +34,12 @@ namespace JDFixer
             //BeatSaberMarkupLanguage.GameplaySetup.GameplaySetup.instance.AddTab("JDFixerOnline", "JDFixer.UI.BSML.modifierOnlineUI.bsml", UI.ModifierUI.instance, BeatSaberMarkupLanguage.GameplaySetup.MenuType.Online);
             UnityEngine.SceneManagement.SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
 
+            // Are these controllers always present?
+            //leveldetail = Resources.FindObjectsOfTypeAll<StandardLevelDetailViewController>().FirstOrDefault();
+            leveldetail.didChangeContentEvent += Leveldetail_didChangeContentEvent;
+            //missionselection = Resources.FindObjectsOfTypeAll<MissionSelectionMapViewController>().FirstOrDefault();
+            missionselection.didSelectMissionLevelEvent += Missionselection_didSelectMissionLevelEvent;
+
             //hasTA = IPA.Loader.PluginManager.GetPluginFromId("TournamentAssistant");
             //Logger.log.Debug(hasTA.Name);
         }
@@ -35,12 +49,6 @@ namespace JDFixer
             Config.Write();
 
             //Logger.log.Debug("Prev: " + arg0.name + " Next: " + arg1.name);
-        }
-
-        [Init]
-        public void Init(IPA.Logging.Logger logger)
-        {
-            Logger.log = logger;
         }
 
         // For when user selects a map with only 1 difficulty or selects a map but does not click a difficulty
@@ -61,15 +69,14 @@ namespace JDFixer
                 }
             }*/
 
-            var leveldetail = Resources.FindObjectsOfTypeAll<StandardLevelDetailViewController>().FirstOrDefault();
-            //StandardLevelDetailViewController leveldetail = UnityEngine.Object.FindObjectOfType<StandardLevelDetailViewController>();
+            //var leveldetail = Resources.FindObjectsOfTypeAll<StandardLevelDetailViewController>().FirstOrDefault();
             if (leveldetail != null)
             {
                 leveldetail.didChangeContentEvent += Leveldetail_didChangeContentEvent;
             }
 
             // When in Campaigns, set Map JD and Reaction Time displays to show zeroes
-            var missionselection = Resources.FindObjectsOfTypeAll<MissionSelectionMapViewController>().FirstOrDefault();
+            //var missionselection = Resources.FindObjectsOfTypeAll<MissionSelectionMapViewController>().FirstOrDefault();
             if (missionselection != null)
             {
                 missionselection.didSelectMissionLevelEvent += Missionselection_didSelectMissionLevelEvent;
