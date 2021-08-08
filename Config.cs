@@ -20,18 +20,17 @@ namespace JDFixer
 
     public class JDFixerConfig
     {
-        public bool enabled = false;
-        //public bool enabledInPractice = false;
-        public float jumpDistance = 24f;
-        public int minJumpDistance = 15;
-        public int maxJumpDistance = 35;
-        public bool usePreferredJumpDistanceValues = false;
-        public List<JDPref> preferredValues = new List<JDPref>();
+        public bool enabled;
+        //public bool enabledInPractice;
+        public float jumpDistance;
+        public int minJumpDistance;
+        public int maxJumpDistance;
+        public bool usePreferredJumpDistanceValues;
+        public List<JDPref> preferredValues;
 
-        // Defaults for when upper and lower thresholds not set by user (yes it's a bandaid)
-        public float upper_threshold = 100f;
-        public float lower_threshold = 1f;
-        public bool use_heuristic = true;
+        public float upper_threshold;
+        public float lower_threshold;
+        public bool use_heuristic;
 
         // Values for current selected map difficulty
         //public float selected_mapBPM = 1f;
@@ -73,13 +72,6 @@ namespace JDFixer
             this.upper_threshold = upper_threshold;
             this.lower_threshold = lower_threshold;
             this.use_heuristic = use_heuristic;
-
-            // Values for current selected map difficulty
-            //this.selected_mapBPM = selected_mapBPM;
-            //this.selected_mapNJS = selected_mapNJS;
-            //this.selected_mapOffset = selected_mapOffset;
-            //this.selected_mapJumpDistance = selected_mapJumpDistance;
-            //this.selected_mapLowest = selected_mapLowest;
         }
     }
 
