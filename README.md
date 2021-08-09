@@ -12,10 +12,11 @@ Works in multiplayer, Tournament Assistant, CustomCampaigns. Score submission is
 - Automated JD fixing. The behavior of the Preferences has been changed to selecting the NJS-JD pair that is equal or lower to the selected map's NJS. This allows you to cover large ranges without having to add many values and also handles the rare non-integer NJS
 - Added heuristic in the Preferences, where if the selected map's original JD is lower than the JD in the matching NJS-JD pair, the map will run at its original JD. You can toggle this feature.
 - Included Upper and Lower NJS Thresholds where Preferences will be ignored: If a map's NJS is at or above the upper threshold, the map will run at its original JD (and vice versa for lower threshold)
-- Swapped Enable and Practice Mode buttons because I keep toggling the wrong one lol
+- Added Reaction Time display. Reaction time is a function of the map's original NJS and your Jump Distance
+- ~~Swapped Enable and Practice Mode buttons because I keep toggling the wrong one lol~~
 
-![screenshot](https://github.com/zeph-yr/JDFixer/blob/master/menu1_small.png)
-![screenshot](https://github.com/zeph-yr/JDFixer/blob/master/menu2_small.png)
+![screenshot](https://github.com/zeph-yr/JDFixer/blob/master/2.0.3_menu_1_small.png)
+![screenshot](https://github.com/zeph-yr/JDFixer/blob/master/2.0.3_menu_2_small.png)
 
 ## How To Use
 - Place JDFixer.dll in Plugins folder
@@ -46,9 +47,9 @@ The map will run at its original 14 JD because it is lower than your matching pr
 - Thresholds apply to Preferences only
 
 ## Tournaments and MP
-- **Tournament Assistant:** Works with Default, Dual Sync and AutoPause matches. JD slider and Preferences work as normal. Map JD display does not function. Avoid opening the Preferences menu in TA! You will be stuck in it until you relaunch the game. However if you do choose to get yourself stuck inside just before a match, your match will still play fine when the coordinator starts it KEKW
+- **Tournament Assistant:** Works with Default, Dual Sync and AutoPause matches. JD slider and Preferences work as normal. Map JD display does not function. Avoid opening the Preferences menu in TA! You will be stuck in it until you relaunch the game. However if you do choose to get yourself stuck inside just before a match, your match will still play fine when the coordinator starts it KEKW.
 - **Multiplayer:** JD slider and Preferences work as normal. Map JD display functions only when you select a map from the song browser.
-- **CustomCampaigns:** Now Enabled!! Toggle on "Enable in Practice" to use. Map display does not function. Base game campaign also supported.
+- **CustomCampaigns:** Now Enabled!! Map display and Reaction Time not enabled. Base game campaign also supported.
 - **OST Levels:** Now supported!
 
 ## About
