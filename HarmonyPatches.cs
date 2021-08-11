@@ -44,14 +44,11 @@ namespace JDFixer
                     return;
                 }
 
-                else
-                {
-                    var pref = Config.UserConfig.preferredValues.FirstOrDefault(x => x.njs <= mapNJS);
-                    //Logger.log.Debug("Using Preference");
+                var pref = Config.UserConfig.preferredValues.FirstOrDefault(x => x.njs <= mapNJS);
+                //Logger.log.Debug("Using Preference");
 
-                    if (pref != null)
-                        desiredJumpDis = pref.jumpDistance;
-                }
+                if (pref != null)
+                    desiredJumpDis = pref.jumpDistance;
 
                 // Heuristic: If map's original JD is less than the matching preference entry, play map at original JD
                 // Rationale: I created this mod because I don't like floaty maps. If the original JD chosen by the

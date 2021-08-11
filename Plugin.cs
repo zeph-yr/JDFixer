@@ -1,8 +1,5 @@
 ﻿using HarmonyLib;
 using IPA;
-using System;
-using System.Linq;
-using UnityEngine;
 //using TournamentAssistant;
 
 namespace JDFixer
