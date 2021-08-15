@@ -4,7 +4,7 @@ Based on Kylemc1413's NjsFixer
 
 I wanted a stripped down mod that focused only on JD modification to fix floaty maps without NJS/BPM modification since I don't use those features. I felt there was a gap between Njsfixer and Leveltweaks that isn't filled for JD-focused players and this is my interpretation for meeting those needs.
 
-Works in multiplayer, Tournament Assistant, CustomCampaigns. Score submission is unaffected. For Beat Saber 1.16.4.
+Works in Multiplayer, Tournament Assistant, CustomCampaigns. Score submission is unaffected. For Beat Saber 1.16.4.
 
 ## New Features
 - Selected map's original JD is displayed in the Mod menu. You can easily decide if you want to use JDFixer without having to play the map to feel it. Saves time.
@@ -43,16 +43,18 @@ The map will run at 16 JD because 21 NJS is the closest lower match.
 **Example 3:**
 Your selected map's NJS is 21.5 and JD is 14 *and* "Use Map JD If Lower" is toggled ON.
 The map will run at its original 14 JD because it is lower than your matching preference (21-16).
-- If "Use Preferred JD Values" is enabled but no Preferences are set, the map will run at JD value in the slider
-- Thresholds apply to Preferences only
+
+**Example 4:**
+Your selected map's NJS is 23 and JD is 20 *and* your Upper Threshold is set to 23.
+The map will run at its original 20 JD because it triggered the threhold.
 
 - If "Use Preferred JD Values" is enabled but no Preferences are set, the map will run at JD value in the slider
-- Thresholds apply to Preferences only
+- Thresholds override Preferences only
 
 ## Tournaments and MP
 - **Tournament Assistant:** Works with Default, Dual Sync and AutoPause matches. JD slider and Preferences work as normal. Map JD display does not function. Avoid opening the Preferences menu in TA! You will be stuck in it until you relaunch the game. However if you do choose to get yourself stuck inside just before a match, your match will still play fine when the coordinator starts it KEKW.
 - **Multiplayer:** JD slider and Preferences work as normal. Map JD display functions only when you select a map from the song browser.
-- **CustomCampaigns:** Now Enabled!! Map display and Reaction Time not enabled. Base game campaign also supported.
+- **CustomCampaigns:** Now Enabled!! Map display and Reaction Time is disabled. Slider and Preferences work as normal. Base game campaign also supported.
 - **OST Levels:** Now supported!
 
 ## About
