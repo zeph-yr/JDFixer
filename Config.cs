@@ -18,6 +18,20 @@ namespace JDFixer
         }
     }
 
+    // Reaction Time Mode
+    public class RTPref
+    {
+        public float njs = 12f;
+        public float reactionTime = 500f;
+
+        public RTPref(float njs, float reactionTime)
+        {
+            this.njs = njs;
+            this.reactionTime = reactionTime;
+        }
+    }
+
+
     public class JDFixerConfig
     {
         public bool enabled;
@@ -27,10 +41,16 @@ namespace JDFixer
         public int maxJumpDistance;
         public bool usePreferredJumpDistanceValues;
         public List<JDPref> preferredValues;
-
+        
         public float upper_threshold;
         public float lower_threshold;
         public bool use_heuristic;
+
+        // Reaction Time Mode
+        public bool rt_enabled;
+        public List<RTPref> rt_preferredValues;
+        public int minReactionTime;
+        public int maxReactionTime;
 
         // Values for current selected map difficulty
         //public float selected_mapBPM = 1f;
@@ -54,12 +74,19 @@ namespace JDFixer
             upper_threshold = 100f;
             lower_threshold = 1f;
             use_heuristic = true;
+
+            // Reaction Time Mode
+            rt_enabled = false;
+            rt_preferredValues = new List<RTPref>();
+            minReactionTime = 100;
+            maxReactionTime = 2000;
         }
 
         [JsonConstructor]
         //public JDFixerConfig(bool enabled, bool enabledInPractice, float jumpDistance, int minJumpDistance, int maxJumpDistance, bool usePreferredJumpDistanceValues, List<NjsPref> preferredValues,float upper_threshold, float lower_threshold, float selected_mapBPM, float selected_mapNJS, float selected_mapOffset, float selected_mapJumpDistance)
         public JDFixerConfig(bool enabled, float jumpDistance, int minJumpDistance, int maxJumpDistance, bool usePreferredJumpDistanceValues, List<JDPref> preferredValues, 
-            float upper_threshold, float lower_threshold, bool use_heuristic)
+            float upper_threshold, float lower_threshold, bool use_heuristic, 
+            bool rt_enabled, List<RTPref> rt_preferredValues, int minReactionTime, int maxReactionTime)
         {
             this.enabled = enabled;
             //this.enabledInPractice = enabledInPractice;
@@ -72,6 +99,12 @@ namespace JDFixer
             this.upper_threshold = upper_threshold;
             this.lower_threshold = lower_threshold;
             this.use_heuristic = use_heuristic;
+
+            // Reaction Time Mode
+            this.rt_enabled = rt_enabled;
+            this.rt_preferredValues = rt_preferredValues;
+            this.minReactionTime = minReactionTime;
+            this.maxReactionTime = maxReactionTime;
         }
     }
 
@@ -93,12 +126,16 @@ namespace JDFixer
             }
             UserConfig.preferredValues = UserConfig.preferredValues.OrderByDescending(x => x.njs).ToList();
             //UserConfig.preferredValues = UserConfig.preferredValues.OrderByDescending(x => x.jumpDistance).ToList(); // Sort by JD Setpoint
+
+            UserConfig.rt_preferredValues = UserConfig.rt_preferredValues.OrderByDescending(x => x.njs).ToList();
         }
 
         public static void Write()
         {
             UserConfig.preferredValues = UserConfig.preferredValues.OrderByDescending(x => x.njs).ToList();
             //UserConfig.preferredValues = UserConfig.preferredValues.OrderByDescending(x => x.jumpDistance).ToList(); // Sort by JD Setpoint
+
+            UserConfig.rt_preferredValues = UserConfig.rt_preferredValues.OrderByDescending(x => x.njs).ToList();
 
             File.WriteAllText(ConfigPath, JsonConvert.SerializeObject(UserConfig, Formatting.Indented));
         }

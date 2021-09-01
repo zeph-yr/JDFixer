@@ -129,6 +129,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BeatmapUtils.cs" />
+    <Compile Include="UI\RTPreferencesListViewController.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="HarmonyPatches.cs" />
     <Compile Include="Logger.cs" />
@@ -161,6 +162,14 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="UI\BSML\preferencesList.bsml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="UI\BSMLViewController1.bsml">
+      <DependentUpon>RTPreferencesListViewController.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="UI\BSML\rtPreferencesList.bsml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

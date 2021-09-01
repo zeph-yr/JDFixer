@@ -120,7 +120,40 @@ namespace JDFixer.UI
         void SetUsePrefJumpValues(bool value)
         {
             usePrefJumpValues = value;
+
+            /*if (value)
+            {
+                Config.UserConfig.rt_enabled = false;
+                NotifyPropertyChanged(nameof(RTEnabled));
+            }*/
         }
+
+
+        //=============================================================
+        // Reaction Time Mode
+        [UIValue("rtEnabled")]
+        public bool RTEnabled
+        {
+            get => Config.UserConfig.rt_enabled;
+            set
+            {
+                Config.UserConfig.rt_enabled = value;
+            }
+        }
+        [UIAction("setRTEnabled")]
+        void SetRTEnabled(bool value)
+        {
+            RTEnabled = value;
+
+            /*if (value)
+            {
+                Config.UserConfig.usePreferredJumpDistanceValues = false;
+                NotifyPropertyChanged(nameof(usePrefJumpValues));
+            }*/
+        }
+        //=============================================================
+
+
 
         [UIAction("prefButtonClicked")]
         void PrefButtonClicked()

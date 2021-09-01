@@ -34,8 +34,27 @@ namespace JDFixer
             float desiredJumpDis = Config.UserConfig.jumpDistance;
 
 
+            // NJS-RT setpoints from Preferences
+            if (Config.UserConfig.rt_enabled)
+            {
+                if (mapNJS <= Config.UserConfig.lower_threshold || mapNJS >= Config.UserConfig.upper_threshold)
+                {
+                    return;
+                }
+
+                var rt_pref = Config.UserConfig.rt_preferredValues.FirstOrDefault(x => x.njs <= mapNJS);
+
+                if (rt_pref != null)
+                    desiredJumpDis = rt_pref.reactionTime * mapNJS / 500;
+
+                if (BeatmapUtils.CalculateJumpDistance(startBpm, mapNJS, noteJumpStartBeatOffset) <= desiredJumpDis && Config.UserConfig.use_heuristic)
+                {
+                    return;
+                }
+            }
+
             // NJS-JD setpoints from Preferences
-            if (Config.UserConfig.usePreferredJumpDistanceValues)
+            else if (Config.UserConfig.usePreferredJumpDistanceValues)
             {
                 // For Acc and Speed Maps:
                 if (mapNJS <= Config.UserConfig.lower_threshold || mapNJS >= Config.UserConfig.upper_threshold)

@@ -6,7 +6,7 @@
 		<grid cell-size-y='5' cell-size-x='28' spacing-x='2' align='Right'>
 			<text text='Map Jump Distance' align='Left'/>
 			<text text='----------------' align='Left' rich-text='true' font-color='#00000000'/>
-			<text text='~mapDefaultJD' min-width='29' align='Right' hover-hint='Map JD and Reaction Time not applicable in Campaign and TA'/>
+			<text text='~mapDefaultJD' min-width='29' align='Right' hover-hint='Values in this display are not applicable in Campaign and TA'/>
 
 			<text text='Min. JD' align='Left'/>
 			<text text='----------------' align='Left' rich-text='true' font-color='#00000000'/>
@@ -20,21 +20,24 @@
 		  <grid cell-size-y='5' cell-size-x='28' spacing-x='2' align='Right'>
 			  <text text='Reaction Time' align='Left'/>
 			  <text text='----------------' align='Left' rich-text='true' font-color='#00000000'/>
-			  <text text='~reactionTime' min-width='29' align='Right' hover-hint='Map JD and Reaction Time not applicable in Campaign and TA'/>
+			  <text text='~reactionTime' min-width='29' align='Right'/>
 		  </grid>
 	  </horizontal>
 	  
-    <checkbox-setting value='usePrefJumpValues' on-change='setUsePrefJumpValues' text='Use Preferences'></checkbox-setting>
-    <checkbox-setting value='useHeuristic' on-change='setUseHeuristic' text='Use Map JD If Lower' hover-hint='If original JD is lower than the matching preference, map will run at original JD'></checkbox-setting>
-    <button align='Center' on-click='prefButtonClicked' text='Jump Distance Preferences' hover-hint='Autoselect by matching or lower NJS'></button>
+    <checkbox-setting value='usePrefJumpValues' on-change='setUsePrefJumpValues' text='Use JD Preferences'></checkbox-setting>
+	<checkbox-setting value ='rtEnabled' on-change='setRTEnabled' text='Use RT Preferences' hover-hint='Overrides JD Preferences if enabled'></checkbox-setting>
+    
+    <button align='Center' on-click='prefButtonClicked' text='JD and RT Preferences' hover-hint='Autoselect by matching or lower NJS'></button>
+	<checkbox-setting value='useHeuristic' on-change='setUseHeuristic' text='Use Map JD or RT If Lower' hover-hint='If original JD or RT is lower than the matching preference, map will run at original JD or RT'></checkbox-setting>
 
-    <horizontal>
+	<horizontal>
       <grid cell-size-y='5' cell-size-x='28' spacing-x='2' align='Right'>
         <text text='Thresholds' min-width='29' align='Left'/>
         <text text='----------------' min-width='29' align='Left' rich-text='true' font-color='#00000000'/>
-        <text text='~thresholds' align='Right' hover-hint='Maps at and beyond these NJS will run at original JD. Set in json'/>
+        <text text='~thresholds' align='Right' hover-hint='Maps at and beyond these NJS will run at original JD or RT. Set in json'/>
       </grid>
     </horizontal>
+
 	<horizontal>
 		<text text='Instructions at github.com/zeph-yr/JDFixer#readme     v2.0.3' font-color='#ff0080ff' font-size='3' align='Center' hover-hint="You'll wanna read this, trust me."></text>	  
 	</horizontal>
