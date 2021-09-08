@@ -26,12 +26,15 @@ Works in CustomCampaigns, Tournament Assistant, Multiplayer, OST. Score submissi
 - Upper and Lower NJS Thresholds can be set in JDFixer.json in UserData folder
 - Min and max range in the JD slider can be edited in JDFixer.json
 - Preferences for NJS-JD and NJS-RT pairs are set in-game
-- To access the RT Preferences menu, toggle ON "Use Preferred RT Values" and click "Use JD and RT Preferences"
-- Enabling "Use Preferred JD Values" or "Use Preferred RT Values" will override the JD value in the slider
-- Enabling 'Use Reaction Time Preferences' will override JD Preferences even if 'Use JD Preferences' is turned on.
+- To access the RT Preferences menu, toggle ON "Use RT Preferences" and click "JD and RT Preferences"
+- Enabling "Use JD Preferences" or "Use RT Preferences" will override the JD value in the slider
+- Enabling 'Use RT Preferences' will override JD Preferences even if 'Use JD Preferences' is turned on.
 - Hover over menu in-game for explanations
 - **Not compatible with NjsFixer and LevelTweaks** Using with these mods may result in conflicts and unexpected behavior.
 - Requires BSIPA, BSML and BS_Utils
+
+**v2.1.0 is not compatible with settings files from previous versions:**
+Please allow the mod to generate a new JDFixer.json and re-enter your settings in-game. If you are knowledgeable, you can copy the relevant data from the old .json to the new one. Just make sure you do it correctly.
 
 ## Understanding Preferences Behavior
 Suppose your Preferences contain these NJS-JD pairs: 22-18, 21-16, 18-15.
@@ -52,7 +55,7 @@ The map will run at its original 14 JD because it is lower than your matching pr
 Your selected map's NJS is 23 and JD is 20 *and* your Upper Threshold is set to 23.
 The map will run at its original 20 JD because it triggered the threhold.
 
-- If "Use Preferred JD Values" is enabled but no Preferences are set, the map will run at JD value in the slider
+- If "Use JD Preferences" is enabled but no Preferences are set, the map will run at JD value in the slider
 - Thresholds override Preferences only
 
 **Reaction Time Preferences:** 
