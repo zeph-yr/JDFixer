@@ -16,7 +16,7 @@ Works in CustomCampaigns, Tournament Assistant, Multiplayer, OST. Score submissi
 - Added Reaction Time Preferences. Automatically sets a map's JD to give you your preferred reaction time for a given NJS.
 - ~~Swapped Enable and Practice Mode buttons because I keep toggling the wrong one lol~~
 
-![screenshot](https://github.com/zeph-yr/JDFixer/blob/BS_1.16.4_MA_v2.0.3/2.1.0_menu_1.png)
+![screenshot](https://github.com/zeph-yr/JDFixer/blob/BS_1.16.4_MA_v2.0.3/menu_2.1.2_1_small.png)
 ![screenshot](https://github.com/zeph-yr/JDFixer/blob/BS_1.16.4_MA_v2.0.3/2.1.0_menu_2.png)
 ![screenshot](https://github.com/zeph-yr/JDFixer/blob/BS_1.16.4_MA_v2.0.3/2.1.0_menu_3.png)
 
