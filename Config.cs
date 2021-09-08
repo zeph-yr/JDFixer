@@ -8,7 +8,7 @@ namespace JDFixer
 {
     public class JDPref
     {
-        public float njs = 12f;
+        public float njs = 16f;
         public float jumpDistance = 24f;
 
         public JDPref(float njs, float jumpDistance)
@@ -21,8 +21,8 @@ namespace JDFixer
     // Reaction Time Mode
     public class RTPref
     {
-        public float njs = 12f;
-        public float reactionTime = 500f;
+        public float njs = 16f;
+        public float reactionTime = 800f;
 
         public RTPref(float njs, float reactionTime)
         {

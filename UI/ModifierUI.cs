@@ -28,9 +28,9 @@ namespace JDFixer.UI
             // it wouldn't matter if you display 10^6 or 0 reaction time anyway
             // 0.002 gives a margin: BeatmapInfo sets null to 0.001
             if (_selectedBeatmap.NJS > 0.002)
-                return "<#8c1aff>" + (jumpDisValue / (2 * _selectedBeatmap.NJS) * 1000).ToString() + " ms";
+                return "<#cc99ff>" + (jumpDisValue / (2 * _selectedBeatmap.NJS) * 1000).ToString("0.###") + " ms";
 
-            return "<#8c1aff>0 ms";
+            return "<#cc99ff>0 ms";
         }
 
         private PreferencesFlowCoordinator _prefFlow;
@@ -77,10 +77,10 @@ namespace JDFixer.UI
 
 
         [UIValue("mapDefaultJD")]
-        public string MapDefaultJDText => "<#ffff00>" + _selectedBeatmap.JumpDistance.ToString();
+        public string MapDefaultJDText => "<#ffff00>" + _selectedBeatmap.JumpDistance.ToString("0.###") + "     <#8c1aff>" + _selectedBeatmap.ReactionTime.ToString("0.###") + " ms";
 
         [UIValue("mapMinJD")]
-        public string MapMinJDText => "<#8c8c8c>" + _selectedBeatmap.MinJumpDistance.ToString();
+        public string MapMinJDText => "<#8c8c8c>" + _selectedBeatmap.MinJumpDistance.ToString("0.###") + "     <#8c8c8c>" + _selectedBeatmap.MinReactionTime.ToString("0.###" + " ms");
 
         [UIComponent("jumpDisSlider")]
         private SliderSetting jumpDisSlider;

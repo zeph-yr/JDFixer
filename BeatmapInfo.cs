@@ -29,6 +29,8 @@ namespace JDFixer
             // Better UX as players may forget to ignore the display.
             JumpDistance = 0f;
             MinJumpDistance = 0f;
+            ReactionTime = 0f;
+            MinReactionTime = 0f;
 
             // Ultra hack way to prevent divide by zero in Reaction Time Display
             NJS = 0.001f; 
@@ -46,10 +48,15 @@ namespace JDFixer
             JumpDistance = BeatmapUtils.CalculateJumpDistance(bpm, njs, offset);
             MinJumpDistance = BeatmapUtils.CalculateJumpDistance(bpm, njs, -50f);
             NJS = njs;
+            ReactionTime = JumpDistance * 500 / NJS;
+            MinReactionTime = MinJumpDistance * 500 / NJS;
+
         }
 
         public float JumpDistance { get; }
         public float MinJumpDistance { get; }
         public float NJS { get; }
+        public float ReactionTime { get; }
+        public float MinReactionTime { get; }
     }
 }
