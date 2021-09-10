@@ -51,6 +51,7 @@ namespace JDFixer
         public List<RTPref> rt_preferredValues;
         public int minReactionTime;
         public int maxReactionTime;
+        public bool rt_display_enabled;
 
         // Values for current selected map difficulty
         //public float selected_mapBPM = 1f;
@@ -80,13 +81,14 @@ namespace JDFixer
             rt_preferredValues = new List<RTPref>();
             minReactionTime = 100;
             maxReactionTime = 2000;
+            rt_display_enabled = true;
         }
 
         [JsonConstructor]
         //public JDFixerConfig(bool enabled, bool enabledInPractice, float jumpDistance, int minJumpDistance, int maxJumpDistance, bool usePreferredJumpDistanceValues, List<NjsPref> preferredValues,float upper_threshold, float lower_threshold, float selected_mapBPM, float selected_mapNJS, float selected_mapOffset, float selected_mapJumpDistance)
         public JDFixerConfig(bool enabled, float jumpDistance, int minJumpDistance, int maxJumpDistance, bool usePreferredJumpDistanceValues, List<JDPref> preferredValues, 
             float upper_threshold, float lower_threshold, bool use_heuristic, 
-            bool rt_enabled, List<RTPref> rt_preferredValues, int minReactionTime, int maxReactionTime)
+            bool rt_enabled, List<RTPref> rt_preferredValues, int minReactionTime, int maxReactionTime, bool rt_display_enabled)
         {
             this.enabled = enabled;
             //this.enabledInPractice = enabledInPractice;
@@ -105,6 +107,7 @@ namespace JDFixer
             this.rt_preferredValues = rt_preferredValues;
             this.minReactionTime = minReactionTime;
             this.maxReactionTime = maxReactionTime;
+            this.rt_display_enabled = rt_display_enabled;
         }
     }
 
