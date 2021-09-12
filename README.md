@@ -16,9 +16,9 @@ Supports CustomCampaigns, Tournament Assistant, Multiplayer, OST. Score submissi
 - Added Reaction Time Preferences. Automatically sets a map's JD to give you your preferred reaction time for a given NJS.
 - ~~Swapped Enable and Practice Mode buttons because I keep toggling the wrong one lol~~
 
-![screenshot](https://github.com/zeph-yr/JDFixer/blob/BS_1.16.4_MA_v2.0.3/menu_2.1.2_1_small.png)
-![screenshot](https://github.com/zeph-yr/JDFixer/blob/BS_1.16.4_MA_v2.0.3/2.1.0_menu_2.png)
-![screenshot](https://github.com/zeph-yr/JDFixer/blob/BS_1.16.4_MA_v2.0.3/2.1.0_menu_3.png)
+![screenshot](https://github.com/zeph-yr/JDFixer/blob/BS_1.16.4_MA_v2.0.3/Screenshots/menu_2.1.2_1_small.png)
+![screenshot](https://github.com/zeph-yr/JDFixer/blob/BS_1.16.4_MA_v2.0.3/Screenshots/2.1.0_menu_2.png)
+![screenshot](https://github.com/zeph-yr/JDFixer/blob/BS_1.16.4_MA_v2.0.3/Screenshots/2.1.0_menu_3.png)
 
 ## How To Use
 - Place JDFixer.dll in Plugins folder
@@ -74,7 +74,7 @@ Enabling "Use Reaction Time Preferences" will override JD Preferences even if "U
 ## UI Option
 The default and minimum Reaction Time Display can be disabled to revert to the previous version's UI.
 Set "rt_display_enabled" in JDFixer.json to "false"
-![screenshot](https://github.com/zeph-yr/JDFixer/blob/BS_1.16.4_MA_v2.0.3/2.0.3_menu_1_small.png)
+![screenshot](https://github.com/zeph-yr/JDFixer/blob/BS_1.16.4_MA_v2.0.3/Screenshots/2.0.3_menu_1_small.png)
 
 ## About
 This is my first time writing a mod. I made it for my own needs but friends thought it useful so I think it would be beneficial to share it. I hope others find this useful.
