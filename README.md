@@ -33,7 +33,7 @@ Supports CustomCampaigns, Tournament Assistant, Multiplayer, OST. Score submissi
 - **Not compatible with NjsFixer and LevelTweaks** Using with these mods may result in conflicts and unexpected behavior.
 - Requires BSIPA, BSML and BS_Utils
 
-**v2.1.3 will import your settings file:** For the children who didn't pay attention in school so they never learned to read.
+**v2.1.3 will import your settings file**
 
 **v2.1.0 is not compatible with settings files from previous versions:**
 Please allow the mod to generate a new JDFixer.json and re-enter your settings in-game. If you are knowledgeable, you can copy the relevant data from the old .json to the new one. Just make sure you do it correctly.
