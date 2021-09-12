@@ -16,9 +16,9 @@ namespace JDFixer.UI
         public override string ResourceName => "JDFixer.UI.BSML.preferencesList.bsml";
 
         [UIValue("minJump")]
-        private int minJump => Config.UserConfig.minJumpDistance;
+        private int minJump => PluginConfig.Instance.minJumpDistance;
         [UIValue("maxJump")]
-        private int maxJump => Config.UserConfig.maxJumpDistance;
+        private int maxJump => PluginConfig.Instance.maxJumpDistance;
 
 
         [UIComponent("prefList")]
@@ -83,32 +83,38 @@ namespace JDFixer.UI
         private void SelectedPref(TableView tableView, int row)
         {
             Logger.log.Debug("Selected row " + row);
-            _selectedPref = Config.UserConfig.preferredValues[row];
+            _selectedPref = PluginConfig.Instance.preferredValues[row];
             prefIsSelected = prefIsSelected;
         }
         [UIAction("addPressed")]
         private void AddNewValue()
         {
-            if(Config.UserConfig.preferredValues.Any(x => x.njs == _newNjs))
+            if(PluginConfig.Instance.preferredValues.Any(x => x.njs == _newNjs))
             {
-                Config.UserConfig.preferredValues.RemoveAll(x => x.njs == _newNjs);
+                PluginConfig.Instance.preferredValues.RemoveAll(x => x.njs == _newNjs);
             }
-            Config.UserConfig.preferredValues.Add(new JDPref(_newNjs, _newJumpDis));
-            Config.Write();
+            PluginConfig.Instance.preferredValues.Add(new JDPref(_newNjs, _newJumpDis));
+            //Config.Write();
             ReloadListFromConfig();
         }
         [UIAction("removePressed")]
         private void RemoveSelectedPref()
         {
             if (_selectedPref == null) return;
-            Config.UserConfig.preferredValues.RemoveAll(x => x == _selectedPref);
-            Config.Write();
+            PluginConfig.Instance.preferredValues.RemoveAll(x => x == _selectedPref);
+            //Config.Write();
             ReloadListFromConfig();
         }
         private void ReloadListFromConfig()
         {
             prefList.data.Clear();
-            foreach(var pref in Config.UserConfig.preferredValues)
+
+            if (PluginConfig.Instance.preferredValues == null)
+                return;
+
+            PluginConfig.Instance.preferredValues.Sort((x, y) => y.njs.CompareTo(x.njs));
+
+            foreach (var pref in PluginConfig.Instance.preferredValues)
             {
                 prefList.data.Add(new CustomListTableData.CustomCellInfo($"{pref.njs} NJS | {pref.jumpDistance} Jump Distance"));
             }

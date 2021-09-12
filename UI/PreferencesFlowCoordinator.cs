@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using HMUI;
+
 namespace JDFixer.UI
 {
     public class PreferencesFlowCoordinator : FlowCoordinator
@@ -28,14 +29,14 @@ namespace JDFixer.UI
                 showBackButton = true;
                 SetTitle("JDFixer Preferences");
 
-                if (Config.UserConfig.rt_enabled)
+                if (PluginConfig.Instance.rt_enabled)
                     ProvideInitialViewControllers(_rtPrefListView);
 
                 else
                     ProvideInitialViewControllers(_prefListView);
             }
 
-            if (Config.UserConfig.rt_enabled)
+            if (PluginConfig.Instance.rt_enabled)
                 ProvideInitialViewControllers(_rtPrefListView);
 
             else

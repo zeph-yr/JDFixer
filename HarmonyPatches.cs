@@ -8,7 +8,7 @@ namespace JDFixer
     {
         public static void Prefix(ref float startNoteJumpMovementSpeed, float startBpm, ref float noteJumpStartBeatOffset, ref BeatmapObjectSpawnMovementData __instance, ref bool __state)
         {
-            bool WillOverride = BS_Utils.Plugin.LevelData.IsSet && Config.UserConfig.enabled
+            bool WillOverride = BS_Utils.Plugin.LevelData.IsSet && PluginConfig.Instance.enabled
                 && (BS_Utils.Plugin.LevelData.Mode == BS_Utils.Gameplay.Mode.Standard
                 || BS_Utils.Plugin.LevelData.Mode == BS_Utils.Gameplay.Mode.Multiplayer
                 || BS_Utils.Plugin.LevelData.Mode == BS_Utils.Gameplay.Mode.Mission);
@@ -31,39 +31,39 @@ namespace JDFixer
                 mapNJS = 10;
 
             // JD setpoint from Slider
-            float desiredJumpDis = Config.UserConfig.jumpDistance;
+            float desiredJumpDis = PluginConfig.Instance.jumpDistance;
 
 
             // NJS-RT setpoints from Preferences
-            if (Config.UserConfig.rt_enabled)
+            if (PluginConfig.Instance.rt_enabled)
             {
-                if (mapNJS <= Config.UserConfig.lower_threshold || mapNJS >= Config.UserConfig.upper_threshold)
+                if (mapNJS <= PluginConfig.Instance.lower_threshold || mapNJS >= PluginConfig.Instance.upper_threshold)
                 {
                     return;
                 }
 
-                var rt_pref = Config.UserConfig.rt_preferredValues.FirstOrDefault(x => x.njs <= mapNJS);
+                var rt_pref = PluginConfig.Instance.rt_preferredValues.FirstOrDefault(x => x.njs <= mapNJS);
 
                 if (rt_pref != null)
                     desiredJumpDis = rt_pref.reactionTime * mapNJS / 500;
 
-                if (BeatmapUtils.CalculateJumpDistance(startBpm, mapNJS, noteJumpStartBeatOffset) <= desiredJumpDis && Config.UserConfig.use_heuristic)
+                if (BeatmapUtils.CalculateJumpDistance(startBpm, mapNJS, noteJumpStartBeatOffset) <= desiredJumpDis && PluginConfig.Instance.use_heuristic)
                 {
                     return;
                 }
             }
 
             // NJS-JD setpoints from Preferences
-            else if (Config.UserConfig.usePreferredJumpDistanceValues)
+            else if (PluginConfig.Instance.usePreferredJumpDistanceValues)
             {
                 // For Acc and Speed Maps:
-                if (mapNJS <= Config.UserConfig.lower_threshold || mapNJS >= Config.UserConfig.upper_threshold)
+                if (mapNJS <= PluginConfig.Instance.lower_threshold || mapNJS >= PluginConfig.Instance.upper_threshold)
                 {
                     //Logger.log.Debug("Using Threshold");
                     return;
                 }
 
-                var pref = Config.UserConfig.preferredValues.FirstOrDefault(x => x.njs <= mapNJS);
+                var pref = PluginConfig.Instance.preferredValues.FirstOrDefault(x => x.njs <= mapNJS);
                 //Logger.log.Debug("Using Preference");
 
                 if (pref != null)
@@ -72,7 +72,7 @@ namespace JDFixer
                 // Heuristic: If map's original JD is less than the matching preference entry, play map at original JD
                 // Rationale: I created this mod because I don't like floaty maps. If the original JD chosen by the
                 // mapper is lower than my pick, it's probably more optimal than my pick.
-                if (BeatmapUtils.CalculateJumpDistance(startBpm, mapNJS, noteJumpStartBeatOffset) <= desiredJumpDis && Config.UserConfig.use_heuristic)
+                if (BeatmapUtils.CalculateJumpDistance(startBpm, mapNJS, noteJumpStartBeatOffset) <= desiredJumpDis && PluginConfig.Instance.use_heuristic)
                 {
                     //Logger.log.Debug("Not Fixing: Original JD below or equal setpoint");
                     //Logger.log.Debug($"BPM/NJS/Offset {startBpm}/{startNoteJumpMovementSpeed}/{noteJumpStartBeatOffset}");

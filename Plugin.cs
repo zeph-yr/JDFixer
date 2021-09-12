@@ -1,5 +1,7 @@
 ﻿using HarmonyLib;
 using IPA;
+using IPA.Config;
+using IPA.Config.Stores;
 //using TournamentAssistant;
 
 namespace JDFixer
@@ -13,15 +15,17 @@ namespace JDFixer
         //private static IPA.Loader.PluginMetadata hasTA;
 
         [Init]
-        public void Init(IPA.Logging.Logger logger)
+        public void Init(IPA.Logging.Logger logger, Config conf)
         {
             Logger.log = logger;
+            PluginConfig.Instance = conf.Generated<PluginConfig>();
         }
+
 
         [OnStart]
         public void OnApplicationStart()
         {
-            Config.Read();
+            //Config.Read();
 
             harmony = new Harmony("com.zephyr.BeatSaber.JDFixer");
             harmony.PatchAll(System.Reflection.Assembly.GetExecutingAssembly());
@@ -49,7 +53,7 @@ namespace JDFixer
 
         private void SceneManager_activeSceneChanged(UnityEngine.SceneManagement.Scene arg0, UnityEngine.SceneManagement.Scene arg1)
         {
-            Config.Write();
+            //Config.Write();
 
             //Logger.log.Debug("Prev: " + arg0.name + " Next: " + arg1.name);
         }
@@ -127,7 +131,7 @@ namespace JDFixer
         [OnExit]
         public void OnApplicationQuit()
         {
-            Config.Write();
+            //Config.Write();
 
             BS_Utils.Utilities.BSEvents.lateMenuSceneLoadedFresh -= BSEvents_lateMenuSceneLoadedFresh;
             BS_Utils.Utilities.BSEvents.difficultySelected -= BSEvents_difficultySelected;

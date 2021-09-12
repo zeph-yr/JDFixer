@@ -129,6 +129,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BeatmapUtils.cs" />
+    <Compile Include="PluginConfig.cs" />
     <Compile Include="UI\RTPreferencesListViewController.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="HarmonyPatches.cs" />
@@ -170,6 +171,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="UI\BSML\rtPreferencesList.bsml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Configuration\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -16,9 +16,9 @@ namespace JDFixer.UI
         public override string ResourceName => "JDFixer.UI.BSML.rtPreferencesList.bsml";
 
         [UIValue("minRT")]
-        private int minRT => Config.UserConfig.minReactionTime;
+        private int minRT => PluginConfig.Instance.minReactionTime;
         [UIValue("maxRT")]
-        private int maxRT => Config.UserConfig.maxReactionTime;
+        private int maxRT => PluginConfig.Instance.maxReactionTime;
 
 
         [UIComponent("prefList")]
@@ -83,32 +83,38 @@ namespace JDFixer.UI
         private void SelectedPref(TableView tableView, int row)
         {
             Logger.log.Debug("Selected row " + row);
-            _selectedPref = Config.UserConfig.rt_preferredValues[row];
+            _selectedPref = PluginConfig.Instance.rt_preferredValues[row];
             prefIsSelected = prefIsSelected;
         }
         [UIAction("addPressed")]
         private void AddNewValue()
         {
-            if (Config.UserConfig.rt_preferredValues.Any(x => x.njs == _newNjs))
+            if (PluginConfig.Instance.rt_preferredValues.Any(x => x.njs == _newNjs))
             {
-                Config.UserConfig.rt_preferredValues.RemoveAll(x => x.njs == _newNjs);
+                PluginConfig.Instance.rt_preferredValues.RemoveAll(x => x.njs == _newNjs);
             }
-            Config.UserConfig.rt_preferredValues.Add(new RTPref(_newNjs, _newReactionTime));
-            Config.Write();
+            PluginConfig.Instance.rt_preferredValues.Add(new RTPref(_newNjs, _newReactionTime));
+            //Config.Write();
             ReloadListFromConfig();
         }
         [UIAction("removePressed")]
         private void RemoveSelectedPref()
         {
             if (_selectedPref == null) return;
-            Config.UserConfig.rt_preferredValues.RemoveAll(x => x == _selectedPref);
-            Config.Write();
+            PluginConfig.Instance.rt_preferredValues.RemoveAll(x => x == _selectedPref);
+            //Config.Write();
             ReloadListFromConfig();
         }
         private void ReloadListFromConfig()
         {
             prefList.data.Clear();
-            foreach (var pref in Config.UserConfig.rt_preferredValues)
+
+            if (PluginConfig.Instance.rt_preferredValues == null)
+                return;
+
+            PluginConfig.Instance.rt_preferredValues.Sort((x, y) => y.njs.CompareTo(x.njs));
+
+            foreach (var pref in PluginConfig.Instance.rt_preferredValues)
             {
                 prefList.data.Add(new CustomListTableData.CustomCellInfo($"{pref.njs} NJS | {pref.reactionTime} ms"));
             }

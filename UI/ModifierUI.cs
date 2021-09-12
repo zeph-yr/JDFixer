@@ -35,22 +35,22 @@ namespace JDFixer.UI
 
         private PreferencesFlowCoordinator _prefFlow;
         [UIValue("minJump")]
-        private int minJump => Config.UserConfig.minJumpDistance;
+        private int minJump => PluginConfig.Instance.minJumpDistance;
         [UIValue("maxJump")]
-        private int maxJump => Config.UserConfig.maxJumpDistance;
+        private int maxJump => PluginConfig.Instance.maxJumpDistance;
 
 
         [UIValue("enabled")]
         public bool modEnabled
         {
-            get => Config.UserConfig.enabled;
+            get => PluginConfig.Instance.enabled;
             set
             {
-                Config.UserConfig.enabled = value;
+                PluginConfig.Instance.enabled = value;
             }
         }
         [UIAction("setEnabled")]
-        void SetEnabled(bool value)
+        public void SetEnabled(bool value)
         {
             modEnabled = value;
         }
@@ -62,10 +62,10 @@ namespace JDFixer.UI
         /*[UIValue("practiceEnabled")]
         public bool practiceEnabled
         {
-            get => Config.UserConfig.enabledInPractice;
+            get => PluginConfig.Instance.enabledInPractice;
             set
             {
-                Config.UserConfig.enabledInPractice = value;
+                PluginConfig.Instance.enabledInPractice = value;
             }
         }
         [UIAction("setPracticeEnabled")]
@@ -82,7 +82,7 @@ namespace JDFixer.UI
 
         public string GetMapDefaultJDText()
         {
-            if (Config.UserConfig.rt_display_enabled)
+            if (PluginConfig.Instance.rt_display_enabled)
                 return "<#ffff00>" + _selectedBeatmap.JumpDistance.ToString("0.###") + "     <#8c1aff>" + _selectedBeatmap.ReactionTime.ToString("0.#") + " ms";
 
             return "<#ffff00>" + _selectedBeatmap.JumpDistance.ToString("0.###");
@@ -94,7 +94,7 @@ namespace JDFixer.UI
 
         public string GetMapMinJDText()
         {
-            if (Config.UserConfig.rt_display_enabled)
+            if (PluginConfig.Instance.rt_display_enabled)
                 return "<#8c8c8c>" + _selectedBeatmap.MinJumpDistance.ToString("0.###") + "     <#8c8c8c>" + _selectedBeatmap.MinReactionTime.ToString("0.#" + " ms");
 
             return "<#8c8c8c>" + _selectedBeatmap.MinJumpDistance.ToString("0.###");
@@ -102,14 +102,14 @@ namespace JDFixer.UI
 
 
         [UIComponent("jumpDisSlider")]
-        private SliderSetting jumpDisSlider;
+        public SliderSetting jumpDisSlider;
         [UIValue("jumpDisValue")]
         public float jumpDisValue
         {
-            get => Config.UserConfig.jumpDistance;
+            get => PluginConfig.Instance.jumpDistance;
             set
             {
-                Config.UserConfig.jumpDistance = value;
+                PluginConfig.Instance.jumpDistance = value;
                 NotifyPropertyChanged(nameof(ReactionTimeText));
 
                 //Logger.log.Debug(value.ToString());
@@ -117,7 +117,7 @@ namespace JDFixer.UI
             }
         }
         [UIAction("setJumpDis")]
-        void SetJumpDis(float value)
+        public void SetJumpDis(float value)
         {
             jumpDisValue = value;
         }
@@ -129,20 +129,20 @@ namespace JDFixer.UI
         [UIValue("usePrefJumpValues")]
         public bool usePrefJumpValues
         {
-            get => Config.UserConfig.usePreferredJumpDistanceValues;
+            get => PluginConfig.Instance.usePreferredJumpDistanceValues;
             set
             {
-                Config.UserConfig.usePreferredJumpDistanceValues = value;
+                PluginConfig.Instance.usePreferredJumpDistanceValues = value;
             }
         }
         [UIAction("setUsePrefJumpValues")]
-        void SetUsePrefJumpValues(bool value)
+        public void SetUsePrefJumpValues(bool value)
         {
             usePrefJumpValues = value;
 
             /*if (value)
             {
-                Config.UserConfig.rt_enabled = false;
+                PluginConfig.Instance.rt_enabled = false;
                 NotifyPropertyChanged(nameof(RTEnabled));
             }*/
         }
@@ -153,20 +153,20 @@ namespace JDFixer.UI
         [UIValue("rtEnabled")]
         public bool RTEnabled
         {
-            get => Config.UserConfig.rt_enabled;
+            get => PluginConfig.Instance.rt_enabled;
             set
             {
-                Config.UserConfig.rt_enabled = value;
+                PluginConfig.Instance.rt_enabled = value;
             }
         }
         [UIAction("setRTEnabled")]
-        void SetRTEnabled(bool value)
+        public void SetRTEnabled(bool value)
         {
             RTEnabled = value;
 
             /*if (value)
             {
-                Config.UserConfig.usePreferredJumpDistanceValues = false;
+                PluginConfig.Instance.usePreferredJumpDistanceValues = false;
                 NotifyPropertyChanged(nameof(usePrefJumpValues));
             }*/
         }
@@ -175,7 +175,7 @@ namespace JDFixer.UI
 
 
         [UIAction("prefButtonClicked")]
-        void PrefButtonClicked()
+        public void PrefButtonClicked()
         {
             if (_prefFlow == null)
                 _prefFlow = BeatSaberUI.CreateFlowCoordinator<PreferencesFlowCoordinator>();
@@ -188,14 +188,14 @@ namespace JDFixer.UI
         [UIValue("useHeuristic")]
         public bool heuristicEnabled
         {
-            get => Config.UserConfig.use_heuristic;
+            get => PluginConfig.Instance.use_heuristic;
             set
             {
-                Config.UserConfig.use_heuristic = value;
+                PluginConfig.Instance.use_heuristic = value;
             }
         }
         [UIAction("setUseHeuristic")]
-        void SetHeuristic(bool value)
+        public void SetHeuristic(bool value)
         {
             heuristicEnabled = value;
         }
@@ -204,7 +204,7 @@ namespace JDFixer.UI
         [UIValue("thresholds")]
         public string thresholds
         {
-            get => "≤ " + Config.UserConfig.lower_threshold.ToString() + " and " + Config.UserConfig.upper_threshold.ToString() + " ≤";
+            get => "≤ " + PluginConfig.Instance.lower_threshold.ToString() + " and " + PluginConfig.Instance.upper_threshold.ToString() + " ≤";
         }
 
 
@@ -212,14 +212,14 @@ namespace JDFixer.UI
         /*[UIValue("lowerthreshold")]
         public string lowerthreshold
         {
-            get => Config.UserConfig.lower_threshold.ToString();
+            get => PluginConfig.Instance.lower_threshold.ToString();
         }
 
         // Thresholds Display
         [UIValue("upperthreshold")]
         public string upperthreshold
         {
-            get => Config.UserConfig.upper_threshold.ToString();
+            get => PluginConfig.Instance.upper_threshold.ToString();
         }*/
         //###################################
 
