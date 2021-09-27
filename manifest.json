@@ -5,7 +5,7 @@
   "gameVersion": "1.18.0",
   "id": "JDFixer",
   "name": "JDFixer",
-  "version": "2.1.4",
+  "version": "2.1.5",
   "dependsOn": {
     "BSIPA": "^4.2.0",
     "BS Utils": "^1.11.0",
