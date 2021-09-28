@@ -4,7 +4,7 @@ Was once based on Kylemc1413's NjsFixer but now has grown to much more.
 
 I wanted a stripped down mod that focused only on JD modification to fix floaty maps without NJS/BPM modification since I don't use those features. I felt there was a gap between Njsfixer and Leveltweaks that isn't filled for JD-focused players and this is my interpretation for meeting those needs.
 
-Supports CustomCampaigns, Tournament Assistant, Multiplayer, OST. Score submission is unaffected. For Beat Saber 1.17.1.
+Supports CustomCampaigns, Tournament Assistant, Multiplayer, OST. Score submission is unaffected. For Beat Saber 1.17.1+.
 
 ## New Features
 - Selected map's original JD is displayed in the Mod menu. You can easily decide if you want to use JDFixer without having to play the map to feel it. Saves time.
@@ -23,17 +23,17 @@ Supports CustomCampaigns, Tournament Assistant, Multiplayer, OST. Score submissi
 ## How To Use
 - Place JDFixer.dll in Plugins folder
 - Select a map / difficulty to see its original JD
-- Upper and Lower NJS Thresholds can be set in JDFixer.json in UserData folder
-- Min and max range in the JD and RT sliders can be set in JDFixer.json
+- Upper and Lower NJS Thresholds are set in JDFixer.json in UserData folder
+- Min and max range of JD and RT sliders can be set in JDFixer.json
 - Preferences for NJS-JD and NJS-RT pairs are set in-game. Decimal JD and RT values can be set in JDFixer.json
-- To access the RT Preferences menu, toggle ON "Use RT Preferences" and click "JD and RT Preferences"
-- Enabling "Use JD Preferences" or "Use RT Preferences" will override the JD value in the slider
-- Enabling 'Use RT Preferences' will override JD Preferences even if 'Use JD Preferences' is turned on.
+- To access the RT Preferences menu, toggle ON `Use RT Preferences` and click `JD and RT Preferences`
+- Enabling `Use JD Preferences` or `Use RT Preferences` will override the JD value in the slider
+- Enabling `Use RT Preferences` will override JD Preferences even if `Use JD Preferences` is turned on.
 - Hover over menu in-game for explanations
-- **Not compatible with NjsFixer and LevelTweaks** Using with these mods may result in conflicts and unexpected behavior.
+- **Not compatible with NjsFixer and LevelTweaks.** Using with these mods may result in conflicts and unexpected behavior.
 - Requires BSIPA, BSML and BS_Utils
 
-**v2.1.3 will import your settings file**
+**v2.1.3+ will import your settings file**
 
 **v2.1.0 is not compatible with settings files from previous versions:**
 Please allow the mod to generate a new JDFixer.json and re-enter your settings in-game. If you are knowledgeable, you can copy the relevant data from the old .json to the new one. Just make sure you do it correctly.
@@ -50,20 +50,20 @@ Your selected map's NJS is 21.5 and JD is 20.
 The map will run at 16 JD because 21 NJS is the closest lower match.
 
 **Example 3:**
-Your selected map's NJS is 21.5 and JD is 14 *and* "Use Map JD If Lower" is toggled ON.
+Your selected map's NJS is 21.5 and JD is 14 *and* `Use Map JD If Lower` is toggled ON.
 The map will run at its original 14 JD because it is lower than your matching preference (21-16).
 
 **Example 4:**
-Your selected map's NJS is 23 and JD is 20 *and* your Upper Threshold is set to 23.
+Your selected map's NJS is 23 and JD is 20 *and* your `Upper Threshold` is set to 23.
 The map will run at its original 20 JD because it triggered the threhold.
 
-- If "Use JD Preferences" is enabled but no Preferences are set, the map will run at JD value in the slider
+- If `Use JD Preferences` is enabled but no Preferences are set, the map will run at JD value in the slider
 - Thresholds override Preferences only
 - If you need decimal values for Preferences, you can set them in JDFixer.json.
 
 **Reaction Time Preferences:** 
 This works exactly the same as the JD Preferences. The four examples above apply, except in reaction time.
-Enabling "Use Reaction Time Preferences" will override JD Preferences even if "Use JD Preferences" is turned on.
+Enabling `Use Reaction Time Preferences` will override JD Preferences even if `Use JD Preferences` is turned on.
 
 ## Tournaments and MP
 - **Tournament Assistant:** Works with Default, Dual Sync and AutoPause matches. JD slider and Preferences work as normal. Map JD display does not function. Avoid opening the Preferences menu in TA! You will be stuck in it until you relaunch the game. However if you do choose to get yourself stuck inside just before a match, your match will still play fine when the coordinator starts it KEKW.
@@ -73,14 +73,14 @@ Enabling "Use Reaction Time Preferences" will override JD Preferences even if "U
 
 ## UI Option
 The default and minimum Reaction Time Display can be hidden to revert to the previous version's UI.
-Set "rt_display_enabled" in JDFixer.json to "false"
+Set `rt_display_enabled` in JDFixer.json to "false"
 
-![screenshot](https://github.com/zeph-yr/JDFixer/blob/BS_1.16.4_MA_v2.0.3/Screenshots/2.0.3_menu_1_small.png)
+![screenshot](https://github.com/zeph-yr/JDFixer/blob/BS_1.16.4_MA_v2.0.3/Screenshots/ui_options.png)
 
 ## About
 This is my first time writing a mod. I made it for my own needs but friends thought it useful so I think it would be beneficial to share it. I hope others find this useful.
 I welcome feedback and suggestions :) 
 
 ## Credits
-Thanks Shurdoof for autoupdate!
+Thanks @Shurdoof for autoupdate!
 Thanks Kyle for the original NjsFixer (https://github.com/Kylemc1413/NjsFixer) and thanks to the cool peeps in BSMG discord for the help and advice :)
