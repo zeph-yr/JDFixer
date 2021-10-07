@@ -88,8 +88,8 @@ namespace JDFixer
             while (mapNJS * numCurr * num2Curr > 18f)
                 num2Curr /= 2f;
 
-            if (num2Curr < 1f)
-                num2Curr = 1f;
+            if (num2Curr < 0.25f)
+                num2Curr = 0.25f;
 
             float jumpDurCurr = num2Curr * numCurr * 2f;
             float jumpDisCurr = mapNJS * jumpDurCurr;

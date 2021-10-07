@@ -39,7 +39,7 @@
     </horizontal>
 
 	<horizontal>
-		<text text='Instructions at github.com/zeph-yr/JDFixer#readme     v2.1.5' font-color='#ff0080ff' font-size='3' align='Center' hover-hint="You'll wanna read this, trust me."></text>	  
+		<text text='Instructions at github.com/zeph-yr/JDFixer#readme     v2.1.6' font-color='#ff0080ff' font-size='3' align='Center' hover-hint="You'll wanna read this, trust me."></text>	  
 	</horizontal>
   </settings-container>
   <button id='leftButton' text='&lt;' direction='Left' />

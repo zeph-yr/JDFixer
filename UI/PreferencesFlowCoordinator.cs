@@ -24,16 +24,10 @@ namespace JDFixer.UI
 
         protected override void DidActivate(bool firstActivation, bool addedToHierarchy, bool screenSystemEnabling)
         {
-            if(firstActivation)
+            if (firstActivation)
             {
                 showBackButton = true;
                 SetTitle("JDFixer Preferences");
-
-                if (PluginConfig.Instance.rt_enabled)
-                    ProvideInitialViewControllers(_rtPrefListView);
-
-                else
-                    ProvideInitialViewControllers(_prefListView);
             }
 
             if (PluginConfig.Instance.rt_enabled)

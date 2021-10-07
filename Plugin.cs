@@ -136,6 +136,10 @@ namespace JDFixer
             BS_Utils.Utilities.BSEvents.lateMenuSceneLoadedFresh -= BSEvents_lateMenuSceneLoadedFresh;
             BS_Utils.Utilities.BSEvents.difficultySelected -= BSEvents_difficultySelected;
             //UnityEngine.SceneManagement.SceneManager.activeSceneChanged -= SceneManager_activeSceneChanged;
+
+            leveldetail.didChangeContentEvent -= Leveldetail_didChangeContentEvent;
+            missionselection.didSelectMissionLevelEvent -= Missionselection_didSelectMissionLevelEvent;
+
             harmony.UnpatchAll("com.zephyr.BeatSaber.JDFixer");
         }
     }
