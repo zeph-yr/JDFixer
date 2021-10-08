@@ -81,6 +81,8 @@ namespace JDFixer
             }
 
             // Calculate New Offset Given Desired JD:
+            //Logger.log.Debug($"BPM/NJS/Offset {startBpm}/{startNoteJumpMovementSpeed}/{noteJumpStartBeatOffset}");
+
             float simOffset = 0;
             float numCurr = 60f / startBpm;
             float num2Curr = 4f;
@@ -102,8 +104,6 @@ namespace JDFixer
 
             noteJumpStartBeatOffset = simOffset;
 
-            //Logger.log.Debug("Fixing");
-            //Logger.log.Debug($"BPM/NJS/Offset {startBpm}/{startNoteJumpMovementSpeed}/{noteJumpStartBeatOffset}");
             //Logger.log.Debug($"HalfJumpCurrent: {num2Curr} | DesiredHalfJump {desiredHalfJumpDur} | DesiredJumpDis {desiredJumpDis} | CurrJumpDis {jumpDisCurr} | Simulated Offset {simOffset}");
         }
 
