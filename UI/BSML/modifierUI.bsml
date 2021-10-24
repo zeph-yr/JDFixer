@@ -14,7 +14,7 @@
 		</grid>
     </horizontal>
 
-    <slider-setting id='jumpDisSlider' value ='jumpDisValue' on-change='setJumpDis' text='Desired Jump Distance' increment='0.1' min='~minJump' max='~maxJump' hover-hint='Run map at this JD or as close to it as possible'></slider-setting>
+    <slider-setting id='jumpDisSlider' value ='jumpDisValue' show-buttons='true' on-change='setJumpDis' text='Desired Jump Distance' increment='0.1' min='~minJump' max='~maxJump' hover-hint='Run map at this JD or as close to it as possible'></slider-setting>
 
 	  <horizontal>
 		  <grid cell-size-y='5' cell-size-x='28' spacing-x='2' align='Right'>
@@ -42,6 +42,4 @@
 		<text text='Instructions at github.com/zeph-yr/JDFixer#readme     v2.1.6' font-color='#ff0080ff' font-size='3' align='Center' hover-hint="You'll wanna read this, trust me."></text>	  
 	</horizontal>
   </settings-container>
-  <button id='leftButton' text='&lt;' direction='Left' />
-  <button id='rightButton' text='&gt;' direction='Right' />
 </bg>
