@@ -223,20 +223,6 @@ namespace JDFixer.UI
         }*/
         //###################################
 
-
-        [UIComponent("leftButton")]
-        private RectTransform leftButton;
-        [UIComponent("rightButton")]
-        private RectTransform rightButton;
-
-        [UIAction("#post-parse")]
-        void PostParse() // Arrow buttons on the slider
-        {
-            SliderButton.Register(GameObject.Instantiate(leftButton), GameObject.Instantiate(rightButton), jumpDisSlider, 0.1f);
-            GameObject.Destroy(leftButton.gameObject);
-            GameObject.Destroy(rightButton.gameObject);
-        }
-
         public static FlowCoordinator DeepestChildFlowCoordinator(FlowCoordinator root)
         {
             var flow = root.childFlowCoordinator;

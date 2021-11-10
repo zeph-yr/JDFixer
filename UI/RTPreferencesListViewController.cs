@@ -145,10 +145,6 @@ namespace JDFixer.UI
         private void PostParse()
         {
             ReloadListFromConfig();
-            SliderButton.Register(GameObject.Instantiate(leftButton), GameObject.Instantiate(rightButton), njsSlider, 1f);
-            SliderButton.Register(GameObject.Instantiate(leftButton), GameObject.Instantiate(rightButton), rtSlider, 1f);
-            GameObject.Destroy(leftButton.gameObject);
-            GameObject.Destroy(rightButton.gameObject);
         }
     }
 }

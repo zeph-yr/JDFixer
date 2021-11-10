@@ -12,14 +12,12 @@
 	
     <modal id='AddModal' show-event='addPressed' hide-event='closeModals' click-off-closes='false' size-delta-x='120' size-delta-y='40'>
         <settings-container child-expand-height='false' pad-top='3' pad-bottom='3' child-control-width='true' child-expand-width='true' anchor-pos-y='-3' size-delta-y='0'>
-            <slider-setting id='njsSlider' value='njsValue' on-change='setNjs' text='NJS' increment='1' min='0' max='50' ></slider-setting>
-            <slider-setting id='jdSlider' value ='jumpDisValue' on-change='setJumpDis' text='Desired Jump Distance' increment='0.1' min='~minJump' max='~maxJump' ></slider-setting>
+            <slider-setting id='njsSlider' show-buttons='true' value='njsValue' on-change='setNjs' text='NJS' increment='1' min='0' max='50' ></slider-setting>
+            <slider-setting id='jdSlider' show-buttons='true' value ='jumpDisValue' on-change='setJumpDis' text='Desired Jump Distance' increment='0.1' min='~minJump' max='~maxJump' ></slider-setting>
             <horizontal>
                 <button text='Add' on-click='addPressed' click-event='closeModals'></button>
                 <button text='Cancel' click-event='closeModals'></button>
             </horizontal>  
         </settings-container>
-        <button id='leftButton' text='&lt;' direction='Left' />
-        <button id='rightButton' text='&gt;' direction='Right' />
     </modal>
 </bg>
