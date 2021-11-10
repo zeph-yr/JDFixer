@@ -3,22 +3,37 @@ using BeatSaberMarkupLanguage.Attributes;
 using BeatSaberMarkupLanguage.Components;
 using BeatSaberMarkupLanguage.Components.Settings;
 using HMUI;
+using Zenject;
+using System;
 using UnityEngine;
+using System.ComponentModel;
+using JDFixer.Interfaces;
 
 namespace JDFixer.UI
 {
-    public class ModifierUI : NotifiableSingleton<ModifierUI>
+    public class ModifierUI : IInitializable, IDisposable, INotifyPropertyChanged, IBeatmapInfoUpdater
     {
         private BeatmapInfo _selectedBeatmap = BeatmapInfo.Empty;
-        public ModifierUI()
+
+        public void Initialize()
         {
-            BeatmapInfo.SelectedChanged += beatmapInfo =>
+            BeatSaberMarkupLanguage.GameplaySetup.GameplaySetup.instance.AddTab("JDFixer", "JDFixer.UI.BSML.modifierUI.bsml", this);
+        }
+
+        public void Dispose()
+        {
+            if (BeatSaberMarkupLanguage.GameplaySetup.GameplaySetup.instance != null)
             {
-                _selectedBeatmap = beatmapInfo;
-                NotifyPropertyChanged(nameof(MapDefaultJDText));
-                NotifyPropertyChanged(nameof(MapMinJDText));
-                NotifyPropertyChanged(nameof(ReactionTimeText));
-            };
+                BeatSaberMarkupLanguage.GameplaySetup.GameplaySetup.instance.RemoveTab("JDFixer");
+            }
+        }
+
+        public void BeatmapInfoUpdated(BeatmapInfo beatmapInfo)
+        {
+            _selectedBeatmap = beatmapInfo;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(MapDefaultJDText)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(MapMinJDText)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ReactionTimeText)));
         }
 
         private string CalculateReactionTime()
@@ -103,6 +118,9 @@ namespace JDFixer.UI
 
         [UIComponent("jumpDisSlider")]
         public SliderSetting jumpDisSlider;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
         [UIValue("jumpDisValue")]
         public float jumpDisValue
         {

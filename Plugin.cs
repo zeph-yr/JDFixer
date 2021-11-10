@@ -34,54 +34,13 @@ namespace JDFixer
             BS_Utils.Utilities.BSEvents.difficultySelected += BSEvents_difficultySelected;
             //UnityEngine.SceneManagement.SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
 
-            BeatSaberMarkupLanguage.GameplaySetup.GameplaySetup.instance.AddTab("JDFixer", "JDFixer.UI.BSML.modifierUI.bsml", UI.ModifierUI.instance);
             //BeatSaberMarkupLanguage.GameplaySetup.GameplaySetup.instance.AddTab("JDFixerOnline", "JDFixer.UI.BSML.modifierOnlineUI.bsml", UI.ModifierUI.instance, BeatSaberMarkupLanguage.GameplaySetup.MenuType.Online);
-            
-
-            // Note: Fails here, too early
-            //leveldetail = Resources.FindObjectsOfTypeAll<StandardLevelDetailViewController>().FirstOrDefault();
-            //leveldetail.didChangeContentEvent += Leveldetail_didChangeContentEvent;
-            //missionselection = Resources.FindObjectsOfTypeAll<MissionSelectionMapViewController>().FirstOrDefault();
-            //missionselection.didSelectMissionLevelEvent += Missionselection_didSelectMissionLevelEvent;
-
-
-            //-------------------------------------------------------------------------------------
-            //hasTA = IPA.Loader.PluginManager.GetPluginFromId("TournamentAssistant");
-            //Logger.log.Debug(hasTA.Name);
-            //-------------------------------------------------------------------------------------
         }
-
-        /*private void SceneManager_activeSceneChanged(UnityEngine.SceneManagement.Scene arg0, UnityEngine.SceneManagement.Scene arg1)
-        {
-            //Config.Write();
-
-            //Logger.log.Debug("Prev: " + arg0.name + " Next: " + arg1.name);
-        }*/
 
         // For when user selects a map with only 1 difficulty or selects a map but does not click a difficulty
         private void BSEvents_lateMenuSceneLoadedFresh(ScenesTransitionSetupDataSO obj)
         {
             //Logger.log.Debug(obj.scenes[0].sceneName);
-
-
-            //-------------------------------------------------------------------------------------
-            // Attempt to set display in TA to 0s to avoid misleading player lol
-            // Note: Doesn't work if you put a return here cuz TA is always enabled even when youre not in TA lol...
-            // Seems like leveldetail is always existing even in TA but not after a song ends in Solo
-
-            /*if (hasTA != null && IPA.Loader.PluginManager.IsEnabled(hasTA))
-            {
-                Logger.log.Debug("TA ENABLED");
-
-                // Attempt to detect when player is in TA... This doesnt work. Seems like it never evaluates to true
-                // Maybe this needs to be another function
-                if (TournamentAssistant.Plugin.client != null && TournamentAssistant.Plugin.client.Connected)
-                {
-                    Logger.log.Debug("INSIDE TA LOBBY");
-                    //BeatmapInfo.SetSelected(null);
-                }
-            }*/
-            //-------------------------------------------------------------------------------------
 
 
             // Note: Is there a need to check if these are null? Are they ever null?
