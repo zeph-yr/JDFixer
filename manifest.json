@@ -5,12 +5,13 @@
   "gameVersion": "1.18.1",
   "id": "JDFixer",
   "name": "JDFixer",
-  "version": "2.1.6",
+  "version": "2.1.7",
   "dependsOn": {
     "BSIPA": "^4.2.0",
     "BS Utils": "^1.11.0",
     "BeatSaberMarkupLanguage": "^1.5.9"
   },
+    "loadBefore": ["Chroma"],
     "links": {
         "donate": "paypal.me/zeph3yr"
     }
