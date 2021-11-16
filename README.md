@@ -1,10 +1,10 @@
 # JDFixer
 
-Was once based on Kylemc1413's NjsFixer but now has grown to much more.
+Was once based on Kylemc1413's NjsFixer but has since taken a life of its own.
 
 I wanted a stripped down mod that focused only on JD modification to fix floaty maps without NJS/BPM modification since I don't use those features. I felt there was a gap between Njsfixer and Leveltweaks that isn't filled for JD-focused players and this is my interpretation for meeting those needs.
 
-Supports CustomCampaigns, Tournament Assistant, Multiplayer, OST. Score submission is unaffected. For Beat Saber 1.17.1+.
+Supports CustomCampaigns, Tournament Assistant, Multiplayer, OST. Score submission is unaffected. For Beat Saber 1.16.2 to 1.18.3.
 
 ## New Features
 - Selected map's original JD is displayed in the Mod menu. You can easily decide if you want to use JDFixer without having to play the map to feel it. Saves time.
