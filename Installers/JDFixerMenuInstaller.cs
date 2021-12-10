@@ -1,10 +1,5 @@
 ﻿using JDFixer.Managers;
 using JDFixer.UI;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Zenject;
 
 namespace JDFixer.Installers
@@ -15,7 +10,7 @@ namespace JDFixer.Installers
         {
             Container.BindInterfacesTo<JDFixerUIManager>().AsSingle();
             Container.BindInterfacesTo<ModifierUI>().AsSingle();
-            Container.Bind<PreferencesFlowCoordinator>().FromNewComponentOnNewGameObject().AsSingle();
+            Container.InstantiateComponentOnNewGameObject<PreferencesFlowCoordinator>();
         }
     }
 }

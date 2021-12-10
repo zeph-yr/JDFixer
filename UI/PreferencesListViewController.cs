@@ -34,11 +34,11 @@ namespace JDFixer.UI
         }
 
 
-        [UIComponent("leftButton")]
+        /*[UIComponent("leftButton")]
         private RectTransform leftButton;
         
         [UIComponent("rightButton")]
-        private RectTransform rightButton;
+        private RectTransform rightButton;*/
 
 
         [UIComponent("njsSlider")]

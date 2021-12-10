@@ -3,10 +3,10 @@ using System.Linq;
 
 namespace JDFixer
 {
-    /*[HarmonyPatch(typeof(BeatmapObjectSpawnMovementData), "Init")]
+    [HarmonyPatch(typeof(BeatmapObjectSpawnMovementData), "Init")]
     internal class SpawnMovementDataUpdatePatch
     {
-        public static void Prefix(ref float startNoteJumpMovementSpeed, float startBpm, ref float noteJumpStartBeatOffset, ref BeatmapObjectSpawnMovementData __instance, ref bool __state)
+        public static void Prefix(ref float startNoteJumpMovementSpeed, float startBpm, /*ref float noteJumpStartBeatOffset,*/ ref BeatmapObjectSpawnMovementData.NoteJumpValueType noteJumpValueType, ref float noteJumpValue, ref BeatmapObjectSpawnMovementData __instance, ref bool __state)
         {
             /*bool WillOverride = BS_Utils.Plugin.LevelData.IsSet && PluginConfig.Instance.enabled
                 && (BS_Utils.Plugin.LevelData.Mode == BS_Utils.Gameplay.Mode.Standard
@@ -18,14 +18,18 @@ namespace JDFixer
 
             //__state = WillOverride;
 
-   //         if (!WillOverride)
-     //           return;
+            //if (!WillOverride)
+            //    return;
 
-           /* Logger.log.Debug("Start Map");
+           Logger.log.Debug("Start Map");
+
+            // BS 1.19.0
+            noteJumpValueType = BeatmapObjectSpawnMovementData.NoteJumpValueType.BeatOffset;
+            float noteJumpStartBeatOffset = noteJumpValue;
 
 
             float mapNJS = startNoteJumpMovementSpeed;
-            //Logger.log.Debug("mapNJS:" + mapNJS.ToString());
+            Logger.log.Debug("mapNJS:" + mapNJS.ToString());
 
             if (mapNJS <= 0.01) // Just in case?
                 mapNJS = 10;
@@ -59,12 +63,12 @@ namespace JDFixer
                 // For Acc and Speed Maps:
                 if (mapNJS <= PluginConfig.Instance.lower_threshold || mapNJS >= PluginConfig.Instance.upper_threshold)
                 {
-                    //Logger.log.Debug("Using Threshold");
+                    Logger.log.Debug("Using Threshold");
                     return;
                 }
 
                 var pref = PluginConfig.Instance.preferredValues.FirstOrDefault(x => x.njs <= mapNJS);
-                //Logger.log.Debug("Using Preference");
+                Logger.log.Debug("Using Preference");
 
                 if (pref != null)
                     desiredJumpDis = pref.jumpDistance;
@@ -74,8 +78,8 @@ namespace JDFixer
                 // mapper is lower than my pick, it's probably more optimal than my pick.
                 if (BeatmapUtils.CalculateJumpDistance(startBpm, mapNJS, noteJumpStartBeatOffset) <= desiredJumpDis && PluginConfig.Instance.use_heuristic)
                 {
-                    //Logger.log.Debug("Not Fixing: Original JD below or equal setpoint");
-                    //Logger.log.Debug($"BPM/NJS/Offset {startBpm}/{startNoteJumpMovementSpeed}/{noteJumpStartBeatOffset}");
+                    Logger.log.Debug("Not Fixing: Original JD below or equal setpoint");
+                    Logger.log.Debug($"BPM/NJS/Offset {startBpm}/{startNoteJumpMovementSpeed}/{noteJumpStartBeatOffset}");
                     return;
                 }
             }
@@ -102,17 +106,20 @@ namespace JDFixer
 
             simOffset = (num2Curr * jumpDurMul) - num2Curr;
 
-            noteJumpStartBeatOffset = simOffset;
+            //noteJumpStartBeatOffset = simOffset;
+            
+            // BS 1.19.0
+            noteJumpValue = simOffset;
 
-            //Logger.log.Debug($"HalfJumpCurrent: {num2Curr} | DesiredHalfJump {desiredHalfJumpDur} | DesiredJumpDis {desiredJumpDis} | CurrJumpDis {jumpDisCurr} | Simulated Offset {simOffset}");
+            Logger.log.Debug($"HalfJumpCurrent: {num2Curr} | DesiredHalfJump {desiredHalfJumpDur} | DesiredJumpDis {desiredJumpDis} | CurrJumpDis {jumpDisCurr} | Simulated Offset {simOffset}");
         }
 
-        public static void Postfix(ref float ____jumpDistance, bool __state)
+        /*public static void Postfix(ref float ____jumpDistance, bool __state)
         {
             if (__state)
                 Logger.log.Debug("Final Jump Distance: " + ____jumpDistance);
-        }
-    }*/
+        }*/
+    }
 
 
     // Note: Patching DidActivate works only when diff is clicked

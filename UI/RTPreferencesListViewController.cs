@@ -36,11 +36,11 @@ namespace JDFixer.UI
         }
 
 
-        [UIComponent("leftButton")]
+        /*[UIComponent("leftButton")]
         private RectTransform leftButton;
         [UIComponent("rightButton")]
         private RectTransform rightButton;
-
+        */
 
         [UIComponent("njsSlider")]
         private SliderSetting njsSlider;
@@ -84,6 +84,7 @@ namespace JDFixer.UI
         private void SelectedPref(TableView tableView, int row)
         {
             Logger.log.Debug("Selected row " + row);
+
             _selectedPref = PluginConfig.Instance.rt_preferredValues[row];
             prefIsSelected = prefIsSelected;
         }

@@ -195,8 +195,15 @@ namespace JDFixer.UI
         [UIAction("prefButtonClicked")]
         public void PrefButtonClicked()
         {
+            Logger.log.Debug("Pref Clicked");
+
             if (_prefFlow == null)
+            {
+                Logger.log.Debug("Pref flow is null");
                 _prefFlow = BeatSaberUI.CreateFlowCoordinator<PreferencesFlowCoordinator>();
+            }
+                
+
             var ActiveFlowCoordinator = DeepestChildFlowCoordinator(BeatSaberUI.MainFlowCoordinator);
             //_prefFlow.ParentFlow = ActiveFlowCoordinator;
             ActiveFlowCoordinator.PresentFlowCoordinator(_prefFlow, null, ViewController.AnimationDirection.Horizontal, true);

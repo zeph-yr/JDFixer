@@ -4,7 +4,7 @@ using SiraUtil.Logging;
 using System;
 using Zenject;
 
-namespace JDFixer.UI
+/*namespace JDFixer.UI
 {
     public class PreferencesFlowCoordinator : FlowCoordinator
     {
@@ -14,7 +14,7 @@ namespace JDFixer.UI
         private SiraLog _siraLog;
 
         [Inject]
-        public void Construct(MainFlowCoordinator mainFlowCoordinator, /*MenuPointerSelectView menuPointerSelectView,*/ PreferencesListViewController cmpSettingsView, SiraLog siraLog)
+        public void Construct(MainFlowCoordinator mainFlowCoordinator, PreferencesListViewController cmpSettingsView, SiraLog siraLog)
         {
             _mainFlowCoordinator = mainFlowCoordinator;
             //_menuPointerSelectView = menuPointerSelectView;
@@ -45,25 +45,21 @@ namespace JDFixer.UI
             _mainFlowCoordinator.DismissFlowCoordinator(this);
         }
     }
-}
+}*/
 
-
-
-
-
-/*namespace JDFixer.UI
+namespace JDFixer.UI
 {
     public class PreferencesFlowCoordinator : FlowCoordinator
     {
-        private MainFlowCoordinator _mainFlow;
-        private PreferencesListViewController _prefListView;
-        private RTPreferencesListViewController _rtPrefListView;
+        public static FlowCoordinator _mainFlow;
+        public static PreferencesListViewController _prefListView;
+        public static RTPreferencesListViewController _rtPrefListView;
 
-        [Inject] private SiraLog _siraLog;
-
-        public PreferencesFlowCoordinator(MainFlowCoordinator mainFlow, PreferencesListViewController prefListView,
-            RTPreferencesListViewController rtPrefListView)
+        [Inject]
+        public PreferencesFlowCoordinator(FlowCoordinator mainFlow, PreferencesListViewController prefListView, RTPreferencesListViewController rtPrefListView)
         {
+            Logger.log.Debug("Pref Flow constructor");
+
             _mainFlow = mainFlow;
             _prefListView = prefListView;
             _rtPrefListView = rtPrefListView;
@@ -75,9 +71,16 @@ namespace JDFixer.UI
             {
                 if (firstActivation)
                 {
+                    Logger.log.Debug("First activation");
+
                     showBackButton = true;
                     SetTitle("JDFixer Preferences");
                     ProvideInitialViewControllers(_prefListView);
+                }
+
+                else
+                {
+                    Logger.log.Debug("Not first activation");
                 }
 
                 //if (PluginConfig.Instance.rt_enabled)
@@ -88,13 +91,16 @@ namespace JDFixer.UI
             }
             catch(Exception e)
             {
-                _siraLog.Error(e);
+                Logger.log.Debug("Catch");
+                //_siraLog.Error(e);
             }
         }
 
         protected override void BackButtonWasPressed(ViewController topViewController)
         {
+            Logger.log.Debug("Back pressed");
+
             _mainFlow.DismissFlowCoordinator(this);
         }
     }
-}*/
+}
