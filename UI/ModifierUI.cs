@@ -128,6 +128,8 @@ namespace JDFixer.UI
             set
             {
                 PluginConfig.Instance.jumpDistance = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ReactionTimeText)));
+
                 //NotifyPropertyChanged(nameof(ReactionTimeText));
 
                 //Logger.log.Debug(value.ToString());

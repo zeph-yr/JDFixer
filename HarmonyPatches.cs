@@ -21,6 +21,11 @@ namespace JDFixer
             //if (!WillOverride)
             //    return;
 
+            if (PluginConfig.Instance.enabled == false)
+            {
+                return;
+            }
+
            Logger.log.Debug("Start Map");
 
             // BS 1.19.0
@@ -106,10 +111,10 @@ namespace JDFixer
 
             simOffset = (num2Curr * jumpDurMul) - num2Curr;
 
-            //noteJumpStartBeatOffset = simOffset;
-            
             // BS 1.19.0
             noteJumpValue = simOffset;
+            //noteJumpStartBeatOffset = simOffset;
+
 
             Logger.log.Debug($"HalfJumpCurrent: {num2Curr} | DesiredHalfJump {desiredHalfJumpDur} | DesiredJumpDis {desiredJumpDis} | CurrJumpDis {jumpDisCurr} | Simulated Offset {simOffset}");
         }
