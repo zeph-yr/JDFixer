@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace JDFixer
 {
-    [HarmonyPatch(typeof(BeatmapObjectSpawnMovementData), "Init")]
+    /*[HarmonyPatch(typeof(BeatmapObjectSpawnMovementData), "Init")]
     internal class SpawnMovementDataUpdatePatch
     {
         public static void Prefix(ref float startNoteJumpMovementSpeed, float startBpm, ref float noteJumpStartBeatOffset, ref BeatmapObjectSpawnMovementData __instance, ref bool __state)
@@ -21,7 +21,7 @@ namespace JDFixer
    //         if (!WillOverride)
      //           return;
 
-            Logger.log.Debug("Start Map");
+           /* Logger.log.Debug("Start Map");
 
 
             float mapNJS = startNoteJumpMovementSpeed;
@@ -112,18 +112,19 @@ namespace JDFixer
             if (__state)
                 Logger.log.Debug("Final Jump Distance: " + ____jumpDistance);
         }
-    }
+    }*/
 
 
     // Note: Patching DidActivate works only when diff is clicked
     //[HarmonyPatch(typeof(StandardLevelDetailViewController), "DidActivate")]
 
-    [HarmonyPatch(typeof(StandardLevelDetailViewController), MethodType.Constructor)]
+    /*[HarmonyPatch(typeof(StandardLevelDetailViewController), MethodType.Constructor)]
     internal class StandardLevelDetailViewControllerPatch
     {
         public static void Postfix(ref StandardLevelDetailViewController __instance)
         {
-            Plugin.leveldetail = __instance;
+            //Plugin.leveldetail = __instance;
+            JDFixer.Managers.JDFixerUIManager.levelDetail = __instance;
             //Logger.log.Debug("leveldetail found");
         }
     }
@@ -138,5 +139,5 @@ namespace JDFixer
             Plugin.missionselection = __instance;
             //Logger.log.Debug("missionselection found");
         }
-    }
+    }*/
 }

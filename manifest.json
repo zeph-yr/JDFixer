@@ -9,7 +9,8 @@
   "dependsOn": {
     "BSIPA": "^4.2.0",
     "BS Utils": "^1.11.0",
-    "BeatSaberMarkupLanguage": "^1.5.9"
+    "BeatSaberMarkupLanguage": "^1.5.12",
+    "SiraUtil": "^3.0.0"
   },
     "loadBefore": ["Chroma"],
     "links": {

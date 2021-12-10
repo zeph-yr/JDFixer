@@ -48,6 +48,7 @@ namespace JDFixer.UI
         }
 
         private PreferencesFlowCoordinator _prefFlow;
+
         [UIValue("minJump")]
         private int minJump => PluginConfig.Instance.minJumpDistance;
         [UIValue("maxJump")]

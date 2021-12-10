@@ -26,6 +26,8 @@ namespace JDFixer
         [OnEnable]
         public void OnApplicationStart()
         {
+            Logger.log.Debug("OnApplicationStart()");
+
             harmony = new Harmony("com.zephyr.BeatSaber.JDFixer");
             harmony.PatchAll(System.Reflection.Assembly.GetExecutingAssembly());
 

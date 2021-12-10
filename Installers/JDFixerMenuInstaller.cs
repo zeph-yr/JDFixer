@@ -15,6 +15,7 @@ namespace JDFixer.Installers
         {
             Container.BindInterfacesTo<JDFixerUIManager>().AsSingle();
             Container.BindInterfacesTo<ModifierUI>().AsSingle();
+            Container.Bind<PreferencesFlowCoordinator>().FromNewComponentOnNewGameObject().AsSingle();
         }
     }
 }
