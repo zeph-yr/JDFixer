@@ -1,19 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using HMUI;
-using BeatSaberMarkupLanguage;
 using BeatSaberMarkupLanguage.Attributes;
 using BeatSaberMarkupLanguage.Components;
 using BeatSaberMarkupLanguage.ViewControllers;
 using UnityEngine;
 using BeatSaberMarkupLanguage.Components.Settings;
+using System.ComponentModel;
 
 namespace JDFixer.UI
 {
-    internal class RTPreferencesListViewController : BSMLResourceViewController
+    public class RTPreferencesListViewController : BSMLResourceViewController, INotifyPropertyChanged
     {
         public override string ResourceName => "JDFixer.UI.BSML.rtPreferencesList.bsml";
+
+        public event PropertyChangedEventHandler propertyChanged;
 
         [UIValue("minRT")]
         private int minRT => PluginConfig.Instance.minReactionTime;
@@ -30,7 +30,8 @@ namespace JDFixer.UI
             get => _selectedPref != null;
             set
             {
-                NotifyPropertyChanged();
+                //NotifyPropertyChanged();
+                propertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(prefIsSelected)));
             }
         }
 
@@ -94,7 +95,6 @@ namespace JDFixer.UI
                 PluginConfig.Instance.rt_preferredValues.RemoveAll(x => x.njs == _newNjs);
             }
             PluginConfig.Instance.rt_preferredValues.Add(new RTPref(_newNjs, _newReactionTime));
-            //Config.Write();
             ReloadListFromConfig();
         }
         [UIAction("removePressed")]
@@ -102,7 +102,6 @@ namespace JDFixer.UI
         {
             if (_selectedPref == null) return;
             PluginConfig.Instance.rt_preferredValues.RemoveAll(x => x == _selectedPref);
-            //Config.Write();
             ReloadListFromConfig();
         }
         private void ReloadListFromConfig()

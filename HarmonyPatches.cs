@@ -8,18 +8,18 @@ namespace JDFixer
     {
         public static void Prefix(ref float startNoteJumpMovementSpeed, float startBpm, ref float noteJumpStartBeatOffset, ref BeatmapObjectSpawnMovementData __instance, ref bool __state)
         {
-            bool WillOverride = BS_Utils.Plugin.LevelData.IsSet && PluginConfig.Instance.enabled
+            /*bool WillOverride = BS_Utils.Plugin.LevelData.IsSet && PluginConfig.Instance.enabled
                 && (BS_Utils.Plugin.LevelData.Mode == BS_Utils.Gameplay.Mode.Standard
                 || BS_Utils.Plugin.LevelData.Mode == BS_Utils.Gameplay.Mode.Multiplayer
-                || BS_Utils.Plugin.LevelData.Mode == BS_Utils.Gameplay.Mode.Mission);
+                || BS_Utils.Plugin.LevelData.Mode == BS_Utils.Gameplay.Mode.Mission);*/
 
             //BS_Utils.Utilities.LevelType.Tutorial
             //BS_Utils.Plugin.LevelData.GameplayCoreSceneSetupData.practiceSettings != null
 
-            __state = WillOverride;
+            //__state = WillOverride;
 
-            if (!WillOverride)
-                return;
+   //         if (!WillOverride)
+     //           return;
 
             Logger.log.Debug("Start Map");
 

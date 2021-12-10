@@ -1,11 +1,10 @@
 ﻿using BeatSaberMarkupLanguage;
 using BeatSaberMarkupLanguage.Attributes;
-using BeatSaberMarkupLanguage.Components;
 using BeatSaberMarkupLanguage.Components.Settings;
+using BeatSaberMarkupLanguage.GameplaySetup;
 using HMUI;
 using Zenject;
 using System;
-using UnityEngine;
 using System.ComponentModel;
 using JDFixer.Interfaces;
 
@@ -17,14 +16,14 @@ namespace JDFixer.UI
 
         public void Initialize()
         {
-            BeatSaberMarkupLanguage.GameplaySetup.GameplaySetup.instance.AddTab("JDFixer", "JDFixer.UI.BSML.modifierUI.bsml", this);
+            GameplaySetup.instance.AddTab("JDFixer", "JDFixer.UI.BSML.modifierUI.bsml", this);
         }
 
         public void Dispose()
         {
-            if (BeatSaberMarkupLanguage.GameplaySetup.GameplaySetup.instance != null)
+            if (GameplaySetup.instance != null)
             {
-                BeatSaberMarkupLanguage.GameplaySetup.GameplaySetup.instance.RemoveTab("JDFixer");
+                GameplaySetup.instance.RemoveTab("JDFixer");
             }
         }
 
@@ -128,7 +127,7 @@ namespace JDFixer.UI
             set
             {
                 PluginConfig.Instance.jumpDistance = value;
-                NotifyPropertyChanged(nameof(ReactionTimeText));
+                //NotifyPropertyChanged(nameof(ReactionTimeText));
 
                 //Logger.log.Debug(value.ToString());
                 //Logger.log.Debug(_selectedBeatmap.NJS.ToString());
@@ -198,7 +197,7 @@ namespace JDFixer.UI
             if (_prefFlow == null)
                 _prefFlow = BeatSaberUI.CreateFlowCoordinator<PreferencesFlowCoordinator>();
             var ActiveFlowCoordinator = DeepestChildFlowCoordinator(BeatSaberUI.MainFlowCoordinator);
-            _prefFlow.ParentFlow = ActiveFlowCoordinator;
+            //_prefFlow.ParentFlow = ActiveFlowCoordinator;
             ActiveFlowCoordinator.PresentFlowCoordinator(_prefFlow, null, ViewController.AnimationDirection.Horizontal, true);
         }
 

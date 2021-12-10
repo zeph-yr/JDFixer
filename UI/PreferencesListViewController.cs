@@ -1,19 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using HMUI;
-using BeatSaberMarkupLanguage;
 using BeatSaberMarkupLanguage.Attributes;
 using BeatSaberMarkupLanguage.Components;
 using BeatSaberMarkupLanguage.ViewControllers;
 using UnityEngine;
 using BeatSaberMarkupLanguage.Components.Settings;
+using System.ComponentModel;
 
 namespace JDFixer.UI
 {
-    internal class PreferencesListViewController : BSMLResourceViewController
+    public class PreferencesListViewController : BSMLResourceViewController, INotifyPropertyChanged
     {
         public override string ResourceName => "JDFixer.UI.BSML.preferencesList.bsml";
+        public event PropertyChangedEventHandler propertyChanged;
 
         [UIValue("minJump")]
         private int minJump => PluginConfig.Instance.minJumpDistance;
@@ -30,13 +29,14 @@ namespace JDFixer.UI
             get => _selectedPref != null;
             set
             {
-                NotifyPropertyChanged();
+                propertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(prefIsSelected)));
             }
         }
 
 
         [UIComponent("leftButton")]
         private RectTransform leftButton;
+        
         [UIComponent("rightButton")]
         private RectTransform rightButton;
 
@@ -54,6 +54,7 @@ namespace JDFixer.UI
                 _newNjs = value;
             }
         }
+
         [UIAction("setNjs")]
         void SetNjs(float value)
         {
@@ -73,6 +74,7 @@ namespace JDFixer.UI
                 _newJumpDis = value;
             }
         }
+
         [UIAction("setJumpDis")]
         void SetJumpDis(float value)
         {
@@ -86,6 +88,7 @@ namespace JDFixer.UI
             _selectedPref = PluginConfig.Instance.preferredValues[row];
             prefIsSelected = prefIsSelected;
         }
+
         [UIAction("addPressed")]
         private void AddNewValue()
         {
@@ -94,17 +97,17 @@ namespace JDFixer.UI
                 PluginConfig.Instance.preferredValues.RemoveAll(x => x.njs == _newNjs);
             }
             PluginConfig.Instance.preferredValues.Add(new JDPref(_newNjs, _newJumpDis));
-            //Config.Write();
             ReloadListFromConfig();
         }
+
         [UIAction("removePressed")]
         private void RemoveSelectedPref()
         {
             if (_selectedPref == null) return;
             PluginConfig.Instance.preferredValues.RemoveAll(x => x == _selectedPref);
-            //Config.Write();
             ReloadListFromConfig();
         }
+
         private void ReloadListFromConfig()
         {
             prefList.data.Clear();
@@ -123,6 +126,7 @@ namespace JDFixer.UI
             _selectedPref = null;
             prefIsSelected = prefIsSelected;
         }
+
         protected override void DidActivate(bool firstActivation, bool addedToHierarchy, bool screenSystemEnabling)
         {
             base.DidActivate(firstActivation, addedToHierarchy, screenSystemEnabling);

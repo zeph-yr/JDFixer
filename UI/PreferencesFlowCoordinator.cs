@@ -1,26 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
-using HMUI;
+﻿using HMUI;
 
 namespace JDFixer.UI
 {
     public class PreferencesFlowCoordinator : FlowCoordinator
     {
-        public FlowCoordinator ParentFlow { get; set; }
+        public MainFlowCoordinator _ParentFlow;
         private PreferencesListViewController _prefListView;
         private RTPreferencesListViewController _rtPrefListView;
 
-        public void Awake()
+        public PreferencesFlowCoordinator(MainFlowCoordinator ParentFlow, PreferencesListViewController prefListView, RTPreferencesListViewController rtPrefListView)
+        {
+            _ParentFlow = ParentFlow;
+            _prefListView = prefListView;
+            _rtPrefListView = rtPrefListView;
+        }
+
+        /*public void Awake()
         {
             if (_rtPrefListView == null)
                 _rtPrefListView = BeatSaberMarkupLanguage.BeatSaberUI.CreateViewController<RTPreferencesListViewController>();
 
             if (_prefListView == null)
                 _prefListView = BeatSaberMarkupLanguage.BeatSaberUI.CreateViewController<PreferencesListViewController>();
-        }
+        }*/
 
         protected override void DidActivate(bool firstActivation, bool addedToHierarchy, bool screenSystemEnabling)
         {
@@ -39,7 +41,8 @@ namespace JDFixer.UI
 
         protected override void BackButtonWasPressed(ViewController topViewController)
         {
-            ParentFlow.InvokeMethod("DismissFlowCoordinator", this, ViewController.AnimationDirection.Horizontal, null, false); ;
+            //ParentFlow.InvokeMethod("DismissFlowCoordinator", this, ViewController.AnimationDirection.Horizontal, null, false); ;
+            _ParentFlow.Dissmiss
         }
     }
 }

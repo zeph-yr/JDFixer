@@ -13,6 +13,7 @@ namespace JDFixer.Managers
         private readonly StandardLevelDetailViewController levelDetail;
         private readonly List<IBeatmapInfoUpdater> beatmapInfoUpdaters;
 
+
         public JDFixerUIManager(StandardLevelDetailViewController levelDetail, List<IBeatmapInfoUpdater> beatmapInfoUpdaters)
         {
             this.levelDetail = levelDetail;
