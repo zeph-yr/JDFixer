@@ -11,8 +11,6 @@ namespace JDFixer
     public class Plugin
     {
         public static Harmony harmony;
-        public static StandardLevelDetailViewController leveldetail;
-        public static MissionSelectionMapViewController missionselection;
 
         [Init]
         public Plugin(IPA.Logging.Logger logger, Config conf, Zenjector zenjector)
