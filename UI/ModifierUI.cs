@@ -203,12 +203,24 @@ namespace JDFixer.UI
             {
                 Logger.log.Debug("Pref flow is null");
                 _prefFlow = BeatSaberUI.CreateFlowCoordinator<PreferencesFlowCoordinator>();
-            }
-                
 
-            var ActiveFlowCoordinator = DeepestChildFlowCoordinator(BeatSaberUI.MainFlowCoordinator);
-            //_prefFlow.ParentFlow = ActiveFlowCoordinator;
-            ActiveFlowCoordinator.PresentFlowCoordinator(_prefFlow, null, ViewController.AnimationDirection.Horizontal, true);
+            }
+
+            Logger.log.Debug("After If");
+            
+            //var ActiveFlowCoordinator = DeepestChildFlowCoordinator(BeatSaberUI.MainFlowCoordinator);
+            //Logger.log.Debug("ActiveFlowCoordinator: " + ActiveFlowCoordinator.ToString());
+
+            //_prefFlow._mainFlowCoordinator = ActiveFlowCoordinator;
+            Logger.log.Debug("_prefFlow._mainFlowCoordinator: " + _prefFlow._mainFlowCoordinator.ToString());
+
+            // It fails somewhere here
+            Logger.log.Debug("_prefFlow: " + _prefFlow.ToString());
+            //Logger.log.Debug("ViewController.AnimationDirection.Horizontal: " + ViewController.AnimationDirection.Horizontal);
+
+            //ActiveFlowCoordinator.PresentFlowCoordinator(_prefFlow, null, ViewController.AnimationDirection.Horizontal, true);
+            _prefFlow._mainFlowCoordinator.PresentFlowCoordinator(_prefFlow, null, ViewController.AnimationDirection.Horizontal, true);
+            Logger.log.Debug("After PresentFlowCoordinator");
         }
 
         //###################################

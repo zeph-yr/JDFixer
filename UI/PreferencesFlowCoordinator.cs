@@ -51,19 +51,46 @@ namespace JDFixer.UI
 {
     public class PreferencesFlowCoordinator : FlowCoordinator
     {
-        public static FlowCoordinator _mainFlow;
-        public static PreferencesListViewController _prefListView;
-        public static RTPreferencesListViewController _rtPrefListView;
+        public FlowCoordinator _mainFlowCoordinator;
+        public PreferencesListViewController _prefListView;
+        public RTPreferencesListViewController _rtPrefListView;
 
         [Inject]
-        public PreferencesFlowCoordinator(FlowCoordinator mainFlow, PreferencesListViewController prefListView, RTPreferencesListViewController rtPrefListView)
+        public PreferencesFlowCoordinator(FlowCoordinator mainFlowCoordinator, PreferencesListViewController preferencesListViewController, RTPreferencesListViewController rTPreferencesListViewController)
         {
-            Logger.log.Debug("Pref Flow constructor");
+            Logger.log.Debug("PreferenceFlowCoordinator constructor");
 
-            _mainFlow = mainFlow;
-            _prefListView = prefListView;
-            _rtPrefListView = rtPrefListView;
+            _mainFlowCoordinator = mainFlowCoordinator;
+            _prefListView = preferencesListViewController;
+            _rtPrefListView = rTPreferencesListViewController;
+
+            /*
+            if (_rtPrefListView == null)
+                _rtPrefListView = BeatSaberMarkupLanguage.BeatSaberUI.CreateViewController<RTPreferencesListViewController>();
+
+            if (_prefListView == null)
+                _prefListView = BeatSaberMarkupLanguage.BeatSaberUI.CreateViewController<PreferencesListViewController>();
+            */
         }
+
+        /*public void Awake()
+        {
+            Logger.log.Debug("Awake");
+
+            if (_rtPrefListView == null)
+            {
+                Logger.log.Debug("rtpref null");
+                _rtPrefListView = BeatSaberMarkupLanguage.BeatSaberUI.CreateViewController<RTPreferencesListViewController>();
+
+            }
+
+            if (_prefListView == null)
+            {
+                Logger.log.Debug("pref null");
+                _prefListView = BeatSaberMarkupLanguage.BeatSaberUI.CreateViewController<PreferencesListViewController>();
+
+            }
+        }*/
 
         protected override void DidActivate(bool firstActivation, bool addedToHierarchy, bool screenSystemEnabling)
         {
@@ -75,7 +102,16 @@ namespace JDFixer.UI
 
                     showBackButton = true;
                     SetTitle("JDFixer Preferences");
+
+                    if (_rtPrefListView == null)
+                        _rtPrefListView = BeatSaberMarkupLanguage.BeatSaberUI.CreateViewController<RTPreferencesListViewController>();
+
+                    if (_prefListView == null)
+                        _prefListView = BeatSaberMarkupLanguage.BeatSaberUI.CreateViewController<PreferencesListViewController>();
+
                     ProvideInitialViewControllers(_prefListView);
+
+                    Logger.log.Debug("After activation");
                 }
 
                 else
@@ -100,7 +136,8 @@ namespace JDFixer.UI
         {
             Logger.log.Debug("Back pressed");
 
-            _mainFlow.DismissFlowCoordinator(this);
+            //_mainFlow.DismissFlowCoordinator(this);
+            _mainFlowCoordinator.InvokeMethod("DismissFlowCoordinator", this, ViewController.AnimationDirection.Horizontal, null, false); ;
         }
     }
 }
