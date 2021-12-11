@@ -5,7 +5,7 @@
 		<page-button event-click='prefList#PageDown' direction='Down'></page-button>
 		<horizontal>
 			<button pref-height='8' align='Center' text='Add' event-click='addPressed'></button>
-			<button pref-height='8' active='~prefIsSelected' align='Center' text='Remove Selected' on-click='removePressed'></button>
+			<button pref-height='8' align='Center' text='Remove Selected' on-click='removePressed'></button>
 		</horizontal>
 	</vertical>
 

@@ -23,15 +23,16 @@ namespace JDFixer.UI
         [UIComponent("prefList")]
         public CustomListTableData prefList;
         private JDPref _selectedPref = null;
-        [UIValue("prefIsSelected")]
+        
+        /*[UIValue("prefIsSelected")]
         public bool prefIsSelected
         {
             get => _selectedPref != null;
             set
             {
-                propertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(prefIsSelected)));
+                //propertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(prefIsSelected)));
             }
-        }
+        }*/
 
 
         /*[UIComponent("leftButton")]
@@ -86,7 +87,8 @@ namespace JDFixer.UI
         {
             Logger.log.Debug("Selected row " + row);
             _selectedPref = PluginConfig.Instance.preferredValues[row];
-            prefIsSelected = prefIsSelected;
+            //prefIsSelected = prefIsSelected;
+            //propertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(prefIsSelected)));
         }
 
         [UIAction("addPressed")]
@@ -124,7 +126,8 @@ namespace JDFixer.UI
             prefList.tableView.ReloadData();
             prefList.tableView.ClearSelection();
             _selectedPref = null;
-            prefIsSelected = prefIsSelected;
+            //prefIsSelected = prefIsSelected;
+            //propertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(prefIsSelected)));
         }
 
         protected override void DidActivate(bool firstActivation, bool addedToHierarchy, bool screenSystemEnabling)

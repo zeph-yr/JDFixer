@@ -23,17 +23,18 @@ namespace JDFixer.UI
 
         [UIComponent("prefList")]
         public CustomListTableData prefList;
+        
         private RTPref _selectedPref = null;
-        [UIValue("prefIsSelected")]
+
+        /*[UIValue("prefIsSelected")]
         public bool prefIsSelected
         {
             get => _selectedPref != null;
             set
             {
-                //NotifyPropertyChanged();
-                propertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(prefIsSelected)));
+
             }
-        }
+        }*/
 
 
         /*[UIComponent("leftButton")]
@@ -86,7 +87,7 @@ namespace JDFixer.UI
             Logger.log.Debug("Selected row " + row);
 
             _selectedPref = PluginConfig.Instance.rt_preferredValues[row];
-            prefIsSelected = prefIsSelected;
+            //propertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(prefIsSelected)));
         }
         [UIAction("addPressed")]
         private void AddNewValue()
@@ -121,7 +122,9 @@ namespace JDFixer.UI
             prefList.tableView.ReloadData();
             prefList.tableView.ClearSelection();
             _selectedPref = null;
-            prefIsSelected = prefIsSelected;
+            //prefIsSelected = prefIsSelected;
+            //prefIsSelected = false;
+            //propertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(prefIsSelected)));
         }
 
 
