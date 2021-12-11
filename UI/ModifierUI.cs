@@ -14,6 +14,13 @@ namespace JDFixer.UI
     {
         private BeatmapInfo _selectedBeatmap = BeatmapInfo.Empty;
 
+        // To get the flow coordinators using zenject, we use a constructor
+        public ModifierUI(MainFlowCoordinator mainFlowCoordinator, PreferencesFlowCoordinator preferencesFlowCoordinator)
+        {
+            _mainFlow = mainFlowCoordinator;
+            _prefFlow = preferencesFlowCoordinator;
+        }
+
         public void Initialize()
         {
             GameplaySetup.instance.AddTab("JDFixer", "JDFixer.UI.BSML.modifierUI.bsml", this);
@@ -47,7 +54,8 @@ namespace JDFixer.UI
             return "<#cc99ff>0 ms";
         }
 
-        private PreferencesFlowCoordinator _prefFlow;
+        private readonly MainFlowCoordinator _mainFlow;
+        private readonly PreferencesFlowCoordinator _prefFlow;
 
         [UIValue("minJump")]
         private int minJump => PluginConfig.Instance.minJumpDistance;
@@ -197,30 +205,13 @@ namespace JDFixer.UI
         [UIAction("prefButtonClicked")]
         public void PrefButtonClicked()
         {
-            Logger.log.Debug("Pref Clicked");
-
-            if (_prefFlow == null)
-            {
-                Logger.log.Debug("Pref flow is null");
-                _prefFlow = BeatSaberUI.CreateFlowCoordinator<PreferencesFlowCoordinator>();
-
-            }
-
-            Logger.log.Debug("After If");
-            
-            //var ActiveFlowCoordinator = DeepestChildFlowCoordinator(BeatSaberUI.MainFlowCoordinator);
-            //Logger.log.Debug("ActiveFlowCoordinator: " + ActiveFlowCoordinator.ToString());
-
-            //_prefFlow._mainFlowCoordinator = ActiveFlowCoordinator;
-            Logger.log.Debug("_prefFlow._mainFlowCoordinator: " + _prefFlow._mainFlowCoordinator.ToString());
-
-            // It fails somewhere here
-            Logger.log.Debug("_prefFlow: " + _prefFlow.ToString());
-            //Logger.log.Debug("ViewController.AnimationDirection.Horizontal: " + ViewController.AnimationDirection.Horizontal);
-
-            //ActiveFlowCoordinator.PresentFlowCoordinator(_prefFlow, null, ViewController.AnimationDirection.Horizontal, true);
-            _prefFlow._mainFlowCoordinator.PresentFlowCoordinator(_prefFlow, null, ViewController.AnimationDirection.Horizontal, true);
-            Logger.log.Debug("After PresentFlowCoordinator");
+            /* Kyle used to have a helper function which you also used (DeepestChildFlowCoordinator). 
+             * Beat Games has added this to the game since, so we can just use something they helpfully provided us
+             */
+            FlowCoordinator currentFlow = _mainFlow.YoungestChildFlowCoordinatorOrSelf();
+            // We need to give our current flow coordinator to the pref flow so it can exit
+            _prefFlow._parentFlow = currentFlow;
+            currentFlow.PresentFlowCoordinator(_prefFlow);
         }
 
         //###################################
@@ -261,16 +252,5 @@ namespace JDFixer.UI
             get => PluginConfig.Instance.upper_threshold.ToString();
         }*/
         //###################################
-
-        public static FlowCoordinator DeepestChildFlowCoordinator(FlowCoordinator root)
-        {
-            var flow = root.childFlowCoordinator;
-            if (flow == null) return root;
-            if (flow.childFlowCoordinator == null || flow.childFlowCoordinator == flow)
-            {
-                return flow;
-            }
-            return DeepestChildFlowCoordinator(flow);
-        }
     }
 }

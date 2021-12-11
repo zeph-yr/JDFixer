@@ -11,7 +11,12 @@ namespace JDFixer.Installers
             Container.BindInterfacesTo<JDFixerUIManager>().AsSingle();
             Container.BindInterfacesTo<ModifierUI>().AsSingle();
 
-            Container.InstantiateComponentOnNewGameObject<PreferencesFlowCoordinator>();
+            // Flow Coordinators need to binded like this, as a component since it is a Unity Component
+            Container.Bind<PreferencesFlowCoordinator>().FromNewComponentOnNewGameObject().AsSingle();
+
+            // Even though ViewControllers are also Unity Components, we bind them with this helper method provided by SiraUtil (FromNewComponentAsViewController)
+            Container.Bind<PreferencesListViewController>().FromNewComponentAsViewController().AsSingle();
+            Container.Bind<RTPreferencesListViewController>().FromNewComponentAsViewController().AsSingle();
         }
     }
 }
