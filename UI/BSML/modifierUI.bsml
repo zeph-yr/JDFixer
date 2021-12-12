@@ -23,10 +23,7 @@
 			  <text text='~reactionTime' min-width='29' align='Right'/>
 		  </grid>
 	  </horizontal>
-	  
-    <checkbox-setting value='usePrefJumpValues' on-change='setUsePrefJumpValues' text='Use JD Preferences'></checkbox-setting>
-	<checkbox-setting value ='rtEnabled' on-change='setRTEnabled' text='Use RT Preferences' hover-hint='Overrides JD Preferences if enabled'></checkbox-setting>
-    
+	<increment-setting value='increment_value' apply-on-change='true' bind-value='true' text='Preference Mode' integer-only='true' min='0' max='2' formatter='increment_formatter'/>    
     <button align='Center' on-click='prefButtonClicked' text='JD and RT Preferences' hover-hint='Autoselect by matching or lower NJS'></button>
 	<checkbox-setting value='useHeuristic' on-change='setUseHeuristic' text='Use Map JD or RT If Lower' hover-hint='If original JD or RT is lower than the matching preference, map will run at original JD or RT'></checkbox-setting>
 

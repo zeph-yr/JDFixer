@@ -13,6 +13,6 @@
   },
     "loadBefore": ["Chroma"],
     "links": {
-        "donate": "paypal.me/zeph3yr"
+        "donate": "https://paypal.me/zeph3yr"
     }
 }

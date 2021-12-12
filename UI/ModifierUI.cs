@@ -152,9 +152,54 @@ namespace JDFixer.UI
 
         [UIValue("reactionTime")]
         public string ReactionTimeText => CalculateReactionTime();
-       
 
-        [UIValue("usePrefJumpValues")]
+
+        // New for BS 1.19.0
+        //#################################
+        [UIValue("increment_value")]
+        private int Increment_Value
+        {
+            get => PluginConfig.Instance.pref_selected;
+            set
+            {
+                PluginConfig.Instance.pref_selected = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Increment_Value)));
+                Set_Preference_Mode();
+            }
+        }
+
+        [UIAction("increment_formatter")]
+        private string Increment_Formatter(int value) => ((PreferenceEnum)value).ToString();
+
+        //##############################################
+
+
+        private void Set_Preference_Mode()
+        {
+            if (PluginConfig.Instance.pref_selected == 2)
+            {
+                PluginConfig.Instance.usePreferredJumpDistanceValues = false;
+                PluginConfig.Instance.rt_enabled = true;
+            }
+            else if (PluginConfig.Instance.pref_selected == 1)
+            {
+                PluginConfig.Instance.usePreferredJumpDistanceValues = true;
+                PluginConfig.Instance.rt_enabled = false;
+            }
+            else
+            {
+                PluginConfig.Instance.usePreferredJumpDistanceValues = false;
+                PluginConfig.Instance.rt_enabled = false;
+            }
+        }
+
+
+        // Replaced with Increment Setting:
+
+        //<checkbox-setting value = 'usePrefJumpValues' on-change='setUsePrefJumpValues' text='Use JD Preferences'></checkbox-setting>
+	    //<checkbox-setting value = 'rtEnabled' on-change='setRTEnabled' text='Use RT Preferences' hover-hint='Overrides JD Preferences if enabled'></checkbox-setting>
+
+        /*[UIValue("usePrefJumpValues")]
         public bool usePrefJumpValues
         {
             get => PluginConfig.Instance.usePreferredJumpDistanceValues;
@@ -168,11 +213,11 @@ namespace JDFixer.UI
         {
             usePrefJumpValues = value;
 
-            /*if (value)
-            {
-                PluginConfig.Instance.rt_enabled = false;
-                NotifyPropertyChanged(nameof(RTEnabled));
-            }*/
+            //if (value)
+            //{
+            //    PluginConfig.Instance.rt_enabled = false;
+            //    NotifyPropertyChanged(nameof(RTEnabled));
+            //}
         }
 
 
@@ -192,12 +237,12 @@ namespace JDFixer.UI
         {
             RTEnabled = value;
 
-            /*if (value)
-            {
-                PluginConfig.Instance.usePreferredJumpDistanceValues = false;
-                NotifyPropertyChanged(nameof(usePrefJumpValues));
-            }*/
-        }
+            //if (value)
+            //{
+            //    PluginConfig.Instance.usePreferredJumpDistanceValues = false;
+            //    NotifyPropertyChanged(nameof(usePrefJumpValues));
+            //}
+        }*/
         //=============================================================
 
 
@@ -252,5 +297,12 @@ namespace JDFixer.UI
             get => PluginConfig.Instance.upper_threshold.ToString();
         }*/
         //###################################
+    }
+
+    public enum PreferenceEnum
+    {
+        Off = 0,
+        JumpDistance = 1,
+        ReactionTime = 2
     }
 }

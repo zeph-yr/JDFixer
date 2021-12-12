@@ -38,6 +38,7 @@ namespace JDFixer
         public virtual int maxReactionTime { get; set; } = 2000;
         public virtual bool rt_display_enabled { get; set; } = true;
 
+        public virtual int pref_selected { get; set; } = 0;
 
         /// <summary>
         /// Call this to force BSIPA to update the config file. This is also called by BSIPA if it detects the file was modified.
