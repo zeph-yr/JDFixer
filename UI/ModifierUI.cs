@@ -8,11 +8,14 @@ using System;
 using System.ComponentModel;
 using JDFixer.Interfaces;
 
+
 namespace JDFixer.UI
 {
     public class ModifierUI : IInitializable, IDisposable, INotifyPropertyChanged, IBeatmapInfoUpdater
     {
         private BeatmapInfo _selectedBeatmap = BeatmapInfo.Empty;
+        private readonly MainFlowCoordinator _mainFlow;
+        private readonly PreferencesFlowCoordinator _prefFlow;
 
         // To get the flow coordinators using zenject, we use a constructor
         public ModifierUI(MainFlowCoordinator mainFlowCoordinator, PreferencesFlowCoordinator preferencesFlowCoordinator)
@@ -40,6 +43,14 @@ namespace JDFixer.UI
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(MapDefaultJDText)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(MapMinJDText)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ReactionTimeText)));
+
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(jumpDisValue))); // necessary
+
+            PluginConfig.Instance.maxReactionTime = CalculateReactionTime_2(PluginConfig.Instance.maxJumpDistance);
+
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(minRT)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(maxRT)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(rtValue))); // necessary
         }
 
         private string CalculateReactionTime()
@@ -54,13 +65,40 @@ namespace JDFixer.UI
             return "<#cc99ff>0 ms";
         }
 
-        private readonly MainFlowCoordinator _mainFlow;
-        private readonly PreferencesFlowCoordinator _prefFlow;
+
 
         [UIValue("minJump")]
         private int minJump => PluginConfig.Instance.minJumpDistance;
         [UIValue("maxJump")]
         private int maxJump => PluginConfig.Instance.maxJumpDistance;
+
+
+        [UIValue("minRT")]
+        public float minRT //=> Get_Min_RT();
+        {
+            get => /*PluginConfig.Instance.minReactionTime;*/ CalculateReactionTime_2(minJump);
+            set
+            {
+                //PluginConfig.Instance.minReactionTime = CalculateReactionTime_2(minJump);
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(minRT)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(maxRT)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(rtValue)));
+            }
+        }
+
+        [UIValue("maxRT")]
+        public float maxRT //=> Get_Max_RT();
+        {
+            get => PluginConfig.Instance.maxReactionTime; //
+            set
+            {
+                //PluginConfig.Instance.maxReactionTime = CalculateReactionTime_2(maxJump);
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(minRT)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(maxRT)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(rtValue)));
+            }
+        }
+
 
 
         [UIValue("enabled")]
@@ -132,11 +170,21 @@ namespace JDFixer.UI
         [UIValue("jumpDisValue")]
         public float jumpDisValue
         {
-            get => PluginConfig.Instance.jumpDistance;
+            get => GetJumpDistance();//PluginConfig.Instance.jumpDistance;
             set
             {
                 PluginConfig.Instance.jumpDistance = value;
+                //PluginConfig.Instance.minReactionTime = Get_Min_RT();
+                //PluginConfig.Instance.maxReactionTime = Get_Max_RT();
+                //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(minRT)));
+                //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(maxRT)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(rtValue)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ReactionTimeText)));
+                
+                Logger.log.Debug("update jd. selected njs: " + _selectedBeatmap.NJS);
+                Logger.log.Debug("update jd. selected njs: " + CalculateReactionTime_2(minJump));
+                Logger.log.Debug("update jd. selected njs: " + CalculateReactionTime_2(maxJump));
+
 
                 //NotifyPropertyChanged(nameof(ReactionTimeText));
 
@@ -150,8 +198,87 @@ namespace JDFixer.UI
             jumpDisValue = value;
         }
 
+        private float GetJumpDistance()
+        {
+            return PluginConfig.Instance.jumpDistance;
+        }
+
+
         [UIValue("reactionTime")]
         public string ReactionTimeText => CalculateReactionTime();
+
+
+        //#####################################################
+        // Exp RT Slider
+
+        [UIComponent("rtSlider")]
+        public SliderSetting rtSlider;
+
+        [UIValue("rtValue")]
+        public float rtValue
+        {
+            get => CalculateReactionTime_2(PluginConfig.Instance.jumpDistance);
+            set
+            {
+                PluginConfig.Instance.jumpDistance = value / 1000 * (2 * _selectedBeatmap.NJS);
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(jumpDisValue)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ReactionTimeText)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(minRT)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(maxRT)));
+
+                //NotifyPropertyChanged(nameof(ReactionTimeText));
+
+                //Logger.log.Debug(value.ToString());
+                //Logger.log.Debug(_selectedBeatmap.NJS.ToString());
+            }
+        }
+
+
+        [UIAction("setrt")]
+        public void SetRT(float value)
+        {
+            rtValue = value;
+        }
+
+        private float Get_Min_RT()
+        {
+            // Super hack way to prevent divide by zero and showing as "infinity" in Campaign
+            // Realistically how many maps will have less than 0.002 NJS, and if a map does...
+            // it wouldn't matter if you display 10^6 or 0 reaction time anyway
+            // 0.002 gives a margin: BeatmapInfo sets null to 0.001
+            if (_selectedBeatmap.NJS > 0.002)
+                return PluginConfig.Instance.minJumpDistance / (2 * _selectedBeatmap.NJS) * 1000;
+
+            return 0f;
+        }
+
+        private float Get_Max_RT()
+        {
+            // Super hack way to prevent divide by zero and showing as "infinity" in Campaign
+            // Realistically how many maps will have less than 0.002 NJS, and if a map does...
+            // it wouldn't matter if you display 10^6 or 0 reaction time anyway
+            // 0.002 gives a margin: BeatmapInfo sets null to 0.001
+            if (_selectedBeatmap.NJS > 0.002)
+                return PluginConfig.Instance.maxJumpDistance / (2 * _selectedBeatmap.NJS) * 1000;
+
+            return 0f;
+        }
+
+
+        private float CalculateReactionTime_2(float jd)
+        {
+            // Super hack way to prevent divide by zero and showing as "infinity" in Campaign
+            // Realistically how many maps will have less than 0.002 NJS, and if a map does...
+            // it wouldn't matter if you display 10^6 or 0 reaction time anyway
+            // 0.002 gives a margin: BeatmapInfo sets null to 0.001
+            if (_selectedBeatmap.NJS > 0.002)
+                return jd / (2 * _selectedBeatmap.NJS) * 1000;
+
+            return 0f; // jd / (2 * 10) * 1000;
+        }
+
+        //#####################################################
+
 
 
         // New for BS 1.19.0
@@ -297,6 +424,26 @@ namespace JDFixer.UI
             get => PluginConfig.Instance.upper_threshold.ToString();
         }*/
         //###################################
+
+
+        public CurvedTextMeshPro slider_text;
+
+        [UIAction("#post-parse")]
+        private void PostParse()
+        {
+            slider_text = jumpDisSlider.slider.GetComponentInChildren<CurvedTextMeshPro>();
+
+            if (slider_text != null)
+            {
+                slider_text.color = UnityEngine.Color.red;
+            }
+
+            //minRT = CalculateReactionTime_2(PluginConfig.Instance.minJumpDistance);
+            //maxRT = CalculateReactionTime_2(PluginConfig.Instance.maxJumpDistance);
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(minRT)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(maxRT)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(rtValue)));
+        }
     }
 
     public enum PreferenceEnum

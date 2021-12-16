@@ -16,9 +16,9 @@ namespace JDFixer.UI
         public event PropertyChangedEventHandler propertyChanged;
 
         [UIValue("minRT")]
-        private int minRT => PluginConfig.Instance.minReactionTime;
+        private float minRT => PluginConfig.Instance.minReactionTime;
         [UIValue("maxRT")]
-        private int maxRT => PluginConfig.Instance.maxReactionTime;
+        private float maxRT => PluginConfig.Instance.maxReactionTime;
 
 
         [UIComponent("prefList")]

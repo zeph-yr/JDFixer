@@ -34,8 +34,8 @@ namespace JDFixer
         [UseConverter(typeof(ListConverter<RTPref>))]
         [NonNullable]
         public virtual List<RTPref> rt_preferredValues { get; set; } = new List<RTPref>();
-        public virtual int minReactionTime { get; set; } = 200;
-        public virtual int maxReactionTime { get; set; } = 2000;
+        public virtual float minReactionTime { get; set; } = 200f;
+        public virtual float maxReactionTime { get; set; } = 2000f;
         public virtual bool rt_display_enabled { get; set; } = true;
 
         public virtual int pref_selected { get; set; } = 0;
