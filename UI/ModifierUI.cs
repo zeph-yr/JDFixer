@@ -16,6 +16,7 @@ namespace JDFixer.UI
         private readonly MainFlowCoordinator _mainFlow;
         private readonly PreferencesFlowCoordinator _prefFlow;
 
+        public event PropertyChangedEventHandler PropertyChanged;
         private BeatmapInfo _selectedBeatmap = BeatmapInfo.Empty;
 
 
@@ -42,8 +43,8 @@ namespace JDFixer.UI
         public void BeatmapInfoUpdated(BeatmapInfo beatmapInfo)
         {
             _selectedBeatmap = beatmapInfo;
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(MapDefaultJDText)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(MapMinJDText)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Map_Default_JD)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Map_Min_JD)));
             //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ReactionTimeText))); // For old RT Display
 
             PostParse();
@@ -56,7 +57,7 @@ namespace JDFixer.UI
             // it wouldn't matter if you display 10^6 or 0 reaction time anyway
             // 0.002 gives a margin: BeatmapInfo sets null to 0.001
             if (_selectedBeatmap.NJS > 0.002)
-                return "<#cc99ff>" + (jumpDisValue / (2 * _selectedBeatmap.NJS) * 1000).ToString("0.#") + " ms";
+                return "<#cc99ff>" + (JD_Value / (2 * _selectedBeatmap.NJS) * 1000).ToString("0.#") + " ms";
 
             return "<#cc99ff>0 ms";
         }
@@ -73,7 +74,7 @@ namespace JDFixer.UI
 
 
         [UIValue("enabled")]
-        public bool modEnabled
+        public bool Enabled
         {
             get => PluginConfig.Instance.enabled;
             set
@@ -81,10 +82,10 @@ namespace JDFixer.UI
                 PluginConfig.Instance.enabled = value;
             }
         }
-        [UIAction("setEnabled")]
+        [UIAction("set_enabled")]
         public void SetEnabled(bool value)
         {
-            modEnabled = value;
+            Enabled = value;
         }
 
 
@@ -108,11 +109,11 @@ namespace JDFixer.UI
         //----------------------------------------------------
 
 
-        [UIValue("mapDefaultJD")]
-        public string MapDefaultJDText => GetMapDefaultJDText();
+        [UIValue("map_default_jd")]
+        public string Map_Default_JD => Get_Map_Default_JD();
         //public string MapDefaultJDText => "<#ffff00>" + _selectedBeatmap.JumpDistance.ToString("0.###") + "     <#8c1aff>" + _selectedBeatmap.ReactionTime.ToString("0.#") + " ms";
 
-        public string GetMapDefaultJDText()
+        public string Get_Map_Default_JD()
         {
             if (PluginConfig.Instance.rt_display_enabled)
                 return "<#ffff00>" + _selectedBeatmap.JumpDistance.ToString("0.###") + "     <#8c1aff>" + _selectedBeatmap.ReactionTime.ToString("0.#") + " ms";
@@ -120,11 +121,12 @@ namespace JDFixer.UI
             return "<#ffff00>" + _selectedBeatmap.JumpDistance.ToString("0.###");
         }
 
-        [UIValue("mapMinJD")]
-        public string MapMinJDText => GetMapMinJDText();
+
+        [UIValue("map_min_jd")]
+        public string Map_Min_JD => Get_Map_Min_JD();
         //public string MapMinJDText => "<#8c8c8c>" + _selectedBeatmap.MinJumpDistance.ToString("0.###") + "     <#8c8c8c>" + _selectedBeatmap.MinReactionTime.ToString("0.#" + " ms");
 
-        public string GetMapMinJDText()
+        public string Get_Map_Min_JD()
         {
             if (PluginConfig.Instance.rt_display_enabled)
                 return "<#8c8c8c>" + _selectedBeatmap.MinJumpDistance.ToString("0.###") + "     <#8c8c8c>" + _selectedBeatmap.MinReactionTime.ToString("0.#" + " ms");
@@ -133,32 +135,30 @@ namespace JDFixer.UI
         }
 
 
-        [UIValue("minJump")]
-        private int minJump => PluginConfig.Instance.minJumpDistance;
-        [UIValue("maxJump")]
-        private int maxJump => PluginConfig.Instance.maxJumpDistance;
+        [UIValue("min_jd_slider")]
+        private int Min_JD_Slider => PluginConfig.Instance.minJumpDistance;
+        [UIValue("max_jd_slider")]
+        private int Max_JD_Slider => PluginConfig.Instance.maxJumpDistance;
 
-        [UIComponent("jumpDisSlider")]
-        public SliderSetting jumpDisSlider;
+        [UIComponent("jd_slider")]
+        public SliderSetting JD_Slider;
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [UIValue("jumpDisValue")]
-        public float jumpDisValue
+        [UIValue("jd_value")]
+        public float JD_Value
         {
             get => PluginConfig.Instance.jumpDistance; //GetJumpDistance();
             set
             {
                 PluginConfig.Instance.jumpDistance = value;
 
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(rtValue)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(RT_Value)));
                 //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ReactionTimeText))); // For old RT Display
             }
         }
-        [UIAction("setJumpDis")]
-        public void SetJumpDis(float value)
+        [UIAction("set_jd_value")]
+        public void Set_JD_Value(float value)
         {
-            jumpDisValue = value;
+            JD_Value = value;
             //PostParse();
         }
 
@@ -169,11 +169,11 @@ namespace JDFixer.UI
 
 
 
-        [UIValue("minRT")]
-        public float minRT => _selectedBeatmap.MinRTSlider; //Get_Min_RT();
+        [UIValue("min_rt_slider")]
+        public float Min_RT_Slider => _selectedBeatmap.MinRTSlider; //Get_Min_RT();
 
-        [UIValue("maxRT")]
-        public float maxRT => _selectedBeatmap.MaxRTSlider; //Get_Max_RT();
+        [UIValue("max_rt_slider")]
+        public float Max_RT_Slider => _selectedBeatmap.MaxRTSlider; //Get_Max_RT();
 
         /*public float Get_Min_RT()
         {
@@ -184,9 +184,6 @@ namespace JDFixer.UI
         {
             return _selectedBeatmap.MaxRTSlider;
         }*/
-
-
-
 
 
         //=============================================================
@@ -205,32 +202,27 @@ namespace JDFixer.UI
 
         //=============================================================
 
+        [UIComponent("rt_slider")]
+        public SliderSetting RT_Slider;
 
-        // Exp RT Slider
-
-        [UIComponent("rtSlider")]
-        public SliderSetting rtSlider;
-
-        [UIValue("rtValue")]
-        public float rtValue
+        [UIValue("rt_value")]
+        public float RT_Value
         {
             get => CalculateReactionTime_Float(PluginConfig.Instance.jumpDistance);
             set
             {
                 PluginConfig.Instance.jumpDistance = value / 1000 * (2 * _selectedBeatmap.NJS);
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(jumpDisValue)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(JD_Value)));
 
                 //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ReactionTimeText))); // For validation               
             }
         }
 
-
-        [UIAction("setrt")]
-        public void SetRT(float value)
+        [UIAction("set_rt_value")]
+        public void Set_RT_Value(float value)
         {
-            rtValue = value;
+            RT_Value = value;
         }
-
 
 
         //##############################################
@@ -325,9 +317,8 @@ namespace JDFixer.UI
         //=============================================================
 
 
-
-        [UIAction("prefButtonClicked")]
-        public void PrefButtonClicked()
+        [UIAction("pref_button_clicked")]
+        public void Pref_Button_Clicked()
         {
             /* Kyle used to have a helper function which you also used (DeepestChildFlowCoordinator). 
              * Beat Games has added this to the game since, so we can just use something they helpfully provided us
@@ -338,9 +329,9 @@ namespace JDFixer.UI
             currentFlow.PresentFlowCoordinator(_prefFlow);
         }
 
-        //###################################
-        [UIValue("useHeuristic")]
-        public bool heuristicEnabled
+        
+        [UIValue("use_heuristic")]
+        public bool Use_Heuristic
         {
             get => PluginConfig.Instance.use_heuristic;
             set
@@ -348,20 +339,21 @@ namespace JDFixer.UI
                 PluginConfig.Instance.use_heuristic = value;
             }
         }
-        [UIAction("setUseHeuristic")]
-        public void SetHeuristic(bool value)
+        [UIAction("set_use_heuristic")]
+        public void Set_Use_Heuristic(bool value)
         {
-            heuristicEnabled = value;
+            Use_Heuristic = value;
         }
 
 
         [UIValue("thresholds")]
-        public string thresholds
+        public string Thresholds
         {
             get => "≤ " + PluginConfig.Instance.lower_threshold.ToString() + " and " + PluginConfig.Instance.upper_threshold.ToString() + " ≤";
         }
 
 
+        //###################################
         // KEEP: In case
         /*[UIValue("lowerthreshold")]
         public string lowerthreshold
@@ -386,14 +378,14 @@ namespace JDFixer.UI
         [UIAction("#post-parse")]
         private void PostParse()
         {
-            jd_slider_text = jumpDisSlider.slider.GetComponentInChildren<CurvedTextMeshPro>();
+            jd_slider_text = JD_Slider.slider.GetComponentInChildren<CurvedTextMeshPro>();
 
             if (jd_slider_text != null)
             {
                 jd_slider_text.color = new UnityEngine.Color(1f, 1f, 0f);
             }
 
-            rt_slider_text = rtSlider.slider.GetComponentInChildren<CurvedTextMeshPro>();
+            rt_slider_text = RT_Slider.slider.GetComponentInChildren<CurvedTextMeshPro>();
 
             if (rt_slider_text != null)
             {
@@ -401,15 +393,15 @@ namespace JDFixer.UI
             }
 
 
-            rt_slider_range = rtSlider.slider.GetComponentInChildren<HMUI.CustomFormatRangeValuesSlider>();
+            rt_slider_range = RT_Slider.slider.GetComponentInChildren<HMUI.CustomFormatRangeValuesSlider>();
             
             rt_slider_range.minValue = _selectedBeatmap.MinRTSlider;
             rt_slider_range.maxValue = _selectedBeatmap.MaxRTSlider;
             
             // These are critical:
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(minRT)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(maxRT)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(rtValue)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Min_RT_Slider)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Max_RT_Slider)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(RT_Value)));
         }
     }
 
