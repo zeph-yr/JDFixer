@@ -13,16 +13,10 @@ namespace JDFixer.UI
 {
     public class ModifierUI : IInitializable, IDisposable, INotifyPropertyChanged, IBeatmapInfoUpdater
     {
-        private BeatmapInfo _selectedBeatmap = BeatmapInfo.Empty;
         private readonly MainFlowCoordinator _mainFlow;
         private readonly PreferencesFlowCoordinator _prefFlow;
+        private BeatmapInfo _selectedBeatmap = BeatmapInfo.Empty;
 
-        // To get the flow coordinators using zenject, we use a constructor
-        public ModifierUI(MainFlowCoordinator mainFlowCoordinator, PreferencesFlowCoordinator preferencesFlowCoordinator)
-        {
-            _mainFlow = mainFlowCoordinator;
-            _prefFlow = preferencesFlowCoordinator;
-        }
 
         public void Initialize()
         {
@@ -35,6 +29,13 @@ namespace JDFixer.UI
             {
                 GameplaySetup.instance.RemoveTab("JDFixer");
             }
+        }
+        
+        // To get the flow coordinators using zenject, we use a constructor
+        public ModifierUI(MainFlowCoordinator mainFlowCoordinator, PreferencesFlowCoordinator preferencesFlowCoordinator)
+        {
+            _mainFlow = mainFlowCoordinator;
+            _prefFlow = preferencesFlowCoordinator;
         }
 
         public void BeatmapInfoUpdated(BeatmapInfo beatmapInfo)
@@ -53,6 +54,7 @@ namespace JDFixer.UI
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(rtValue))); // necessary
         }
 
+
         private string CalculateReactionTime()
         {
             // Super hack way to prevent divide by zero and showing as "infinity" in Campaign
@@ -67,10 +69,7 @@ namespace JDFixer.UI
 
 
 
-        [UIValue("minJump")]
-        private int minJump => PluginConfig.Instance.minJumpDistance;
-        [UIValue("maxJump")]
-        private int maxJump => PluginConfig.Instance.maxJumpDistance;
+
 
 
         [UIValue("minRT")]
@@ -161,6 +160,11 @@ namespace JDFixer.UI
             return "<#8c8c8c>" + _selectedBeatmap.MinJumpDistance.ToString("0.###");
         }
 
+
+        [UIValue("minJump")]
+        private int minJump => PluginConfig.Instance.minJumpDistance;
+        [UIValue("maxJump")]
+        private int maxJump => PluginConfig.Instance.maxJumpDistance;
 
         [UIComponent("jumpDisSlider")]
         public SliderSetting jumpDisSlider;
@@ -426,17 +430,26 @@ namespace JDFixer.UI
         //###################################
 
 
-        public CurvedTextMeshPro slider_text;
+        public CurvedTextMeshPro jd_slider_text;
+        public CurvedTextMeshPro rt_slider_text;
 
         [UIAction("#post-parse")]
         private void PostParse()
         {
-            slider_text = jumpDisSlider.slider.GetComponentInChildren<CurvedTextMeshPro>();
+            jd_slider_text = jumpDisSlider.slider.GetComponentInChildren<CurvedTextMeshPro>();
 
-            if (slider_text != null)
+            if (jd_slider_text != null)
             {
-                slider_text.color = UnityEngine.Color.red;
+                jd_slider_text.color = new UnityEngine.Color(1f, 1f, 0f);
             }
+
+            rt_slider_text = rtSlider.slider.GetComponentInChildren<CurvedTextMeshPro>();
+
+            if (rt_slider_text != null)
+            {
+                rt_slider_text.color = new UnityEngine.Color(204f/255f, 153f/255f, 1f);
+            }
+
 
             //minRT = CalculateReactionTime_2(PluginConfig.Instance.minJumpDistance);
             //maxRT = CalculateReactionTime_2(PluginConfig.Instance.maxJumpDistance);
