@@ -46,16 +46,10 @@ namespace JDFixer.UI
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(MapMinJDText)));
             //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ReactionTimeText))); // For old RT Display
 
-            //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(jumpDisValue))); // necessary
-            //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(minRT)));
-            //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(maxRT)));
-
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(rtValue))); // necessary
             PostParse();
         }
 
-
-        private string CalculateReactionTime()
+        private string CalculateReactionTime_String()
         {
             // Super hack way to prevent divide by zero and showing as "infinity" in Campaign
             // Realistically how many maps will have less than 0.002 NJS, and if a map does...
@@ -67,9 +61,7 @@ namespace JDFixer.UI
             return "<#cc99ff>0 ms";
         }
 
-        
-
-        public float CalculateReactionTime_2(float jd)
+        public float CalculateReactionTime_Float(float jd)
         {
             if (_selectedBeatmap.NJS > 0.002)
                 return jd / (2 * _selectedBeatmap.NJS) * 1000;
@@ -77,25 +69,7 @@ namespace JDFixer.UI
             return 0f;
         }
 
-
         //=============================================================================================
-
-
-        [UIValue("minRT")]
-        public float minRT => _selectedBeatmap.MinRTSlider; //Get_Min_RT();
-
-        [UIValue("maxRT")]
-        public float maxRT => _selectedBeatmap.MaxRTSlider; //Get_Max_RT();
-        
-        /*public float Get_Min_RT()
-        {
-            return _selectedBeatmap.MinRTSlider;
-        }
-
-        public float Get_Max_RT()
-        {
-            return _selectedBeatmap.MaxRTSlider;
-        }*/
 
 
         [UIValue("enabled")]
@@ -194,6 +168,27 @@ namespace JDFixer.UI
         }*/
 
 
+
+        [UIValue("minRT")]
+        public float minRT => _selectedBeatmap.MinRTSlider; //Get_Min_RT();
+
+        [UIValue("maxRT")]
+        public float maxRT => _selectedBeatmap.MaxRTSlider; //Get_Max_RT();
+
+        /*public float Get_Min_RT()
+        {
+            return _selectedBeatmap.MinRTSlider;
+        }
+
+        public float Get_Max_RT()
+        {
+            return _selectedBeatmap.MaxRTSlider;
+        }*/
+
+
+
+
+
         //=============================================================
         // Old Reaction Time Display: Replaced by RT Slider (KEEP THIS)
 
@@ -219,7 +214,7 @@ namespace JDFixer.UI
         [UIValue("rtValue")]
         public float rtValue
         {
-            get => CalculateReactionTime_2(PluginConfig.Instance.jumpDistance);
+            get => CalculateReactionTime_Float(PluginConfig.Instance.jumpDistance);
             set
             {
                 PluginConfig.Instance.jumpDistance = value / 1000 * (2 * _selectedBeatmap.NJS);
@@ -238,8 +233,9 @@ namespace JDFixer.UI
 
 
 
+        //##############################################
         // New for BS 1.19.0
-        //#################################
+
         [UIValue("increment_value")]
         private int Increment_Value
         {
@@ -254,8 +250,6 @@ namespace JDFixer.UI
 
         [UIAction("increment_formatter")]
         private string Increment_Formatter(int value) => ((PreferenceEnum)value).ToString();
-
-        //##############################################
 
 
         private void Set_Preference_Mode()
@@ -276,6 +270,7 @@ namespace JDFixer.UI
                 PluginConfig.Instance.rt_enabled = false;
             }
         }
+        //##############################################
 
 
         //=============================================================
