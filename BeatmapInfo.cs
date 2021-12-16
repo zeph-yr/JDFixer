@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace JDFixer
+﻿namespace JDFixer
 {
     public delegate void BeatmapInfoEventHandler(BeatmapInfo e);
     public class BeatmapInfo
@@ -60,10 +54,10 @@ namespace JDFixer
             MinRTSlider = PluginConfig.Instance.minJumpDistance * 500 / NJS;
             MaxRTSlider = PluginConfig.Instance.maxJumpDistance * 500 / NJS;
 
-            Logger.log.Debug("BeatmapInfo minJD: " + PluginConfig.Instance.minJumpDistance);
-            Logger.log.Debug("BeatmapInfo maxJD: " + PluginConfig.Instance.maxJumpDistance);
-            Logger.log.Debug("BeatmapInfo minRT: " + MinRTSlider);
-            Logger.log.Debug("BeatmapInfo maxRT: " + MaxRTSlider);
+            //Logger.log.Debug("BeatmapInfo minJD: " + PluginConfig.Instance.minJumpDistance);
+            //Logger.log.Debug("BeatmapInfo maxJD: " + PluginConfig.Instance.maxJumpDistance);
+            //Logger.log.Debug("BeatmapInfo minRT: " + MinRTSlider);
+            //Logger.log.Debug("BeatmapInfo maxRT: " + MaxRTSlider);
         }
 
         public float JumpDistance { get; }

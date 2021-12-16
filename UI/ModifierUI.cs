@@ -15,6 +15,7 @@ namespace JDFixer.UI
     {
         private readonly MainFlowCoordinator _mainFlow;
         private readonly PreferencesFlowCoordinator _prefFlow;
+
         private BeatmapInfo _selectedBeatmap = BeatmapInfo.Empty;
 
 
@@ -43,15 +44,12 @@ namespace JDFixer.UI
             _selectedBeatmap = beatmapInfo;
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(MapDefaultJDText)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(MapMinJDText)));
-            //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ReactionTimeText)));
+            //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ReactionTimeText))); // For old RT Display
 
             //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(jumpDisValue))); // necessary
+            //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(minRT)));
+            //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(maxRT)));
 
-            //PluginConfig.Instance.minReactionTime = CalculateReactionTime_2(PluginConfig.Instance.minJumpDistance);
-            //PluginConfig.Instance.maxReactionTime = CalculateReactionTime_2(PluginConfig.Instance.maxJumpDistance);
-
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(minRT)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(maxRT)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(rtValue))); // necessary
             PostParse();
         }
@@ -69,15 +67,7 @@ namespace JDFixer.UI
             return "<#cc99ff>0 ms";
         }
 
-        public float Get_Min_RT()
-        {
-            return _selectedBeatmap.MinRTSlider; //PluginConfig.Instance.minReactionTime;
-        }
-
-        public float Get_Max_RT()
-        {
-            return _selectedBeatmap.MaxRTSlider; //PluginConfig.Instance.maxReactionTime;
-        }
+        
 
         public float CalculateReactionTime_2(float jd)
         {
@@ -92,31 +82,20 @@ namespace JDFixer.UI
 
 
         [UIValue("minRT")]
-        public float minRT => Get_Min_RT();
-        /*{
-            get => /*PluginConfig.Instance.minReactionTime;
-            set
-            {
-                //PluginConfig.Instance.minReactionTime = CalculateReactionTime_2(minJump);
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(minRT)));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(maxRT)));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(rtValue)));
-            }
-        }*/
+        public float minRT => _selectedBeatmap.MinRTSlider; //Get_Min_RT();
 
         [UIValue("maxRT")]
-        public float maxRT => Get_Max_RT();
-        /*{
-            get => PluginConfig.Instance.maxReactionTime; //
-            set
-            {
-                //PluginConfig.Instance.maxReactionTime = CalculateReactionTime_2(maxJump);
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(minRT)));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(maxRT)));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(rtValue)));
-            }
-        }*/
+        public float maxRT => _selectedBeatmap.MaxRTSlider; //Get_Max_RT();
+        
+        /*public float Get_Min_RT()
+        {
+            return _selectedBeatmap.MinRTSlider;
+        }
 
+        public float Get_Max_RT()
+        {
+            return _selectedBeatmap.MaxRTSlider;
+        }*/
 
 
         [UIValue("enabled")]
@@ -193,40 +172,26 @@ namespace JDFixer.UI
         [UIValue("jumpDisValue")]
         public float jumpDisValue
         {
-            get => GetJumpDistance();//PluginConfig.Instance.jumpDistance;
+            get => PluginConfig.Instance.jumpDistance; //GetJumpDistance();
             set
             {
                 PluginConfig.Instance.jumpDistance = value;
-                //PluginConfig.Instance.minReactionTime = Get_Min_RT();
-                //PluginConfig.Instance.maxReactionTime = Get_Max_RT();
-                //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(minRT)));
-                //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(maxRT)));
 
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(rtValue)));
-                //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ReactionTimeText)));
-                
-                Logger.log.Debug("update jd. selected njs: " + _selectedBeatmap.NJS);
-                Logger.log.Debug("update jd. selected njs: " + CalculateReactionTime_2(minJump));
-                Logger.log.Debug("update jd. selected njs: " + CalculateReactionTime_2(maxJump));
-
-
-                //NotifyPropertyChanged(nameof(ReactionTimeText));
-
-                //Logger.log.Debug(value.ToString());
-                //Logger.log.Debug(_selectedBeatmap.NJS.ToString());
+                //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ReactionTimeText))); // For old RT Display
             }
         }
         [UIAction("setJumpDis")]
         public void SetJumpDis(float value)
         {
             jumpDisValue = value;
-            PostParse();
+            //PostParse();
         }
 
-        private float GetJumpDistance()
+        /*private float GetJumpDistance()
         {
             return PluginConfig.Instance.jumpDistance;
-        }
+        }*/
 
 
         //=============================================================
@@ -257,18 +222,10 @@ namespace JDFixer.UI
             get => CalculateReactionTime_2(PluginConfig.Instance.jumpDistance);
             set
             {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(minRT)));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(maxRT)));
-
                 PluginConfig.Instance.jumpDistance = value / 1000 * (2 * _selectedBeatmap.NJS);
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(jumpDisValue)));
+
                 //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ReactionTimeText))); // For validation               
-
-
-                //NotifyPropertyChanged(nameof(ReactionTimeText));
-
-                //Logger.log.Debug(value.ToString());
-                //Logger.log.Debug(_selectedBeatmap.NJS.ToString());
             }
         }
 
@@ -428,7 +385,8 @@ namespace JDFixer.UI
 
         public CurvedTextMeshPro jd_slider_text;
         public CurvedTextMeshPro rt_slider_text;
-        public HMUI.CustomFormatRangeValuesSlider minval;
+
+        public HMUI.CustomFormatRangeValuesSlider rt_slider_range;
 
         [UIAction("#post-parse")]
         private void PostParse()
@@ -447,10 +405,13 @@ namespace JDFixer.UI
                 rt_slider_text.color = new UnityEngine.Color(204f/255f, 153f/255f, 1f);
             }
 
-            minval = rtSlider.slider.GetComponentInChildren<HMUI.CustomFormatRangeValuesSlider>();
 
-            minval.minValue = _selectedBeatmap.MinRTSlider;
-            minval.maxValue = _selectedBeatmap.MaxRTSlider;
+            rt_slider_range = rtSlider.slider.GetComponentInChildren<HMUI.CustomFormatRangeValuesSlider>();
+            
+            rt_slider_range.minValue = _selectedBeatmap.MinRTSlider;
+            rt_slider_range.maxValue = _selectedBeatmap.MaxRTSlider;
+            
+            // These are critical:
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(minRT)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(maxRT)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(rtValue)));
