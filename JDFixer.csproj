@@ -139,6 +139,7 @@
     <Compile Include="Interfaces\IBeatmapInfoUpdater.cs" />
     <Compile Include="Managers\JDFixerUIManager.cs" />
     <Compile Include="PluginConfig.cs" />
+    <Compile Include="UI\PreferencesListViewController.cs" />
     <Compile Include="UI\RTPreferencesListViewController.cs" />
     <Compile Include="HarmonyPatches.cs" />
     <Compile Include="Logger.cs" />
@@ -153,7 +154,7 @@
     <Compile Include="BeatmapInfo.cs" />
     <Compile Include="UI\ModifierUI.cs" />
     <Compile Include="UI\PreferencesFlowCoordinator.cs" />
-    <Compile Include="UI\PreferencesListViewController.cs" />
+    <Compile Include="UI\PreferencesListViewController_exp.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

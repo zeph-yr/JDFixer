@@ -86,7 +86,7 @@ namespace JDFixer.UI
         private void Select_Pref(TableView tableView, int row)
         {
             //Logger.log.Debug("Selected row " + row);
-            
+
             _selectedPref = PluginConfig.Instance.preferredValues[row];
             //prefIsSelected = prefIsSelected;
             //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(prefIsSelected)));
@@ -96,7 +96,7 @@ namespace JDFixer.UI
         [UIAction("add_pressed")]
         private void Add_Pressed()
         {
-            if(PluginConfig.Instance.preferredValues.Any(x => x.njs == _new_njs))
+            if (PluginConfig.Instance.preferredValues.Any(x => x.njs == _new_njs))
             {
                 PluginConfig.Instance.preferredValues.RemoveAll(x => x.njs == _new_njs);
             }
