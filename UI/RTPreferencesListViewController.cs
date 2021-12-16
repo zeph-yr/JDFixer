@@ -3,7 +3,6 @@ using HMUI;
 using BeatSaberMarkupLanguage.Attributes;
 using BeatSaberMarkupLanguage.Components;
 using BeatSaberMarkupLanguage.ViewControllers;
-using UnityEngine;
 using BeatSaberMarkupLanguage.Components.Settings;
 using System.ComponentModel;
 
@@ -12,101 +11,96 @@ namespace JDFixer.UI
     public class RTPreferencesListViewController : BSMLResourceViewController, INotifyPropertyChanged
     {
         public override string ResourceName => "JDFixer.UI.BSML.rtPreferencesList.bsml";
-
-        public event PropertyChangedEventHandler propertyChanged;
-
-        [UIValue("minRT")]
-        private float minRT => PluginConfig.Instance.minReactionTime;
-        [UIValue("maxRT")]
-        private float maxRT => PluginConfig.Instance.maxReactionTime;
+        //public event PropertyChangedEventHandler propertyChanged;
 
 
-        [UIComponent("prefList")]
+        [UIComponent("njs_slider")]
+        private SliderSetting NJS_Slider;
+
+        private float _new_njs = 16f;
+
+        [UIValue("njs_value")]
+        public float NJS_Value
+        {
+            get => _new_njs;
+            set
+            {
+                _new_njs = value;
+            }
+        }
+
+        [UIAction("set_njs")]
+        void Set_NJS(float value)
+        {
+            NJS_Value = value;
+        }
+
+
+        [UIValue("min_rt_slider")]
+        private float Min_RT_Slider => PluginConfig.Instance.minReactionTime;
+        [UIValue("max_rt_slider")]
+        private float Max_RT_Slider => PluginConfig.Instance.maxReactionTime;
+
+        [UIComponent("rt_slider")]
+        private SliderSetting RT_Slider;
+
+        private float _new_rt = 500f;
+
+        [UIValue("rt_value")]
+        public float RT_Value
+        {
+            get => _new_rt;
+            set
+            {
+                _new_rt = value;
+            }
+        }
+
+        [UIAction("set_rt")]
+        void Set_RT(float value)
+        {
+            RT_Value = value;
+        }
+
+
+        [UIComponent("pref_list")]
         public CustomListTableData prefList;
-        
         private RTPref _selectedPref = null;
 
-        /*[UIValue("prefIsSelected")]
-        public bool prefIsSelected
+        [UIAction("select_pref")]
+        private void Select_Pref(TableView tableView, int row)
         {
-            get => _selectedPref != null;
-            set
-            {
-
-            }
-        }*/
-
-
-        /*[UIComponent("leftButton")]
-        private RectTransform leftButton;
-        [UIComponent("rightButton")]
-        private RectTransform rightButton;
-        */
-
-        [UIComponent("njsSlider")]
-        private SliderSetting njsSlider;
-
-        private float _newNjs = 16f;
-        [UIValue("njsValue")]
-        public float njsValue
-        {
-            get => _newNjs;
-            set
-            {
-                _newNjs = value;
-            }
-        }
-        [UIAction("setNjs")]
-        void SetNjs(float value)
-        {
-            njsValue = value;
-        }
-
-        [UIComponent("rtSlider")]
-        private SliderSetting rtSlider;
-
-        private float _newReactionTime = 500f;
-        [UIValue("reactionTimeValue")]
-        public float reactionTimeValue
-        {
-            get => _newReactionTime;
-            set
-            {
-                _newReactionTime = value;
-            }
-        }
-        [UIAction("setReactionTime")]
-        void SetReactionTime(float value)
-        {
-            reactionTimeValue = value;
-        }
-
-        [UIAction("prefSelect")]
-        private void SelectedPref(TableView tableView, int row)
-        {
-            Logger.log.Debug("Selected row " + row);
+            //Logger.log.Debug("Selected row " + row);
 
             _selectedPref = PluginConfig.Instance.rt_preferredValues[row];
             //propertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(prefIsSelected)));
         }
-        [UIAction("addPressed")]
-        private void AddNewValue()
+
+
+        [UIAction("add_pressed")]
+        private void Add_Pressed()
         {
-            if (PluginConfig.Instance.rt_preferredValues.Any(x => x.njs == _newNjs))
+            if (PluginConfig.Instance.rt_preferredValues.Any(x => x.njs == _new_njs))
             {
-                PluginConfig.Instance.rt_preferredValues.RemoveAll(x => x.njs == _newNjs);
+                PluginConfig.Instance.rt_preferredValues.RemoveAll(x => x.njs == _new_njs);
             }
-            PluginConfig.Instance.rt_preferredValues.Add(new RTPref(_newNjs, _newReactionTime));
-            ReloadListFromConfig();
+            PluginConfig.Instance.rt_preferredValues.Add(new RTPref(_new_njs, _new_rt));
+            Reload_List_From_Config();
         }
-        [UIAction("removePressed")]
-        private void RemoveSelectedPref()
+
+
+        [UIAction("remove_pressed")]
+        private void Remove_Pressed()
         {
-            if (_selectedPref == null) return;
+            if (_selectedPref == null)
+                return;
+
             PluginConfig.Instance.rt_preferredValues.RemoveAll(x => x == _selectedPref);
-            ReloadListFromConfig();
+            Reload_List_From_Config();
         }
-        private void ReloadListFromConfig()
+
+
+        private void Reload_List_From_Config()
         {
             prefList.data.Clear();
 
@@ -119,6 +113,7 @@ namespace JDFixer.UI
             {
                 prefList.data.Add(new CustomListTableData.CustomCellInfo($"{pref.njs} NJS | {pref.reactionTime} ms"));
             }
+
             prefList.tableView.ReloadData();
             prefList.tableView.ClearSelection();
             _selectedPref = null;
@@ -129,13 +124,13 @@ namespace JDFixer.UI
 
 
         //----------------------------------------------------------------------------
-        // Reusing Unchanged
+
         protected override void DidActivate(bool firstActivation, bool addedToHierarchy, bool screenSystemEnabling)
         {
             base.DidActivate(firstActivation, addedToHierarchy, screenSystemEnabling);
             if (!firstActivation)
             {
-                ReloadListFromConfig();
+                Reload_List_From_Config();
             }
         }
 
@@ -144,10 +139,11 @@ namespace JDFixer.UI
             base.DidDeactivate(removedFromHierarchy, screenSystemDisabling);
         }
 
+
         [UIAction("#post-parse")]
         private void PostParse()
         {
-            ReloadListFromConfig();
+            Reload_List_From_Config();
         }
     }
 }

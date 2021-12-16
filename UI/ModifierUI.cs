@@ -261,6 +261,8 @@ namespace JDFixer.UI
                 PluginConfig.Instance.usePreferredJumpDistanceValues = false;
                 PluginConfig.Instance.rt_enabled = false;
             }
+
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Pref_Button)));
         }
         //##############################################
 
@@ -315,6 +317,25 @@ namespace JDFixer.UI
             //}
         }*/
         //=============================================================
+
+        [UIValue("pref_button")]
+        public string Pref_Button => Get_Pref_Button();
+
+        public string Get_Pref_Button()
+        {
+            if (PluginConfig.Instance.pref_selected == 2)
+            {
+                return "<#cc99ff>JD and RT Preferences"; //#8c1aff
+            }
+
+            else if (PluginConfig.Instance.pref_selected == 1)
+            {
+                return "<#ffff00>JD and RT Preferences";
+            }
+
+            else
+                return "JD and RT Preferences";
+        }
 
 
         [UIAction("pref_button_clicked")]
