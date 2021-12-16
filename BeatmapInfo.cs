@@ -33,8 +33,13 @@ namespace JDFixer
             MinReactionTime = 0f;
 
             // Ultra hack way to prevent divide by zero in Reaction Time Display
-            NJS = 0.001f; 
+            NJS = 0.001f;
+
+            // Experimental
+            MinRTSlider = 0f;
+            MaxRTSlider = 3000f;
         }
+
         public BeatmapInfo(IDifficultyBeatmap diff)
         {
 
@@ -51,6 +56,14 @@ namespace JDFixer
             ReactionTime = JumpDistance * 500 / NJS;
             MinReactionTime = MinJumpDistance * 500 / NJS;
 
+            // Experimental
+            MinRTSlider = PluginConfig.Instance.minJumpDistance * 500 / NJS;
+            MaxRTSlider = PluginConfig.Instance.maxJumpDistance * 500 / NJS;
+
+            Logger.log.Debug("BeatmapInfo minJD: " + PluginConfig.Instance.minJumpDistance);
+            Logger.log.Debug("BeatmapInfo maxJD: " + PluginConfig.Instance.maxJumpDistance);
+            Logger.log.Debug("BeatmapInfo minRT: " + MinRTSlider);
+            Logger.log.Debug("BeatmapInfo maxRT: " + MaxRTSlider);
         }
 
         public float JumpDistance { get; }
@@ -58,5 +71,9 @@ namespace JDFixer
         public float NJS { get; }
         public float ReactionTime { get; }
         public float MinReactionTime { get; }
+
+        // Experimental
+        public float MinRTSlider { get; }
+        public float MaxRTSlider { get; }
     }
 }
