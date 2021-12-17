@@ -1,7 +1,7 @@
 ﻿<bg xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd'>
 	<vertical>
-		<horizontal preferred-width='75' child-control-width='true'>
-			<text text="Maps will automatically run using the NJS/RT setting that is equal or lower than the selected map's NJS" align='Center' word-wrapping='true' font-size='3' font-color='#cc99ffff'/>
+		<horizontal preferred-width='80' child-control-width='true'>
+			<text text="Maps will automatically run using the NJS/RT setting that is equal or lower than the selected map's NJS. For constant RT across all maps, use [0 NJS | Your RT]" align='Center' word-wrapping='true' font-size='3' font-color='#cc99ffff'/>
 		</horizontal>
 		<list id='pref_list' list-style='Simple' select-cell='select_pref' stick-scrolling="true" show-scrollbar="true"></list>
 		<horizontal>
