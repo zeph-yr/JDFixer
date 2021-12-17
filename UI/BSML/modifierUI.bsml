@@ -1,6 +1,6 @@
 ﻿<bg xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd'>
   <settings-container child-control-width='true' child-expand-width='true' size-delta-y='-15'>
-    <checkbox-setting value ='enabled' on-change='set_enabled' text='Enabled'></checkbox-setting>
+    <checkbox-setting value ='enabled' on-change='set_enabled' text='Enabled' hover-hint='Overrides base game settings'></checkbox-setting>
 
     <horizontal>
 		<grid cell-size-y='5' cell-size-x='28' spacing-x='2' align='Right'>
@@ -19,7 +19,7 @@
 
 	<increment-setting value='increment_value' apply-on-change='true' bind-value='true' text='Automated Preferences' integer-only='true' min='0' max='2' formatter='increment_formatter' hover-hint='Autoselect by matching or lower NJS'/>    
     <button align='Center' on-click='pref_button_clicked' text='~pref_button' hover-hint='Open config menu'></button>
-	<checkbox-setting value='use_heuristic' on-change='set_use_heuristic' text='Use Map JD or RT If Lower' hover-hint='If original JD or RT is lower than the matching preference, map will run at original JD or RT'></checkbox-setting>
+	<checkbox-setting value='use_heuristic' on-change='set_use_heuristic' text='Play at Map JD or RT If Lower' hover-hint='If original JD or RT is lower than the matching preference, map will run at original JD or RT'></checkbox-setting>
 
 	<horizontal>
       <grid cell-size-y='5' cell-size-x='28' spacing-x='2' align='Right'>
@@ -30,7 +30,7 @@
     </horizontal>
 
 	<horizontal>
-		<text text='Instructions at github.com/zeph-yr/JDFixer#readme     v2.1.7' font-color='#ff0080ff' font-size='3' align='Center' hover-hint="Read this to learn the hidden features."></text>	  
+		<text text='Instructions at github.com/zeph-yr/JDFixer#readme     v3.1.6' font-color='#ff0080ff' font-size='3' align='Center' hover-hint="Read this to learn the hidden features."></text>	  
 	</horizontal>
   </settings-container>
 </bg>
