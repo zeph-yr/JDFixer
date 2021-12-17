@@ -37,9 +37,9 @@ namespace JDFixer.UI
 
 
         [UIValue("min_rt_slider")]
-        private float Min_RT_Slider => PluginConfig.Instance.minReactionTime;
+        private int Min_RT_Slider => PluginConfig.Instance.minReactionTime;
         [UIValue("max_rt_slider")]
-        private float Max_RT_Slider => PluginConfig.Instance.maxReactionTime;
+        private int Max_RT_Slider => PluginConfig.Instance.maxReactionTime;
 
         [UIComponent("rt_slider")]
         private SliderSetting RT_Slider;
@@ -61,6 +61,9 @@ namespace JDFixer.UI
         {
             RT_Value = value;
         }
+
+        [UIAction("rt_slider_formatter")]
+        private string RT_Slider_Formatter(float value) => value.ToString("0") + " ms";
 
 
         [UIComponent("pref_list")]

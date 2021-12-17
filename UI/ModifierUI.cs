@@ -116,9 +116,9 @@ namespace JDFixer.UI
         public string Get_Map_Default_JD()
         {
             if (PluginConfig.Instance.rt_display_enabled)
-                return "<#ffff00>" + _selectedBeatmap.JumpDistance.ToString("0.###") + "     <#8c1aff>" + _selectedBeatmap.ReactionTime.ToString("0.#") + " ms";
+                return "<#ffff00>" + _selectedBeatmap.JumpDistance.ToString("0.##") + "     <#8c1aff>" + _selectedBeatmap.ReactionTime.ToString("0") + " ms";
 
-            return "<#ffff00>" + _selectedBeatmap.JumpDistance.ToString("0.###");
+            return "<#ffff00>" + _selectedBeatmap.JumpDistance.ToString("0.##");
         }
 
 
@@ -129,9 +129,9 @@ namespace JDFixer.UI
         public string Get_Map_Min_JD()
         {
             if (PluginConfig.Instance.rt_display_enabled)
-                return "<#8c8c8c>" + _selectedBeatmap.MinJumpDistance.ToString("0.###") + "     <#8c8c8c>" + _selectedBeatmap.MinReactionTime.ToString("0.#" + " ms");
+                return "<#8c8c8c>" + _selectedBeatmap.MinJumpDistance.ToString("0.##") + "     <#8c8c8c>" + _selectedBeatmap.MinReactionTime.ToString("0" + " ms");
 
-            return "<#8c8c8c>" + _selectedBeatmap.MinJumpDistance.ToString("0.###");
+            return "<#8c8c8c>" + _selectedBeatmap.MinJumpDistance.ToString("0.##");
         }
 
 
@@ -170,10 +170,10 @@ namespace JDFixer.UI
 
 
         [UIValue("min_rt_slider")]
-        public float Min_RT_Slider => _selectedBeatmap.MinRTSlider; //Get_Min_RT();
+        public int Min_RT_Slider => (int)_selectedBeatmap.MinRTSlider; //Get_Min_RT();
 
         [UIValue("max_rt_slider")]
-        public float Max_RT_Slider => _selectedBeatmap.MaxRTSlider; //Get_Max_RT();
+        public int Max_RT_Slider => (int)_selectedBeatmap.MaxRTSlider; //Get_Max_RT();
 
         /*public float Get_Min_RT()
         {
@@ -223,6 +223,9 @@ namespace JDFixer.UI
         {
             RT_Value = value;
         }
+
+        [UIAction("rt_slider_formatter")]
+        private string RT_Slider_Formatter(float value) => value.ToString("0") + " ms";
 
 
         //##############################################
