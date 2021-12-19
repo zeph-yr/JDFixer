@@ -8,19 +8,6 @@ namespace JDFixer
     {
         public static void Prefix(ref float startNoteJumpMovementSpeed, float startBpm, /*ref float noteJumpStartBeatOffset,*/ ref BeatmapObjectSpawnMovementData.NoteJumpValueType noteJumpValueType, ref float noteJumpValue, ref BeatmapObjectSpawnMovementData __instance, ref bool __state)
         {
-            /*bool WillOverride = BS_Utils.Plugin.LevelData.IsSet && PluginConfig.Instance.enabled
-                && (BS_Utils.Plugin.LevelData.Mode == BS_Utils.Gameplay.Mode.Standard
-                || BS_Utils.Plugin.LevelData.Mode == BS_Utils.Gameplay.Mode.Multiplayer
-                || BS_Utils.Plugin.LevelData.Mode == BS_Utils.Gameplay.Mode.Mission);*/
-
-            //BS_Utils.Utilities.LevelType.Tutorial
-            //BS_Utils.Plugin.LevelData.GameplayCoreSceneSetupData.practiceSettings != null
-
-            //__state = WillOverride;
-
-            //if (!WillOverride)
-            //    return;
-
             if (PluginConfig.Instance.enabled == false)
             {
                 return;
@@ -34,7 +21,7 @@ namespace JDFixer
 
 
             float mapNJS = startNoteJumpMovementSpeed;
-            Logger.log.Debug("mapNJS:" + mapNJS.ToString());
+            //Logger.log.Debug("mapNJS:" + mapNJS.ToString());
 
             if (mapNJS <= 0.01) // Just in case?
                 mapNJS = 10;
@@ -90,7 +77,7 @@ namespace JDFixer
             }
 
             // Calculate New Offset Given Desired JD:
-            //Logger.log.Debug($"BPM/NJS/Offset {startBpm}/{startNoteJumpMovementSpeed}/{noteJumpStartBeatOffset}");
+            Logger.log.Debug($"BPM/NJS/Offset {startBpm}/{startNoteJumpMovementSpeed}/{noteJumpStartBeatOffset}");
 
             float simOffset = 0;
             float numCurr = 60f / startBpm;
@@ -115,8 +102,8 @@ namespace JDFixer
             noteJumpValue = simOffset;
             //noteJumpStartBeatOffset = simOffset;
 
-
-            Logger.log.Debug($"HalfJumpCurrent: {num2Curr} | DesiredHalfJump {desiredHalfJumpDur} | DesiredJumpDis {desiredJumpDis} | CurrJumpDis {jumpDisCurr} | Simulated Offset {simOffset}");
+            //Logger.log.Debug($"HalfJumpCurrent: {num2Curr} | DesiredHalfJump {desiredHalfJumpDur} | DesiredJumpDis {desiredJumpDis} | CurrJumpDis {jumpDisCurr} | Simulated Offset {simOffset}");
+            Logger.log.Debug($"DesiredJumpDis {desiredJumpDis} | Simulated Offset {simOffset}");
         }
 
         /*public static void Postfix(ref float ____jumpDistance, bool __state)

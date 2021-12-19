@@ -13,7 +13,7 @@ namespace JDFixer.Managers
         [Inject]
         public JDFixerUIManager(StandardLevelDetailViewController standardLevelDetailViewController, List<IBeatmapInfoUpdater> iBeatmapInfoUpdaters)
         {
-            Logger.log.Debug("JDFixerUIManager()");
+            //Logger.log.Debug("JDFixerUIManager()");
 
             levelDetail = standardLevelDetailViewController;
             beatmapInfoUpdaters = iBeatmapInfoUpdaters;
@@ -21,7 +21,7 @@ namespace JDFixer.Managers
 
         public void Initialize()
         {
-            Logger.log.Debug("Initialize()");
+            //Logger.log.Debug("Initialize()");
 
             levelDetail.didChangeDifficultyBeatmapEvent += LevelDetail_didChangeDifficultyBeatmapEvent;
             levelDetail.didChangeContentEvent += LevelDetail_didChangeContentEvent;
@@ -29,7 +29,7 @@ namespace JDFixer.Managers
 
         public void Dispose()
         {
-            Logger.log.Debug("Dispose()");
+            //Logger.log.Debug("Dispose()");
 
             levelDetail.didChangeDifficultyBeatmapEvent -= LevelDetail_didChangeDifficultyBeatmapEvent;
             levelDetail.didChangeContentEvent -= LevelDetail_didChangeContentEvent;
@@ -37,7 +37,7 @@ namespace JDFixer.Managers
 
         private void LevelDetail_didChangeDifficultyBeatmapEvent(StandardLevelDetailViewController arg1, IDifficultyBeatmap arg2)
         {
-            Logger.log.Debug("LevelDetail_didChangeDifficultyBeatmapEvent()");
+            //Logger.log.Debug("LevelDetail_didChangeDifficultyBeatmapEvent()");
 
             if (arg1 != null && arg2 != null)
             {
@@ -47,12 +47,12 @@ namespace JDFixer.Managers
 
         private void LevelDetail_didChangeContentEvent(StandardLevelDetailViewController arg1, StandardLevelDetailViewController.ContentType arg2)
         {
-            Logger.log.Debug("LevelDetail_didChangeContentEvent()");          
+            //Logger.log.Debug("LevelDetail_didChangeContentEvent()");          
             
             if (arg1 != null && arg1.selectedDifficultyBeatmap != null)
             {
-                Logger.log.Debug("njs: " + arg1.selectedDifficultyBeatmap.noteJumpMovementSpeed);
-                Logger.log.Debug("jd: " + arg1.selectedDifficultyBeatmap.noteJumpStartBeatOffset);
+                //Logger.log.Debug("NJS: " + arg1.selectedDifficultyBeatmap.noteJumpMovementSpeed);
+                //Logger.log.Debug("Offset: " + arg1.selectedDifficultyBeatmap.noteJumpStartBeatOffset);
 
                 DiffcultyBeatmapUpdated(arg1.selectedDifficultyBeatmap);
             }
@@ -60,12 +60,10 @@ namespace JDFixer.Managers
 
         private void DiffcultyBeatmapUpdated(IDifficultyBeatmap difficultyBeatmap)
         {
-            Logger.log.Debug("DiffcultyBeatmapUpdated()");
+            //Logger.log.Debug("DiffcultyBeatmapUpdated()");
 
             foreach (var beatmapInfoUpdater in beatmapInfoUpdaters)
             {
-                Logger.log.Debug("for loop");
-
                 beatmapInfoUpdater.BeatmapInfoUpdated(new BeatmapInfo(difficultyBeatmap));
             }
         }
