@@ -8,14 +8,16 @@ namespace JDFixer.Managers
     class JDFixerUIManager : IInitializable, IDisposable
     {
         public static StandardLevelDetailViewController levelDetail;
+        public static MissionSelectionMapViewController missionSelection;
         private readonly List<IBeatmapInfoUpdater> beatmapInfoUpdaters;
 
         [Inject]
-        public JDFixerUIManager(StandardLevelDetailViewController standardLevelDetailViewController, List<IBeatmapInfoUpdater> iBeatmapInfoUpdaters)
+        public JDFixerUIManager(StandardLevelDetailViewController standardLevelDetailViewController, MissionSelectionMapViewController missionSelectionMapViewController, List<IBeatmapInfoUpdater> iBeatmapInfoUpdaters)
         {
             //Logger.log.Debug("JDFixerUIManager()");
 
             levelDetail = standardLevelDetailViewController;
+            missionSelection = missionSelectionMapViewController;
             beatmapInfoUpdaters = iBeatmapInfoUpdaters;
         }
 
@@ -25,6 +27,8 @@ namespace JDFixer.Managers
 
             levelDetail.didChangeDifficultyBeatmapEvent += LevelDetail_didChangeDifficultyBeatmapEvent;
             levelDetail.didChangeContentEvent += LevelDetail_didChangeContentEvent;
+
+            missionSelection.didSelectMissionLevelEvent += MissionSelection_didSelectMissionLevelEvent;
         }
 
         public void Dispose()
@@ -33,6 +37,8 @@ namespace JDFixer.Managers
 
             levelDetail.didChangeDifficultyBeatmapEvent -= LevelDetail_didChangeDifficultyBeatmapEvent;
             levelDetail.didChangeContentEvent -= LevelDetail_didChangeContentEvent;
+
+            missionSelection.didSelectMissionLevelEvent -= MissionSelection_didSelectMissionLevelEvent;
         }
 
         private void LevelDetail_didChangeDifficultyBeatmapEvent(StandardLevelDetailViewController arg1, IDifficultyBeatmap arg2)
@@ -56,6 +62,12 @@ namespace JDFixer.Managers
 
                 DiffcultyBeatmapUpdated(arg1.selectedDifficultyBeatmap);
             }
+        }
+
+        // QOL: When in Campaigns, set Map JD and Reaction Time displays to show zeroes to prevent misleading player
+        private void MissionSelection_didSelectMissionLevelEvent(MissionSelectionMapViewController arg1, MissionNode arg2)
+        {
+            DiffcultyBeatmapUpdated(null);
         }
 
         private void DiffcultyBeatmapUpdated(IDifficultyBeatmap difficultyBeatmap)

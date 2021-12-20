@@ -36,6 +36,10 @@
 
         public BeatmapInfo(IDifficultyBeatmap diff)
         {
+            if (diff == null)
+            {
+                return;
+            }
 
             float bpm = diff.level.beatsPerMinute;
             float njs = diff.noteJumpMovementSpeed;

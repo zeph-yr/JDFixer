@@ -211,8 +211,11 @@ namespace JDFixer.UI
             get => CalculateReactionTime_Float(PluginConfig.Instance.jumpDistance);
             set
             {
-                PluginConfig.Instance.jumpDistance = value / 1000 * (2 * _selectedBeatmap.NJS);
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(JD_Value)));
+                if (_selectedBeatmap.NJS > 0.002)
+                {
+                    PluginConfig.Instance.jumpDistance = value / 1000 * (2 * _selectedBeatmap.NJS);
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(JD_Value)));
+                }
 
                 //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ReactionTimeText))); // For validation               
             }
