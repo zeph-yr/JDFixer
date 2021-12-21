@@ -15,11 +15,11 @@
     </horizontal>
 
     <slider-setting id='jd_slider' value ='jd_value' show-buttons='true' on-change='set_jd_value' apply-on-change='true' bind-value='true' text='Desired Jump Distance' increment='0.1' min='~min_jd_slider' max='~max_jd_slider'></slider-setting>
-	<slider-setting id='rt_slider' value ='rt_value' show-buttons='true' on-change='set_rt_value' bind-value='true' text='and Reaction Time' increment='2' min='~min_rt_slider' max='~max_rt_slider' formatter='rt_slider_formatter'></slider-setting>
+	<slider-setting id='rt_slider' value ='rt_value' show-buttons='true' on-change='set_rt_value' bind-value='true' text='Reaction Time' increment='2' min='~min_rt_slider' max='~max_rt_slider' formatter='rt_slider_formatter'></slider-setting>
 
 	<increment-setting value='increment_value' apply-on-change='true' bind-value='true' text='Automated Preferences' integer-only='true' min='0' max='2' formatter='increment_formatter' hover-hint='Autoselect JD or RT based on NJS'/>    
     <button align='Center' on-click='pref_button_clicked' text='~pref_button' hover-hint='Click to set up preferences'></button>
-	<checkbox-setting value='use_heuristic' on-change='set_use_heuristic' text='Play at Map JD or RT If Lower' hover-hint='If original JD or RT is lower than the matching preference, map will run at original JD or RT'></checkbox-setting>
+	<checkbox-setting value='use_heuristic' on-change='set_use_heuristic' text='Play at Map JD and RT If Lower' hover-hint='If original JD and RT is lower than the matching preference, map will run at original JD and RT'></checkbox-setting>
 
 	<horizontal>
       <grid cell-size-y='5' cell-size-x='28' spacing-x='2' align='Right'>
@@ -30,7 +30,7 @@
     </horizontal>
 
 	<horizontal>
-		<text text='Instructions at github.com/zeph-yr/JDFixer#readme     v3.1.6' font-color='#ff0080ff' font-size='3' align='Center' hover-hint="Read this to learn the hidden features"></text>	  
+		<text text='Instructions at github.com/zeph-yr/JDFixer#readme     v3.0.0' font-color='#ff0080ff' font-size='3' align='Center' hover-hint="Read this to learn the hidden features"></text>	  
 	</horizontal>
   </settings-container>
 </bg>
