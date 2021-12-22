@@ -58,10 +58,10 @@ To run every map at a constant JD regardless of its NJS, create a single prefere
 
 - If `Automated Preferences` is set to `JumpDistance` but no Preferences are set, the map will run at JD and RT slider value
 - Thresholds override Preferences only
-- If you need decimal values for NJS or JD in Preferences, you can set them in JDFixer.json.
+- If you need decimal values for Preferences, you can set them in JDFixer.json.
 
 **Reaction Time Preferences:** 
-This works exactly the same as JD Preferences. The four examples above apply, except in reaction time. Reaction time is a function of the map's original NJS and Jump Distance. This means that RT Preferences automatically sets a map's JD to give your preferred reaction time for a given NJS.
+This works exactly the same as JD Preferences. The five examples above apply, except in reaction time. Reaction time is a function of the map's original NJS and Jump Distance. This means that RT Preferences automatically sets a map's JD to give your preferred reaction time for a given NJS.
 
 ## Tournaments and MP
 - **Tournament Assistant:** Supports Default, Dual Sync and AutoPause matches. JD slider and Preferences work as normal. Map display is disabled. Avoid opening the Preferences menu in TA! You will be stuck in it until you relaunch the game. However if you do choose to get yourself stuck inside just before a match, your match will still play fine when the coordinator starts it KEKW.
@@ -70,7 +70,7 @@ This works exactly the same as JD Preferences. The four examples above apply, ex
 - **OST, DLC Levels, Base Campaign:** Supported.
 
 ## UI Option
-The default and minimum Reaction Time Display can be hidden to revert to the previous version's UI.
+The default and minimum Reaction Time Display can be hidden.
 Change `rt_display_enabled` in /UserData/JDFixer.json to "false"
 
 ![screenshot](https://github.com/zeph-yr/JDFixer/blob/BS_1.16.4_MA_v2.0.3/Screenshots/ui_options.png)
