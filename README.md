@@ -27,7 +27,7 @@ Supports CustomCampaigns, Tournament Assistant, Multiplayer, OST / DLC / Base Ca
 - Upper and Lower NJS Thresholds are configured in /UserData/JDFixer.json
 - Hover over menu in-game for explanations
 - **Not compatible with NjsFixer and LevelTweaks.** Using with these mods may result in conflicts and unexpected behavior.
-- **Requires BSIPA, BSML, and SiraUtil 3.0.0+** (v2.1.6 and below require BS_Utils)
+- **v3.0.0 for BS 1.19.0 requires BSIPA, BSML, and SiraUtil 3.0.0+** (v2.1.6 for BS 1.18.3 requires BS_Utils)
 
 **v2.1.3+ will import your settings file**
 
