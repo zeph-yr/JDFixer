@@ -13,16 +13,16 @@ Supports CustomCampaigns, Tournament Assistant, Multiplayer, OST / DLC / Base Ca
 - **Heuristic for Preferences** where if the selected map's original JD is lower than the JD in the matching NJS-JD pair, the map will run at its original JD. You can toggle this feature. 
 - **Upper and Lower NJS Thresholds where Preferences will be ignored.** If a map's NJS is at or above the upper threshold, the map will run at its original JD and RT (and vice versa for lower threshold)
 
-![screenshot](https://github.com/zeph-yr/JDFixer/blob/BS_1.16.4_MA_v2.0.3/Screenshots/menu_2.1.2_1_small.png)
-![screenshot](https://github.com/zeph-yr/JDFixer/blob/BS_1.16.4_MA_v2.0.3/Screenshots/2.1.0_menu_2.png)
+![screenshot](https://github.com/zeph-yr/JDFixer/blob/BS_1.19/Screenshots/3.0.0_menu_3.png)
+![screenshot](https://github.com/zeph-yr/JDFixer/blob/BS_1.19/Screenshots/3.0.0_menu_4.png)
 ![screenshot](https://github.com/zeph-yr/JDFixer/blob/BS_1.16.4_MA_v2.0.3/Screenshots/2.1.0_menu_3.png)
 
 ## How To Use
 - Place JDFixer.dll in Plugins folder
 - Select a map or difficulty to see its original JD and RT
 - Set up automated preferences to select JD or RT based on map NJS with in-game menu (If you require finer decimal values for NJS, JD and RT, you can edit your preferences in /UserData/JDFixer.json)
-- To access the RT Preferences menu, set `Automate Preferences` to `ReactionTime` and click `JD and RT Preferences`
-- Setting `Automate Preferences` to `JumpDistance` or `ReactionTime` will override the JD and RT sliders
+- To access the RT Preferences menu, set `Automated Preferences` to `ReactionTime` and click `JD and RT Preferences`
+- Setting `Automated Preferences` to `JumpDistance` or `ReactionTime` will override the JD and RT sliders
 - Min and max ranges of JD and RT sliders can be changed in /UserData/JDFixer.json
 - Upper and Lower NJS Thresholds are configured in /UserData/JDFixer.json
 - Hover over menu in-game for explanations
@@ -56,7 +56,7 @@ The map will run at its original 20 JD because it triggered the threhold.
 **Example 5:**
 To run every map at a constant JD regardless of its NJS, create a single preference with 0 NJS and your desired JD (such as 0 NJS - 18 JD)
 
-- If `Automate Preferences` is set to `JumpDistance` but no Preferences are set, the map will run at JD and RT slider value
+- If `Automated Preferences` is set to `JumpDistance` but no Preferences are set, the map will run at JD and RT slider value
 - Thresholds override Preferences only
 - If you need decimal values for NJS or JD in Preferences, you can set them in JDFixer.json.
 
