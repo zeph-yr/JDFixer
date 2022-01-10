@@ -35,7 +35,7 @@ namespace JDFixer
         [OnDisable]
         public void OnApplicationQuit()
         {
-            harmony.UnpatchAll("com.zephyr.BeatSaber.JDFixer");
+            harmony.UnpatchSelf();
         }
     }
 }

@@ -83,11 +83,11 @@ namespace JDFixer
             float numCurr = 60f / startBpm;
             float num2Curr = 4f;
 
-            while (mapNJS * numCurr * num2Curr > 18f)
+            while (mapNJS * numCurr * num2Curr > 17.999)
                 num2Curr /= 2f;
 
-            if (num2Curr < 0.25f)
-                num2Curr = 0.25f;
+            if (num2Curr < 1f)
+                num2Curr = 1f;
 
             float jumpDurCurr = num2Curr * numCurr * 2f;
             float jumpDisCurr = mapNJS * jumpDurCurr;
@@ -105,38 +105,5 @@ namespace JDFixer
             //Logger.log.Debug($"HalfJumpCurrent: {num2Curr} | DesiredHalfJump {desiredHalfJumpDur} | DesiredJumpDis {desiredJumpDis} | CurrJumpDis {jumpDisCurr} | Simulated Offset {simOffset}");
             Logger.log.Debug($"DesiredJumpDis {desiredJumpDis} | Simulated Offset {simOffset}");
         }
-
-        /*public static void Postfix(ref float ____jumpDistance, bool __state)
-        {
-            if (__state)
-                Logger.log.Debug("Final Jump Distance: " + ____jumpDistance);
-        }*/
     }
-
-
-    // Note: Patching DidActivate works only when diff is clicked
-    //[HarmonyPatch(typeof(StandardLevelDetailViewController), "DidActivate")]
-
-    /*[HarmonyPatch(typeof(StandardLevelDetailViewController), MethodType.Constructor)]
-    internal class StandardLevelDetailViewControllerPatch
-    {
-        public static void Postfix(ref StandardLevelDetailViewController __instance)
-        {
-            //Plugin.leveldetail = __instance;
-            JDFixer.Managers.JDFixerUIManager.levelDetail = __instance;
-            //Logger.log.Debug("leveldetail found");
-        }
-    }
-
-
-    //[HarmonyPatch(typeof(MissionSelectionMapViewController), "DidActivate")]
-    [HarmonyPatch(typeof(MissionSelectionMapViewController), MethodType.Constructor)]
-    internal class MissionSelectionMapViewControllerPatch
-    {
-        public static void Postfix(ref MissionSelectionMapViewController __instance)
-        {
-            Plugin.missionselection = __instance;
-            //Logger.log.Debug("missionselection found");
-        }
-    }*/
 }

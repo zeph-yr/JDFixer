@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace JDFixer
+﻿namespace JDFixer
 {
     static class BeatmapUtils
     {
@@ -18,12 +12,12 @@ namespace JDFixer
             if (njs <= 0.01) // Is it ok to == a 0f?
                 njs = 10f;
 
-            while (njs * num * halfjump > 18)
+            while (njs * num * halfjump > 17.999)
                 halfjump /= 2;
 
             halfjump += offset;
-            if (halfjump < 0.25)
-                halfjump = 0.25f;
+            if (halfjump < 1f)
+                halfjump = 1f;
 
             jumpdistance = njs * num * halfjump * 2;
 
