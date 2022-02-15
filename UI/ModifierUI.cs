@@ -136,9 +136,9 @@ namespace JDFixer.UI
 
 
         [UIValue("min_jd_slider")]
-        private int Min_JD_Slider => (int)_selectedBeatmap.MinJDSlider; //PluginConfig.Instance.minJumpDistance;
+        private float Min_JD_Slider => _selectedBeatmap.MinJDSlider; //PluginConfig.Instance.minJumpDistance;
         [UIValue("max_jd_slider")]
-        private int Max_JD_Slider => (int)_selectedBeatmap.MaxJDSlider; //PluginConfig.Instance.maxJumpDistance;
+        private float Max_JD_Slider => _selectedBeatmap.MaxJDSlider; //PluginConfig.Instance.maxJumpDistance;
 
         [UIComponent("jd_slider")]
         public SliderSetting JD_Slider;
@@ -196,10 +196,10 @@ namespace JDFixer.UI
 
 
         [UIValue("min_rt_slider")]
-        public int Min_RT_Slider => (int)_selectedBeatmap.MinRTSlider; //Get_Min_RT();
+        public float Min_RT_Slider => _selectedBeatmap.MinRTSlider; //Get_Min_RT();
 
         [UIValue("max_rt_slider")]
-        public int Max_RT_Slider => (int)_selectedBeatmap.MaxRTSlider; //Get_Max_RT();
+        public float Max_RT_Slider => _selectedBeatmap.MaxRTSlider; //Get_Max_RT();
 
         /*public float Get_Min_RT()
         {
@@ -469,6 +469,7 @@ namespace JDFixer.UI
                 rt_slider_text.color = new UnityEngine.Color(204f/255f, 153f/255f, 1f);
             }
 
+
             rt_slider_range = RT_Slider.slider.GetComponentInChildren<HMUI.CustomFormatRangeValuesSlider>();
 
             rt_slider_range.minValue = _selectedBeatmap.MinRTSlider;
@@ -502,12 +503,55 @@ namespace JDFixer.UI
             {
                 PluginConfig.Instance.slider_setting = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Fixed_Slider_Value)));
+
+                //BeatmapUtils.RefreshSliderMinMax(_selectedBeatmap.NJS);
                 PostParse();
+
+                RefreshSliderMinMax();
+
             }
         }
 
         [UIAction("fixed_slider_increment_formatter")]
         private string Fixed_Slider_Increment_Formatter(int value) => ((FixedSliderEnum)value).ToString();
+
+
+
+        public void RefreshSliderMinMax()
+        {
+            rt_slider_range = RT_Slider.slider.GetComponentInChildren<HMUI.CustomFormatRangeValuesSlider>();
+            jd_slider_range = JD_Slider.slider.GetComponentInChildren<HMUI.CustomFormatRangeValuesSlider>();
+
+
+            if (PluginConfig.Instance.slider_setting == 0)
+            {
+                rt_slider_range.minValue = PluginConfig.Instance.minJumpDistance * 500 / _selectedBeatmap.NJS;
+                rt_slider_range.maxValue = PluginConfig.Instance.maxJumpDistance * 500 / _selectedBeatmap.NJS;
+
+                jd_slider_range.minValue = PluginConfig.Instance.minJumpDistance;
+                jd_slider_range.maxValue = PluginConfig.Instance.maxJumpDistance;
+            }
+            else
+            {
+                rt_slider_range.minValue = PluginConfig.Instance.minReactionTime;
+                rt_slider_range.maxValue = PluginConfig.Instance.maxReactionTime;
+
+                jd_slider_range.minValue = PluginConfig.Instance.minReactionTime * _selectedBeatmap.NJS / 500;
+                jd_slider_range.maxValue = PluginConfig.Instance.maxReactionTime * _selectedBeatmap.NJS / 500;
+            }
+
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Min_RT_Slider)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Max_RT_Slider)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(RT_Value)));
+
+
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Min_JD_Slider)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Max_JD_Slider)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(JD_Value)));
+        }
+
+
+
     }
 
     public enum FixedSliderEnum

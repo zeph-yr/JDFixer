@@ -1,4 +1,6 @@
-﻿namespace JDFixer
+﻿using BeatSaberMarkupLanguage.GameplaySetup;
+
+namespace JDFixer
 {
     static class BeatmapUtils
     {
@@ -23,5 +25,26 @@
 
             return jumpdistance;
         }
+
+        // Cant make these public set, crashes
+        /*public static void RefreshSliderMinMax(float njs)
+        {
+            if (PluginConfig.Instance.slider_setting == 0)
+            {
+                BeatmapInfo.Selected.MinRTSlider = PluginConfig.Instance.minJumpDistance * 500 / njs;
+                BeatmapInfo.Selected.MaxRTSlider = PluginConfig.Instance.maxJumpDistance * 500 / njs;
+
+                BeatmapInfo.Selected.MinJDSlider = PluginConfig.Instance.minJumpDistance;
+                BeatmapInfo.Selected.MaxJDSlider = PluginConfig.Instance.maxJumpDistance;
+            }
+            else
+            {
+                BeatmapInfo.Selected.MinRTSlider = PluginConfig.Instance.minReactionTime;
+                BeatmapInfo.Selected.MaxRTSlider = PluginConfig.Instance.maxReactionTime;
+
+                BeatmapInfo.Selected.MinJDSlider = PluginConfig.Instance.minReactionTime * njs / 500;
+                BeatmapInfo.Selected.MaxJDSlider = PluginConfig.Instance.maxReactionTime * njs / 500;
+            }
+        }*/
     }
 }
