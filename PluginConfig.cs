@@ -16,7 +16,7 @@ namespace JDFixer
         public virtual bool enabled { get; set; } = false;
         //public bool enabledInPractice;
         public virtual float jumpDistance { get; set; } = 24f;
-        public virtual int minJumpDistance { get; set; } = 15;
+        public virtual int minJumpDistance { get; set; } = 12;
         public virtual int maxJumpDistance { get; set; } = 35;
         public virtual bool usePreferredJumpDistanceValues { get; set; } = false;
 
@@ -39,6 +39,12 @@ namespace JDFixer
         public virtual bool rt_display_enabled { get; set; } = true;
 
         public virtual int pref_selected { get; set; } = 0;
+
+
+        //1.19.1 Feature update
+        public virtual int fixed_slider { get; set; } = 0;
+        public virtual float reactiontime { get; set; } = 500f;
+
 
         /// <summary>
         /// Call this to force BSIPA to update the config file. This is also called by BSIPA if it detects the file was modified.

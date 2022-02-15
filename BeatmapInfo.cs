@@ -32,6 +32,9 @@
             // Experimental
             MinRTSlider = 0f;
             MaxRTSlider = 3000f;
+
+            MinJDSlider = 0f;
+            MaxJDSlider = 50f;
         }
 
         public BeatmapInfo(IDifficultyBeatmap diff)
@@ -54,9 +57,25 @@
             ReactionTime = JumpDistance * 500 / NJS;
             MinReactionTime = MinJumpDistance * 500 / NJS;
 
+
             // Experimental
-            MinRTSlider = PluginConfig.Instance.minJumpDistance * 500 / NJS;
-            MaxRTSlider = PluginConfig.Instance.maxJumpDistance * 500 / NJS;
+            if (PluginConfig.Instance.fixed_slider == 0)
+            {
+                MinRTSlider = PluginConfig.Instance.minJumpDistance * 500 / NJS;
+                MaxRTSlider = PluginConfig.Instance.maxJumpDistance * 500 / NJS;
+
+                MinJDSlider = PluginConfig.Instance.minJumpDistance;
+                MaxJDSlider = PluginConfig.Instance.maxJumpDistance;
+            }
+            else
+            {
+                MinRTSlider = PluginConfig.Instance.minReactionTime;
+                MaxRTSlider = PluginConfig.Instance.maxReactionTime;
+
+                MinJDSlider = PluginConfig.Instance.minReactionTime * NJS / 500;
+                MaxJDSlider = PluginConfig.Instance.maxReactionTime * NJS / 500;
+            }
+
 
             //Logger.log.Debug("BeatmapInfo minJD: " + PluginConfig.Instance.minJumpDistance);
             //Logger.log.Debug("BeatmapInfo maxJD: " + PluginConfig.Instance.maxJumpDistance);
@@ -73,5 +92,8 @@
         // Experimental
         public float MinRTSlider { get; }
         public float MaxRTSlider { get; }
+
+        public float MinJDSlider { get; }
+        public float MaxJDSlider { get; }
     }
 }

@@ -16,8 +16,8 @@
                 halfjump /= 2;
 
             halfjump += offset;
-            if (halfjump < 1f)
-                halfjump = 1f;
+            if (halfjump < 0.25f)
+                halfjump = 0.25f;
 
             jumpdistance = njs * num * halfjump * 2;
 
