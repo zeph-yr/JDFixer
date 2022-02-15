@@ -27,7 +27,19 @@ namespace JDFixer
                 mapNJS = 10;
 
             // JD setpoint from Slider
-            float desiredJumpDis = PluginConfig.Instance.jumpDistance;
+            //float desiredJumpDis = PluginConfig.Instance.jumpDistance;
+
+            //1.19.1
+            float desiredJumpDis;
+
+            if (PluginConfig.Instance.slider_setting == 0)
+            {
+                desiredJumpDis = PluginConfig.Instance.jumpDistance;
+            }
+            else
+            {
+                desiredJumpDis = PluginConfig.Instance.reactionTime * mapNJS / 500;
+            }
 
 
             // NJS-RT setpoints from Preferences

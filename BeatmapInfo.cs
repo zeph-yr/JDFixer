@@ -59,7 +59,7 @@
 
 
             // Experimental
-            if (PluginConfig.Instance.fixed_slider == 0)
+            if (PluginConfig.Instance.slider_setting == 0)
             {
                 MinRTSlider = PluginConfig.Instance.minJumpDistance * 500 / NJS;
                 MaxRTSlider = PluginConfig.Instance.maxJumpDistance * 500 / NJS;

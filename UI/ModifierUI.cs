@@ -149,15 +149,15 @@ namespace JDFixer.UI
             get => Get_Jump_Distance(); //PluginConfig.Instance.jumpDistance; //GetJumpDistance();
             set
             {
-                if (PluginConfig.Instance.fixed_slider == 0) // Fixed JD
+                if (PluginConfig.Instance.slider_setting == 0)
                 {
                     PluginConfig.Instance.jumpDistance = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(RT_Value)));
                 }
-
-                else //(PluginConfig.Instance.fixed_slider == 1)
+                else
                 {
-                    PluginConfig.Instance.reactiontime = value / (2 * _selectedBeatmap.NJS) * 1000;
+                    //PluginConfig.Instance.jumpDistance = value; // Must set here too or it will not run in patch
+                    PluginConfig.Instance.reactionTime = value / (2 * _selectedBeatmap.NJS) * 1000;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(RT_Value)));
                 }
 
@@ -180,17 +180,19 @@ namespace JDFixer.UI
         // 1.19.1
         public float Get_Jump_Distance()
         {
-            if (PluginConfig.Instance.fixed_slider == 0) //Fixed JD
+            if (PluginConfig.Instance.slider_setting == 0)
             {
                 return PluginConfig.Instance.jumpDistance;
             }
-            //return PluginConfig.Instance.jumpDistance;
-
-            else // Fixed RT
+            else
             {
-                return PluginConfig.Instance.reactiontime * (2 * _selectedBeatmap.NJS) / 1000;
+                return PluginConfig.Instance.reactionTime * (2 * _selectedBeatmap.NJS) / 1000;
             }
         }
+
+        [UIAction("jd_slider_formatter")]
+        private string JD_Slider_Formatter(float value) => value.ToString("0.##");
+        [UIAction("rt_slider_formatter")]
 
 
         [UIValue("min_rt_slider")]
@@ -235,7 +237,7 @@ namespace JDFixer.UI
             get => Get_Reaction_Time(); //CalculateReactionTime_Float(PluginConfig.Instance.jumpDistance);
             set
             {
-                if (PluginConfig.Instance.fixed_slider == 0) // Fixed JD
+                if (PluginConfig.Instance.slider_setting == 0) // Fixed JD
                 {
                     if (_selectedBeatmap.NJS > 0.002)
                     {
@@ -245,7 +247,8 @@ namespace JDFixer.UI
                 }
                 else
                 {
-                    PluginConfig.Instance.reactiontime = value;
+                    //PluginConfig.Instance.jumpDistance = value / 1000 * (2 * _selectedBeatmap.NJS); // Must set here or will not run in patch
+                    PluginConfig.Instance.reactionTime = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(JD_Value)));
                 }
 
@@ -256,13 +259,13 @@ namespace JDFixer.UI
         // 1.19.1
         public float Get_Reaction_Time()
         {
-            if (PluginConfig.Instance.fixed_slider == 0)
+            if (PluginConfig.Instance.slider_setting == 0)
             {
                 return CalculateReactionTime_Float(PluginConfig.Instance.jumpDistance);
             }
             else
             {
-                return PluginConfig.Instance.reactiontime;
+                return PluginConfig.Instance.reactionTime;
             }
         }
 
@@ -466,26 +469,27 @@ namespace JDFixer.UI
                 rt_slider_text.color = new UnityEngine.Color(204f/255f, 153f/255f, 1f);
             }
 
-            //if (PluginConfig.Instance.fixed_slider == 0)
-            //{
-                rt_slider_range = RT_Slider.slider.GetComponentInChildren<HMUI.CustomFormatRangeValuesSlider>();
+            rt_slider_range = RT_Slider.slider.GetComponentInChildren<HMUI.CustomFormatRangeValuesSlider>();
 
-                rt_slider_range.minValue = _selectedBeatmap.MinRTSlider;
-                rt_slider_range.maxValue = _selectedBeatmap.MaxRTSlider;
-            //}
-            //else
-            //{
-                jd_slider_range = JD_Slider.slider.GetComponentInChildren<HMUI.CustomFormatRangeValuesSlider>();
+            rt_slider_range.minValue = _selectedBeatmap.MinRTSlider;
+            rt_slider_range.maxValue = _selectedBeatmap.MaxRTSlider;
 
-                jd_slider_range.minValue = _selectedBeatmap.MinJDSlider;
-                jd_slider_range.maxValue = _selectedBeatmap.MaxJDSlider;
-            //}
+
+            jd_slider_range = JD_Slider.slider.GetComponentInChildren<HMUI.CustomFormatRangeValuesSlider>();
+
+            jd_slider_range.minValue = _selectedBeatmap.MinJDSlider;
+            jd_slider_range.maxValue = _selectedBeatmap.MaxJDSlider;
 
             
             // These are critical:
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Min_RT_Slider)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Max_RT_Slider)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(RT_Value)));
+
+            
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Min_JD_Slider)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Max_JD_Slider)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(JD_Value)));
         }
 
 
@@ -493,11 +497,12 @@ namespace JDFixer.UI
         [UIValue("fixed_slider_value")]
         private int Fixed_Slider_Value
         {
-            get => PluginConfig.Instance.fixed_slider;
+            get => PluginConfig.Instance.slider_setting;
             set
             {
-                PluginConfig.Instance.fixed_slider = value;
+                PluginConfig.Instance.slider_setting = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Fixed_Slider_Value)));
+                PostParse();
             }
         }
 

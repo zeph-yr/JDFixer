@@ -42,8 +42,8 @@ namespace JDFixer
 
 
         //1.19.1 Feature update
-        public virtual int fixed_slider { get; set; } = 0;
-        public virtual float reactiontime { get; set; } = 500f;
+        public virtual int slider_setting { get; set; } = 0;
+        public virtual float reactionTime { get; set; } = 500f;
 
 
         /// <summary>
