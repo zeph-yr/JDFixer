@@ -164,18 +164,11 @@ namespace JDFixer.UI
                 //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ReactionTimeText))); // For old RT Display
             }
         }
-        [UIAction("set_jd_value")]
-        public void Set_JD_Value(float value)
-        {
-            JD_Value = value;
-            //PostParse();
-        }
 
         /*private float GetJumpDistance()
         {
             return PluginConfig.Instance.jumpDistance;
         }*/
-
 
         // 1.19.1
         public float Get_Jump_Distance()
@@ -190,9 +183,16 @@ namespace JDFixer.UI
             }
         }
 
+        [UIAction("set_jd_value")]
+        public void Set_JD_Value(float value)
+        {
+            JD_Value = value;
+            //PostParse();
+        }
+
         [UIAction("jd_slider_formatter")]
         private string JD_Slider_Formatter(float value) => value.ToString("0.##");
-        [UIAction("rt_slider_formatter")]
+        
 
 
         [UIValue("min_rt_slider")]
@@ -205,12 +205,10 @@ namespace JDFixer.UI
         {
             return _selectedBeatmap.MinRTSlider;
         }
-
         public float Get_Max_RT()
         {
             return _selectedBeatmap.MaxRTSlider;
         }*/
-
 
         //=============================================================
         // Old Reaction Time Display: Replaced by RT Slider (KEEP THIS)
@@ -269,7 +267,6 @@ namespace JDFixer.UI
             }
         }
 
-
         [UIAction("set_rt_value")]
         public void Set_RT_Value(float value)
         {
@@ -297,7 +294,6 @@ namespace JDFixer.UI
 
         [UIAction("increment_formatter")]
         private string Increment_Formatter(int value) => ((PreferenceEnum)value).ToString();
-
 
         private void Set_Preference_Mode()
         {
@@ -392,7 +388,6 @@ namespace JDFixer.UI
                 return "JD and RT Preferences";
         }
 
-
         [UIAction("pref_button_clicked")]
         public void Pref_Button_Clicked()
         {
@@ -415,6 +410,7 @@ namespace JDFixer.UI
                 PluginConfig.Instance.use_heuristic = value;
             }
         }
+
         [UIAction("set_use_heuristic")]
         public void Set_Use_Heuristic(bool value)
         {
@@ -508,7 +504,6 @@ namespace JDFixer.UI
                 PostParse();
 
                 RefreshSliderMinMax();
-
             }
         }
 
@@ -516,12 +511,10 @@ namespace JDFixer.UI
         private string Fixed_Slider_Increment_Formatter(int value) => ((FixedSliderEnum)value).ToString();
 
 
-
         public void RefreshSliderMinMax()
         {
             rt_slider_range = RT_Slider.slider.GetComponentInChildren<HMUI.CustomFormatRangeValuesSlider>();
             jd_slider_range = JD_Slider.slider.GetComponentInChildren<HMUI.CustomFormatRangeValuesSlider>();
-
 
             if (PluginConfig.Instance.slider_setting == 0)
             {
@@ -544,14 +537,10 @@ namespace JDFixer.UI
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Max_RT_Slider)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(RT_Value)));
 
-
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Min_JD_Slider)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Max_JD_Slider)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(JD_Value)));
         }
-
-
-
     }
 
     public enum FixedSliderEnum

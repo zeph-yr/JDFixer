@@ -150,11 +150,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="ReflectionUtil.cs" />
     <Compile Include="BeatmapInfo.cs" />
     <Compile Include="UI\ModifierUI.cs" />
     <Compile Include="UI\PreferencesFlowCoordinator.cs" />
-    <Compile Include="UI\PreferencesListViewController_exp.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -175,9 +173,7 @@
   <ItemGroup>
     <EmbeddedResource Include="UI\BSML\rtPreferencesList.bsml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Configuration\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy /Y "$(TargetDir)$(TargetFileName)" "C:\Program Files (x86)\Steam\steamapps\common\Beat Saber\Plugins"</PostBuildEvent>

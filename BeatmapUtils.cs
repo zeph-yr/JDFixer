@@ -26,7 +26,7 @@ namespace JDFixer
             return jumpdistance;
         }
 
-        // Cant make these public set, crashes
+        // Cant make these public set in BeatmapInfo, crashes
         /*public static void RefreshSliderMinMax(float njs)
         {
             if (PluginConfig.Instance.slider_setting == 0)
