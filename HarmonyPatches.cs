@@ -47,16 +47,20 @@ namespace JDFixer
             {
                 if (mapNJS <= PluginConfig.Instance.lower_threshold || mapNJS >= PluginConfig.Instance.upper_threshold)
                 {
+                    Logger.log.Debug("Using Threshold");
                     return;
                 }
 
                 var rt_pref = PluginConfig.Instance.rt_preferredValues.FirstOrDefault(x => x.njs <= mapNJS);
+                Logger.log.Debug("Using Preference");
 
                 if (rt_pref != null)
                     desiredJumpDis = rt_pref.reactionTime * mapNJS / 500;
 
                 if (BeatmapUtils.CalculateJumpDistance(startBpm, mapNJS, noteJumpStartBeatOffset) <= desiredJumpDis && PluginConfig.Instance.use_heuristic)
                 {
+                    Logger.log.Debug("Not Fixing: Original JD below or equal setpoint");
+                    Logger.log.Debug($"BPM/NJS/Offset {startBpm}/{startNoteJumpMovementSpeed}/{noteJumpStartBeatOffset}");
                     return;
                 }
             }

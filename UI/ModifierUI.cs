@@ -152,15 +152,16 @@ namespace JDFixer.UI
                 if (PluginConfig.Instance.slider_setting == 0)
                 {
                     PluginConfig.Instance.jumpDistance = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(RT_Value)));
                 }
                 else
                 {
-                    //PluginConfig.Instance.jumpDistance = value; // Must set here too or it will not run in patch
-                    PluginConfig.Instance.reactionTime = value / (2 * _selectedBeatmap.NJS) * 1000;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(RT_Value)));
+                    if (_selectedBeatmap.NJS > 0.002)
+                    {
+                        PluginConfig.Instance.reactionTime = value / (2 * _selectedBeatmap.NJS) * 1000;
+                    }
                 }
 
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(RT_Value)));
                 //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ReactionTimeText))); // For old RT Display
             }
         }
@@ -187,7 +188,6 @@ namespace JDFixer.UI
         public void Set_JD_Value(float value)
         {
             JD_Value = value;
-            //PostParse();
         }
 
         [UIAction("jd_slider_formatter")]
@@ -240,16 +240,14 @@ namespace JDFixer.UI
                     if (_selectedBeatmap.NJS > 0.002)
                     {
                         PluginConfig.Instance.jumpDistance = value / 1000 * (2 * _selectedBeatmap.NJS);
-                        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(JD_Value)));
                     }
                 }
                 else
                 {
-                    //PluginConfig.Instance.jumpDistance = value / 1000 * (2 * _selectedBeatmap.NJS); // Must set here or will not run in patch
                     PluginConfig.Instance.reactionTime = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(JD_Value)));
                 }
 
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(JD_Value)));
                 //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ReactionTimeText))); // For validation               
             }
         }
@@ -378,14 +376,14 @@ namespace JDFixer.UI
             {
                 return "<#cc99ff>JD and RT Preferences"; //#8c1aff
             }
-
             else if (PluginConfig.Instance.pref_selected == 1)
             {
                 return "<#ffff00>JD and RT Preferences";
             }
-
             else
+            {
                 return "JD and RT Preferences";
+            }
         }
 
         [UIAction("pref_button_clicked")]
@@ -482,7 +480,6 @@ namespace JDFixer.UI
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Min_RT_Slider)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Max_RT_Slider)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(RT_Value)));
-
             
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Min_JD_Slider)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Max_JD_Slider)));
@@ -491,26 +488,32 @@ namespace JDFixer.UI
 
 
         //1.19.1 Feature update
-        [UIValue("fixed_slider_value")]
-        private int Fixed_Slider_Value
+        [UIValue("slider_setting_value")]
+        private int Slider_Setting_Value
         {
             get => PluginConfig.Instance.slider_setting;
             set
             {
                 PluginConfig.Instance.slider_setting = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Fixed_Slider_Value)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Slider_Setting_Value)));
 
+                // This doesnt work because the MinRTSlider etc can't be publically set, crashes
                 //BeatmapUtils.RefreshSliderMinMax(_selectedBeatmap.NJS);
-                PostParse();
 
+                // This is critcal!
                 RefreshSliderMinMax();
             }
         }
 
-        [UIAction("fixed_slider_increment_formatter")]
-        private string Fixed_Slider_Increment_Formatter(int value) => ((FixedSliderEnum)value).ToString();
+        [UIAction("slider_setting_increment_formatter")]
+        private string Slider_Setting_Increment_Formatter(int value) => ((SliderSettingEnum)value).ToString();
 
 
+        // This function is critical:
+        // Without this function, when slider setting is flipped, the slider min maxes will be wrong because they are/were set in BeatmapInfo
+        // Ex: When JD flips to RT, sliders will be draw as if set to JD (with JD min-max) until a new map is clicked that triggers BeatmapInfo
+        // and PostParse to run again with the new setting.
+        // Must "recalculate" them here then trigger everything to update
         public void RefreshSliderMinMax()
         {
             rt_slider_range = RT_Slider.slider.GetComponentInChildren<HMUI.CustomFormatRangeValuesSlider>();
@@ -539,14 +542,15 @@ namespace JDFixer.UI
 
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Min_JD_Slider)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Max_JD_Slider)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(JD_Value)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(JD_Value)));            
         }
     }
 
-    public enum FixedSliderEnum
+
+    public enum SliderSettingEnum
     {
-        JD = 0,
-        RT = 1
+        JumpDistance = 0,
+        ReactionTime = 1
     }
 
 
