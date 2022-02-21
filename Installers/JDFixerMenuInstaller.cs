@@ -10,6 +10,8 @@ namespace JDFixer.Installers
         {
             Container.BindInterfacesTo<JDFixerUIManager>().AsSingle();
             Container.BindInterfacesTo<ModifierUI>().AsSingle();
+            Container.BindInterfacesTo<CustomUI>().AsSingle();
+
 
             // Flow Coordinators need to binded like this, as a component since it is a Unity Component
             Container.Bind<PreferencesFlowCoordinator>().FromNewComponentOnNewGameObject().AsSingle();

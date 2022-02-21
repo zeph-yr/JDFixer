@@ -135,6 +135,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BeatmapUtils.cs" />
+    <Compile Include="UI\CampaignUI.cs" />
     <Compile Include="Installers\JDFixerMenuInstaller.cs" />
     <Compile Include="Interfaces\IBeatmapInfoUpdater.cs" />
     <Compile Include="Managers\JDFixerUIManager.cs" />
@@ -173,7 +174,9 @@
   <ItemGroup>
     <EmbeddedResource Include="UI\BSML\rtPreferencesList.bsml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="UI\BSML\CustomUI.bsml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy /Y "$(TargetDir)$(TargetFileName)" "C:\Program Files (x86)\Steam\steamapps\common\Beat Saber\Plugins"</PostBuildEvent>
