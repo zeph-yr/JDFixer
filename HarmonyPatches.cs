@@ -122,4 +122,23 @@ namespace JDFixer
             //Logger.log.Debug($"DesiredJumpDis {desiredJumpDis} | Simulated Offset {simOffset}");
         }
     }
+
+
+    [HarmonyPatch(typeof(MissionSelectionMapViewController), "SongPlayerCrossfadeToLevelAsync")]
+    internal class MissionSelectionPatch
+    {
+        internal static IPreviewBeatmapLevel cc_level;
+
+        static void Postfix(IPreviewBeatmapLevel level)
+        {
+            cc_level = null;
+
+            if (level != null)
+            {
+                cc_level = level;
+            }
+        }
+    }
+
+
 }
