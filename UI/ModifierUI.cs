@@ -286,6 +286,7 @@ namespace JDFixer.UI
             {
                 PluginConfig.Instance.pref_selected = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Increment_Value)));
+
                 Set_Preference_Mode();
             }
         }
@@ -293,22 +294,22 @@ namespace JDFixer.UI
         [UIAction("increment_formatter")]
         private string Increment_Formatter(int value) => ((PreferenceEnum)value).ToString();
 
-        private void Set_Preference_Mode()
+       private void Set_Preference_Mode()
         {
             if (PluginConfig.Instance.pref_selected == 2)
             {
                 PluginConfig.Instance.usePreferredJumpDistanceValues = false;
-                PluginConfig.Instance.rt_enabled = true;
+                PluginConfig.Instance.usePreferredReactionTimeValues = true;
             }
             else if (PluginConfig.Instance.pref_selected == 1)
             {
                 PluginConfig.Instance.usePreferredJumpDistanceValues = true;
-                PluginConfig.Instance.rt_enabled = false;
+                PluginConfig.Instance.usePreferredReactionTimeValues = false;
             }
             else
             {
                 PluginConfig.Instance.usePreferredJumpDistanceValues = false;
-                PluginConfig.Instance.rt_enabled = false;
+                PluginConfig.Instance.usePreferredReactionTimeValues = false;
             }
 
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Pref_Button)));

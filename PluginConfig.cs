@@ -14,7 +14,8 @@ namespace JDFixer
         public static PluginConfig Instance { get; set; }
 
         public virtual bool enabled { get; set; } = false;
-        //public bool enabledInPractice;
+
+        
         public virtual float jumpDistance { get; set; } = 24f;
         public virtual int minJumpDistance { get; set; } = 12;
         public virtual int maxJumpDistance { get; set; } = 35;
@@ -24,26 +25,26 @@ namespace JDFixer
         [NonNullable]
         public virtual List<JDPref> preferredValues { get; set; } = new List<JDPref>();
 
-        public virtual float upper_threshold { get; set; } = 100f;
-        public virtual float lower_threshold { get; set; } = 1f;
-        public virtual bool use_heuristic { get; set; } = false;
 
-        // Reaction Time Mode
-        public virtual bool rt_enabled { get; set; } = false;
+        public virtual float reactionTime { get; set; } = 500f;
+        public virtual int minReactionTime { get; set; } = 300;
+        public virtual int maxReactionTime { get; set; } = 1600;
+        public virtual bool usePreferredReactionTimeValues { get; set; } = false;
 
         [UseConverter(typeof(ListConverter<RTPref>))]
         [NonNullable]
         public virtual List<RTPref> rt_preferredValues { get; set; } = new List<RTPref>();
-        public virtual int minReactionTime { get; set; } = 200;
-        public virtual int maxReactionTime { get; set; } = 2000;
-        public virtual bool rt_display_enabled { get; set; } = true;
-
-        public virtual int pref_selected { get; set; } = 0;
 
 
         //1.19.1 Feature update
         public virtual int slider_setting { get; set; } = 0;
-        public virtual float reactionTime { get; set; } = 500f;
+        public virtual int pref_selected { get; set; } = 0;
+
+
+        public virtual float upper_threshold { get; set; } = 100f;
+        public virtual float lower_threshold { get; set; } = 1f;
+        public virtual bool use_heuristic { get; set; } = false;
+        public virtual bool rt_display_enabled { get; set; } = true;
 
 
         /// <summary>

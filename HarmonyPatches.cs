@@ -42,7 +42,7 @@ namespace JDFixer
 
 
             // NJS-RT setpoints from Preferences
-            if (PluginConfig.Instance.rt_enabled)
+            if (PluginConfig.Instance.usePreferredReactionTimeValues)
             {
                 if (mapNJS <= PluginConfig.Instance.lower_threshold || mapNJS >= PluginConfig.Instance.upper_threshold)
                 {
@@ -67,7 +67,6 @@ namespace JDFixer
             // NJS-JD setpoints from Preferences
             else if (PluginConfig.Instance.usePreferredJumpDistanceValues)
             {
-                // For Acc and Speed Maps:
                 if (mapNJS <= PluginConfig.Instance.lower_threshold || mapNJS >= PluginConfig.Instance.upper_threshold)
                 {
                     Logger.log.Debug("Using Threshold");
