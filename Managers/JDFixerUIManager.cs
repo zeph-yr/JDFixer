@@ -35,12 +35,6 @@ namespace JDFixer.Managers
         }
 
 
-        private void MissionLevelDetail_didActivateEvent(bool firstActivation, bool addedToHierarchy, bool screenSystemEnabling)
-        {
-            throw new NotImplementedException();
-        }
-
-
         public void Dispose()
         {
             //Logger.log.Debug("Dispose()");
@@ -77,31 +71,33 @@ namespace JDFixer.Managers
         }
 
 
-        // QOL: When in Campaigns, set Map JD and Reaction Time displays to show zeroes to prevent misleading player
         private void MissionSelection_didSelectMissionLevelEvent(MissionSelectionMapViewController arg1, MissionNode arg2)
         {
-            
             if (Plugin.cc_installed && arg2.missionData != null)
             {
-                Logger.log.Debug("MissionNode exists");
+                Logger.log.Debug("In CC, MissionNode exists");
 
+                /*
                 Logger.log.Debug("MissionNode - missionid: " + arg2.missionId); //"<color=#0a92ea>[STND]</color> Holdin' Oneb28Easy-1"
                 Logger.log.Debug("MissionNode - difficulty: " + arg2.missionData.beatmapDifficulty); // "Easy" etc
                 Logger.log.Debug("MissionNode - characteristic: " + arg2.missionData.beatmapCharacteristic.serializedName); //"Standard" etc
 
                 Logger.log.Debug("MissionNode - missionhelp: " + arg2.missionData.missionHelp); // (CustomCampaigns.Campaign.Missions.CustomMissionHelpSO)
+                */
 
 
                 // These are useless:
-                //Logger.log.Debug("MissionNode - name: " + arg2.name); // "MissionNode has name MissionNode_1(Clone)" for everything
-                //Logger.log.Debug("MissionNode - letter: " + arg2.letterPartName); // Empty
-                //Logger.log.Debug("MissionNode - number: " + arg2.numberPartName); // -1 for everything
-                //Logger.log.Debug("MissionNode - formatted name: " + arg2.formattedMissionNodeName); // Empty
-                //Logger.log.Debug("MissionNode - tag: " + arg2.tag); // "Untagged"
+                /*
+                Logger.log.Debug("MissionNode - name: " + arg2.name); // "MissionNode has name MissionNode_1(Clone)" for everything
+                Logger.log.Debug("MissionNode - letter: " + arg2.letterPartName); // Empty
+                Logger.log.Debug("MissionNode - number: " + arg2.numberPartName); // -1 for everything
+                Logger.log.Debug("MissionNode - formatted name: " + arg2.formattedMissionNodeName); // Empty
+                Logger.log.Debug("MissionNode - tag: " + arg2.tag); // "Untagged"
 
-                //Logger.log.Debug("MissionNode - name: " + arg2.missionData.name); // Empty
-                //Logger.log.Debug("MissionNode - objectives: " + arg2.missionData.missionObjectives[0].ToString()); // Seems always Empty
-                // Logger.log.Debug("MissionNode - duration: " + arg2.missionData.level.songDuration); // Crashes everytime, Seems there is no level in CC
+                Logger.log.Debug("MissionNode - name: " + arg2.missionData.name); // Empty
+                Logger.log.Debug("MissionNode - objectives: " + arg2.missionData.missionObjectives[0].ToString()); // Seems always Empty
+                Logger.log.Debug("MissionNode - duration: " + arg2.missionData.level.songDuration); // Crashes everytime, Seems there is no level in CC
+                */
 
 
 
@@ -123,11 +119,12 @@ namespace JDFixer.Managers
                     Logger.log.Debug("MissionNode Diff: " + difficulty_beatmap.difficulty);
                     Logger.log.Debug("MissionNode Offset: " + difficulty_beatmap.noteJumpStartBeatOffset);
                     Logger.log.Debug("MissionNode NJS: " + difficulty_beatmap.noteJumpMovementSpeed);
+
+                    DiffcultyBeatmapUpdated(difficulty_beatmap);
                 }
-
-
-
             }
+
+            // QOL: When in Base Campaigns, set Map JD and Reaction Time displays to show zeroes to prevent misleading player
             else
             {
                 DiffcultyBeatmapUpdated(null);
@@ -145,5 +142,4 @@ namespace JDFixer.Managers
             }
         }
     }
-  
 }
