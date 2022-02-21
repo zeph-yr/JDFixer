@@ -26,9 +26,8 @@ namespace JDFixer
             if (mapNJS <= 0.01) // Just in case?
                 mapNJS = 10;
 
-            // JD setpoint from Slider
-            //float desiredJumpDis = PluginConfig.Instance.jumpDistance;
 
+            // JD setpoint from Slider
             //1.19.1
             float desiredJumpDis;
 
@@ -152,7 +151,7 @@ namespace JDFixer
             }
 
 
-            // For 1.19.0 only
+            // For 1.19.0 only 
             float num = startHalfJumpDurationInBeats;
             float num2 = noteJumpMovementSpeed * oneBeatDuration;
             float num3 = num2 * num;
