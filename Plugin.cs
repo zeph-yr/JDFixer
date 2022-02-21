@@ -14,7 +14,7 @@ namespace JDFixer
     public class Plugin
     {
         public static Harmony harmony;
-        public static bool cc_installed;
+        public static bool cc_installed = false;
 
 
         [Init]
@@ -34,7 +34,7 @@ namespace JDFixer
             harmony = new Harmony("com.zephyr.BeatSaber.JDFixer");
             harmony.PatchAll(System.Reflection.Assembly.GetExecutingAssembly());
 
-            //BeatSaberMarkupLanguage.GameplaySetup.GameplaySetup.instance.AddTab("JDFixerOnline", "JDFixer.UI.BSML.modifierOnlineUI.bsml", UI.ModifierUI.instance, BeatSaberMarkupLanguage.GameplaySetup.MenuType.Online);
+            Logger.log.Debug(IPA.Utilities.UnityGame.GameVersion.ToString());
 
             CheckForCustomCampaigns();
         }

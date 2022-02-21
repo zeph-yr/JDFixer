@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/nike4613/ModSaber-MetadataFileSchema/master/Schema.json",
   "author": "Zephyr",
   "description": "Automatically change jump distance according to your preferences",
-  "gameVersion": "1.19.1",
+  "gameVersion": "1.19.0",
   "id": "JDFixer",
   "name": "JDFixer",
   "version": "3.1.0",

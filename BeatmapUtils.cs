@@ -1,6 +1,4 @@
-﻿using BeatSaberMarkupLanguage.GameplaySetup;
-
-namespace JDFixer
+﻿namespace JDFixer
 {
     static class BeatmapUtils
     {

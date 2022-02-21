@@ -127,7 +127,7 @@ namespace JDFixer
     [HarmonyPatch(typeof(MissionSelectionMapViewController), "SongPlayerCrossfadeToLevelAsync")]
     internal class MissionSelectionPatch
     {
-        internal static IPreviewBeatmapLevel cc_level;
+        internal static IPreviewBeatmapLevel cc_level = null;
 
         static void Postfix(IPreviewBeatmapLevel level)
         {
@@ -141,5 +141,37 @@ namespace JDFixer
     }
 
 
+    [HarmonyPatch(typeof(CoreMathUtils), "CalculateHalfJumpDurationInBeats")]
+    internal class CoreMathPatch
+    {
+        public static float Postfix(float __result, float startHalfJumpDurationInBeats, float maxHalfJumpDistance, float noteJumpMovementSpeed, float oneBeatDuration, float noteJumpStartBeatOffset)
+        {
+            if (IPA.Utilities.UnityGame.GameVersion.ToString() == "1.19.1")
+            {
+                return __result;
+            }
 
+
+            // For 1.19.0 only
+            float num = startHalfJumpDurationInBeats;
+            float num2 = noteJumpMovementSpeed * oneBeatDuration;
+            float num3 = num2 * num;
+            maxHalfJumpDistance -= 0.001f;
+
+            while (num3 > maxHalfJumpDistance)
+            {
+                num /= 2f;
+                num3 = num2 * num;
+            }
+            
+            num += noteJumpStartBeatOffset;
+            
+            if (num < 0.25f)
+            {
+                num = 0.25f;
+            }
+
+            return num;
+        }
+    }
 }
