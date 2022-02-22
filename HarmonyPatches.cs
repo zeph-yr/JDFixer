@@ -21,7 +21,7 @@ namespace JDFixer
 
 
             float mapNJS = startNoteJumpMovementSpeed;
-            //Logger.log.Debug("mapNJS:" + mapNJS.ToString());
+            Logger.log.Debug("mapNJS:" + mapNJS.ToString());
 
             if (mapNJS <= 0.01) // Just in case?
                 mapNJS = 10;
@@ -117,7 +117,7 @@ namespace JDFixer
             //noteJumpStartBeatOffset = simOffset;
 
             //Logger.log.Debug($"HalfJumpCurrent: {num2Curr} | DesiredHalfJump {desiredHalfJumpDur} | DesiredJumpDis {desiredJumpDis} | CurrJumpDis {jumpDisCurr} | Simulated Offset {simOffset}");
-            //Logger.log.Debug($"DesiredJumpDis {desiredJumpDis} | Simulated Offset {simOffset}");
+            Logger.log.Debug($"DesiredJumpDis {desiredJumpDis} | Simulated Offset {simOffset}");
         }
     }
 
@@ -129,12 +129,15 @@ namespace JDFixer
 
         static void Postfix(IPreviewBeatmapLevel level)
         {
-            cc_level = null;
+            cc_level = level;
+
+            // Is this redundant? lol
+            /*cc_level = null;
 
             if (level != null)
             {
                 cc_level = level;
-            }
+            }*/
         }
     }
 
@@ -144,32 +147,31 @@ namespace JDFixer
     {
         public static float Postfix(float __result, float startHalfJumpDurationInBeats, float maxHalfJumpDistance, float noteJumpMovementSpeed, float oneBeatDuration, float noteJumpStartBeatOffset)
         {
-            if (IPA.Utilities.UnityGame.GameVersion.ToString() == "1.19.1")
+            // Force override 1.19.0's BPM lock
+            if (IPA.Utilities.UnityGame.GameVersion.ToString() == "1.19.0")
             {
-                return __result;
+                float num = startHalfJumpDurationInBeats;
+                float num2 = noteJumpMovementSpeed * oneBeatDuration;
+                float num3 = num2 * num;
+                maxHalfJumpDistance -= 0.001f;
+
+                while (num3 > maxHalfJumpDistance)
+                {
+                    num /= 2f;
+                    num3 = num2 * num;
+                }
+
+                num += noteJumpStartBeatOffset;
+
+                if (num < 0.25f)
+                {
+                    num = 0.25f;
+                }
+
+                return num;
             }
 
-
-            // For 1.19.0 only 
-            float num = startHalfJumpDurationInBeats;
-            float num2 = noteJumpMovementSpeed * oneBeatDuration;
-            float num3 = num2 * num;
-            maxHalfJumpDistance -= 0.001f;
-
-            while (num3 > maxHalfJumpDistance)
-            {
-                num /= 2f;
-                num3 = num2 * num;
-            }
-            
-            num += noteJumpStartBeatOffset;
-            
-            if (num < 0.25f)
-            {
-                num = 0.25f;
-            }
-
-            return num;
+            return __result;
         }
     }
 }
