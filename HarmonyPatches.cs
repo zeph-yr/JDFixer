@@ -148,7 +148,7 @@ namespace JDFixer
         public static float Postfix(float __result, float startHalfJumpDurationInBeats, float maxHalfJumpDistance, float noteJumpMovementSpeed, float oneBeatDuration, float noteJumpStartBeatOffset)
         {
             // Force override 1.19.0's BPM lock
-            if (IPA.Utilities.UnityGame.GameVersion.ToString() == "1.19.0")
+            if (Plugin.game_version == "1.19.0" && __result < 1.01)
             {
                 float num = startHalfJumpDurationInBeats;
                 float num2 = noteJumpMovementSpeed * oneBeatDuration;

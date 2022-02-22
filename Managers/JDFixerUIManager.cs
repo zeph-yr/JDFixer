@@ -109,7 +109,7 @@ namespace JDFixer.Managers
 
                 if (MissionSelectionPatch.cc_level != null) // lol null check just to print?
                 {
-                    // If a map is not dled, this will the previous selected node's map
+                    // If a map is not dled, this will be the previous selected node's map
                     // Possible edge case where CC util will find a match in the previous selected node's map using the current node's diff and characteristic?
                     // but does it really matter if the map isnt dl and the user isnt playing it? Nope lol
 

@@ -14,7 +14,9 @@ namespace JDFixer
     public class Plugin
     {
         public static Harmony harmony;
-        public static bool cc_installed = false;
+
+        internal static bool cc_installed = false;
+        internal static string game_version = "";
 
 
         [Init]
@@ -31,10 +33,11 @@ namespace JDFixer
         {
             Logger.log.Debug("OnApplicationStart()");
 
+            game_version = IPA.Utilities.UnityGame.GameVersion.ToString();
+            Logger.log.Debug(game_version);
+
             harmony = new Harmony("com.zephyr.BeatSaber.JDFixer");
             harmony.PatchAll(System.Reflection.Assembly.GetExecutingAssembly());
-
-            Logger.log.Debug(IPA.Utilities.UnityGame.GameVersion.ToString());
 
             CheckForCustomCampaigns();
         }
@@ -49,8 +52,6 @@ namespace JDFixer
 
         private void CheckForCustomCampaigns()
         {
-            Logger.log.Debug("Check for CC");
-
             try
             {
                 var metadatas = PluginManager.EnabledPlugins.Where(x => x.Id == "CustomCampaigns");
@@ -60,6 +61,8 @@ namespace JDFixer
             {
                 cc_installed = false;
             }
+
+            Logger.log.Debug("CC installed: " + cc_installed);
         }
     }
 }

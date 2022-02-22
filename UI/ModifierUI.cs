@@ -22,7 +22,7 @@ namespace JDFixer.UI
 
         public void Initialize()
         {
-            GameplaySetup.instance.AddTab("JDFixer", "JDFixer.UI.BSML.modifierUI.bsml", this);
+            GameplaySetup.instance.AddTab("JDFixer", "JDFixer.UI.BSML.modifierUI.bsml", this, MenuType.Solo | MenuType.Campaign);
         }
 
         public void Dispose()
