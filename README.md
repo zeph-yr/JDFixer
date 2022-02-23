@@ -14,7 +14,7 @@ Supports CustomCampaigns, Tournament Assistant, Multiplayer, OST / DLC / Base Ca
 - **Upper and Lower NJS Thresholds where Preferences will be ignored.** If a map's NJS is at or above the upper threshold, the map will run at its original JD and RT (and vice versa for lower threshold)
 
 ![screenshot](https://github.com/zeph-yr/JDFixer/blob/BS_1.19/Screenshots/3.0.0_menu_3.png)
-![screenshot](https://github.com/zeph-yr/JDFixer/blob/BS_1.19/Screenshots/3.0.0_menu_4.png)
+![screenshot](https://github.com/zeph-yr/JDFixer/blob/BS_1.19/Screenshots/3.1.0_menu_2.png)
 ![screenshot](https://github.com/zeph-yr/JDFixer/blob/BS_1.16.4_MA_v2.0.3/Screenshots/2.1.0_menu_3.png)
 
 ## How To Use
@@ -23,17 +23,18 @@ Supports CustomCampaigns, Tournament Assistant, Multiplayer, OST / DLC / Base Ca
 - Set up automated preferences to select JD or RT based on map NJS with in-game menu (If you require finer decimal values for NJS, JD and RT, you can edit your preferences in /UserData/JDFixer.json)
 - To access the RT Preferences menu, set `Automated Preferences` to `ReactionTime` and click `JD and RT Preferences`
 - Setting `Automated Preferences` to `JumpDistance` or `ReactionTime` will override the JD and RT sliders
-- Set either the JD or RT slider to remember its last setting **(v3.1.0)**
+- Choose either JD or RT slider to remember its last value **(v3.1.0)**
 - Min and max ranges of JD and RT sliders can be changed in /UserData/JDFixer.json
 - Upper and Lower NJS Thresholds are configured in /UserData/JDFixer.json
 - Hover over menu in-game for explanations
 - **Not compatible with NjsFixer and LevelTweaks.** Using with these mods may result in conflicts and unexpected behavior.
-- **v3.0.0+ for BS 1.19.0 requires BSIPA, BSML, and SiraUtil 3.0.0+** (v2.1.6 for BS 1.18.3 requires BS_Utils)
 
-**v2.1.3+ will import your settings file**
+**v3.0.0+ for BS 1.19.0+ requires BSIPA, BSML, and SiraUtil 3.0.0+**
 
-**v2.1.0 is not compatible with settings files from previous versions:**
-Delete or rename your old JDFixer.json and allow the mod to generate a new one. Re-enter your settings in-game. If you are knowledgeable, you can copy the relevant data from the old json file to the new one. Just make sure you do it correctly.
+### Legacy Versions
+- v2.1.6- for BS 1.18.3- requires BS_Utils
+- v2.1.3+ will import your settings file
+- v2.1.0 is not compatible with settings files from previous versions: Delete or rename your old JDFixer.json and allow the mod to generate a new one. Re-enter your settings in-game. If you are knowledgeable, you can copy the relevant data from the old json file to the new one. Just make sure you do it correctly.
 
 ## Understanding Preferences Behavior
 Suppose your Jump Distance Preferences contain these NJS-JD pairs: 22-18, 21-16, 18-15.
@@ -67,7 +68,7 @@ This works exactly the same as JD Preferences. The five examples above apply, ex
 ## Tournaments and MP
 - **Tournament Assistant:** Supports Default, Dual Sync and AutoPause matches. JD slider and Preferences work as normal. Map display is disabled. Avoid opening the Preferences menu in TA! You will be stuck in it until you relaunch the game. However if you do choose to get yourself stuck inside just before a match, your match will still play fine when the coordinator starts it KEKW.
 - **Multiplayer:** JD slider and Preferences work as normal. Map display applies only when you (not other players) select a map from the song browser.
-- **CustomCampaigns:** Supported. **(v3.1.0 JD and RT Display)**
+- **CustomCampaigns:** Supported with map display **(v3.1.0)**
 - **OST, DLC Levels, Base Campaign:** Supported.
 
 ## UI Option
