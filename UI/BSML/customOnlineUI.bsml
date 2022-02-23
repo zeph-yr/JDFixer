@@ -2,7 +2,7 @@
 	<settings-container child-control-width='true' child-expand-width='true' size-delta-y='-10'>
 		<checkbox-setting value ='enabled' on-change='set_enabled' text='Enabled' hover-hint='Overrides base game settings'></checkbox-setting>
 
-		<increment-setting value='slider_setting_value' apply-on-change='true' bind-value='true' text='Play Using' integer-only='true' min='0' max='1' formatter='slider_setting_increment_formatter' hover-hint='Set your match by JD or RT. Preferences override this!'/>
+		<increment-setting value='slider_setting_value' apply-on-change='true' bind-value='true' text='Active Slider' integer-only='true' min='0' max='1' formatter='slider_setting_increment_formatter' hover-hint='Run your map using the JD or RT slider value. Preferences override this!'/>
 		
 		<slider-setting id='jd_slider' value ='jd_value' show-buttons='true' on-change='set_jd_value' apply-on-change='true' bind-value='true' text='Desired Jump Distance' increment='0.1' min='~min_jd_slider' max='~max_jd_slider' formatter='jd_slider_formatter'></slider-setting>
 		<slider-setting id='rt_slider' value ='rt_value' show-buttons='true' on-change='set_rt_value' apply-on-change='true' bind-value='true' text='Reaction Time' increment='5' min='~min_rt_slider' max='~max_rt_slider' formatter='rt_slider_formatter'></slider-setting>
@@ -23,6 +23,6 @@
 	</settings-container>
 
 	<horizontal pad-top='50'>
-		<text text='Instructions at github.com/zeph-yr/JDFixer#readme     v4.0.0' font-color='#ff0080ff' font-size='3' align='Center' hover-hint="Read this to learn the hidden features"></text>
+	<text text='Instructions at github.com/zeph-yr/JDFixer#readme     v4.0.0' font-color='#ff0080ff' font-size='3' align='Center' hover-hint="Read this to learn the hidden features"></text>
 	</horizontal>
 </bg>

@@ -151,6 +151,7 @@ namespace JDFixer.UI
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Increment_Value)));
 
                 Set_Preference_Mode();
+                PostParse();
             }
         }
 
@@ -245,19 +246,27 @@ namespace JDFixer.UI
         private void PostParse()
         {
             jd_slider_text = JD_Slider.slider.GetComponentInChildren<CurvedTextMeshPro>();
-
-            if (jd_slider_text != null && PluginConfig.Instance.slider_setting == 0)
-            {
-                jd_slider_text.color = new UnityEngine.Color(1f, 1f, 0f);
-                rt_slider_text.color = new UnityEngine.Color(0.4f, 0.4f, 0.4f);
-            }
-
             rt_slider_text = RT_Slider.slider.GetComponentInChildren<CurvedTextMeshPro>();
 
-            if (rt_slider_text != null && PluginConfig.Instance.slider_setting == 1)
+            if (jd_slider_text != null && rt_slider_text != null)
             {
-                jd_slider_text.color = new UnityEngine.Color(0.4f, 0.4f, 0.4f);
-                rt_slider_text.color = new UnityEngine.Color(204f / 255f, 153f / 255f, 1f);
+                if (PluginConfig.Instance.usePreferredJumpDistanceValues || PluginConfig.Instance.usePreferredReactionTimeValues)
+                {
+                    jd_slider_text.color = new UnityEngine.Color(0.4f, 0.4f, 0.4f);
+                    rt_slider_text.color = new UnityEngine.Color(0.4f, 0.4f, 0.4f);
+                }
+
+                else if (PluginConfig.Instance.slider_setting == 0)
+                {
+                    jd_slider_text.color = new UnityEngine.Color(1f, 1f, 0f);
+                    rt_slider_text.color = new UnityEngine.Color(0.4f, 0.4f, 0.4f);
+                }
+
+                else // PluginConfig.Instance.slider_setting == 1
+                {
+                    jd_slider_text.color = new UnityEngine.Color(0.4f, 0.4f, 0.4f);
+                    rt_slider_text.color = new UnityEngine.Color(204f / 255f, 153f / 255f, 1f);
+                }
             }
 
             // These are critical:

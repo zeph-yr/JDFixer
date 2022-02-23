@@ -112,9 +112,10 @@ namespace JDFixer
 
             simOffset = (num2Curr * jumpDurMul) - num2Curr;
 
-            // BS 1.19.0
+            //noteJumpStartBeatOffset = simOffset;            
+            
+            // 1.19.0+
             noteJumpValue = simOffset;
-            //noteJumpStartBeatOffset = simOffset;
 
             //Logger.log.Debug($"HalfJumpCurrent: {num2Curr} | DesiredHalfJump {desiredHalfJumpDur} | DesiredJumpDis {desiredJumpDis} | CurrJumpDis {jumpDisCurr} | Simulated Offset {simOffset}");
             Logger.log.Debug($"DesiredJumpDis {desiredJumpDis} | Simulated Offset {simOffset}");
@@ -130,14 +131,6 @@ namespace JDFixer
         static void Postfix(IPreviewBeatmapLevel level)
         {
             cc_level = level;
-
-            // Is this redundant? lol
-            /*cc_level = null;
-
-            if (level != null)
-            {
-                cc_level = level;
-            }*/
         }
     }
 
