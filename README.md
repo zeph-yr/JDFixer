@@ -10,7 +10,7 @@ Supports CustomCampaigns, Tournament Assistant, Multiplayer, OST / DLC / Base Ca
 - **Selected map's original JD and RT is displayed.** You can easily decide if you want to use JDFixer without having to play the map to feel it. Saves time.
 - **Selected map's lowest JD and RT allowed by the game is displayed.** When it seems like JDFixer "isn't working", check if you exceeded this value.
 - **Automated JD and RT fixing.** Preferences has been changed to selecting the NJS-JD (or RT) pair that is equal or lower to the selected map's NJS. This allows you to cover large ranges without having to add many values and also handles the rare non-integer NJS. For RT: Automatically sets a map's JD to give your preferred reaction time for a given NJS. Ability to fix constant JD or RT across all maps.
-- **Heuristic for Preferences** where if the selected map's original JD is lower than the JD in the matching NJS-JD pair, the map will run at its original JD. You **must** set base game settings to `Dynamic Default` if you enable this feature.
+- **Heuristic for Preferences** where if the selected map's original JD is lower than the JD in the matching NJS-JD pair, the map will run at its original JD and RT. 
 - **Upper and Lower NJS Thresholds where Preferences will be ignored.** If a map's NJS is at or above the upper threshold, the map will run at its original JD and RT (and vice versa for lower threshold)
 
 ![screenshot](https://github.com/zeph-yr/JDFixer/blob/BS_1.19/Screenshots/3.0.0_menu_3.png)
@@ -30,10 +30,11 @@ Supports CustomCampaigns, Tournament Assistant, Multiplayer, OST / DLC / Base Ca
 - Hover over menu in-game for explanations
 - **Not compatible with NjsFixer and LevelTweaks.** Using with these mods may result in conflicts and unexpected behavior.
 
-**v3.0.0+ for BS 1.19.0+ requires BSIPA, BSML, and SiraUtil 3.0.0+**
+**v4.0.0 for BS 1.19.0+ requires BSIPA, BSML, and SiraUtil 3.0.0+**
 
 ### Legacy Versions
-- v2.1.6- for BS 1.18.3- requires BS_Utils
+- v3.x.x for BS 1.19.0 / 1.19.1 requires BSIPA, BSML, and SiraUtil 3.0.0+ (Please do not use these versions for TA or MP)
+- ≤v2.1.6 for BS ≤1.18.3 requires BS_Utils
 - v2.1.3+ will import your settings file
 - v2.1.0 is not compatible with settings files from previous versions: Delete or rename your old JDFixer.json and allow the mod to generate a new one. Re-enter your settings in-game. If you are knowledgeable, you can copy the relevant data from the old json file to the new one. Just make sure you do it correctly.
 
@@ -60,6 +61,7 @@ The map will run at its original 20 JD because it triggered the threhold.
 To run every map at a constant JD regardless of its NJS, create a single preference with 0 NJS and your desired JD (such as 0 NJS - 18 JD)
 
 - If `Automated Preferences` is set to `JumpDistance` but no Preferences are set, the map will run at JD and RT slider value
+- If you enable the `Use Map JD If Lower` heuristic, you **must** set base game settings to `Dynamic Default`. Failing to do so give you inconsistent results.
 - Thresholds override Preferences only
 - If you need decimal values for Preferences, you can set them in JDFixer.json.
 
@@ -71,6 +73,8 @@ This works exactly the same as JD Preferences. The five examples above apply, ex
 - **Multiplayer:** You can only use one of the sliders at a time. As usual, enabling Preferences override both sliders. It is safe to open the Preferences menu here lol.
 - **CustomCampaigns:** Supported with map display **(v3.1.0)**
 - **OST, DLC Levels, Base Campaign:** Supported.
+
+![screenshot](https://github.com/zeph-yr/JDFixer/blob/BS_1.19/Screenshots/4.0.0_menu_ta.png)
 
 ## UI Option
 The default and minimum Reaction Time Display can be hidden.
