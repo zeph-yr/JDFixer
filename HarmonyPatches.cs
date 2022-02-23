@@ -17,7 +17,13 @@ namespace JDFixer
 
             // BS 1.19.0
             noteJumpValueType = BeatmapObjectSpawnMovementData.NoteJumpValueType.BeatOffset;
-            float noteJumpStartBeatOffset = noteJumpValue;
+
+            // Bit of an issue... to calculate the map's original JD for the heuristic, we need the map's offset
+            // This was fine when Init had noteJumpStartBeatOffset, but that's replaced with noteJumpValue.
+            // noteJumpValue is only equal to the offset when the base game settings is Dynamic Default.
+
+            // Will just have to make a note to users as instructions. Not worth trying to find the map when in TA, Campaigns or MP
+            float noteJumpStartBeatOffset = noteJumpValue;  
 
 
             float mapNJS = startNoteJumpMovementSpeed;

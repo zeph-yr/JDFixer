@@ -10,13 +10,13 @@
 		<increment-setting value='increment_value' apply-on-change='true' bind-value='true' text='Automated Preferences' integer-only='true' min='0' max='2' formatter='increment_formatter' hover-hint='Autoselect JD or RT based on NJS'/>
 		<button align='Center' on-click='pref_button_clicked' text='~pref_button' hover-hint='Click to set up preferences'></button>
 
-		<checkbox-setting value='use_heuristic' on-change='set_use_heuristic' text='Play at Map JD and RT If Lower' hover-hint='If original JD and RT is lower than the matching preference, map will run at original JD and RT'></checkbox-setting>
+		<checkbox-setting value='use_heuristic' on-change='set_use_heuristic' text='Play at Map JD and RT If Lower' hover-hint='If original JD and RT is lower than the matching preference, map will run at original JD and RT. You MUST set basegame to Dynamic Default for this to work properly!'></checkbox-setting>
 
 		<horizontal>
 			<grid cell-size-y='5' cell-size-x='28' spacing-x='2' align='Right'>
 				<text text='Thresholds' min-width='29' align='Left'/>
 				<text text='----------------' min-width='29' align='Left' rich-text='true' font-color='#00000000'/>
-				<text text='~thresholds' align='Right' hover-hint='Maps at and beyond these NJS will run at original JD or RT. Set in json'/>
+				<text text='~thresholds' align='Right' hover-hint='Maps at and beyond these NJS will run at original JD or RT. Set in json.'/>
 			</grid>
 		</horizontal>
 
