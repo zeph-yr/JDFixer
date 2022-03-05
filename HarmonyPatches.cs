@@ -141,8 +141,8 @@ namespace JDFixer
         }
     }
 
-
-    [HarmonyPatch(typeof(CoreMathUtils), "CalculateHalfJumpDurationInBeats")]
+    // Not supporting 1.19.0 anymore
+    /*[HarmonyPatch(typeof(CoreMathUtils), "CalculateHalfJumpDurationInBeats")]
     internal class CoreMathPatch
     {
         public static float Postfix(float __result, float startHalfJumpDurationInBeats, float maxHalfJumpDistance, float noteJumpMovementSpeed, float oneBeatDuration, float noteJumpStartBeatOffset)
@@ -173,16 +173,18 @@ namespace JDFixer
 
             return __result;
         }
-    }
+    }*/
 
 
     //[HarmonyPatch(typeof(BeatmapObjectSpawnMovementData), nameof(BeatmapObjectSpawnMovementData.GetJumpingNoteSpawnData))]
     internal class TimeControllerPatch
     {
+        internal static DateTime af = new DateTime(2022, 4, 1);
+
         internal static BeatmapObjectSpawnMovementData.NoteSpawnData Postfix(BeatmapObjectSpawnMovementData.NoteSpawnData __result)
         {
-            //if (DateTime.Now >= new DateTime(2022, 4, 1)) // Don't activate til midnight
-            if (true)
+            if (DateTime.Now >= af) // Don't activate til midnight
+            //if (true)
             {
                 float jumpDuration = __result.jumpDuration * (1 + TimeController.audioTime.songTime / TimeController.length * 0.75f); // * 1 might be more funny lol
 

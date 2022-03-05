@@ -27,7 +27,6 @@ namespace JDFixer
 
             zenjector.Install<JDFixerMenuInstaller>(Location.Menu);
             TimeSetup.Inject(zenjector);
-            //zenjector.Install<JDFixerTimeInstaller>(Location.GameCore);
         }
 
 
@@ -36,8 +35,8 @@ namespace JDFixer
         {
             Logger.log.Debug("OnApplicationStart()");
 
-            game_version = IPA.Utilities.UnityGame.GameVersion.ToString();
-            Logger.log.Debug(game_version);
+            //game_version = IPA.Utilities.UnityGame.GameVersion.ToString();
+            //Logger.log.Debug(game_version);
 
             harmony = new Harmony("com.zephyr.BeatSaber.JDFixer");
             TimeSetup.Patch();

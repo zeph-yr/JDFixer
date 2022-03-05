@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 using Zenject;
 
 namespace JDFixer
@@ -18,7 +17,7 @@ namespace JDFixer
 
         private void Start()
         {
-            Logger.log.Debug("Start TimeController");
+            Logger.log.Debug("TimeController Start");
 
             // If game starts up before midnight kekeke
 
