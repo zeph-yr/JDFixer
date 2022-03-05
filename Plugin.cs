@@ -24,7 +24,10 @@ namespace JDFixer
         {
             Logger.log = logger;
             PluginConfig.Instance = conf.Generated<PluginConfig>();
+
             zenjector.Install<JDFixerMenuInstaller>(Location.Menu);
+            TimeSetup.Inject(zenjector);
+            //zenjector.Install<JDFixerTimeInstaller>(Location.GameCore);
         }
 
 
@@ -37,6 +40,7 @@ namespace JDFixer
             Logger.log.Debug(game_version);
 
             harmony = new Harmony("com.zephyr.BeatSaber.JDFixer");
+            TimeSetup.Patch();
             harmony.PatchAll(System.Reflection.Assembly.GetExecutingAssembly());
 
             CheckForCustomCampaigns();

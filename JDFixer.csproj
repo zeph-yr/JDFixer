@@ -138,6 +138,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BeatmapUtils.cs" />
+    <Compile Include="TimeController.cs" />
+    <Compile Include="TimeSetup.cs" />
     <Compile Include="UI\CustomOnlineUI.cs" />
     <Compile Include="Installers\JDFixerMenuInstaller.cs" />
     <Compile Include="Interfaces\IBeatmapInfoUpdater.cs" />

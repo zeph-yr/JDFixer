@@ -20,4 +20,13 @@ namespace JDFixer.Installers
             Container.Bind<RTPreferencesListViewController>().FromNewComponentAsViewController().AsSingle();
         }
     }
+
+    internal class JDFixerTimeInstaller : Installer
+    {
+        public override void InstallBindings()
+        {
+            //Container.Bind<TimeController>().FromNewComponentOnNewGameObject().AsSingle();
+            Container.InstantiateComponentOnNewGameObject<TimeController>();
+        }
+    }
 }

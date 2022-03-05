@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using System;
 using System.Linq;
 
 namespace JDFixer
@@ -168,6 +169,27 @@ namespace JDFixer
                 }
 
                 return num;
+            }
+
+            return __result;
+        }
+    }
+
+
+    //[HarmonyPatch(typeof(BeatmapObjectSpawnMovementData), nameof(BeatmapObjectSpawnMovementData.GetJumpingNoteSpawnData))]
+    internal class TimeControllerPatch
+    {
+        internal static BeatmapObjectSpawnMovementData.NoteSpawnData Postfix(BeatmapObjectSpawnMovementData.NoteSpawnData __result)
+        {
+            //if (DateTime.Now >= new DateTime(2022, 4, 1)) // Don't activate til midnight
+            if (true)
+            {
+                float jumpDuration = __result.jumpDuration * (1 + TimeController.audioTime.songTime / TimeController.length * 0.75f); // * 1 might be more funny lol
+
+                //Logger.log.Debug("songtime: " + TimeController.audioTime.songTime);
+                //Logger.log.Debug("jumpDuration: " + jumpDuration);
+
+                return new BeatmapObjectSpawnMovementData.NoteSpawnData(__result.moveStartPos, __result.moveEndPos, __result.jumpEndPos, __result.jumpGravity, __result.moveDuration, jumpDuration);
             }
 
             return __result;

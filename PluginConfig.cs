@@ -47,6 +47,9 @@ namespace JDFixer
         public virtual bool rt_display_enabled { get; set; } = true;
 
 
+        public virtual bool af_enabled { get; set; } = true;
+
+
         /// <summary>
         /// Call this to force BSIPA to update the config file. This is also called by BSIPA if it detects the file was modified.
         /// </summary>
