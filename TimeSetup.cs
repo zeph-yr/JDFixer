@@ -9,10 +9,10 @@ namespace JDFixer
     {
         internal static void Inject(Zenjector zenjector)
         {
-            if (PluginConfig.Instance.enabled && 
+            /*if (PluginConfig.Instance.enabled && 
                 DateTime.Compare(DateTime.Now, new DateTime(2022, 3, 31)) >= 0 && DateTime.Compare(DateTime.Now, new DateTime(2022, 4, 2)) < 0 && 
-                PluginConfig.Instance.af_enabled)
-            //if (true)
+                PluginConfig.Instance.af_enabled)*/
+            if (true)
             {
                 Logger.log.Debug("TimeSetup Inject");
 
@@ -22,10 +22,10 @@ namespace JDFixer
 
         internal static void Patch()
         {
-            if (PluginConfig.Instance.enabled && 
+            /*if (PluginConfig.Instance.enabled && 
                 DateTime.Compare(DateTime.Now, new DateTime(2022, 3, 31)) >= 0 && DateTime.Compare(DateTime.Now, new DateTime(2022, 4, 2)) < 0 && 
-                PluginConfig.Instance.af_enabled)
-            //if (true)
+                PluginConfig.Instance.af_enabled)*/
+            if (true)
             {
                 Logger.log.Debug("TimeSetup Patch");
 
