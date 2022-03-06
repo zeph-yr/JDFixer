@@ -183,10 +183,12 @@ namespace JDFixer
 
         internal static BeatmapObjectSpawnMovementData.NoteSpawnData Postfix(BeatmapObjectSpawnMovementData.NoteSpawnData __result)
         {
-            //if (DateTime.Now >= af) // Don't activate til midnight
-            if (true)
+            if (DateTime.Now >= af && TimeController.audioTime.songTime >= 5f) // Don't activate til midnight
+            //if (TimeController.audioTime.songTime >= 5f)
             {
-                float jumpDuration = __result.jumpDuration * (1 + TimeController.audioTime.songTime / TimeController.length * 0.75f); // * 1 might be more funny lol
+                //float jumpDuration = __result.jumpDuration * (1 + TimeController.audioTime.songTime / TimeController.length * 0.75f); // * 1 might be more funny lol
+
+                float jumpDuration = (float)(__result.jumpDuration * (1 + 0.35 * Math.Abs(Math.Sin(4 * Math.PI * (TimeController.audioTime.songTime - 5f) / TimeController.length))));
 
                 //Logger.log.Debug("songtime: " + TimeController.audioTime.songTime);
                 //Logger.log.Debug("jumpDuration: " + jumpDuration);

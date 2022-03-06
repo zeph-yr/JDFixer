@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using Tweening;
 using UnityEngine;
 using Zenject;
@@ -47,26 +48,25 @@ namespace JDFixer
             canvas.renderMode = RenderMode.WorldSpace;
 
             var canvasTransform = canvas.transform;
-            canvasTransform.position = new Vector3(0f, 2f, 3.8f);
+            canvasTransform.position = new Vector3(0f, 3f, 3.8f);
             canvasTransform.localScale = Vector3.one;
 
             text = CreateText(canvas, new Vector2(0f, 0f));
-
         }
 
         private void Update()
         {
-            if (text_shown == false && audioTime.songTime >= 3.5f)
+            if (text_shown == false && audioTime.songTime >= 0.5 * length)
             {
                 text.gameObject.SetActive(true);
-
-                //text.CrossFadeAlpha(1f, -30f, false); // This only fades out lol
-                tween.AddTween(new FloatTween(0, 1, value => text.alpha = value, 3f, EaseType.InCubic), text);
-
+                tween.AddTween(new FloatTween(0, 1, value => text.alpha = value, 3.5f, EaseType.InCubic), text);
                 text_shown = true;
             }
-
-            //else if (au)
+            else if (text.gameObject.activeSelf && audioTime.songTime >= 0.5 * length + 20f)
+            {
+                //text.CrossFadeAlpha(0f, -3.5f, false); // This doesnt work
+                tween.AddTween(new FloatTween(1, 0, value => text.alpha = value, 3.5f, EaseType.InCubic), text);
+            }
         }
 
         private static TextMeshProUGUI CreateText(Canvas canvas, Vector2 position)
@@ -79,9 +79,20 @@ namespace JDFixer
             tmp.rectTransform.transform.localPosition = Vector3.zero;
             tmp.rectTransform.anchoredPosition = position;
 
-            tmp.text = "Hello there";
-            tmp.fontSize = 0.15f;
-            tmp.color = Color.white;
+            if (DateTime.Compare(DateTime.Now, new DateTime(2022, 4, 1)) >= 0)
+            {
+                tmp.text = "Hello, Happy April Fools and have fun! \nHint - If you want out, look in the config ^^";
+            }
+            else if (DateTime.Compare(DateTime.Now, new DateTime(2022, 4, 22)) >= 0)
+            {
+                tmp.text = "Hello there.\nMaking mods is hard work. If you've been enjoying using JDFixer,\nI ask one favor of you in return.\n <#ffff00>Today is Earth Day. We are in a climate emergency.\nI ask you to do anything and everything in your power to protect our and your future.\n<#ffff00>No action is too small.";
+            }
+            else
+            {
+                tmp.text = "";
+            }
+            tmp.fontSize = 0.12f;
+            tmp.color = new Color(1f, 0f, 0.5f);
             tmp.alpha = 0f;
             tmp.alignment = TextAlignmentOptions.Center;
 
