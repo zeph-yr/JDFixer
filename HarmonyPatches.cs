@@ -7,7 +7,7 @@ namespace JDFixer
     [HarmonyPatch(typeof(BeatmapObjectSpawnMovementData), "Init")]
     internal class SpawnMovementDataUpdatePatch
     {
-        public static void Prefix(ref float startNoteJumpMovementSpeed, float startBpm, /*ref float noteJumpStartBeatOffset,*/ ref BeatmapObjectSpawnMovementData.NoteJumpValueType noteJumpValueType, ref float noteJumpValue, ref BeatmapObjectSpawnMovementData __instance, ref bool __state)
+        public static void Prefix(ref float startNoteJumpMovementSpeed, float startBpm, /*ref float noteJumpStartBeatOffset,*/ ref BeatmapObjectSpawnMovementData.NoteJumpValueType noteJumpValueType, ref float noteJumpValue)
         {
             if (PluginConfig.Instance.enabled == false)
             {

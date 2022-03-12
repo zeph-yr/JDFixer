@@ -30,18 +30,6 @@ namespace JDFixer
         {
             Logger.log.Debug("TimeController Start");
 
-            // If game starts up before midnight kekeke
-
-            /*if (PluginConfig.Instance.enabled && 
-                DateTime.Compare(DateTime.Now, new DateTime(2022, 3, 31)) >= 0 && DateTime.Compare(DateTime.Now, new DateTime(2022, 4, 2)) < 0 && 
-                PluginConfig.Instance.af_enabled)*/
-            /*if (true)
-            {
-                audioTime = Resources.FindObjectsOfTypeAll<AudioTimeSyncController>().FirstOrDefault();
-                length = audioTime.songEndTime;
-            }*/
-
-
             GameObject canvasGo = new GameObject("Canvas");
             canvasGo.transform.parent = transform;
             canvas = canvasGo.AddComponent<Canvas>();

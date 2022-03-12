@@ -303,9 +303,6 @@ namespace JDFixer.UI
         public CurvedTextMeshPro jd_slider_text;
         public CurvedTextMeshPro rt_slider_text;
 
-        public HMUI.CustomFormatRangeValuesSlider rt_slider_range;
-        public HMUI.CustomFormatRangeValuesSlider jd_slider_range;
-
         [UIAction("#post-parse")]
         private void PostParse()
         {
@@ -323,31 +320,12 @@ namespace JDFixer.UI
                 rt_slider_text.color = new UnityEngine.Color(204f / 255f, 153f / 255f, 1f);
             }
 
-
-            rt_slider_range = RT_Slider.slider.GetComponentInChildren<HMUI.CustomFormatRangeValuesSlider>();
-
-            rt_slider_range.minValue = _selectedBeatmap.MinRTSlider;
-            rt_slider_range.maxValue = _selectedBeatmap.MaxRTSlider;
-
-
-            jd_slider_range = JD_Slider.slider.GetComponentInChildren<HMUI.CustomFormatRangeValuesSlider>();
-
-            jd_slider_range.minValue = _selectedBeatmap.MinJDSlider;
-            jd_slider_range.maxValue = _selectedBeatmap.MaxJDSlider;
-
-
-            // These are critical:
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Min_RT_Slider)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Max_RT_Slider)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(RT_Value)));
-
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Min_JD_Slider)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Max_JD_Slider)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(JD_Value)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(RT_Value)));
         }
 
 
-        //1.19.1 Feature update
+        //1.20.0 Feature update
         [UIValue("slider_setting_value")]
         private int Slider_Setting_Value
         {
@@ -357,56 +335,19 @@ namespace JDFixer.UI
                 PluginConfig.Instance.slider_setting = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Slider_Setting_Value)));
 
-                // This doesnt work because the MinRTSlider etc can't be publically set, crashes
-                //BeatmapUtils.RefreshSliderMinMax(_selectedBeatmap.NJS);
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(JD_Value)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(RT_Value)));
 
-                // This is critcal!
-                RefreshSliderMinMax();
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(JD_Display)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(RT_Display)));
+
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Show_JD_Slider)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Show_RT_Slider)));
             }
         }
-
         [UIAction("slider_setting_increment_formatter")]
         private string Slider_Setting_Increment_Formatter(int value) => ((SliderSettingEnum)value).ToString();
 
-
-        // This function is critical:
-        // Without this function, when slider setting is flipped, the slider min maxes will be wrong because they are/were set in BeatmapInfo
-        // Ex: When JD flips to RT, sliders will be draw as if set to JD (with JD min-max) until a new map is clicked that triggers BeatmapInfo
-        // and PostParse to run again with the new setting.
-        // Must "recalculate" them here then trigger everything to update
-        public void RefreshSliderMinMax()
-        {
-            rt_slider_range = RT_Slider.slider.GetComponentInChildren<HMUI.CustomFormatRangeValuesSlider>();
-            jd_slider_range = JD_Slider.slider.GetComponentInChildren<HMUI.CustomFormatRangeValuesSlider>();
-
-            if (PluginConfig.Instance.slider_setting == 0)
-            {
-                rt_slider_range.minValue = PluginConfig.Instance.minJumpDistance * 500 / _selectedBeatmap.NJS;
-                rt_slider_range.maxValue = PluginConfig.Instance.maxJumpDistance * 500 / _selectedBeatmap.NJS;
-
-                jd_slider_range.minValue = PluginConfig.Instance.minJumpDistance;
-                jd_slider_range.maxValue = PluginConfig.Instance.maxJumpDistance;
-            }
-            else
-            {
-                rt_slider_range.minValue = PluginConfig.Instance.minReactionTime;
-                rt_slider_range.maxValue = PluginConfig.Instance.maxReactionTime;
-
-                jd_slider_range.minValue = PluginConfig.Instance.minReactionTime * _selectedBeatmap.NJS / 500;
-                jd_slider_range.maxValue = PluginConfig.Instance.maxReactionTime * _selectedBeatmap.NJS / 500;
-            }
-
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Min_RT_Slider)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Max_RT_Slider)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(RT_Value)));
-
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Min_JD_Slider)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Max_JD_Slider)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(JD_Value)));
-
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Show_JD_Slider)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Show_RT_Slider)));
-        }
 
         [UIValue("show_jd_slider")]
         bool Show_JD_Slider => Get_JD_Slider();

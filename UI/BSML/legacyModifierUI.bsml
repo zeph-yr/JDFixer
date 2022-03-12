@@ -6,7 +6,7 @@
 			<grid cell-size-y='5' cell-size-x='28' spacing-x='2' align='Right'>
 				<text text='Map Jump Distance' align='Left'/>
 				<text text='----------------' align='Left' rich-text='true' font-color='#00000000'/>
-				<text text='~map_default_jd' min-width='29' align='Right'/>
+				<text text='~map_default_jd' min-width='29' align='Right' hover-hint='For alternate UIs, visit the github Readme'/>
 
 				<text text='Min.' align='Left'/>
 				<text text='----------------' align='Left' rich-text='true' font-color='#00000000'/>
@@ -50,6 +50,6 @@
 	</settings-container>
 
 	<horizontal pad-top='50'>
-		<text text='Instructions at github.com/zeph-yr/JDFixer#readme     v5.0.0-Pre-1.20' font-color='#ff0080ff' font-size='3' align='Center' hover-hint="Read this to learn the hidden features"></text>
+		<text text='Instructions at github.com/zeph-yr/JDFixer#readme     v5.0.0' font-color='#ff0080ff' font-size='3' align='Center' hover-hint="Read this to learn the hidden features"></text>
 	</horizontal>
 </bg>
