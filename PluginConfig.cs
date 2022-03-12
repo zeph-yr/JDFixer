@@ -45,6 +45,7 @@ namespace JDFixer
         public virtual float lower_threshold { get; set; } = 1f;
         public virtual bool use_heuristic { get; set; } = false;
         public virtual bool rt_display_enabled { get; set; } = true;
+        public bool legacy_display_enabled { get; set; } = false;
 
 
         public virtual bool af_enabled { get; set; } = true;

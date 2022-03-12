@@ -138,6 +138,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BeatmapUtils.cs" />
+    <Compile Include="UI\LegacyModifierUI.cs" />
     <Compile Include="TimeController.cs" />
     <Compile Include="TimeSetup.cs" />
     <Compile Include="UI\CustomOnlineUI.cs" />
@@ -181,6 +182,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="UI\BSML\customOnlineUI.bsml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="UI\BSML\legacyModifierUI.bsml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

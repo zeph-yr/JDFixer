@@ -109,7 +109,7 @@ namespace JDFixer.Managers
                     [DEBUG @ 21:40:52 | JDFixer] CC Level: custom_level_35B125930B0F475431AFCFF0362711D98CFEEAA6
                     */
 
-                    if (MissionSelectionPatch.cc_level != null) // lol null check just to print?
+                    /*if (MissionSelectionPatch.cc_level != null) // lol null check just to print?
                     {
                         // If a map is not dled, this will be the previous selected node's map
                         // Possible edge case where CC util will find a match in the previous selected node's map using the current node's diff and characteristic?
@@ -127,7 +127,7 @@ namespace JDFixer.Managers
 
                             DiffcultyBeatmapUpdated(difficulty_beatmap);
                         }
-                    }
+                    }*/
                 }
                 else // Map not dled
                 {

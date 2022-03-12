@@ -9,8 +9,16 @@ namespace JDFixer.Installers
         public override void InstallBindings()
         {
             Container.BindInterfacesTo<JDFixerUIManager>().AsSingle();
-            Container.BindInterfacesTo<ModifierUI>().AsSingle();
             Container.BindInterfacesTo<CustomOnlineUI>().AsSingle();
+
+            if (PluginConfig.Instance.legacy_display_enabled)
+            {
+                Container.BindInterfacesTo<LegacyModifierUI>().AsSingle();
+            }
+            else
+            {
+                Container.BindInterfacesTo<ModifierUI>().AsSingle();
+            }
 
             // Flow Coordinators need to binded like this, as a component since it is a Unity Component
             Container.Bind<PreferencesFlowCoordinator>().FromNewComponentOnNewGameObject().AsSingle();
