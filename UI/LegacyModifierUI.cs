@@ -11,7 +11,7 @@ using JDFixer.Interfaces;
 
 namespace JDFixer.UI
 {
-    public class LegacyModifierUI : IInitializable, IDisposable, INotifyPropertyChanged, IBeatmapInfoUpdater
+    internal class LegacyModifierUI : IInitializable, IDisposable, INotifyPropertyChanged, IBeatmapInfoUpdater
     {
         private readonly MainFlowCoordinator _mainFlow;
         private readonly PreferencesFlowCoordinator _prefFlow;
@@ -55,31 +55,11 @@ namespace JDFixer.UI
             PostParse();
         }
 
-        private string CalculateReactionTime_String()
-        {
-            // Super hack way to prevent divide by zero and showing as "infinity" in Campaign
-            // Realistically how many maps will have less than 0.002 NJS, and if a map does...
-            // it wouldn't matter if you display 10^6 or 0 reaction time anyway
-            // 0.002 gives a margin: BeatmapInfo sets null to 0.001
-            if (_selectedBeatmap.NJS > 0.002)
-                return "<#cc99ff>" + (JD_Value / (2 * _selectedBeatmap.NJS) * 1000).ToString("0.#") + " ms";
-
-            return "<#cc99ff>0 ms";
-        }
-
-        public float CalculateReactionTime_Float(float jd)
-        {
-            if (_selectedBeatmap.NJS > 0.002)
-                return jd / (2 * _selectedBeatmap.NJS) * 1000;
-
-            return 0f;
-        }
-
         //=============================================================================================
 
 
         [UIValue("enabled")]
-        public bool Enabled
+        private bool Enabled
         {
             get => PluginConfig.Instance.enabled;
             set
@@ -88,16 +68,16 @@ namespace JDFixer.UI
             }
         }
         [UIAction("set_enabled")]
-        public void SetEnabled(bool value)
+        private void SetEnabled(bool value)
         {
             Enabled = value;
         }
 
 
         [UIValue("map_default_jd")]
-        public string Map_Default_JD => Get_Map_Default_JD();
+        private string Map_Default_JD => Get_Map_Default_JD();
 
-        public string Get_Map_Default_JD()
+        private string Get_Map_Default_JD()
         {
             if (PluginConfig.Instance.rt_display_enabled)
                 return "<#ffff00>" + _selectedBeatmap.JumpDistance.ToString("0.##") + "     <#8c1aff>" + _selectedBeatmap.ReactionTime.ToString("0") + " ms";
@@ -107,9 +87,9 @@ namespace JDFixer.UI
 
 
         [UIValue("map_min_jd")]
-        public string Map_Min_JD => Get_Map_Min_JD();
+        private string Map_Min_JD => Get_Map_Min_JD();
 
-        public string Get_Map_Min_JD()
+        private string Get_Map_Min_JD()
         {
             if (PluginConfig.Instance.rt_display_enabled)
                 return "<#8c8c8c>" + _selectedBeatmap.MinJumpDistance.ToString("0.##") + "     <#8c8c8c>" + _selectedBeatmap.MinReactionTime.ToString("0" + " ms");
@@ -126,10 +106,10 @@ namespace JDFixer.UI
         private float Max_JD_Slider => PluginConfig.Instance.maxJumpDistance;
 
         [UIComponent("jd_slider")]
-        public SliderSetting JD_Slider;
+        private SliderSetting JD_Slider;
 
         [UIValue("jd_value")]
-        public float JD_Value
+        private float JD_Value
         {
             get => PluginConfig.Instance.jumpDistance;
             set
@@ -139,7 +119,7 @@ namespace JDFixer.UI
             }
         }
         [UIAction("set_jd_value")]
-        public void Set_JD_Value(float value)
+        private void Set_JD_Value(float value)
         {
             JD_Value = value;
         }
@@ -148,21 +128,21 @@ namespace JDFixer.UI
 
 
         [UIValue("jd_display")]
-        public string JD_Display => "<#ffff00>" + (PluginConfig.Instance.reactionTime * (2 * _selectedBeatmap.NJS) / 1000).ToString("0.##");
+        private string JD_Display => BeatmapUtils.Calculate_JumpDistance_Setpoint_String(RT_Value, _selectedBeatmap.NJS); //"<#ffff00>" + (PluginConfig.Instance.reactionTime * (2 * _selectedBeatmap.NJS) / 1000).ToString("0.##");
         
 
 
         [UIValue("min_rt_slider")]
-        public float Min_RT_Slider => PluginConfig.Instance.minReactionTime;
+        private float Min_RT_Slider => PluginConfig.Instance.minReactionTime;
 
         [UIValue("max_rt_slider")]
-        public float Max_RT_Slider => PluginConfig.Instance.maxReactionTime;
+        private float Max_RT_Slider => PluginConfig.Instance.maxReactionTime;
 
         [UIComponent("rt_slider")]
-        public SliderSetting RT_Slider;
+        private SliderSetting RT_Slider;
 
         [UIValue("rt_value")]
-        public float RT_Value
+        private float RT_Value
         {
             get => PluginConfig.Instance.reactionTime;
             set
@@ -172,7 +152,7 @@ namespace JDFixer.UI
             }
         }
         [UIAction("set_rt_value")]
-        public void Set_RT_Value(float value)
+        private void Set_RT_Value(float value)
         {
             RT_Value = value;
         }
@@ -181,7 +161,7 @@ namespace JDFixer.UI
 
 
         [UIValue("rt_display")]
-        public string RT_Display => "<#cc99ff>" + CalculateReactionTime_Float(PluginConfig.Instance.jumpDistance).ToString("0");
+        public string RT_Display => BeatmapUtils.Calculate_ReactionTime_Setpoint_String(JD_Value, _selectedBeatmap.NJS);
 
 
 
@@ -228,9 +208,9 @@ namespace JDFixer.UI
 
 
         [UIValue("pref_button")]
-        public string Pref_Button => Get_Pref_Button();
+        private string Pref_Button => Get_Pref_Button();
 
-        public string Get_Pref_Button()
+        private string Get_Pref_Button()
         {
             if (PluginConfig.Instance.pref_selected == 2)
             {
@@ -247,7 +227,7 @@ namespace JDFixer.UI
         }
 
         [UIAction("pref_button_clicked")]
-        public void Pref_Button_Clicked()
+        private void Pref_Button_Clicked()
         {
             /* Kyle used to have a helper function which you also used (DeepestChildFlowCoordinator). 
              * Beat Games has added this to the game since, so we can just use something they helpfully provided us
@@ -260,7 +240,7 @@ namespace JDFixer.UI
 
 
         [UIValue("use_heuristic")]
-        public bool Use_Heuristic
+        private bool Use_Heuristic
         {
             get => PluginConfig.Instance.use_heuristic;
             set
@@ -270,14 +250,14 @@ namespace JDFixer.UI
         }
 
         [UIAction("set_use_heuristic")]
-        public void Set_Use_Heuristic(bool value)
+        private void Set_Use_Heuristic(bool value)
         {
             Use_Heuristic = value;
         }
 
 
         [UIValue("thresholds")]
-        public string Thresholds
+        private string Thresholds
         {
             get => "≤ " + PluginConfig.Instance.lower_threshold.ToString() + " and " + PluginConfig.Instance.upper_threshold.ToString() + " ≤";
         }
@@ -300,8 +280,8 @@ namespace JDFixer.UI
         //###################################
 
 
-        public CurvedTextMeshPro jd_slider_text;
-        public CurvedTextMeshPro rt_slider_text;
+        private CurvedTextMeshPro jd_slider_text;
+        private CurvedTextMeshPro rt_slider_text;
 
         [UIAction("#post-parse")]
         private void PostParse()
@@ -350,7 +330,7 @@ namespace JDFixer.UI
 
 
         [UIValue("show_jd_slider")]
-        bool Show_JD_Slider => Get_JD_Slider();
+        private bool Show_JD_Slider => Get_JD_Slider();
 
         private bool Get_JD_Slider()
         {
@@ -365,7 +345,7 @@ namespace JDFixer.UI
         }
 
         [UIValue("show_rt_slider")]
-        bool Show_RT_Slider => Get_RT_Slider();
+        private bool Show_RT_Slider => Get_RT_Slider();
 
         private bool Get_RT_Slider()
         {

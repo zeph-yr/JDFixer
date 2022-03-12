@@ -42,7 +42,7 @@ namespace JDFixer.UI
 
 
         [UIValue("enabled")]
-        public bool Enabled
+        private bool Enabled
         {
             get => PluginConfig.Instance.enabled;
             set
@@ -51,7 +51,7 @@ namespace JDFixer.UI
             }
         }
         [UIAction("set_enabled")]
-        public void SetEnabled(bool value)
+        private void SetEnabled(bool value)
         {
             Enabled = value;
         }
@@ -85,10 +85,10 @@ namespace JDFixer.UI
         private float Max_JD_Slider => PluginConfig.Instance.maxJumpDistance;
 
         [UIComponent("jd_slider")]
-        public SliderSetting JD_Slider;
+        private SliderSetting JD_Slider;
 
         [UIValue("jd_value")]
-        public float JD_Value
+        private float JD_Value
         {
             get => PluginConfig.Instance.jumpDistance;
             set
@@ -98,7 +98,7 @@ namespace JDFixer.UI
         }
 
         [UIAction("set_jd_value")]
-        public void Set_JD_Value(float value)
+        private void Set_JD_Value(float value)
         {
             JD_Value = value;
         }
@@ -109,16 +109,16 @@ namespace JDFixer.UI
 
 
         [UIValue("min_rt_slider")]
-        public float Min_RT_Slider => PluginConfig.Instance.minReactionTime;
+        private float Min_RT_Slider => PluginConfig.Instance.minReactionTime;
 
         [UIValue("max_rt_slider")]
-        public float Max_RT_Slider => PluginConfig.Instance.maxReactionTime;
+        private float Max_RT_Slider => PluginConfig.Instance.maxReactionTime;
 
         [UIComponent("rt_slider")]
-        public SliderSetting RT_Slider;
+        private SliderSetting RT_Slider;
 
         [UIValue("rt_value")]
-        public float RT_Value
+        private float RT_Value
         {
             get => PluginConfig.Instance.reactionTime;
             set
@@ -128,7 +128,7 @@ namespace JDFixer.UI
         }
 
         [UIAction("set_rt_value")]
-        public void Set_RT_Value(float value)
+        private void Set_RT_Value(float value)
         {
             RT_Value = value;
         }
@@ -181,9 +181,9 @@ namespace JDFixer.UI
 
 
         [UIValue("pref_button")]
-        public string Pref_Button => Get_Pref_Button();
+        private string Pref_Button => Get_Pref_Button();
 
-        public string Get_Pref_Button()
+        private string Get_Pref_Button()
         {
             if (PluginConfig.Instance.pref_selected == 2)
             {
@@ -200,7 +200,7 @@ namespace JDFixer.UI
         }
 
         [UIAction("pref_button_clicked")]
-        public void Pref_Button_Clicked()
+        private void Pref_Button_Clicked()
         {
             /* Kyle used to have a helper function which you also used (DeepestChildFlowCoordinator). 
              * Beat Games has added this to the game since, so we can just use something they helpfully provided us
@@ -213,7 +213,7 @@ namespace JDFixer.UI
 
 
         [UIValue("use_heuristic")]
-        public bool Use_Heuristic
+        private bool Use_Heuristic
         {
             get => PluginConfig.Instance.use_heuristic;
             set
@@ -223,14 +223,14 @@ namespace JDFixer.UI
         }
 
         [UIAction("set_use_heuristic")]
-        public void Set_Use_Heuristic(bool value)
+        private void Set_Use_Heuristic(bool value)
         {
             Use_Heuristic = value;
         }
 
 
         [UIValue("thresholds")]
-        public string Thresholds
+        private string Thresholds
         {
             get => "≤ " + PluginConfig.Instance.lower_threshold.ToString() + " and " + PluginConfig.Instance.upper_threshold.ToString() + " ≤";
         }
@@ -239,8 +239,8 @@ namespace JDFixer.UI
 
         //=============================================================================================
         
-        public CurvedTextMeshPro jd_slider_text;
-        public CurvedTextMeshPro rt_slider_text;
+        private CurvedTextMeshPro jd_slider_text;
+        private CurvedTextMeshPro rt_slider_text;
 
         [UIAction("#post-parse")]
         private void PostParse()
