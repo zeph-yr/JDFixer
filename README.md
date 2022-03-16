@@ -16,6 +16,7 @@ Supports CustomCampaigns, Tournament Assistant, Multiplayer, OST / DLC / Base Ca
 
 ![screenshot](https://github.com/zeph-yr/JDFixer/blob/BS_1.19/Screenshots/3.0.0_menu_3.png)
 ![screenshot](https://github.com/zeph-yr/JDFixer/blob/BS_1.19/Screenshots/3.1.0_menu_2.png)
+![screenshot](https://github.com/zeph-yr/JDFixer/blob/BS_1.20/Screenshots/5.0.0_menu_1.png)
 ![screenshot](https://github.com/zeph-yr/JDFixer/blob/BS_1.16.4_MA_v2.0.3/Screenshots/2.1.0_menu_3.png)
 
 ## How To Use
@@ -24,7 +25,9 @@ Supports CustomCampaigns, Tournament Assistant, Multiplayer, OST / DLC / Base Ca
 - Set up automated preferences to select JD or RT based on map NJS with in-game menu (If you require finer decimal values for NJS, JD and RT, you can edit your preferences in /UserData/JDFixer.json)
 - To access the RT Preferences menu, set `Automated Preferences` to `ReactionTime` and click `JD and RT Preferences`
 - Setting `Automated Preferences` to `JumpDistance` or `ReactionTime` will override the JD and RT sliders
-- Choose either JD or RT slider to remember its last value **(v3.1.0)**
+- Default UI: Choose JD or RT slider to remember its last value **(v3.1.0+)**
+- Legacy UI: Choose to use slider or JD or RT and a display for the other **(v5.0.0+)**
+- TA or MP: Choose to set your map by JD or RT. You can only set 1 at a time **(v4.0.0+)**
 - Min and max ranges of JD and RT sliders can be changed in /UserData/JDFixer.json
 - Upper and Lower NJS Thresholds are configured in /UserData/JDFixer.json
 - Hover over menu in-game for explanations
@@ -73,8 +76,8 @@ This works exactly the same as JD Preferences. The five examples above apply, ex
 - **OST, DLC Levels, Base Campaign:** Supported.
 
 ## UI Option
-- **Coupled JD and RT sliders (default UI):** Select which slider to remain in place when you click between maps.
-- **Single slider for JD or RT and display for other:** Change `legacy_ui_enabled` to "true".
+- **Coupled JD and RT sliders (default UI):** Select which slider to remain in place when you click between maps. Scroll to the bottom of the Mod menu to choose between JD and RT
+- **Single slider for JD or RT and display for other:** Change `legacy_ui_enabled` to "true". Scroll to the bottom of the Mod menu to swap JD and RT
 - **Hide default and minimum Reaction Time Display:** Change `rt_display_enabled` in /UserData/JDFixer.json to "false"
 ![screenshot](https://github.com/zeph-yr/JDFixer/blob/BS_1.16.4_MA_v2.0.3/Screenshots/ui_options.png)
 
