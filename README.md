@@ -12,6 +12,7 @@ Supports CustomCampaigns, Tournament Assistant, Multiplayer, OST / DLC / Base Ca
 - **Automated JD and RT fixing.** Preferences has been changed to selecting the NJS-JD (or RT) pair that is equal or lower to the selected map's NJS. This allows you to cover large ranges without having to add many values and also handles the rare non-integer NJS. For RT: Automatically sets a map's JD to give your preferred reaction time for a given NJS. Ability to fix constant JD or RT across all maps.
 - **Heuristic for Preferences** where if the selected map's original JD is lower than the JD in the matching NJS-JD pair, the map will run at its original JD. You can toggle this feature. 
 - **Upper and Lower NJS Thresholds where Preferences will be ignored.** If a map's NJS is at or above the upper threshold, the map will run at its original JD and RT (and vice versa for lower threshold)
+- **Multiple UIs.** 6 possible UI setups. Choose from coupled JD and RT sliders or single slider for JD or RT.
 
 ![screenshot](https://github.com/zeph-yr/JDFixer/blob/BS_1.19/Screenshots/3.0.0_menu_3.png)
 ![screenshot](https://github.com/zeph-yr/JDFixer/blob/BS_1.19/Screenshots/3.1.0_menu_2.png)
@@ -72,9 +73,9 @@ This works exactly the same as JD Preferences. The five examples above apply, ex
 - **OST, DLC Levels, Base Campaign:** Supported.
 
 ## UI Option
-The default and minimum Reaction Time Display can be hidden.
-Change `rt_display_enabled` in /UserData/JDFixer.json to "false"
-
+- **Coupled JD and RT sliders (default UI):** Select which slider to remain in place when you click between maps.
+- **Single slider for JD or RT and display for other:** Change `legacy_ui_enabled` to "true".
+- **Hide default and minimum Reaction Time Display:** Change `rt_display_enabled` in /UserData/JDFixer.json to "false"
 ![screenshot](https://github.com/zeph-yr/JDFixer/blob/BS_1.16.4_MA_v2.0.3/Screenshots/ui_options.png)
 
 ## About

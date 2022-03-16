@@ -176,21 +176,16 @@ namespace JDFixer
     }*/
 
 
-    //[HarmonyPatch(typeof(BeatmapObjectSpawnMovementData), nameof(BeatmapObjectSpawnMovementData.GetJumpingNoteSpawnData))]
     internal class TimeControllerPatch
     {
         internal static DateTime af = new DateTime(2022, 4, 1);
 
         internal static BeatmapObjectSpawnMovementData.NoteSpawnData Postfix(BeatmapObjectSpawnMovementData.NoteSpawnData __result)
         {
-            if (DateTime.Now >= af && TimeController.audioTime.songTime >= 5f) // Don't activate til midnight
-            //if (TimeController.audioTime.songTime >= 5f)
+            if (DateTime.Now >= af && TimeController.audioTime.songTime >= 5f)
             {
                 //float jumpDuration = __result.jumpDuration * (1 + TimeController.audioTime.songTime / TimeController.length * 0.75f); // * 1 might be more funny lol
-
-                float jumpDuration = (float)(__result.jumpDuration * (1 + 0.35 * Math.Abs(Math.Sin(4 * Math.PI * (TimeController.audioTime.songTime - 5f) / TimeController.length))));
-
-                //Logger.log.Debug("songtime: " + TimeController.audioTime.songTime);
+                float jumpDuration = (float)(__result.jumpDuration * (1 + 0.30 * Math.Abs(Math.Sin(4 * Math.PI * (TimeController.audioTime.songTime - 5f) / TimeController.length))));
                 //Logger.log.Debug("jumpDuration: " + jumpDuration);
 
                 return new BeatmapObjectSpawnMovementData.NoteSpawnData(__result.moveStartPos, __result.moveEndPos, __result.jumpEndPos, __result.jumpGravity, __result.moveDuration, jumpDuration);
