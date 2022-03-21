@@ -26,7 +26,7 @@ Supports CustomCampaigns, Tournament Assistant, Multiplayer, OST / DLC / Base Ca
 - To access the RT Preferences menu, set `Automated Preferences` to `ReactionTime` and click `JD and RT Preferences`
 - Setting `Automated Preferences` to `JumpDistance` or `ReactionTime` will override the JD and RT sliders
 - Default UI: Choose JD or RT slider to remember its last value **(v3.1.0+)**
-- Legacy UI: Choose to use slider or JD or RT and a display for the other **(v5.0.0+)**
+- Legacy UI: Choose one slider for JD or RT and a display for the other **(v5.0.0+)**
 - TA or MP: Choose to set your map by JD or RT. You can only set 1 at a time **(v4.0.0+)**
 - Min and max ranges of JD and RT sliders can be changed in /UserData/JDFixer.json
 - If you enable `Use Map JD If Lower`, you **must** set base game settings to `Dynamic Default`
