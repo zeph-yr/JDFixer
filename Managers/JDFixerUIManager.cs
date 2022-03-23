@@ -31,7 +31,14 @@ namespace JDFixer.Managers
             levelDetail.didChangeDifficultyBeatmapEvent += LevelDetail_didChangeDifficultyBeatmapEvent;
             levelDetail.didChangeContentEvent += LevelDetail_didChangeContentEvent;
 
-            missionSelection.didSelectMissionLevelEvent += MissionSelection_didSelectMissionLevelEvent;
+            if (Plugin.cc_installed)
+            {
+                missionSelection.didSelectMissionLevelEvent += MissionSelection_didSelectMissionLevelEvent_CC;
+            }
+            else
+            {
+                missionSelection.didSelectMissionLevelEvent += MissionSelection_didSelectMissionLevelEvent_Base;
+            }
         }
 
 
@@ -42,7 +49,8 @@ namespace JDFixer.Managers
             levelDetail.didChangeDifficultyBeatmapEvent -= LevelDetail_didChangeDifficultyBeatmapEvent;
             levelDetail.didChangeContentEvent -= LevelDetail_didChangeContentEvent;
 
-            missionSelection.didSelectMissionLevelEvent -= MissionSelection_didSelectMissionLevelEvent;
+            missionSelection.didSelectMissionLevelEvent -= MissionSelection_didSelectMissionLevelEvent_CC;
+            missionSelection.didSelectMissionLevelEvent -= MissionSelection_didSelectMissionLevelEvent_Base;
         }
 
 
@@ -71,48 +79,49 @@ namespace JDFixer.Managers
         }
 
 
-        private void MissionSelection_didSelectMissionLevelEvent(MissionSelectionMapViewController arg1, MissionNode arg2)
+        private void MissionSelection_didSelectMissionLevelEvent_CC(MissionSelectionMapViewController arg1, MissionNode arg2)
         {
             // Yes, we must check for both arg2.missionData and arg2.missionData.beatmapCharacteristic:
             // If a map is not dled, missionID and beatmapDifficulty will be correct, but beatmapCharacteristic will be null
             // Accessing any null values of arg1 or arg2 will crash CC horribly
 
-            if (Plugin.cc_installed)
+            if (arg2.missionData != null && arg2.missionData.beatmapCharacteristic != null)
             {
-                if (arg2.missionData != null && arg2.missionData.beatmapCharacteristic != null)
+                Logger.log.Debug("In CC, MissionNode exists");
+
+                //Logger.log.Debug("MissionNode - missionid: " + arg2.missionId); //"<color=#0a92ea>[STND]</color> Holdin' Oneb28Easy-1"
+                //Logger.log.Debug("MissionNode - difficulty: " + arg2.missionData.beatmapDifficulty); // "Easy" etc
+                //Logger.log.Debug("MissionNode - characteristic: " + arg2.missionData.beatmapCharacteristic.serializedName); //"Standard" etc
+
+
+                if (MissionSelectionPatch.cc_level != null) // lol null check just to print?
                 {
-                    Logger.log.Debug("In CC, MissionNode exists");
+                    // If a map is not dled, this will be the previous selected node's map
+                    Logger.log.Debug("CC Level: " + MissionSelectionPatch.cc_level.levelID);  // For cross check with arg2.missionId
 
-                    //Logger.log.Debug("MissionNode - missionid: " + arg2.missionId); //"<color=#0a92ea>[STND]</color> Holdin' Oneb28Easy-1"
-                    //Logger.log.Debug("MissionNode - difficulty: " + arg2.missionData.beatmapDifficulty); // "Easy" etc
-                    //Logger.log.Debug("MissionNode - characteristic: " + arg2.missionData.beatmapCharacteristic.serializedName); //"Standard" etc
+                    IDifficultyBeatmap difficulty_beatmap = CustomCampaigns.Utils.BeatmapUtils.GetMatchingBeatmapDifficulty(MissionSelectionPatch.cc_level.levelID, arg2.missionData.beatmapCharacteristic, arg2.missionData.beatmapDifficulty);
 
-
-                    if (MissionSelectionPatch.cc_level != null) // lol null check just to print?
+                    if (difficulty_beatmap != null) // lol null check just to print?
                     {
-                        // If a map is not dled, this will be the previous selected node's map
-                        Logger.log.Debug("CC Level: " + MissionSelectionPatch.cc_level.levelID);  // For cross check with arg2.missionId
+                        Logger.log.Debug("MissionNode Diff: " + difficulty_beatmap.difficulty);  // For cross check with arg2.missionData.beatmapDifficulty
+                        Logger.log.Debug("MissionNode Offset: " + difficulty_beatmap.noteJumpStartBeatOffset);
+                        Logger.log.Debug("MissionNode NJS: " + difficulty_beatmap.noteJumpMovementSpeed);
 
-                        IDifficultyBeatmap difficulty_beatmap = CustomCampaigns.Utils.BeatmapUtils.GetMatchingBeatmapDifficulty(MissionSelectionPatch.cc_level.levelID, arg2.missionData.beatmapCharacteristic, arg2.missionData.beatmapDifficulty);
-
-                        if (difficulty_beatmap != null) // lol null check just to print?
-                        {
-                            Logger.log.Debug("MissionNode Diff: " + difficulty_beatmap.difficulty);  // For cross check with arg2.missionData.beatmapDifficulty
-                            Logger.log.Debug("MissionNode Offset: " + difficulty_beatmap.noteJumpStartBeatOffset);
-                            Logger.log.Debug("MissionNode NJS: " + difficulty_beatmap.noteJumpMovementSpeed);
-
-                            DiffcultyBeatmapUpdated(difficulty_beatmap);
-                        }
+                        DiffcultyBeatmapUpdated(difficulty_beatmap);
                     }
                 }
-                else // Map not dled
-                {
-                    DiffcultyBeatmapUpdated(null);
-                }
             }
+            else // Map not dled
+            {
+                DiffcultyBeatmapUpdated(null);
+            }
+        }
 
+
+        private void MissionSelection_didSelectMissionLevelEvent_Base(MissionSelectionMapViewController arg1, MissionNode arg2)
+        {
             // Base campaign
-            else if (arg2 != null)
+            if (arg2 != null)
             {
                 DiffcultyBeatmapUpdated(arg2.missionData.level.GetDifficultyBeatmap(arg2.missionData.beatmapCharacteristic, arg2.missionData.beatmapDifficulty));
             }
