@@ -50,6 +50,6 @@
 	</settings-container>
 
 	<horizontal pad-top='50'>
-		<text text='Instructions at github.com/zeph-yr/JDFixer#readme     v5.0.0' font-color='#ff0080ff' font-size='3' align='Center' hover-hint="Read this to learn the hidden features"></text>
+		<text text='Instructions at github.com/zeph-yr/JDFixer#readme     v5.0.2' font-color='#ff0080ff' font-size='3' align='Center' hover-hint="Read this to learn the hidden features"></text>
 	</horizontal>
 </bg>

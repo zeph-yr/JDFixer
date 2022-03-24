@@ -14,9 +14,7 @@ namespace JDFixer
     public class Plugin
     {
         public static Harmony harmony;
-
-        internal static bool cc_installed = false;
-        internal static string game_version = "";
+        //internal static string game_version = "";
 
 
         [Init]
@@ -53,19 +51,13 @@ namespace JDFixer
         }
 
 
-        private void CheckForCustomCampaigns()
+        internal static bool CheckForCustomCampaigns()
         {
-            try
-            {
-                var metadatas = PluginManager.EnabledPlugins.Where(x => x.Id == "CustomCampaigns");
-                cc_installed = metadatas.Count() > 0;
-            }
-            catch (Exception e)
-            {
-                cc_installed = false;
-            }
 
+            var cc_installed = PluginManager.GetPluginFromId("CustomCampaigns");
             Logger.log.Debug("CC installed: " + cc_installed);
+
+            return cc_installed != null;
         }
     }
 }

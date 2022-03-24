@@ -31,7 +31,7 @@ namespace JDFixer.Managers
             levelDetail.didChangeDifficultyBeatmapEvent += LevelDetail_didChangeDifficultyBeatmapEvent;
             levelDetail.didChangeContentEvent += LevelDetail_didChangeContentEvent;
 
-            if (Plugin.cc_installed)
+            if (Plugin.CheckForCustomCampaigns())
             {
                 missionSelection.didSelectMissionLevelEvent += MissionSelection_didSelectMissionLevelEvent_CC;
             }
