@@ -15,11 +15,13 @@ namespace JDFixer.UI
         private readonly PreferencesFlowCoordinator _prefFlow;
 
         public event PropertyChangedEventHandler PropertyChanged;
+        internal static CustomOnlineUI Instance { get; private set; }
 
 
         public void Initialize()
         {
             GameplaySetup.instance.AddTab("JDFixerTA", "JDFixer.UI.BSML.customOnlineUI.bsml", this, MenuType.Custom | MenuType.Online);
+            Logger.log.Debug("OnlineUI Initialize");
         }
 
         public void Dispose()
@@ -27,14 +29,37 @@ namespace JDFixer.UI
             if (GameplaySetup.instance != null)
             {
                 GameplaySetup.instance.RemoveTab("JDFixerTA");
+                Logger.log.Debug("OnlineUI Dispose");
             }
         }
 
         // To get the flow coordinators using zenject, we use a constructor
         public CustomOnlineUI(MainFlowCoordinator mainFlowCoordinator, PreferencesFlowCoordinator preferencesFlowCoordinator)
         {
+            Logger.log.Debug("OnlineUI Ctor");
+            Instance = this;
+
             _mainFlow = mainFlowCoordinator;
             _prefFlow = preferencesFlowCoordinator;
+        }
+
+        internal void Refresh()
+        {
+            Logger.log.Debug("OnlineUI Refresh");
+
+            /*Set_JD_Value(PluginConfig.Instance.jumpDistance);
+            Set_RT_Value(PluginConfig.Instance.reactionTime);
+            Set_Preference_Mode();
+            Set_Use_Heuristic(PluginConfig.Instance.use_heuristic);*/
+
+            // For Switching to MP / Shaffuru
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Slider_Setting_Value)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Increment_Value)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Pref_Button)));
+
+            //TO DO: Switch Heuristic to Increment setting because toggles cannot be refreshed
+
+            PostParse();
         }
 
 
@@ -245,6 +270,8 @@ namespace JDFixer.UI
         [UIAction("#post-parse")]
         private void PostParse()
         {
+            Logger.log.Debug("PostParse");
+
             jd_slider_text = JD_Slider.slider.GetComponentInChildren<CurvedTextMeshPro>();
             rt_slider_text = RT_Slider.slider.GetComponentInChildren<CurvedTextMeshPro>();
 

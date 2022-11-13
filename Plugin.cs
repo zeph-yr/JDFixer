@@ -5,8 +5,6 @@ using IPA.Config.Stores;
 using IPA.Loader;
 using JDFixer.Installers;
 using SiraUtil.Zenject;
-using System;
-using System.Linq;
 
 namespace JDFixer
 {

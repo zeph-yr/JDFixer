@@ -10,16 +10,20 @@ namespace JDFixer.Managers
     {
         public static StandardLevelDetailViewController levelDetail;
         public static MissionSelectionMapViewController missionSelection;
+        public static MainMenuViewController mainMenu;
+
         private readonly List<IBeatmapInfoUpdater> beatmapInfoUpdaters;
 
 
         [Inject]
-        public JDFixerUIManager(StandardLevelDetailViewController standardLevelDetailViewController, MissionSelectionMapViewController missionSelectionMapViewController, List<IBeatmapInfoUpdater> iBeatmapInfoUpdaters)
+        public JDFixerUIManager(StandardLevelDetailViewController standardLevelDetailViewController, MissionSelectionMapViewController missionSelectionMapViewController, MainMenuViewController mainMenuViewController, List<IBeatmapInfoUpdater> iBeatmapInfoUpdaters)
         {
             //Logger.log.Debug("JDFixerUIManager()");
 
             levelDetail = standardLevelDetailViewController;
             missionSelection = missionSelectionMapViewController;
+            mainMenu = mainMenuViewController;
+
             beatmapInfoUpdaters = iBeatmapInfoUpdaters;
         }
 
@@ -30,6 +34,7 @@ namespace JDFixer.Managers
 
             levelDetail.didChangeDifficultyBeatmapEvent += LevelDetail_didChangeDifficultyBeatmapEvent;
             levelDetail.didChangeContentEvent += LevelDetail_didChangeContentEvent;
+            mainMenu.didActivateEvent += MainMenu_didActivateEvent;
 
             if (Plugin.CheckForCustomCampaigns())
             {
@@ -41,6 +46,11 @@ namespace JDFixer.Managers
             }
         }
 
+        private void MainMenu_didActivateEvent(bool firstActivation, bool addedToHierarchy, bool screenSystemEnabling)
+        {
+            Logger.log.Debug("MainMenu_didActivate");
+            UI.CustomOnlineUI.Instance.Refresh();
+        }
 
         public void Dispose()
         {
