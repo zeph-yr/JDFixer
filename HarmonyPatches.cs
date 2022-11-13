@@ -63,7 +63,7 @@ namespace JDFixer
                 if (rt_pref != null)
                     desiredJumpDis = rt_pref.reactionTime * mapNJS / 500;
 
-                if (BeatmapUtils.CalculateJumpDistance(startBpm, mapNJS, noteJumpStartBeatOffset) <= desiredJumpDis && PluginConfig.Instance.use_heuristic)
+                if (BeatmapUtils.CalculateJumpDistance(startBpm, mapNJS, noteJumpStartBeatOffset) <= desiredJumpDis && PluginConfig.Instance.use_heuristic == 1)
                 {
                     Logger.log.Debug("Not Fixing: Original JD below or equal setpoint");
                     Logger.log.Debug($"BPM/NJS/Offset {startBpm}/{startNoteJumpMovementSpeed}/{noteJumpStartBeatOffset}");
@@ -89,7 +89,7 @@ namespace JDFixer
                 // Heuristic: If map's original JD is less than the matching preference entry, play map at original JD
                 // Rationale: I created this mod because I don't like floaty maps. If the original JD chosen by the
                 // mapper is lower than my pick, it's probably more optimal than my pick.
-                if (BeatmapUtils.CalculateJumpDistance(startBpm, mapNJS, noteJumpStartBeatOffset) <= desiredJumpDis && PluginConfig.Instance.use_heuristic)
+                if (BeatmapUtils.CalculateJumpDistance(startBpm, mapNJS, noteJumpStartBeatOffset) <= desiredJumpDis && PluginConfig.Instance.use_heuristic == 1)
                 {
                     Logger.log.Debug("Not Fixing: Original JD below or equal setpoint");
                     Logger.log.Debug($"BPM/NJS/Offset {startBpm}/{startNoteJumpMovementSpeed}/{noteJumpStartBeatOffset}");

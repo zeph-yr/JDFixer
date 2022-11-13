@@ -13,6 +13,7 @@ namespace JDFixer.UI
 {
     public class ModifierUI : IInitializable, IDisposable, INotifyPropertyChanged, IBeatmapInfoUpdater
     {
+        internal static ModifierUI Instance { get; private set; }
         private readonly MainFlowCoordinator _mainFlow;
         private readonly PreferencesFlowCoordinator _prefFlow;
 
@@ -36,6 +37,7 @@ namespace JDFixer.UI
         // To get the flow coordinators using zenject, we use a constructor
         public ModifierUI(MainFlowCoordinator mainFlowCoordinator, PreferencesFlowCoordinator preferencesFlowCoordinator)
         {
+            Instance = this;
             _mainFlow = mainFlowCoordinator;
             _prefFlow = preferencesFlowCoordinator;
         }
@@ -46,6 +48,18 @@ namespace JDFixer.UI
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Map_Default_JD)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Map_Min_JD)));
             //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ReactionTimeText))); // For old RT Display
+
+            PostParse();
+        }
+
+        internal void Refresh()
+        {
+            Logger.log.Debug("ModUI Refresh");
+
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Slider_Setting_Value)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Increment_Value)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Pref_Button)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Heuristic_Increment_Value)));
 
             PostParse();
         }
@@ -380,8 +394,11 @@ namespace JDFixer.UI
             currentFlow.PresentFlowCoordinator(_prefFlow);
         }
 
-        
-        [UIValue("use_heuristic")]
+
+        // Changed to Increment Setting for 1.26.0
+        // <checkbox-setting value='use_heuristic' on-change='set_use_heuristic' text='Play at Map JD and RT If Lower' hover-hint='If original JD and RT is lower than the matching preference, map will run at original JD and RT. You MUST set base game to Dynamic Default for this to work properly!'></checkbox-setting>
+
+        /*[UIValue("use_heuristic")]
         private bool Use_Heuristic
         {
             get => PluginConfig.Instance.use_heuristic;
@@ -395,7 +412,23 @@ namespace JDFixer.UI
         private void Set_Use_Heuristic(bool value)
         {
             Use_Heuristic = value;
+        }*/
+
+        [UIValue("heuristic_increment_value")]
+        private int Heuristic_Increment_Value
+        {
+            get => PluginConfig.Instance.use_heuristic;
+            set
+            {
+                PluginConfig.Instance.use_heuristic = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Heuristic_Increment_Value)));
+
+                PostParse();
+            }
         }
+
+        [UIAction("heuristic_increment_formatter")]
+        private string Heuristic_Increment_Formatter(int value) => ((HeuristicEnum)value).ToString();
 
 
         [UIValue("thresholds")]
@@ -541,5 +574,11 @@ namespace JDFixer.UI
         Off = 0,
         JumpDistance = 1,
         ReactionTime = 2
+    }
+
+    internal enum HeuristicEnum
+    {
+        Off = 0,
+        On = 1
     }
 }

@@ -11,17 +11,16 @@ namespace JDFixer.UI
 {
     public class CustomOnlineUI : IInitializable, IDisposable, INotifyPropertyChanged
     {
+        internal static CustomOnlineUI Instance { get; private set; }
         private readonly MainFlowCoordinator _mainFlow;
         private readonly PreferencesFlowCoordinator _prefFlow;
 
         public event PropertyChangedEventHandler PropertyChanged;
-        internal static CustomOnlineUI Instance { get; private set; }
 
 
         public void Initialize()
         {
             GameplaySetup.instance.AddTab("JDFixerTA", "JDFixer.UI.BSML.customOnlineUI.bsml", this, MenuType.Custom | MenuType.Online);
-            Logger.log.Debug("OnlineUI Initialize");
         }
 
         public void Dispose()
@@ -29,35 +28,26 @@ namespace JDFixer.UI
             if (GameplaySetup.instance != null)
             {
                 GameplaySetup.instance.RemoveTab("JDFixerTA");
-                Logger.log.Debug("OnlineUI Dispose");
             }
         }
 
         // To get the flow coordinators using zenject, we use a constructor
         public CustomOnlineUI(MainFlowCoordinator mainFlowCoordinator, PreferencesFlowCoordinator preferencesFlowCoordinator)
         {
-            Logger.log.Debug("OnlineUI Ctor");
             Instance = this;
-
             _mainFlow = mainFlowCoordinator;
             _prefFlow = preferencesFlowCoordinator;
         }
 
+        // For updating UI values to match those last used in Solo, when coming from Solo to Online
         internal void Refresh()
         {
             Logger.log.Debug("OnlineUI Refresh");
 
-            /*Set_JD_Value(PluginConfig.Instance.jumpDistance);
-            Set_RT_Value(PluginConfig.Instance.reactionTime);
-            Set_Preference_Mode();
-            Set_Use_Heuristic(PluginConfig.Instance.use_heuristic);*/
-
-            // For Switching to MP / Shaffuru
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Slider_Setting_Value)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Increment_Value)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Pref_Button)));
-
-            //TO DO: Switch Heuristic to Increment setting because toggles cannot be refreshed
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Heuristic_Increment_Value)));
 
             PostParse();
         }
@@ -237,7 +227,8 @@ namespace JDFixer.UI
         }
 
 
-        [UIValue("use_heuristic")]
+        // Changed to Increment Setting for 1.26.0
+        /*[UIValue("use_heuristic")]
         private bool Use_Heuristic
         {
             get => PluginConfig.Instance.use_heuristic;
@@ -251,7 +242,23 @@ namespace JDFixer.UI
         private void Set_Use_Heuristic(bool value)
         {
             Use_Heuristic = value;
+        }*/
+
+        [UIValue("heuristic_increment_value")]
+        private int Heuristic_Increment_Value
+        {
+            get => PluginConfig.Instance.use_heuristic;
+            set
+            {
+                PluginConfig.Instance.use_heuristic = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Heuristic_Increment_Value)));
+
+                PostParse();
+            }
         }
+
+        [UIAction("heuristic_increment_formatter")]
+        private string Heuristic_Increment_Formatter(int value) => ((HeuristicEnum)value).ToString();
 
 
         [UIValue("thresholds")]

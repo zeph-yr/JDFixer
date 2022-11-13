@@ -34,7 +34,6 @@ namespace JDFixer.Managers
 
             levelDetail.didChangeDifficultyBeatmapEvent += LevelDetail_didChangeDifficultyBeatmapEvent;
             levelDetail.didChangeContentEvent += LevelDetail_didChangeContentEvent;
-            mainMenu.didActivateEvent += MainMenu_didActivateEvent;
 
             if (Plugin.CheckForCustomCampaigns())
             {
@@ -44,13 +43,10 @@ namespace JDFixer.Managers
             {
                 missionSelection.didSelectMissionLevelEvent += MissionSelection_didSelectMissionLevelEvent_Base;
             }
+
+            mainMenu.didActivateEvent += MainMenu_didActivateEvent;
         }
 
-        private void MainMenu_didActivateEvent(bool firstActivation, bool addedToHierarchy, bool screenSystemEnabling)
-        {
-            Logger.log.Debug("MainMenu_didActivate");
-            UI.CustomOnlineUI.Instance.Refresh();
-        }
 
         public void Dispose()
         {
@@ -61,6 +57,8 @@ namespace JDFixer.Managers
 
             missionSelection.didSelectMissionLevelEvent -= MissionSelection_didSelectMissionLevelEvent_CC;
             missionSelection.didSelectMissionLevelEvent -= MissionSelection_didSelectMissionLevelEvent_Base;
+
+            mainMenu.didActivateEvent -= MainMenu_didActivateEvent;
         }
 
 
@@ -135,6 +133,23 @@ namespace JDFixer.Managers
             {
                 DiffcultyBeatmapUpdated(arg2.missionData.level.GetDifficultyBeatmap(arg2.missionData.beatmapCharacteristic, arg2.missionData.beatmapDifficulty));
             }
+        }
+
+
+        private void MainMenu_didActivateEvent(bool firstActivation, bool addedToHierarchy, bool screenSystemEnabling)
+        {
+            Logger.log.Debug("MainMenu_didActivate");
+
+            if (PluginConfig.Instance.legacy_display_enabled)
+            {
+                UI.LegacyModifierUI.Instance.Refresh();
+            }
+            else
+            {
+                UI.ModifierUI.Instance.Refresh();
+            }
+
+            UI.CustomOnlineUI.Instance.Refresh();
         }
 
 

@@ -13,6 +13,7 @@ namespace JDFixer.UI
 {
     internal class LegacyModifierUI : IInitializable, IDisposable, INotifyPropertyChanged, IBeatmapInfoUpdater
     {
+        internal static LegacyModifierUI Instance { get; private set; }
         private readonly MainFlowCoordinator _mainFlow;
         private readonly PreferencesFlowCoordinator _prefFlow;
 
@@ -36,6 +37,7 @@ namespace JDFixer.UI
         // To get the flow coordinators using zenject, we use a constructor
         public LegacyModifierUI(MainFlowCoordinator mainFlowCoordinator, PreferencesFlowCoordinator preferencesFlowCoordinator)
         {
+            Instance = this;
             _mainFlow = mainFlowCoordinator;
             _prefFlow = preferencesFlowCoordinator;
         }
@@ -54,6 +56,19 @@ namespace JDFixer.UI
 
             PostParse();
         }
+
+        internal void Refresh()
+        {
+            Logger.log.Debug("LegacyUI Refresh");
+
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Slider_Setting_Value)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Increment_Value)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Pref_Button)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Heuristic_Increment_Value)));
+
+            PostParse();
+        }
+
 
         //=============================================================================================
 
@@ -239,7 +254,8 @@ namespace JDFixer.UI
         }
 
 
-        [UIValue("use_heuristic")]
+        // Changed to Increment Setting for 1.26.0
+        /*[UIValue("use_heuristic")]
         private bool Use_Heuristic
         {
             get => PluginConfig.Instance.use_heuristic;
@@ -253,7 +269,23 @@ namespace JDFixer.UI
         private void Set_Use_Heuristic(bool value)
         {
             Use_Heuristic = value;
+        }*/
+
+        [UIValue("heuristic_increment_value")]
+        private int Heuristic_Increment_Value
+        {
+            get => PluginConfig.Instance.use_heuristic;
+            set
+            {
+                PluginConfig.Instance.use_heuristic = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Heuristic_Increment_Value)));
+
+                PostParse();
+            }
         }
+
+        [UIAction("heuristic_increment_formatter")]
+        private string Heuristic_Increment_Formatter(int value) => ((HeuristicEnum)value).ToString();
 
 
         [UIValue("thresholds")]
