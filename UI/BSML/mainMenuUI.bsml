@@ -1,0 +1,38 @@
+﻿<bg xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd'>
+	<vertical vertical-fit='PreferredSize' preferred-height='70'>
+		<horizontal preferred-width='90'>
+			<text text='JDFixer UI Settings' font-size='5' align='Center'></text>
+		</horizontal>
+		<checkbox-setting value ='rt_display_value' on-change='set_rt_display' text='Show Map Reaction Times' hover-hint='Show or hide the maps original and minimum reaction times'></checkbox-setting>
+		<checkbox-setting value ='legacy_display_value' on-change='set_legacy_display' text='Separate JD and RT Sliders' hover-hint='Turn this on to use JD and RT sliders independently. Choose which slider to use in Mod Tab. You must press OK for this to take affect.'></checkbox-setting>
+		
+		<horizontal>
+			<text text='------' font-color='#00000000' font-size='1' align='Left'></text>
+		</horizontal>
+		<horizontal>
+			<text text='Automated Preferences Settings' font-size='5' font-color='#ffff00ff' align='Center'></text>
+		</horizontal>
+		<vertical vertical-fit='PreferredSize' preferred-height='10'>
+			<horizontal preferred-width='90'>
+				<text text='Configure automated preferences to be bypassed if NJS is at, below or above thresholds.' font-size='3' font-color='#cc99ffff' align='Left'></text>
+			</horizontal>
+			<horizontal>
+				<text text='When a map triggers a threshold it will play at its original JD and RT.' font-size='3' font-color='#cc99ffff' align='Left'></text>
+			</horizontal>
+			<horizontal>
+				<text text='To disable thresholds, set values to 1 and 100' font-size='3' font-color='#cc99ffff' align='Left'></text>
+			</horizontal>
+		</vertical>
+		<slider-setting id='lower_threshold_slider' value ='lower_threshold_value' show-buttons='true' on-change='set_lower_threshold' apply-on-change='true' bind-value='true' text='Lower NJS Threshold' increment='1' min='1' max='100' hover-hint='Threshold is inclusive of this value. For decimal values, edit in json.'></slider-setting>
+		<slider-setting id='upper_threshold_slider' value ='upper_threshold_value' show-buttons='true' on-change='set_upper_threshold' apply-on-change='true' bind-value='true' text='Upper NJS Threshold' increment='1' min='1' max='100' hover-hint='Threshold is inclusive of this value. For decimal values, edit in json.'></slider-setting>
+		<horizontal>
+			<text text='------' font-color='#00000000' font-size='2' align='Left'></text>
+		</horizontal>
+		<horizontal>
+			<text text='~press_ok_text' rich-text='true' align='Right'></text>
+		</horizontal>
+		<horizontal>
+			<text text='------' font-color='#00000000' align='Left'></text>
+		</horizontal>
+	</vertical>
+</bg>

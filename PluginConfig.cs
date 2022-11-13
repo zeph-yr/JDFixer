@@ -48,10 +48,10 @@ namespace JDFixer
         public virtual int use_heuristic { get; set; } = 0;
 
         public virtual bool rt_display_enabled { get; set; } = true;
-        public bool legacy_display_enabled { get; set; } = false;
+        public virtual bool legacy_display_enabled { get; set; } = false;
 
 
-        public virtual bool af_enabled { get; set; } = true;
+        public bool af_enabled { get; set; } = true;
 
 
         /// <summary>

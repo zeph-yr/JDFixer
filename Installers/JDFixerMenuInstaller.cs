@@ -9,6 +9,7 @@ namespace JDFixer.Installers
         public override void InstallBindings()
         {
             Container.BindInterfacesTo<JDFixerUIManager>().AsSingle();
+            Container.BindInterfacesTo<MainMenuUI>().AsSingle();
             Container.BindInterfacesTo<CustomOnlineUI>().AsSingle();
 
             if (PluginConfig.Instance.legacy_display_enabled)

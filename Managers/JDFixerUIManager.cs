@@ -140,11 +140,12 @@ namespace JDFixer.Managers
         {
             Logger.log.Debug("MainMenu_didActivate");
 
-            if (PluginConfig.Instance.legacy_display_enabled)
+            if (UI.LegacyModifierUI.Instance != null)
             {
                 UI.LegacyModifierUI.Instance.Refresh();
             }
-            else
+
+            if (UI.ModifierUI.Instance != null)
             {
                 UI.ModifierUI.Instance.Refresh();
             }
