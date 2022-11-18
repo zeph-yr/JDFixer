@@ -10,12 +10,12 @@ namespace JDFixer
         internal static void Inject(Zenjector zenjector)
         {
             if (PluginConfig.Instance.enabled && (
-                (DateTime.Compare(DateTime.Now, new DateTime(2022, 3, 31)) >= 0 && DateTime.Compare(DateTime.Now, new DateTime(2022, 4, 2)) < 0 && PluginConfig.Instance.af_enabled) || 
-                (DateTime.Compare(DateTime.Now, new DateTime(2022, 4, 21)) >= 0 && DateTime.Compare(DateTime.Now, new DateTime(2022, 4, 23)) < 0)))
+                (DateTime.Compare(DateTime.Now, new DateTime(DateTime.Now.Year, 3, 31)) >= 0 && DateTime.Compare(DateTime.Now, new DateTime(DateTime.Now.Year, 4, 2)) < 0 && PluginConfig.Instance.af_enabled) || 
+                (DateTime.Compare(DateTime.Now, new DateTime(DateTime.Now.Year, 4, 21)) >= 0 && DateTime.Compare(DateTime.Now, new DateTime(DateTime.Now.Year, 4, 23)) < 0)))
             
             //if (true)
             {
-                Logger.log.Debug("TimeSetup Inject");
+                //Logger.log.Debug("TimeSetup Inject");
 
                 zenjector.Install<JDFixerTimeInstaller>(Location.GameCore);
             }
@@ -24,12 +24,12 @@ namespace JDFixer
         internal static void Patch()
         {
             if (PluginConfig.Instance.enabled && 
-                DateTime.Compare(DateTime.Now, new DateTime(2022, 3, 31)) >= 0 && DateTime.Compare(DateTime.Now, new DateTime(2022, 4, 2)) < 0 && 
+                DateTime.Compare(DateTime.Now, new DateTime(DateTime.Now.Year, 3, 31)) >= 0 && DateTime.Compare(DateTime.Now, new DateTime(DateTime.Now.Year, 4, 2)) < 0 && 
                 PluginConfig.Instance.af_enabled)
             
             //if (true)
             {
-                Logger.log.Debug("TimeSetup Patch");
+                //Logger.log.Debug("TimeSetup Patch");
 
                 var original = AccessTools.Method(typeof(BeatmapObjectSpawnMovementData), nameof(BeatmapObjectSpawnMovementData.GetJumpingNoteSpawnData));
                 var postfix = AccessTools.Method(typeof(TimeControllerPatch), nameof(TimeControllerPatch.Postfix));

@@ -14,10 +14,12 @@ namespace JDFixer.Installers
 
             if (PluginConfig.Instance.legacy_display_enabled)
             {
+                Container.UnbindInterfacesTo<ModifierUI>();
                 Container.BindInterfacesTo<LegacyModifierUI>().AsSingle();
             }
             else
             {
+                Container.UnbindInterfacesTo<LegacyModifierUI>();
                 Container.BindInterfacesTo<ModifierUI>().AsSingle();
             }
 

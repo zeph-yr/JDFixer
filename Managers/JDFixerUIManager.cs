@@ -44,7 +44,7 @@ namespace JDFixer.Managers
                 missionSelection.didSelectMissionLevelEvent += MissionSelection_didSelectMissionLevelEvent_Base;
             }
 
-            mainMenu.didActivateEvent += MainMenu_didActivateEvent;
+            mainMenu.didDeactivateEvent += MainMenu_didDeactivateEvent; ;
         }
 
 
@@ -58,7 +58,7 @@ namespace JDFixer.Managers
             missionSelection.didSelectMissionLevelEvent -= MissionSelection_didSelectMissionLevelEvent_CC;
             missionSelection.didSelectMissionLevelEvent -= MissionSelection_didSelectMissionLevelEvent_Base;
 
-            mainMenu.didActivateEvent -= MainMenu_didActivateEvent;
+            mainMenu.didDeactivateEvent -= MainMenu_didDeactivateEvent;
         }
 
 
@@ -111,9 +111,9 @@ namespace JDFixer.Managers
 
                     if (difficulty_beatmap != null) // lol null check just to print?
                     {
-                        Logger.log.Debug("MissionNode Diff: " + difficulty_beatmap.difficulty);  // For cross check with arg2.missionData.beatmapDifficulty
-                        Logger.log.Debug("MissionNode Offset: " + difficulty_beatmap.noteJumpStartBeatOffset);
-                        Logger.log.Debug("MissionNode NJS: " + difficulty_beatmap.noteJumpMovementSpeed);
+                        //Logger.log.Debug("MissionNode Diff: " + difficulty_beatmap.difficulty);  // For cross check with arg2.missionData.beatmapDifficulty
+                        //Logger.log.Debug("MissionNode Offset: " + difficulty_beatmap.noteJumpStartBeatOffset);
+                        //Logger.log.Debug("MissionNode NJS: " + difficulty_beatmap.noteJumpMovementSpeed);
 
                         DiffcultyBeatmapUpdated(difficulty_beatmap);
                     }
@@ -136,9 +136,9 @@ namespace JDFixer.Managers
         }
 
 
-        private void MainMenu_didActivateEvent(bool firstActivation, bool addedToHierarchy, bool screenSystemEnabling)
+        private void MainMenu_didDeactivateEvent(bool removedFromHierarchy, bool screenSystemDisabling)
         {
-            Logger.log.Debug("MainMenu_didActivate");
+            //Logger.log.Debug("MainMenu_didDeactivate");
 
             if (UI.LegacyModifierUI.Instance != null)
             {
@@ -150,7 +150,10 @@ namespace JDFixer.Managers
                 UI.ModifierUI.Instance.Refresh();
             }
 
-            UI.CustomOnlineUI.Instance.Refresh();
+            if (UI.CustomOnlineUI.Instance != null)
+            {
+                UI.CustomOnlineUI.Instance.Refresh();
+            }
         }
 
 

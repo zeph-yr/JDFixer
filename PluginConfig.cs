@@ -40,12 +40,9 @@ namespace JDFixer
         public virtual int slider_setting { get; set; } = 0;
         public virtual int pref_selected { get; set; } = 0;
 
-
-        public virtual float upper_threshold { get; set; } = 100f;
-        public virtual float lower_threshold { get; set; } = 1f;
-
-        //public virtual bool use_heuristic { get; set; } = false;
         public virtual int use_heuristic { get; set; } = 0;
+        public virtual float lower_threshold { get; set; } = 1f;
+        public virtual float upper_threshold { get; set; } = 100f;
 
         public virtual bool rt_display_enabled { get; set; } = true;
         public virtual bool legacy_display_enabled { get; set; } = false;

@@ -19,7 +19,10 @@ namespace JDFixer.UI
 
         public void Dispose()
         {
-            BeatSaberMarkupLanguage.Settings.BSMLSettings.instance.RemoveSettingsMenu(this);
+            if (BeatSaberMarkupLanguage.Settings.BSMLSettings.instance != null)
+            {
+                BeatSaberMarkupLanguage.Settings.BSMLSettings.instance.RemoveSettingsMenu(this);
+            }
         }
 
 

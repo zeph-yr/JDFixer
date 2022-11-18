@@ -178,7 +178,7 @@ namespace JDFixer
 
     internal class TimeControllerPatch
     {
-        internal static DateTime af = new DateTime(2022, 4, 1);
+        internal static DateTime af = new DateTime(DateTime.Now.Year, 4, 1);
 
         internal static BeatmapObjectSpawnMovementData.NoteSpawnData Postfix(BeatmapObjectSpawnMovementData.NoteSpawnData __result)
         {
