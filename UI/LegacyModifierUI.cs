@@ -13,7 +13,7 @@ namespace JDFixer.UI
 {
     internal class LegacyModifierUI : IInitializable, IDisposable, INotifyPropertyChanged, IBeatmapInfoUpdater
     {
-        internal static LegacyModifierUI Instance { get; private set; }
+        internal static LegacyModifierUI Instance { get; set; }
         private readonly MainFlowCoordinator _mainFlow;
         private readonly PreferencesFlowCoordinator _prefFlow;
 
@@ -23,11 +23,15 @@ namespace JDFixer.UI
 
         public void Initialize()
         {
+            //Logger.log.Debug("Legacy Init");
+
             GameplaySetup.instance.AddTab("JDFixer", "JDFixer.UI.BSML.legacyModifierUI.bsml", this, MenuType.Solo | MenuType.Campaign);
         }
 
         public void Dispose()
         {
+            //Logger.log.Debug("Legacy Dispose");
+
             if (GameplaySetup.instance != null)
             {
                 GameplaySetup.instance.RemoveTab("JDFixer");
@@ -59,14 +63,12 @@ namespace JDFixer.UI
 
         internal void Refresh()
         {
-            Logger.log.Debug("LegacyUI Refresh");
+            //Logger.log.Debug("LegacyUI Refresh");
 
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Slider_Setting_Value)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Increment_Value)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Pref_Button)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Heuristic_Increment_Value)));
-
-            PostParse();
         }
 
 
@@ -86,6 +88,19 @@ namespace JDFixer.UI
         private void SetEnabled(bool value)
         {
             Enabled = value;
+        }
+
+
+        [UIValue("map_jd_rt")]
+        private string Map_JD_RT => Get_Map_JD_RT();
+
+        private string Get_Map_JD_RT()
+        {
+            if (PluginConfig.Instance.rt_display_enabled)
+            {
+                return "Map JD and RT";
+            }
+            return "Map JD";
         }
 
 
@@ -229,15 +244,15 @@ namespace JDFixer.UI
         {
             if (PluginConfig.Instance.pref_selected == 2)
             {
-                return "<#cc99ff>JD and RT Preferences"; //#8c1aff
+                return "<#00000000>----<#cc99ff>Configure  RT  Preferences<#00000000>----"; //#8c1aff
             }
             else if (PluginConfig.Instance.pref_selected == 1)
             {
-                return "<#ffff00>JD and RT Preferences";
+                return "<#00000000>----<#ffff00>Configure  JD  Preferences<#00000000>----";
             }
             else
             {
-                return "JD and RT Preferences";
+                return "Configure  JD  and  RT  Preferences";
             }
         }
 
@@ -291,7 +306,7 @@ namespace JDFixer.UI
         [UIValue("thresholds")]
         private string Thresholds
         {
-            get => "≤ " + PluginConfig.Instance.lower_threshold.ToString() + " and " + PluginConfig.Instance.upper_threshold.ToString() + " ≤";
+            get => "≤ " + PluginConfig.Instance.lower_threshold.ToString() + " or  ≥ " + PluginConfig.Instance.upper_threshold.ToString();
         }
 
 

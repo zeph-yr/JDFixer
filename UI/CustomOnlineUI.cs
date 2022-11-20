@@ -20,14 +20,18 @@ namespace JDFixer.UI
 
         public void Initialize()
         {
-            GameplaySetup.instance.AddTab("JDFixerTA", "JDFixer.UI.BSML.customOnlineUI.bsml", this, MenuType.Custom | MenuType.Online);
+            //Logger.log.Debug("Custom Init");
+
+            GameplaySetup.instance.AddTab("JDFixer-TA/MP", "JDFixer.UI.BSML.customOnlineUI.bsml", this, MenuType.Custom | MenuType.Online);
         }
 
         public void Dispose()
         {
+            //Logger.log.Debug("Custom Dispose");
+
             if (GameplaySetup.instance != null)
             {
-                GameplaySetup.instance.RemoveTab("JDFixerTA");
+                GameplaySetup.instance.RemoveTab("JDFixer-TA/MP");
             }
         }
 
@@ -42,7 +46,7 @@ namespace JDFixer.UI
         // For updating UI values to match those last used in Solo, when coming from Solo to Online
         internal void Refresh()
         {
-            Logger.log.Debug("OnlineUI Refresh");
+            //Logger.log.Debug("OnlineUI Refresh");
 
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Slider_Setting_Value)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Increment_Value)));
@@ -92,7 +96,24 @@ namespace JDFixer.UI
 
         //=============================================================================================
         // JD and RT Sliders
+        [UIValue("jd_text")]
+        private string JD_Text => Get_JD_Text();
 
+        private string Get_JD_Text()
+        {
+            if (PluginConfig.Instance.slider_setting == 0 && PluginConfig.Instance.pref_selected == 0)
+            {
+                return "Desired Jump Distance";
+            }
+            else if (PluginConfig.Instance.slider_setting == 0 && PluginConfig.Instance.pref_selected != 0)
+            {
+                return "<#555555dd>Desired Jump Distance";
+            }
+            else
+            {
+                return "<#555555dd>Inactive JD";
+            }
+        }
 
         [UIValue("min_jd_slider")]
         private float Min_JD_Slider => PluginConfig.Instance.minJumpDistance;
@@ -122,6 +143,24 @@ namespace JDFixer.UI
         private string JD_Slider_Formatter(float value) => value.ToString("0.##");
 
 
+        [UIValue("rt_text")]
+        private string RT_Text => Get_RT_Text();
+
+        private string Get_RT_Text()
+        {
+            if (PluginConfig.Instance.slider_setting == 1 && PluginConfig.Instance.pref_selected == 0)
+            {
+                return "Desired Reaction Time";
+            }
+            else if (PluginConfig.Instance.slider_setting == 1 && PluginConfig.Instance.pref_selected != 0)
+            {
+                return "<#555555dd>Desired Reaction Time";
+            }
+            else
+            {
+                return "<#555555dd>Inactive RT";
+            }
+        }
 
         [UIValue("min_rt_slider")]
         private float Min_RT_Slider => PluginConfig.Instance.minReactionTime;
@@ -202,15 +241,15 @@ namespace JDFixer.UI
         {
             if (PluginConfig.Instance.pref_selected == 2)
             {
-                return "<#cc99ff>JD and RT Preferences"; //#8c1aff
+                return "<#00000000>----<#cc99ff>Configure  RT  Preferences<#00000000>----"; //#8c1aff
             }
             else if (PluginConfig.Instance.pref_selected == 1)
             {
-                return "<#ffff00>JD and RT Preferences";
+                return "<#00000000>----<#ffff00>Configure  JD  Preferences<#00000000>----";
             }
             else
             {
-                return "JD and RT Preferences";
+                return "Configure  JD  and  RT  Preferences";
             }
         }
 
@@ -264,7 +303,7 @@ namespace JDFixer.UI
         [UIValue("thresholds")]
         private string Thresholds
         {
-            get => "≤ " + PluginConfig.Instance.lower_threshold.ToString() + " and " + PluginConfig.Instance.upper_threshold.ToString() + " ≤";
+            get => "≤ " + PluginConfig.Instance.lower_threshold.ToString() + " or ≥ " + PluginConfig.Instance.upper_threshold.ToString();
         }
 
 
@@ -277,8 +316,6 @@ namespace JDFixer.UI
         [UIAction("#post-parse")]
         private void PostParse()
         {
-            Logger.log.Debug("PostParse");
-
             jd_slider_text = JD_Slider.slider.GetComponentInChildren<CurvedTextMeshPro>();
             rt_slider_text = RT_Slider.slider.GetComponentInChildren<CurvedTextMeshPro>();
 
@@ -286,24 +323,27 @@ namespace JDFixer.UI
             {
                 if (PluginConfig.Instance.usePreferredJumpDistanceValues || PluginConfig.Instance.usePreferredReactionTimeValues)
                 {
-                    jd_slider_text.color = new UnityEngine.Color(0.4f, 0.4f, 0.4f);
-                    rt_slider_text.color = new UnityEngine.Color(0.4f, 0.4f, 0.4f);
+                    jd_slider_text.color = new UnityEngine.Color(0.3f, 0.3f, 0.3f);
+                    rt_slider_text.color = new UnityEngine.Color(0.3f, 0.3f, 0.3f);
                 }
 
                 else if (PluginConfig.Instance.slider_setting == 0)
                 {
                     jd_slider_text.color = new UnityEngine.Color(1f, 1f, 0f);
-                    rt_slider_text.color = new UnityEngine.Color(0.4f, 0.4f, 0.4f);
+                    rt_slider_text.color = new UnityEngine.Color(0.3f, 0.3f, 0.3f);
                 }
 
                 else // PluginConfig.Instance.slider_setting == 1
                 {
-                    jd_slider_text.color = new UnityEngine.Color(0.4f, 0.4f, 0.4f);
+                    jd_slider_text.color = new UnityEngine.Color(0.3f, 0.3f, 0.3f);
                     rt_slider_text.color = new UnityEngine.Color(204f / 255f, 153f / 255f, 1f);
                 }
             }
 
             // These are critical:
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(JD_Text)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(RT_Text)));
+
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(RT_Value)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(JD_Value)));
         }

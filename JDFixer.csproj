@@ -158,6 +158,7 @@
     <Compile Include="Interfaces\IBeatmapInfoUpdater.cs" />
     <Compile Include="Managers\JDFixerUIManager.cs" />
     <Compile Include="PluginConfig.cs" />
+    <Compile Include="UI\MainMenuUI.cs" />
     <Compile Include="UI\PreferencesListViewController.cs" />
     <Compile Include="UI\RTPreferencesListViewController.cs" />
     <Compile Include="HarmonyPatches.cs" />
@@ -204,6 +205,9 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="UI\BSML\mainMenuUI.bsml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -36,9 +36,9 @@ namespace JDFixer.UI
 
 
         [UIValue("min_jd_slider")]
-        private int Min_JD_Slider => PluginConfig.Instance.minJumpDistance;
+        private float Min_JD_Slider => PluginConfig.Instance.minJumpDistance;
         [UIValue("max_jd_slider")]
-        private int Max_JD_Slider => PluginConfig.Instance.maxJumpDistance;
+        private float Max_JD_Slider => PluginConfig.Instance.maxJumpDistance;
 
         [UIComponent("jd_slider")]
         private SliderSetting JD_Slider;

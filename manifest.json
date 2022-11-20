@@ -5,7 +5,7 @@
   "gameVersion": "1.20.0",
   "id": "JDFixer",
   "name": "JDFixer",
-  "version": "5.0.2",
+  "version": "6.0.0",
   "dependsOn": {
     "BSIPA": "^4.2.2",
     "BeatSaberMarkupLanguage": "^1.6.2",
