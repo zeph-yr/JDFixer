@@ -209,5 +209,8 @@
   <ItemGroup>
     <EmbeddedResource Include="UI\BSML\mainMenuUI.bsml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="LICENSE.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
