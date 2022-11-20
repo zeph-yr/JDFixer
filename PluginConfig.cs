@@ -17,8 +17,9 @@ namespace JDFixer
 
         
         public virtual float jumpDistance { get; set; } = 24f;
-        public virtual int minJumpDistance { get; set; } = 12;
-        public virtual int maxJumpDistance { get; set; } = 35;
+        public virtual float stepJumpDistance { get; set; } = 1f;
+        public virtual float minJumpDistance { get; set; } = 12;
+        public virtual float maxJumpDistance { get; set; } = 35;
         public virtual bool usePreferredJumpDistanceValues { get; set; } = false;
 
         [UseConverter(typeof(ListConverter<JDPref>))]
@@ -27,8 +28,9 @@ namespace JDFixer
 
 
         public virtual float reactionTime { get; set; } = 500f;
-        public virtual int minReactionTime { get; set; } = 300;
-        public virtual int maxReactionTime { get; set; } = 1600;
+        public virtual float stepReactionTime { get; set; } = 10f;
+        public virtual float minReactionTime { get; set; } = 300;
+        public virtual float maxReactionTime { get; set; } = 1600;
         public virtual bool usePreferredReactionTimeValues { get; set; } = false;
 
         [UseConverter(typeof(ListConverter<RTPref>))]
@@ -47,7 +49,8 @@ namespace JDFixer
         public virtual bool rt_display_enabled { get; set; } = true;
         public virtual bool legacy_display_enabled { get; set; } = false;
 
-
+        public virtual bool use_offset { get; set; } = false;
+        public virtual float offset_fraction { get; set; } = 0.125f;
         public bool af_enabled { get; set; } = true;
 
 

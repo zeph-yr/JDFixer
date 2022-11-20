@@ -35,6 +35,10 @@
 
             MinJDSlider = 0f;
             MaxJDSlider = 50f;
+
+            // 1.26.0
+            UnitJDOffset = 0.1f;
+            UnitRTOffset = 5f;
         }
 
         public BeatmapInfo(IDifficultyBeatmap diff)
@@ -57,7 +61,6 @@
             ReactionTime = JumpDistance * 500 / NJS;
             MinReactionTime = MinJumpDistance * 500 / NJS;
 
-
             // Experimental
             if (PluginConfig.Instance.slider_setting == 0)
             {
@@ -75,6 +78,13 @@
                 MinJDSlider = PluginConfig.Instance.minReactionTime * NJS / 500;
                 MaxJDSlider = PluginConfig.Instance.maxReactionTime * NJS / 500;
             }
+
+            // 1.26.0
+            UnitJDOffset = BeatmapUtils.CalculateJumpDistance(bpm, njs, offset + PluginConfig.Instance.offset_fraction) - BeatmapUtils.CalculateJumpDistance(bpm, njs, offset); // 1/8th beat offset in JD units
+            Logger.log.Debug("QOffset JD: " + UnitJDOffset);
+
+            UnitRTOffset = BeatmapUtils.Calculate_ReactionTime_Setpoint_Float(bpm, njs) * PluginConfig.Instance.offset_fraction;
+            Logger.log.Debug("QOffset RT: " + UnitRTOffset);
 
 
             //Logger.log.Debug("BeatmapInfo minJD: " + PluginConfig.Instance.minJumpDistance);
@@ -95,5 +105,9 @@
 
         public float MinJDSlider { get; }
         public float MaxJDSlider { get; }
+
+        // 1.26.0
+        public float UnitJDOffset { get; }
+        public float UnitRTOffset { get; }
     }
 }

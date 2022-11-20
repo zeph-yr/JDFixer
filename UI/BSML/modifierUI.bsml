@@ -1,39 +1,45 @@
 ﻿<bg xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd'>
 	<settings-container child-control-width='true' child-expand-width='true' size-delta-y='-15'>
-    <checkbox-setting value ='enabled' on-change='set_enabled' text='Enabled' hover-hint='Overrides base game settings'></checkbox-setting>
+		<checkbox-setting value ='enabled' on-change='set_enabled' text='Enabled' hover-hint='Override base game settings'></checkbox-setting>
 
-    <horizontal>
-		<grid cell-size-y='5' cell-size-x='28' spacing-x='2' align='Right'>
-			<text text='Map Jump Distance' align='Left'/>
-			<text text='----------------' align='Left' rich-text='true' font-color='#00000000'/>
-			<text text='~map_default_jd' min-width='29' align='Right' hover-hint='For alternate UIs, visit the github Readme'/>
+		<horizontal>
+			<grid cell-size-y='5' cell-size-x='28' spacing-x='2' align='Right'>
+				<text text='~map_jd_rt' align='Left'/>
+				<text text='----------------' align='Left' rich-text='true' font-color='#00000000'/>
+				<text text='~map_default_jd' min-width='29' align='Right' hover-hint='Configure UI in Mod Settings'/>
 
-			<text text='Min.' align='Left'/>
-			<text text='----------------' align='Left' rich-text='true' font-color='#00000000'/>
-			<text text='~map_min_jd' min-width='29' align='Right'/>
-		</grid>
-    </horizontal>
-
-    <slider-setting id='jd_slider' value ='jd_value' show-buttons='true' on-change='set_jd_value' apply-on-change='true' bind-value='true' text='Desired Jump Distance' increment='0.1' min='~min_jd_slider' max='~max_jd_slider' formatter='jd_slider_formatter'></slider-setting>
-	<slider-setting id='rt_slider' value ='rt_value' show-buttons='true' on-change='set_rt_value' apply-on-change='true' bind-value='true' text='Reaction Time' increment='5' min='~min_rt_slider' max='~max_rt_slider' formatter='rt_slider_formatter'></slider-setting>
-
-	<increment-setting value='increment_value' apply-on-change='true' bind-value='true' text='Automated Preferences' integer-only='true' min='0' max='2' formatter='increment_formatter' hover-hint='Autoselect JD or RT based on NJS'/>    
-    <button align='Center' on-click='pref_button_clicked' text='~pref_button' hover-hint='Click to set up preferences'></button>
+				<text text='Min.' align='Left'/>
+				<text text='----------------' align='Left' rich-text='true' font-color='#00000000'/>
+				<text text='~map_min_jd' min-width='29' align='Right' hover-hint='Configure UI in Mod Settings'/>
+			</grid>
+		</horizontal>
+		
+		<vertical vertical-fit='PreferredSize' preferred-height='14'>
+			<slider-setting id='jd_slider' value ='jd_value' show-buttons='true' on-change='set_jd_value' apply-on-change='true' bind-value='true' text='Desired Jump Distance' increment='~step_jd_slider' min='~min_jd_slider' max='~max_jd_slider' formatter='jd_slider_formatter'></slider-setting>
+			<slider-setting id='rt_slider' value ='rt_value' show-buttons='true' on-change='set_rt_value' apply-on-change='true' bind-value='true' text='Reaction Time' increment='~step_rt_slider' min='~min_rt_slider' max='~max_rt_slider' formatter='rt_slider_formatter'></slider-setting>
+		</vertical>
+		
+		<increment-setting value='increment_value' apply-on-change='true' bind-value='true' text='Automated Preferences' integer-only='true' min='0' max='2' formatter='increment_formatter' hover-hint='Autoselect JD or RT based on NJS'/>    
+		<button align='Center' on-click='pref_button_clicked' text='~pref_button' hover-hint='Click to set up Automated Preferences'></button>
 	
-	<increment-setting value='heuristic_increment_value' apply-on-change='true' bind-value='true' text='Play at Map JD and RT If Lower' integer-only='true' min='0' max='1' formatter='heuristic_increment_formatter' hover-hint='If original JD and RT is lower than the matching preference, map will run at original JD and RT. You MUST set base game to Dynamic Default for this to work properly!'/>
-
-	<horizontal>
-      <grid cell-size-y='5' cell-size-x='28' spacing-x='2' align='Right'>
-        <text text='Thresholds' min-width='29' align='Left'/>
-        <text text='----------------' min-width='29' align='Left' rich-text='true' font-color='#00000000'/>
-        <text text='~thresholds' align='Right' hover-hint='Maps at and beyond these NJS will run at original JD or RT. Set in json.'/>
-      </grid>
-    </horizontal>
+		<vertical vertical-fit='PreferredSize' preferred-height='21'>
+			<increment-setting value='heuristic_increment_value' apply-on-change='true' bind-value='true' text='Bypass preference if map is closer...' integer-only='true' min='0' max='1' formatter='heuristic_increment_formatter' hover-hint='Run map at original JD and RT if it is lower than matching preference. You MUST set base game to Dynamic Default for this to work properly'/>
+			<horizontal>
+				<grid cell-size-y='5' cell-size-x='28' spacing-x='2' align='Right'>
+					<text text='Bypass preference if NJS is...' min-width='29' italics='true' align='Left'/>
+					<text text='----------------' min-width='29' align='Left' rich-text='true' font-color='#00000000'/>
+					<text text='~thresholds' align='Right' hover-hint='Maps at, below, and above these NJS will run at their original JD and RT bypassing matching preference. Configure in Mod Settings'/>
+				</grid>
+			</horizontal>
+			<horizontal>
+				<text text='----------------' min-width='29' align='Left' rich-text='true' font-size='1' font-color='#00000000'/>
+			</horizontal>
+			<increment-setting value='slider_setting_value' apply-on-change='true' bind-value='true' text='Remember last setting for...' integer-only='true' min='0' max='1' formatter='slider_setting_increment_formatter' hover-hint='Choose which slider will hold its value when selecting maps'/>
+		</vertical>
 	  
-	<increment-setting value='slider_setting_value' apply-on-change='true' bind-value='true' text='Remember Last Setting' integer-only='true' min='0' max='1' formatter='slider_setting_increment_formatter' hover-hint='Choose the slider that will remain inplace between maps'/>
 	</settings-container>
 	
 	<horizontal pad-top='50'>
-		<text text='Instructions at github.com/zeph-yr/JDFixer#readme     v5.0.2' font-color='#ff0080ff' font-size='3' align='Center' hover-hint="Read this to learn the hidden features"></text>
+		<text text='Instructions at github.com/zeph-yr/JDFixer     v6.0.0' font-color='#ff0080ff' font-size='3' align='Center' hover-hint="Read this to learn all the features"></text>
 	</horizontal>
 </bg>
