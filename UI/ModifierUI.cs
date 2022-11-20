@@ -58,7 +58,7 @@ namespace JDFixer.UI
             //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ReactionTimeText))); // For old RT Display
 
             Logger.log.Debug("Map JD: " + _selectedBeatmap.JumpDistance + " " + _selectedBeatmap.MinJDSlider + " " + _selectedBeatmap.MaxJDSlider);
-            BeatmapUtils.Create_Snap_Points(_selectedBeatmap.JumpDistance, _selectedBeatmap.UnitJDOffset, _selectedBeatmap.MinJDSlider, _selectedBeatmap.MaxJDSlider);
+            BeatmapUtils.Create_JD_Snap_Points(_selectedBeatmap.JumpDistance, _selectedBeatmap.UnitJDOffset, _selectedBeatmap.MinJDSlider, _selectedBeatmap.MaxJDSlider);
 
             PostParse();
         }

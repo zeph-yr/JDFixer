@@ -83,7 +83,7 @@
             UnitJDOffset = BeatmapUtils.CalculateJumpDistance(bpm, njs, offset + PluginConfig.Instance.offset_fraction) - BeatmapUtils.CalculateJumpDistance(bpm, njs, offset); // 1/8th beat offset in JD units
             Logger.log.Debug("QOffset JD: " + UnitJDOffset);
 
-            UnitRTOffset = BeatmapUtils.Calculate_ReactionTime_Setpoint_Float(bpm, njs) * PluginConfig.Instance.offset_fraction;
+            UnitRTOffset = UnitJDOffset * 500 / njs;
             Logger.log.Debug("QOffset RT: " + UnitRTOffset);
 
 

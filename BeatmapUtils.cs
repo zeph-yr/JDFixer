@@ -92,61 +92,56 @@ namespace JDFixer
             return Mathf.RoundToInt((_selectedBeatmap_MaxJDSlider - _selectedBeatmap_MinJDSlider) / Step_JD_Slider + 1);
         }
 
-
-        private static List<float> snap_points = new List<float>();
-
-        internal static void Create_Snap_Points(float _selectedBeatmap_JumpDistance, float _selectedBeatmap_UnitJDOffset, float _selectedBeatmap_MinJDSlider, float _selectedBeatmap_MaxJDSlider)
+        internal static int Get_Num_Snap_Points()
         {
-            snap_points.Clear();
-            snap_points.Add(_selectedBeatmap_JumpDistance);
+            return jd_snap_points.Count;
+        }
+
+
+        private static List<float> jd_snap_points = new List<float>();
+
+        internal static void Create_JD_Snap_Points(float _selectedBeatmap_JumpDistance, float _selectedBeatmap_UnitJDOffset, float _selectedBeatmap_MinJDSlider, float _selectedBeatmap_MaxJDSlider)
+        {
+            jd_snap_points.Clear();
+            jd_snap_points.Add(_selectedBeatmap_JumpDistance);
 
             float point = _selectedBeatmap_JumpDistance + _selectedBeatmap_UnitJDOffset;
             while (point <= _selectedBeatmap_MaxJDSlider)
             {
-                snap_points.Add(point);
+                jd_snap_points.Add(point);
                 point += _selectedBeatmap_UnitJDOffset;
             }
 
             point = _selectedBeatmap_JumpDistance - _selectedBeatmap_UnitJDOffset;
             while (point >= _selectedBeatmap_MinJDSlider)
             {
-                snap_points.Insert(0, point);
+                jd_snap_points.Insert(0, point);
                 point -= _selectedBeatmap_UnitJDOffset;
             }
 
-            for (int i = 0; i < snap_points.Count; i++)
+            for (int i = 0; i < jd_snap_points.Count; i++)
             {
-                Logger.log.Debug(i + ": " + snap_points[i]);
+                Logger.log.Debug(i + ": " + jd_snap_points[i]);
             }
         }
 
-
-
-        internal static int Get_Num_Snap_Points()
-        {
-            return snap_points.Count;
-        }
-
-
-
-
         internal static float Calculate_JumpDistance_Nearest_Offset(float JD_Value)
         {
-            Logger.log.Debug("Count: " + snap_points.Count);
+            Logger.log.Debug("Count: " + jd_snap_points.Count);
 
-            if (snap_points.Count == 0)
+            if (jd_snap_points.Count == 0)
             {
                 Logger.log.Debug("empty: " + JD_Value);
                 return JD_Value;
             }
 
-            if (snap_points.Count == 1)
+            if (jd_snap_points.Count == 1)
             {
-                Logger.log.Debug("single index: " + snap_points[0]);
-                return snap_points[0];
+                Logger.log.Debug("single index: " + jd_snap_points[0]);
+                return jd_snap_points[0];
             }
 
-            int index = snap_points.BinarySearch(JD_Value);
+            int index = jd_snap_points.BinarySearch(JD_Value);
             Logger.log.Debug("index: " + index);
 
             if (index < 0)
@@ -155,18 +150,75 @@ namespace JDFixer
                 Logger.log.Debug("~index - 1: " + (~index - 1));
 
 
-                if (~index >= snap_points.Count)
+                if (~index >= jd_snap_points.Count)
                 {
-                    Logger.log.Debug("nearest lower index: " + snap_points[~index - 1]);
-                    return snap_points[~index - 1];
+                    Logger.log.Debug("nearest lower index: " + jd_snap_points[~index - 1]);
+                    return jd_snap_points[~index - 1];
                 }
 
-                Logger.log.Debug("nearest upper index: " + snap_points[~index]);
-                return snap_points[~index];
+                Logger.log.Debug("nearest upper index: " + jd_snap_points[~index]);
+                return jd_snap_points[~index];
             }
 
-            Logger.log.Debug("exact index: " + snap_points[index]);
-            return snap_points[index];
+            Logger.log.Debug("exact index: " + jd_snap_points[index]);
+            return jd_snap_points[index];
+        }
+
+
+        private static List<float> rt_snap_points = new List<float>();
+
+        internal static void Create_RT_Snap_Points(float _selectedBeatmap_ReactionTime, float _selectedBeatmap_UnitRTOffset, float _selectedBeatmap_MinRTSlider, float _selectedBeatmap_MaxRTSlider)
+        {
+            rt_snap_points.Clear();
+            rt_snap_points.Add(_selectedBeatmap_ReactionTime);
+
+            float point = _selectedBeatmap_ReactionTime + _selectedBeatmap_UnitRTOffset;
+            while (point <= _selectedBeatmap_MaxRTSlider)
+            {
+                rt_snap_points.Add(point);
+                point += _selectedBeatmap_UnitRTOffset;
+            }
+
+            point = _selectedBeatmap_ReactionTime - _selectedBeatmap_UnitRTOffset;
+            while (point >= _selectedBeatmap_MinRTSlider)
+            {
+                rt_snap_points.Insert(0, point);
+                point -= _selectedBeatmap_UnitRTOffset;
+            }
+
+            for (int i = 0; i < rt_snap_points.Count; i++)
+            {
+                Logger.log.Debug(i + ": " + rt_snap_points[i]);
+            }
+        }
+
+        internal static float Calculate_ReactionTime_Nearest_Offset(float RT_Value)
+        {
+            Logger.log.Debug("Count: " + rt_snap_points.Count);
+
+            if (rt_snap_points.Count == 0)
+            {
+                return RT_Value;
+            }
+
+            if (rt_snap_points.Count == 1)
+            {
+                return rt_snap_points[0];
+            }
+
+            int index = rt_snap_points.BinarySearch(RT_Value);
+
+            if (index < 0)
+            {
+                if (~index >= rt_snap_points.Count)
+                {
+                    return rt_snap_points[~index - 1];
+                }
+
+                return rt_snap_points[~index];
+            }
+
+            return rt_snap_points[index];
         }
     }
 }

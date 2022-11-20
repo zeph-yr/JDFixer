@@ -28,6 +28,14 @@
 				<text text='~jd_display' min-width='29' align='Right'/>
 			</grid>
 		</horizontal>
+
+		<horizontal>
+				<text text='~snapped_jd' align='Left'/>
+		</horizontal>
+		<horizontal>
+			<text text='~snapped_rt' align='Left'/>
+		</horizontal>
+		
 		<increment-setting value='increment_value' apply-on-change='true' bind-value='true' text='Automated Preferences' integer-only='true' min='0' max='2' formatter='increment_formatter' hover-hint='Autoselect JD or RT based on NJS'/>
 		<button align='Center' on-click='pref_button_clicked' text='~pref_button' hover-hint='Click to set up Automated Preferences'></button>
 		<vertical vertical-fit='PreferredSize' preferred-height='21'>

@@ -58,6 +58,11 @@ namespace JDFixer.UI
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Show_JD_Slider)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Show_RT_Slider)));
 
+            Logger.log.Debug("Map JD: " + _selectedBeatmap.JumpDistance + " " + _selectedBeatmap.MinJDSlider + " " + _selectedBeatmap.MaxJDSlider);
+
+            BeatmapUtils.Create_JD_Snap_Points(_selectedBeatmap.JumpDistance, _selectedBeatmap.UnitJDOffset, _selectedBeatmap.MinJDSlider, _selectedBeatmap.MaxJDSlider);
+            BeatmapUtils.Create_RT_Snap_Points(_selectedBeatmap.ReactionTime, _selectedBeatmap.UnitRTOffset, _selectedBeatmap.MinRTSlider, _selectedBeatmap.MaxRTSlider);
+
             PostParse();
         }
 
@@ -127,6 +132,27 @@ namespace JDFixer.UI
             return "<#8c8c8c>" + _selectedBeatmap.MinJumpDistance.ToString("0.##");
         }
 
+
+        [UIValue("snapped_jd")]
+        private string Snapped_JD => Get_Snapped_JD();
+
+        private string Get_Snapped_JD()
+        {
+            return "<#ffff00>" + BeatmapUtils.Calculate_JumpDistance_Nearest_Offset(JD_Value).ToString("0.##");
+        }
+
+
+        [UIValue("snapped_rt")]
+        private string Snapped_RT => Get_Snapped_RT();
+
+        private string Get_Snapped_RT()
+        {
+            return "<#8c8c8c>" + BeatmapUtils.Calculate_ReactionTime_Nearest_Offset(RT_Value).ToString("0") + " ms";
+        }
+
+
+
+
         //=============================================================================================
 
 
@@ -146,6 +172,7 @@ namespace JDFixer.UI
             {
                 PluginConfig.Instance.jumpDistance = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(RT_Display)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Snapped_JD)));
             }
         }
         [UIAction("set_jd_value")]
@@ -179,6 +206,7 @@ namespace JDFixer.UI
             {
                 PluginConfig.Instance.reactionTime = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(JD_Display)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Snapped_RT)));
             }
         }
         [UIAction("set_rt_value")]
@@ -349,6 +377,9 @@ namespace JDFixer.UI
 
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(JD_Value)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(RT_Value)));
+
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Snapped_JD)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Snapped_RT)));
         }
 
 
