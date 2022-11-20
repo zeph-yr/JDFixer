@@ -149,6 +149,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BeatmapOffsets.cs" />
     <Compile Include="BeatmapUtils.cs" />
     <Compile Include="UI\LegacyModifierUI.cs" />
     <Compile Include="TimeController.cs" />

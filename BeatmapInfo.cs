@@ -94,7 +94,6 @@ namespace JDFixer
             {
                 Create_Snap_Points(ref JD_Snap_Points, ref JD_Offset_Points, Offset, JumpDistance, UnitJDOffset, MinJDSlider, MaxJDSlider);
                 Create_Snap_Points(ref RT_Snap_Points, ref RT_Offset_Points, Offset, ReactionTime, UnitRTOffset, MinRTSlider, MaxRTSlider);
-
             }
 
 
@@ -132,8 +131,11 @@ namespace JDFixer
 
 
 
-        private static void Create_Snap_Points(ref List<float> Snap_Points, ref List<string> Offset_Points, float Offset, float _selectedBeatmap_JD_RT, float _selectedBeatmap_UnitOffset, float _selectedBeatmap_MinSlider, float _selectedBeatmap_MaxSlider)
+        internal static void Create_Snap_Points(ref List<float> Snap_Points, ref List<string> Offset_Points, float Offset, float _selectedBeatmap_JD_RT, float _selectedBeatmap_UnitOffset, float _selectedBeatmap_MinSlider, float _selectedBeatmap_MaxSlider)
         {
+            Logger.log.Debug("Create Snap Points");
+            Logger.log.Debug("Min: " + _selectedBeatmap_MinSlider + " " + _selectedBeatmap_MaxSlider);
+
             Snap_Points.Clear();
             Snap_Points.Add(_selectedBeatmap_JD_RT);
 
@@ -172,16 +174,29 @@ namespace JDFixer
 
         internal static (string, float) Calculate_Nearest_Snap_Point(ref List<float> Snap_Points, ref List<string> Offset_Points, float JD_RT_Value)
         {
-            Logger.log.Debug("Count: " + Snap_Points.Count);
+            Logger.log.Debug("Count: " + Snap_Points.Count + " " + JD_RT_Value);
 
             if (Snap_Points.Count == 0)
             {
                 Logger.log.Debug("empty: " + JD_RT_Value);
-
                 return ("", JD_RT_Value);
             }
 
-            if (Snap_Points.Count == 1)
+            //int index = 0;
+            for (int i = 0; i < Snap_Points.Count; i++)
+            {
+                //index = i;
+                Logger.log.Debug(i + ": " + Snap_Points[i]);
+
+                if (Snap_Points[i] >= JD_RT_Value)
+                {
+                    return (Offset_Points[i], Snap_Points[i]);
+                    //break;
+                }
+            }
+            return (Offset_Points[Snap_Points.Count - 1], Snap_Points[Snap_Points.Count - 1]);
+
+            /*if (Snap_Points.Count == 1)
             {
                 Logger.log.Debug("single index: " + Snap_Points[0]);
                 return (JD_Offset_Points[0], Snap_Points[0]);
@@ -205,7 +220,7 @@ namespace JDFixer
             }
 
             Logger.log.Debug("exact index: " + Snap_Points[index]);
-            return (Offset_Points[index], Snap_Points[index]);
+            return (Offset_Points[index], Snap_Points[index]);*/
         }
     }
 }

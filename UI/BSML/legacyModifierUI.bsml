@@ -14,14 +14,14 @@
 		</horizontal>
 		<slider-setting id='jd_slider' value ='jd_value' show-buttons='true' on-change='set_jd_value' apply-on-change='true' bind-value='true' text='Desired Jump Distance' increment='0.1' min='~min_jd_slider' max='~max_jd_slider' formatter='jd_slider_formatter' active='~show_jd_slider'></slider-setting>
 		<slider-setting id='rt_slider' value ='rt_value' show-buttons='true' on-change='set_rt_value' apply-on-change='true' bind-value='true' text='Desired Reaction Time' increment='5' min='~min_rt_slider' max='~max_rt_slider' formatter='rt_slider_formatter' active='~show_rt_slider'></slider-setting>
-		<horizontal active='~show_jd_slider'>
+		<horizontal active='~show_rt_display'>
 			<grid cell-size-y='5' cell-size-x='28' spacing-x='2' align='Right'>
 				<text text='Reaction Time' align='Left'/>
 				<text text='----------------' align='Left' rich-text='true' font-color='#00000000'/>
 				<text text='~rt_display' min-width='29' align='Right'/>
 			</grid>
 		</horizontal>
-		<horizontal active='~show_rt_slider'>
+		<horizontal active='~show_jd_display'>
 			<grid cell-size-y='5' cell-size-x='28' spacing-x='2' align='Right'>
 				<text text='JumpDistance' align='Left'/>
 				<text text='----------------' align='Left' rich-text='true' font-color='#00000000'/>
@@ -32,15 +32,15 @@
 		<horizontal active='~show_snapped_jd'>
 			<grid cell-size-y='5' cell-size-x='28' spacing-x='2' align='Right'>
 				<text text='Snapped to...' align='Left'/>
-				<text text='----------------' align='Left' rich-text='true' font-color='#00000000'/>
-				<text text='~snapped_jd' align='Left'/>
+				<text text='--' align='Left' rich-text='true' font-color='#00000000'/>
+				<text text='~snapped_jd' min-width='29' align='Right'/>
 			</grid>
 		</horizontal>
 		<horizontal active='~show_snapped_rt'>
 			<grid cell-size-y='5' cell-size-x='28' spacing-x='2' align='Right'>
 				<text text='Snapped to...' align='Left'/>
-				<text text='----------------' align='Left' rich-text='true' font-color='#00000000'/>
-				<text text='~snapped_rt' align='Left'/>
+				<text text='--' align='Left' rich-text='true' font-color='#00000000'/>
+				<text text='~snapped_rt' min-width='29' align='Right'/>
 			</grid>
 		</horizontal>
 		

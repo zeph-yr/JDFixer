@@ -98,74 +98,12 @@ namespace JDFixer
         }
 
 
-        private static List<float> jd_snap_points = new List<float>();
 
-        internal static void Create_JD_Snap_Points(float _selectedBeatmap_JumpDistance, float _selectedBeatmap_UnitJDOffset, float _selectedBeatmap_MinJDSlider, float _selectedBeatmap_MaxJDSlider)
-        {
-            jd_snap_points.Clear();
-            jd_snap_points.Add(_selectedBeatmap_JumpDistance);
-
-            float point = _selectedBeatmap_JumpDistance + _selectedBeatmap_UnitJDOffset;
-            while (point <= _selectedBeatmap_MaxJDSlider)
-            {
-                jd_snap_points.Add(point);
-                point += _selectedBeatmap_UnitJDOffset;
-            }
-
-            point = _selectedBeatmap_JumpDistance - _selectedBeatmap_UnitJDOffset;
-            while (point >= _selectedBeatmap_MinJDSlider)
-            {
-                jd_snap_points.Insert(0, point);
-                point -= _selectedBeatmap_UnitJDOffset;
-            }
-
-            for (int i = 0; i < jd_snap_points.Count; i++)
-            {
-                Logger.log.Debug(i + ": " + jd_snap_points[i]);
-            }
-        }
-
-        internal static float Calculate_JumpDistance_Nearest_Offset(float JD_Value)
-        {
-            Logger.log.Debug("Count: " + jd_snap_points.Count);
-
-            if (jd_snap_points.Count == 0)
-            {
-                Logger.log.Debug("empty: " + JD_Value);
-                return JD_Value;
-            }
-
-            if (jd_snap_points.Count == 1)
-            {
-                Logger.log.Debug("single index: " + jd_snap_points[0]);
-                return jd_snap_points[0];
-            }
-
-            int index = jd_snap_points.BinarySearch(JD_Value);
-            Logger.log.Debug("index: " + index);
-
-            if (index < 0)
-            {
-                Logger.log.Debug("~index: " + ~index);
-                Logger.log.Debug("~index - 1: " + (~index - 1));
+        internal static List<float> jd_snap_points = new List<float>();
+        internal static List<float> rt_snap_points = new List<float>();
 
 
-                if (~index >= jd_snap_points.Count)
-                {
-                    Logger.log.Debug("nearest lower index: " + jd_snap_points[~index - 1]);
-                    return jd_snap_points[~index - 1];
-                }
 
-                Logger.log.Debug("nearest upper index: " + jd_snap_points[~index]);
-                return jd_snap_points[~index];
-            }
-
-            Logger.log.Debug("exact index: " + jd_snap_points[index]);
-            return jd_snap_points[index];
-        }
-
-
-        private static List<float> rt_snap_points = new List<float>();
 
         internal static void Create_RT_Snap_Points(float _selectedBeatmap_ReactionTime, float _selectedBeatmap_UnitRTOffset, float _selectedBeatmap_MinRTSlider, float _selectedBeatmap_MaxRTSlider)
         {
