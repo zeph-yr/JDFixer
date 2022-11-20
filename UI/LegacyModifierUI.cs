@@ -140,6 +140,8 @@ namespace JDFixer.UI
         {
             return "<#ffff00>" + BeatmapUtils.Calculate_JumpDistance_Nearest_Offset(JD_Value).ToString("0.##");
         }
+        [UIValue("show_snapped_jd")]
+        private bool Show_Snapped_JD => PluginConfig.Instance.use_offset && PluginConfig.Instance.slider_setting == 0;
 
 
         [UIValue("snapped_rt")]
@@ -149,8 +151,8 @@ namespace JDFixer.UI
         {
             return "<#8c8c8c>" + BeatmapUtils.Calculate_ReactionTime_Nearest_Offset(RT_Value).ToString("0") + " ms";
         }
-
-
+        [UIValue("show_snapped_rt")]
+        private bool Show_Snapped_RT => PluginConfig.Instance.use_offset && PluginConfig.Instance.slider_setting == 1;
 
 
         //=============================================================================================
@@ -401,6 +403,12 @@ namespace JDFixer.UI
 
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Show_JD_Slider)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Show_RT_Slider)));
+
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Snapped_JD)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Snapped_RT)));
+
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Show_Snapped_JD)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Show_Snapped_RT)));
             }
         }
         [UIAction("slider_setting_increment_formatter")]
