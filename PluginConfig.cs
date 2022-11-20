@@ -17,7 +17,7 @@ namespace JDFixer
 
         
         public virtual float jumpDistance { get; set; } = 24f;
-        public virtual float stepJumpDistance { get; set; } = 1f;
+        public virtual float stepJumpDistance { get; set; } = 0.1f;
         public virtual float minJumpDistance { get; set; } = 12;
         public virtual float maxJumpDistance { get; set; } = 35;
         public virtual bool usePreferredJumpDistanceValues { get; set; } = false;
@@ -28,7 +28,7 @@ namespace JDFixer
 
 
         public virtual float reactionTime { get; set; } = 500f;
-        public virtual float stepReactionTime { get; set; } = 10f;
+        public virtual float stepReactionTime { get; set; } = 5f;
         public virtual float minReactionTime { get; set; } = 300;
         public virtual float maxReactionTime { get; set; } = 1600;
         public virtual bool usePreferredReactionTimeValues { get; set; } = false;

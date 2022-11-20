@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace JDFixer
 {
@@ -81,6 +82,17 @@ namespace JDFixer
 
 
         // 1.26.0
+        internal static float Get_JD_Increment_For_RT(float RT_Value, float _selectedBeatmap_MinRTSlider, float _selectedBeatmap_MaxRTSlider, float _selectedBeatmap_MinJDSlider, float _selectedBeatmap_MaxJDSlider)
+        {
+            return (_selectedBeatmap_MaxJDSlider - _selectedBeatmap_MinJDSlider) * RT_Value / (_selectedBeatmap_MaxRTSlider - _selectedBeatmap_MinRTSlider);
+        }
+
+        internal static int Get_JD_NumberOfSteps(float Step_JD_Slider, float _selectedBeatmap_MinJDSlider, float _selectedBeatmap_MaxJDSlider)
+        {
+            return Mathf.RoundToInt((_selectedBeatmap_MaxJDSlider - _selectedBeatmap_MinJDSlider) / Step_JD_Slider + 1);
+        }
+
+
         private static List<float> snap_points = new List<float>();
 
         internal static void Create_Snap_Points(float _selectedBeatmap_JumpDistance, float _selectedBeatmap_UnitJDOffset, float _selectedBeatmap_MinJDSlider, float _selectedBeatmap_MaxJDSlider)
@@ -108,10 +120,14 @@ namespace JDFixer
             }
         }
 
+
+
         internal static int Get_Num_Snap_Points()
         {
             return snap_points.Count;
         }
+
+
 
 
         internal static float Calculate_JumpDistance_Nearest_Offset(float JD_Value)
