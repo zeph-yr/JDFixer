@@ -1,4 +1,6 @@
-﻿namespace JDFixer
+﻿using System.Collections.Generic;
+
+namespace JDFixer
 {
     public delegate void BeatmapInfoEventHandler(BeatmapInfo e);
     public class BeatmapInfo
@@ -80,11 +82,20 @@
             }
 
             // 1.26.0
-            UnitJDOffset = BeatmapUtils.CalculateJumpDistance(bpm, njs, offset + PluginConfig.Instance.offset_fraction) - BeatmapUtils.CalculateJumpDistance(bpm, njs, offset); // 1/8th beat offset in JD units
+            Offset = offset;
+
+            UnitJDOffset = BeatmapUtils.CalculateJumpDistance(bpm, njs, offset + 1 / PluginConfig.Instance.offset_fraction) - BeatmapUtils.CalculateJumpDistance(bpm, njs, offset); // 1/8th beat offset in JD units
             Logger.log.Debug("QOffset JD: " + UnitJDOffset);
 
             UnitRTOffset = UnitJDOffset * 500 / njs;
             Logger.log.Debug("QOffset RT: " + UnitRTOffset);
+
+            if (PluginConfig.Instance.use_offset)
+            {
+                Create_Snap_Points(ref JD_Snap_Points, ref JD_Offset_Points, Offset, JumpDistance, UnitJDOffset, MinJDSlider, MaxJDSlider);
+                Create_Snap_Points(ref RT_Snap_Points, ref RT_Offset_Points, Offset, ReactionTime, UnitRTOffset, MinRTSlider, MaxRTSlider);
+
+            }
 
 
             //Logger.log.Debug("BeatmapInfo minJD: " + PluginConfig.Instance.minJumpDistance);
@@ -106,8 +117,95 @@
         public float MinJDSlider { get; }
         public float MaxJDSlider { get; }
 
+
         // 1.26.0
+        public float Offset { get; }
         public float UnitJDOffset { get; }
         public float UnitRTOffset { get; }
+
+        internal static List<float> JD_Snap_Points = new List<float>();
+        internal static List<float> RT_Snap_Points = new List<float>();
+
+        internal static List<string> JD_Offset_Points = new List<string>();
+        internal static List<string> RT_Offset_Points = new List<string>();
+
+
+
+
+        private static void Create_Snap_Points(ref List<float> Snap_Points, ref List<string> Offset_Points, float Offset, float _selectedBeatmap_JD_RT, float _selectedBeatmap_UnitOffset, float _selectedBeatmap_MinSlider, float _selectedBeatmap_MaxSlider)
+        {
+            Snap_Points.Clear();
+            Snap_Points.Add(_selectedBeatmap_JD_RT);
+
+            Offset_Points.Clear();
+            Offset_Points.Add("[ 0 | " + Offset + " ]");
+
+            float point = _selectedBeatmap_JD_RT + _selectedBeatmap_UnitOffset;
+            int multiple = 1;
+            while (point <= _selectedBeatmap_MaxSlider)
+            {
+                Snap_Points.Add(point);
+                point += _selectedBeatmap_UnitOffset;
+
+                Offset_Points.Add("[ " + multiple + "/" + PluginConfig.Instance.offset_fraction + " | " + (Offset + multiple / PluginConfig.Instance.offset_fraction) + " ]");
+                multiple += 1;
+            }
+
+            point = _selectedBeatmap_JD_RT - _selectedBeatmap_UnitOffset;
+            multiple = -1;
+            while (point >= _selectedBeatmap_MinSlider)
+            {
+                Snap_Points.Insert(0, point);
+                point -= _selectedBeatmap_UnitOffset;
+
+                Offset_Points.Insert(0, "[ " + multiple + "/" + PluginConfig.Instance.offset_fraction + " | " + (Offset + multiple / PluginConfig.Instance.offset_fraction) + " ]");
+                multiple -= 1;
+            }
+
+            // Debug:
+            for (int i = 0; i < Snap_Points.Count; i++)
+            {
+                Logger.log.Debug(i + ": " + Snap_Points[i]);
+                Logger.log.Debug(i + ": " + Offset_Points[i]);
+            }
+        }
+
+        internal static (string, float) Calculate_Nearest_Snap_Point(ref List<float> Snap_Points, ref List<string> Offset_Points, float JD_RT_Value)
+        {
+            Logger.log.Debug("Count: " + Snap_Points.Count);
+
+            if (Snap_Points.Count == 0)
+            {
+                Logger.log.Debug("empty: " + JD_RT_Value);
+
+                return ("", JD_RT_Value);
+            }
+
+            if (Snap_Points.Count == 1)
+            {
+                Logger.log.Debug("single index: " + Snap_Points[0]);
+                return (JD_Offset_Points[0], Snap_Points[0]);
+            }
+
+            int index = Snap_Points.BinarySearch(JD_RT_Value);
+            Logger.log.Debug("index: " + index);
+
+            if (index < 0)
+            {
+                Logger.log.Debug("~index: " + ~index);
+
+                if (~index >= Snap_Points.Count)
+                {
+                    Logger.log.Debug("end index: " + Snap_Points[~index - 1]);
+                    return (Offset_Points[~index - 1], Snap_Points[~index - 1]);
+                }
+
+                Logger.log.Debug("nearest upper index: " + Snap_Points[~index]);
+                return (Offset_Points[~index], Snap_Points[~index]);
+            }
+
+            Logger.log.Debug("exact index: " + Snap_Points[index]);
+            return (Offset_Points[index], Snap_Points[index]);
+        }
     }
 }
