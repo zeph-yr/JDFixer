@@ -26,13 +26,11 @@ namespace JDFixer
             // Will just have to make a note to users as instructions. Not worth trying to find the map when in TA, Campaigns or MP
             float noteJumpStartBeatOffset = noteJumpValue;  
 
-
             float mapNJS = startNoteJumpMovementSpeed;
             Logger.log.Debug("mapNJS:" + mapNJS.ToString());
 
             if (mapNJS <= 0.01) // Just in case?
                 mapNJS = 10;
-
 
             // JD setpoint from Slider
             //1.19.1
@@ -47,6 +45,18 @@ namespace JDFixer
                 desiredJumpDis = PluginConfig.Instance.reactionTime * mapNJS / 500;
             }
 
+            // 1.26.0
+            if (PluginConfig.Instance.use_offset && PluginConfig.Instance.legacy_display_enabled)
+            {
+                if (PluginConfig.Instance.slider_setting == 0)
+                {
+                    desiredJumpDis = BeatmapOffsets.jd_snap_value;
+                }
+                else
+                {
+                    desiredJumpDis = BeatmapOffsets.rt_snap_value * mapNJS / 500;
+                }
+            }
 
             // NJS-RT setpoints from Preferences
             if (PluginConfig.Instance.usePreferredReactionTimeValues)
@@ -96,6 +106,7 @@ namespace JDFixer
                     return;
                 }
             }
+
 
             // Calculate New Offset Given Desired JD:
             //Logger.log.Debug($"BPM/NJS/Offset {startBpm}/{startNoteJumpMovementSpeed}/{noteJumpStartBeatOffset}");

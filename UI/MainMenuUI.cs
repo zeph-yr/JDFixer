@@ -58,6 +58,41 @@ namespace JDFixer.UI
         }
 
 
+        [UIValue("use_offset_value")]
+        private bool Use_Offset_Value
+        {
+            get => PluginConfig.Instance.use_offset;
+            set
+            {
+                PluginConfig.Instance.use_offset = value;
+            }
+        }
+        [UIAction("set_use_offset")]
+        private void Set_Use_Offset(bool value)
+        {
+            Use_Offset_Value = value;
+        }
+
+
+        [UIComponent("offset_fraction_slider")]
+        private SliderSetting Offset_Fraction_Slider;
+
+        [UIValue("offset_fraction_value")]
+        private float Offset_Fraction_Value
+        {
+            get => PluginConfig.Instance.offset_fraction;
+            set
+            {
+                PluginConfig.Instance.offset_fraction = value;
+            }
+        }
+        [UIAction("set_offset_fraction")]
+        private void Set_Offset_Fraction(float value)
+        {
+            Offset_Fraction_Value = value;
+        }
+
+
         [UIComponent("lower_threshold_slider")]
         private SliderSetting Lower_Threshold_Slider;
 

@@ -49,6 +49,7 @@ namespace JDFixer
         public virtual bool rt_display_enabled { get; set; } = true;
         public virtual bool legacy_display_enabled { get; set; } = false;
 
+        //1.26.0 Feature update
         public virtual bool use_offset { get; set; } = false;
         public virtual float offset_fraction { get; set; } = 8f;
         public bool af_enabled { get; set; } = true;

@@ -33,14 +33,14 @@
 			<grid cell-size-y='5' cell-size-x='28' spacing-x='2' align='Right'>
 				<text text='Snapped to...' align='Left'/>
 				<text text='--' align='Left' rich-text='true' font-color='#00000000'/>
-				<text text='~snapped_jd' min-width='29' align='Right'/>
+				<text text='~snapped_jd' min-width='29' align='Right' hover-hint='Configure 1/n in Mod Settings'/>
 			</grid>
 		</horizontal>
 		<horizontal active='~show_snapped_rt'>
 			<grid cell-size-y='5' cell-size-x='28' spacing-x='2' align='Right'>
 				<text text='Snapped to...' align='Left'/>
 				<text text='--' align='Left' rich-text='true' font-color='#00000000'/>
-				<text text='~snapped_rt' min-width='29' align='Right'/>
+				<text text='~snapped_rt' min-width='29' align='Right' hover-hint='Configure 1/n in Mod Settings'/>
 			</grid>
 		</horizontal>
 		

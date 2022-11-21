@@ -58,7 +58,7 @@ namespace JDFixer.UI
             //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ReactionTimeText))); // For old RT Display
 
             Logger.log.Debug("Map JD: " + _selectedBeatmap.JumpDistance + " " + _selectedBeatmap.MinJDSlider + " " + _selectedBeatmap.MaxJDSlider);
-            BeatmapUtils.Create_RT_Snap_Points(_selectedBeatmap.JumpDistance, _selectedBeatmap.UnitJDOffset, _selectedBeatmap.MinJDSlider, _selectedBeatmap.MaxJDSlider);
+            BeatmapUtils.Create_RT_Snap_Points(_selectedBeatmap.JumpDistance, _selectedBeatmap.JDOffsetQuantum, _selectedBeatmap.MinJDSlider, _selectedBeatmap.MaxJDSlider);
 
             PostParse();
         }
@@ -161,8 +161,8 @@ namespace JDFixer.UI
         {
             if (PluginConfig.Instance.use_offset)
             {
-                Logger.log.Debug("JD:" + _selectedBeatmap.UnitJDOffset);
-                return _selectedBeatmap.UnitJDOffset;
+                Logger.log.Debug("JD:" + _selectedBeatmap.JDOffsetQuantum);
+                return _selectedBeatmap.JDOffsetQuantum;
             }
 
             else if (PluginConfig.Instance.slider_setting == 0)
@@ -260,8 +260,8 @@ namespace JDFixer.UI
             {
                 if (PluginConfig.Instance.use_offset)
                 {
-                    Logger.log.Debug("RT: " + _selectedBeatmap.UnitRTOffset);
-                    return _selectedBeatmap.UnitRTOffset;
+                    Logger.log.Debug("RT: " + _selectedBeatmap.RTOffsetQuantum);
+                    return _selectedBeatmap.RTOffsetQuantum;
                 }
                 Logger.log.Debug("RT:" + PluginConfig.Instance.stepReactionTime);
                 return PluginConfig.Instance.stepReactionTime;
