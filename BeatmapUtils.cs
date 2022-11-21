@@ -82,6 +82,7 @@ namespace JDFixer
 
 
         // 1.26.0
+        /*
         internal static float Get_JD_Increment_For_RT(float RT_Value, float _selectedBeatmap_MinRTSlider, float _selectedBeatmap_MaxRTSlider, float _selectedBeatmap_MinJDSlider, float _selectedBeatmap_MaxJDSlider)
         {
             return (_selectedBeatmap_MaxJDSlider - _selectedBeatmap_MinJDSlider) * RT_Value / (_selectedBeatmap_MaxRTSlider - _selectedBeatmap_MinRTSlider);
@@ -157,6 +158,6 @@ namespace JDFixer
             }
 
             return rt_snap_points[index];
-        }
+        }*/
     }
 }

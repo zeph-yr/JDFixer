@@ -15,8 +15,8 @@
 		</horizontal>
 		
 		<vertical vertical-fit='PreferredSize' preferred-height='14'>
-			<slider-setting id='jd_slider' value ='jd_value' show-buttons='true' on-change='set_jd_value' apply-on-change='true' bind-value='true' text='Desired Jump Distance' increment='~step_jd_slider' min='~min_jd_slider' max='~max_jd_slider' formatter='jd_slider_formatter'></slider-setting>
-			<slider-setting id='rt_slider' value ='rt_value' show-buttons='true' on-change='set_rt_value' apply-on-change='true' bind-value='true' text='Reaction Time' increment='~step_rt_slider' min='~min_rt_slider' max='~max_rt_slider' formatter='rt_slider_formatter'></slider-setting>
+			<slider-setting id='jd_slider' value ='jd_value' show-buttons='true' on-change='set_jd_value' apply-on-change='true' bind-value='true' text='Desired Jump Distance' increment='0.1' min='~min_jd_slider' max='~max_jd_slider' formatter='jd_slider_formatter'></slider-setting>
+			<slider-setting id='rt_slider' value ='rt_value' show-buttons='true' on-change='set_rt_value' apply-on-change='true' bind-value='true' text='Reaction Time' increment='5' min='~min_rt_slider' max='~max_rt_slider' formatter='rt_slider_formatter'></slider-setting>
 		</vertical>
 		
 		<increment-setting value='increment_value' apply-on-change='true' bind-value='true' text='Automated Preferences' integer-only='true' min='0' max='2' formatter='increment_formatter' hover-hint='Autoselect JD or RT based on NJS'/>    

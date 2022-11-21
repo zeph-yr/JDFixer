@@ -52,13 +52,13 @@ namespace JDFixer.UI
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Map_Default_JD)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Map_Min_JD)));
 
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Step_JD_Slider)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Step_RT_Slider)));
+            //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Step_JD_Slider)));
+            //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Step_RT_Slider)));
 
             //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ReactionTimeText))); // For old RT Display
 
-            Logger.log.Debug("Map JD: " + _selectedBeatmap.JumpDistance + " " + _selectedBeatmap.MinJDSlider + " " + _selectedBeatmap.MaxJDSlider);
-            BeatmapUtils.Create_RT_Snap_Points(_selectedBeatmap.JumpDistance, _selectedBeatmap.JDOffsetQuantum, _selectedBeatmap.MinJDSlider, _selectedBeatmap.MaxJDSlider);
+            //Logger.log.Debug("Map JD: " + _selectedBeatmap.JumpDistance + " " + _selectedBeatmap.MinJDSlider + " " + _selectedBeatmap.MaxJDSlider);
+            //BeatmapUtils.Create_RT_Snap_Points(_selectedBeatmap.JumpDistance, _selectedBeatmap.JDOffsetQuantum, _selectedBeatmap.MinJDSlider, _selectedBeatmap.MaxJDSlider);
 
             PostParse();
         }
@@ -152,9 +152,9 @@ namespace JDFixer.UI
         }
         #endregion
 
-
+        
         #region UI_JD
-        [UIValue("step_jd_slider")]
+        /*[UIValue("step_jd_slider")]
         private float Step_JD_Slider => Get_Step_JD();
 
         private float Get_Step_JD()
@@ -183,7 +183,7 @@ namespace JDFixer.UI
             }
 
             return BeatmapUtils.Get_JD_NumberOfSteps(Step_JD_Slider, _selectedBeatmap.MinJDSlider, _selectedBeatmap.MaxJDSlider);
-        }
+        }*/
 
         [UIValue("min_jd_slider")]
         private float Min_JD_Slider => _selectedBeatmap.MinJDSlider; //PluginConfig.Instance.minJumpDistance;
@@ -199,12 +199,13 @@ namespace JDFixer.UI
             get => Get_Jump_Distance(); //PluginConfig.Instance.jumpDistance; //GetJumpDistance();
             set
             {
-                if (PluginConfig.Instance.use_offset)
+                /*if (PluginConfig.Instance.use_offset)
                 {
                     PluginConfig.Instance.jumpDistance = BeatmapUtils.Calculate_ReactionTime_Nearest_Offset(value);
                 }
 
-                else if (PluginConfig.Instance.slider_setting == 0)
+                else*/
+                if (PluginConfig.Instance.slider_setting == 0)
                 {
                     PluginConfig.Instance.jumpDistance = value;
                 }
@@ -251,7 +252,7 @@ namespace JDFixer.UI
 
 
         #region RT_UI
-        [UIValue("step_rt_slider")]
+        /*[UIValue("step_rt_slider")]
         private float Step_RT_Slider => Get_Step_RT();
 
         private float Get_Step_RT()
@@ -270,7 +271,7 @@ namespace JDFixer.UI
             {
                 Logger.log.Debug("RT:" + PluginConfig.Instance.stepReactionTime);
                 return PluginConfig.Instance.stepReactionTime;
-            }
+            }*/
 
 
             /*if (PluginConfig.Instance.slider_setting == 1)
@@ -284,7 +285,7 @@ namespace JDFixer.UI
                 //return BeatmapUtils.Calculate_ReactionTime_Setpoint_Float(PluginConfig.Instance.stepJumpDistance, _selectedBeatmap.NJS);
                 return (Max_RT_Slider - Min_RT_Slider) * PluginConfig.Instance.stepJumpDistance / (Max_JD_Slider - Min_JD_Slider);
             }*/
-        }
+        //}
 
         [UIValue("min_rt_slider")]
         private float Min_RT_Slider => _selectedBeatmap.MinRTSlider; //Get_Min_RT();
@@ -586,14 +587,14 @@ namespace JDFixer.UI
             jd_slider_range.maxValue = _selectedBeatmap.MaxJDSlider;
 
 
-            if (PluginConfig.Instance.use_offset)
+            /*if (PluginConfig.Instance.use_offset)
             {
                 JD_Slider.increments = Step_JD_Slider;
                 RT_Slider.increments = Step_RT_Slider;
 
                 rt_slider_range.numberOfSteps = Get_JD_Num_Steps();
                 jd_slider_range.numberOfSteps = Get_JD_Num_Steps();
-            }
+            }*/
 
 
             // These are critical:
@@ -659,15 +660,14 @@ namespace JDFixer.UI
                 jd_slider_range.maxValue = PluginConfig.Instance.maxReactionTime * _selectedBeatmap.NJS / 500;
             }
 
-            if (PluginConfig.Instance.use_offset)
+            /*if (PluginConfig.Instance.use_offset)
             {
                 JD_Slider.increments = Step_JD_Slider;
                 RT_Slider.increments = Step_RT_Slider;
 
                 rt_slider_range.numberOfSteps = Get_JD_Num_Steps();
                 jd_slider_range.numberOfSteps = Get_JD_Num_Steps();
-
-            }
+            }*/
 
             //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Step_RT_Slider)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Min_RT_Slider)));
@@ -701,7 +701,9 @@ namespace JDFixer.UI
         Off = 0,
         On = 1
     }
-
-
-
 }
+
+/*		<vertical vertical-fit='PreferredSize' preferred-height='14'>
+			<slider-setting id='jd_slider' value ='jd_value' show-buttons='true' on-change='set_jd_value' apply-on-change='true' bind-value='true' text='Desired Jump Distance' increment='~step_jd_slider' min='~min_jd_slider' max='~max_jd_slider' formatter='jd_slider_formatter'></slider-setting>
+			<slider-setting id='rt_slider' value ='rt_value' show-buttons='true' on-change='set_rt_value' apply-on-change='true' bind-value='true' text='Reaction Time' increment='~step_rt_slider' min='~min_rt_slider' max='~max_rt_slider' formatter='rt_slider_formatter'></slider-setting>
+		</vertical>*/
