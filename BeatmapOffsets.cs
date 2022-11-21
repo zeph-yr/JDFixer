@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using System.Collections.Generic;
 
 namespace JDFixer
 {
@@ -24,8 +19,8 @@ namespace JDFixer
 
         internal static void Create_Snap_Points(ref List<float> Snap_Points, ref List<string> Offset_Points, float _selectedBeatmap_Offset, float _selectedBeatmap_JD_RT, float _selectedBeatmap_UnitOffset, float _selectedBeatmap_MinSlider, float _selectedBeatmap_MaxSlider)
         {
-            Logger.log.Debug("Create Snap Points");
-            Logger.log.Debug("Min: " + _selectedBeatmap_MinSlider + " " + _selectedBeatmap_MaxSlider);
+            //Logger.log.Debug("Create Snap Points");
+            //Logger.log.Debug("Min: " + _selectedBeatmap_MinSlider + " " + _selectedBeatmap_MaxSlider);
 
             Snap_Points.Clear();
             Snap_Points.Add(_selectedBeatmap_JD_RT);
@@ -56,21 +51,21 @@ namespace JDFixer
             }
 
             // Debug:
-            for (int i = 0; i < Snap_Points.Count; i++)
+            /*for (int i = 0; i < Snap_Points.Count; i++)
             {
                 Logger.log.Debug(i + ": " + Snap_Points[i]);
                 Logger.log.Debug(i + ": " + Offset_Points[i]);
-            }
+            }*/
         }
 
 
         internal static void Calculate_Nearest_JD_Snap_Point(float JD_Value)
         {
-            Logger.log.Debug("Count: " + JD_Snap_Points.Count + " " + JD_Value);
+            //Logger.log.Debug("Count: " + JD_Snap_Points.Count + " " + JD_Value);
 
             if (JD_Snap_Points.Count == 0)
             {
-                Logger.log.Debug("empty: " + JD_Value);
+                //Logger.log.Debug("empty: " + JD_Value);
 
                 jd_offset_snap_value = "";
                 jd_snap_value = JD_Value;
@@ -80,7 +75,7 @@ namespace JDFixer
 
             for (int i = 0; i < JD_Snap_Points.Count; i++)
             {
-                Logger.log.Debug(i + ": " + JD_Snap_Points[i]);
+                //Logger.log.Debug(i + ": " + JD_Snap_Points[i]);
 
                 if (JD_Snap_Points[i] >= JD_Value)
                 {
@@ -98,11 +93,11 @@ namespace JDFixer
 
         internal static void Calculate_Nearest_RT_Snap_Point(float RT_Value)
         {
-            Logger.log.Debug("Count: " + RT_Snap_Points.Count + " " + RT_Value);
+            //Logger.log.Debug("Count: " + RT_Snap_Points.Count + " " + RT_Value);
 
             if (RT_Snap_Points.Count == 0)
             {
-                Logger.log.Debug("empty: " + RT_Value);
+                //Logger.log.Debug("empty: " + RT_Value);
 
                 rt_offset_snap_value = "";
                 rt_snap_value = RT_Value;
@@ -112,7 +107,7 @@ namespace JDFixer
 
             for (int i = 0; i < RT_Snap_Points.Count; i++)
             {
-                Logger.log.Debug(i + ": " + RT_Snap_Points[i]);
+                //Logger.log.Debug(i + ": " + RT_Snap_Points[i]);
 
                 if (RT_Snap_Points[i] >= RT_Value)
                 {

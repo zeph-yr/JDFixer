@@ -33,7 +33,7 @@ namespace JDFixer
                 mapNJS = 10;
 
             // JD setpoint from Slider
-            //1.19.1
+            // 1.19.1
             float desiredJumpDis;
 
             if (PluginConfig.Instance.slider_setting == 0)
@@ -107,10 +107,7 @@ namespace JDFixer
                 }
             }
 
-
             // Calculate New Offset Given Desired JD:
-            //Logger.log.Debug($"BPM/NJS/Offset {startBpm}/{startNoteJumpMovementSpeed}/{noteJumpStartBeatOffset}");
-
             float simOffset = 0;
             float numCurr = 60f / startBpm;
             float num2Curr = 4f;
@@ -130,10 +127,8 @@ namespace JDFixer
 
             simOffset = (num2Curr * jumpDurMul) - num2Curr;
 
-            //noteJumpStartBeatOffset = simOffset;            
-            
-            // 1.19.0+
-            noteJumpValue = simOffset;
+            //noteJumpStartBeatOffset = simOffset;
+            noteJumpValue = simOffset;  // 1.19.0+
 
             //Logger.log.Debug($"HalfJumpCurrent: {num2Curr} | DesiredHalfJump {desiredHalfJumpDur} | DesiredJumpDis {desiredJumpDis} | CurrJumpDis {jumpDisCurr} | Simulated Offset {simOffset}");
             Logger.log.Debug($"DesiredJumpDis {desiredJumpDis} | Simulated Offset {simOffset}");

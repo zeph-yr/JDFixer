@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace JDFixer
+﻿namespace JDFixer
 {
     public delegate void BeatmapInfoEventHandler(BeatmapInfo e);
     public class BeatmapInfo
@@ -83,12 +81,8 @@ namespace JDFixer
 
             // 1.26.0
             Offset = offset;
-
-            JDOffsetQuantum = BeatmapUtils.CalculateJumpDistance(bpm, njs, offset + 1 / PluginConfig.Instance.offset_fraction) - BeatmapUtils.CalculateJumpDistance(bpm, njs, offset); // 1/8th beat offset in JD units
-            Logger.log.Debug("QOffset JD: " + JDOffsetQuantum);
-
+            JDOffsetQuantum = BeatmapUtils.CalculateJumpDistance(bpm, njs, offset + 1 / PluginConfig.Instance.offset_fraction) - BeatmapUtils.CalculateJumpDistance(bpm, njs, offset);
             RTOffsetQuantum = JDOffsetQuantum * 500 / NJS;
-            Logger.log.Debug("QOffset RT: " + RTOffsetQuantum);
 
             /*if (PluginConfig.Instance.use_offset)
             {
@@ -115,7 +109,6 @@ namespace JDFixer
 
         public float MinJDSlider { get; }
         public float MaxJDSlider { get; }
-
 
         // 1.26.0
         public float Offset { get; }
