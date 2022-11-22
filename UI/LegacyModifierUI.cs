@@ -20,12 +20,6 @@ namespace JDFixer.UI
         public event PropertyChangedEventHandler PropertyChanged;
         private BeatmapInfo _selectedBeatmap = BeatmapInfo.Empty;
 
-        // 1.26.0
-        /*private float jd_snap_value = 0;
-        private float rt_snap_value = 0;
-        private string jd_offset_snap_value = "";
-        private string rt_offset_snap_value = "";*/
-
 
         public void Initialize()
         {
@@ -54,6 +48,8 @@ namespace JDFixer.UI
 
         public void BeatmapInfoUpdated(BeatmapInfo beatmapInfo)
         {
+            Logger.log.Debug("InfoUpdated");
+
             _selectedBeatmap = beatmapInfo;
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Map_Default_JD)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Map_Min_JD)));
@@ -66,8 +62,8 @@ namespace JDFixer.UI
 
             if (PluginConfig.Instance.use_offset)
             {
-                Logger.log.Debug("Map JD: " + _selectedBeatmap.JumpDistance + " " + _selectedBeatmap.MinJDSlider + " " + _selectedBeatmap.MaxJDSlider);
-                Logger.log.Debug("Map RT: " + _selectedBeatmap.ReactionTime + " " + _selectedBeatmap.MinRTSlider + " " + _selectedBeatmap.MaxRTSlider);
+                //Logger.log.Debug("Map JD: " + _selectedBeatmap.JumpDistance + " " + _selectedBeatmap.MinJDSlider + " " + _selectedBeatmap.MaxJDSlider);
+                //Logger.log.Debug("Map RT: " + _selectedBeatmap.ReactionTime + " " + _selectedBeatmap.MinRTSlider + " " + _selectedBeatmap.MaxRTSlider);
 
                 BeatmapOffsets.Create_Snap_Points(ref BeatmapOffsets.JD_Snap_Points, ref BeatmapOffsets.JD_Offset_Points, _selectedBeatmap.Offset, _selectedBeatmap.JumpDistance, _selectedBeatmap.JDOffsetQuantum, _selectedBeatmap.MinJDSlider, _selectedBeatmap.MaxJDSlider);
                 BeatmapOffsets.Create_Snap_Points(ref BeatmapOffsets.RT_Snap_Points, ref BeatmapOffsets.RT_Offset_Points, _selectedBeatmap.Offset, _selectedBeatmap.ReactionTime, _selectedBeatmap.RTOffsetQuantum, _selectedBeatmap.MinRTSlider, _selectedBeatmap.MaxRTSlider);
@@ -95,8 +91,7 @@ namespace JDFixer.UI
 
         internal void Refresh_BeatmapOffsets()
         {
-            //BeatmapOffsets.Create_Snap_Points(ref BeatmapOffsets.JD_Snap_Points, ref BeatmapOffsets.JD_Offset_Points, _selectedBeatmap.Offset, _selectedBeatmap.JumpDistance, _selectedBeatmap.JDOffsetQuantum, _selectedBeatmap.MinJDSlider, _selectedBeatmap.MaxJDSlider);
-            //BeatmapOffsets.Create_Snap_Points(ref BeatmapOffsets.RT_Snap_Points, ref BeatmapOffsets.RT_Offset_Points, _selectedBeatmap.Offset, _selectedBeatmap.ReactionTime, _selectedBeatmap.RTOffsetQuantum, _selectedBeatmap.MinRTSlider, _selectedBeatmap.MaxRTSlider);
+            Logger.log.Debug("Refresh_BeatmapOffsets");
 
             BeatmapOffsets.Calculate_Nearest_JD_Snap_Point(JD_Value);
             BeatmapOffsets.Calculate_Nearest_RT_Snap_Point(RT_Value);
@@ -170,8 +165,6 @@ namespace JDFixer.UI
 
         private string Get_Snapped_JD()
         {
-            //return "<#ffff00>" + BeatmapUtils.Calculate_Nearest_Snap_Point(JD_Value).ToString("0.##");
-
             //(jd_offset_snap_value, jd_snap_value) = BeatmapInfo.Calculate_Nearest_Snap_Point(ref BeatmapInfo.JD_Snap_Points, ref BeatmapInfo.JD_Offset_Points, JD_Value);
             //return jd_offset_snap_value + "     <#ffff00>" + jd_snap_value.ToString("0.##") + "     " + BeatmapUtils.Calculate_ReactionTime_Setpoint_String(jd_snap_value, _selectedBeatmap.NJS);
             
@@ -187,8 +180,6 @@ namespace JDFixer.UI
 
         private string Get_Snapped_RT()
         {
-            //return "<#8c8c8c>" + BeatmapUtils.Calculate_ReactionTime_Nearest_Offset(RT_Value).ToString("0") + " ms";
-
             //(rt_offset_snap_value, rt_snap_value) = BeatmapInfo.Calculate_Nearest_Snap_Point(ref BeatmapInfo.RT_Snap_Points, ref BeatmapInfo.RT_Offset_Points, RT_Value);
             //return rt_offset_snap_value + "     " + BeatmapUtils.Calculate_JumpDistance_Setpoint_String(rt_snap_value, _selectedBeatmap.NJS) + "     <#cc99ff>" +  rt_snap_value.ToString("0") + " ms";
 
@@ -216,22 +207,12 @@ namespace JDFixer.UI
             get => PluginConfig.Instance.jumpDistance;
             set
             {
-                /*if (PluginConfig.Instance.use_offset)
-                {
-                    (jd_offset_snap_value, jd_snap_value) = BeatmapInfo.Calculate_Nearest_Snap_Point(ref BeatmapInfo.JD_Snap_Points, ref BeatmapInfo.JD_Offset_Points, value);
-                    PluginConfig.Instance.jumpDistance = jd_snap_value;
-                    
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Snapped_JD)));
-                    return;
-                }*/
-
                 PluginConfig.Instance.jumpDistance = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(RT_Display)));
 
                 if (PluginConfig.Instance.use_offset)
                 {
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Snapped_JD)));
-                    //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Snapped_RT)));
                 }
             }
         }
@@ -265,15 +246,6 @@ namespace JDFixer.UI
             get => PluginConfig.Instance.reactionTime;
             set
             {
-                /*if (PluginConfig.Instance.use_offset)
-                {
-                    (rt_offset_snap_value, rt_snap_value) = BeatmapInfo.Calculate_Nearest_Snap_Point(ref BeatmapInfo.RT_Snap_Points, ref BeatmapInfo.RT_Offset_Points, value);
-                    PluginConfig.Instance.reactionTime = rt_snap_value;
-
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Snapped_RT)));
-                    return;
-                }*/
-
                 PluginConfig.Instance.reactionTime = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(JD_Display)));
 
@@ -436,6 +408,8 @@ namespace JDFixer.UI
         [UIAction("#post-parse")]
         private void PostParse()
         {
+            Logger.log.Debug("PostParse");
+
             jd_slider_text = JD_Slider.slider.GetComponentInChildren<CurvedTextMeshPro>();
 
             if (jd_slider_text != null)
@@ -453,8 +427,8 @@ namespace JDFixer.UI
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(JD_Value)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(RT_Value)));
 
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Snapped_JD)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Snapped_RT)));
+            //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Snapped_JD)));
+            //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Snapped_RT)));
         }
 
 
@@ -477,11 +451,13 @@ namespace JDFixer.UI
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Show_JD_Slider)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Show_RT_Slider)));
 
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Snapped_JD)));
+                // 1.26.0
+                Refresh_BeatmapOffsets();
+                /*PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Snapped_JD)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Snapped_RT)));
 
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Show_Snapped_JD)));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Show_Snapped_RT)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Show_Snapped_RT)));*/
             }
         }
         [UIAction("slider_setting_increment_formatter")]
