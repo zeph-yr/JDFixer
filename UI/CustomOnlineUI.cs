@@ -20,17 +20,14 @@ namespace JDFixer.UI
 
         public void Initialize()
         {
-            //Logger.log.Debug("Custom Init");
-
             GameplaySetup.instance.AddTab("JDFixer-TA/MP", "JDFixer.UI.BSML.customOnlineUI.bsml", this, MenuType.Custom | MenuType.Online);
         }
 
         public void Dispose()
         {
-            //Logger.log.Debug("Custom Dispose");
-
             if (GameplaySetup.instance != null)
             {
+                PluginConfig.Instance.Changed();
                 GameplaySetup.instance.RemoveTab("JDFixer-TA/MP");
             }
         }
@@ -46,8 +43,6 @@ namespace JDFixer.UI
         // For updating UI values to match those last used in Solo, when coming from Solo to Online
         internal void Refresh()
         {
-            //Logger.log.Debug("OnlineUI Refresh");
-
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Slider_Setting_Value)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Increment_Value)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Pref_Button)));

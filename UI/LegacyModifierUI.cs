@@ -23,17 +23,14 @@ namespace JDFixer.UI
 
         public void Initialize()
         {
-            //Logger.log.Debug("Legacy Init");
-
             GameplaySetup.instance.AddTab("JDFixer", "JDFixer.UI.BSML.legacyModifierUI.bsml", this, MenuType.Solo | MenuType.Campaign);
         }
 
         public void Dispose()
         {
-            //Logger.log.Debug("Legacy Dispose");
-
             if (GameplaySetup.instance != null)
             {
+                PluginConfig.Instance.Changed();
                 GameplaySetup.instance.RemoveTab("JDFixer");
             }
         }
@@ -63,8 +60,6 @@ namespace JDFixer.UI
 
         internal void Refresh()
         {
-            //Logger.log.Debug("LegacyUI Refresh");
-
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Slider_Setting_Value)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Increment_Value)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Pref_Button)));

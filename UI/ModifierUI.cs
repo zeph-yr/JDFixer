@@ -30,6 +30,7 @@ namespace JDFixer.UI
         {
             if (GameplaySetup.instance != null)
             {
+                PluginConfig.Instance.Changed();
                 GameplaySetup.instance.RemoveTab("JDFixer");
             }
         }
@@ -54,14 +55,10 @@ namespace JDFixer.UI
 
         internal void Refresh()
         {
-            Logger.log.Debug("ModUI Refresh");
-
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Slider_Setting_Value)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Increment_Value)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Pref_Button)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Heuristic_Increment_Value)));
-
-            PostParse();
         }
 
 
@@ -567,7 +564,6 @@ namespace JDFixer.UI
         JumpDistance = 0,
         ReactionTime = 1
     }
-
 
     internal enum PreferenceEnum
     {
