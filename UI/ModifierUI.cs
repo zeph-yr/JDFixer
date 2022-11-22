@@ -7,13 +7,14 @@ using Zenject;
 using System;
 using System.ComponentModel;
 using JDFixer.Interfaces;
+using UnityEngine;
 
 
 namespace JDFixer.UI
 {
     public class ModifierUI : IInitializable, IDisposable, INotifyPropertyChanged, IBeatmapInfoUpdater
     {
-        internal static ModifierUI Instance { get; private set; }
+        internal static ModifierUI Instance { get; set; }
         private readonly MainFlowCoordinator _mainFlow;
         private readonly PreferencesFlowCoordinator _prefFlow;
 
@@ -34,7 +35,7 @@ namespace JDFixer.UI
                 GameplaySetup.instance.RemoveTab("JDFixer");
             }
         }
-        
+
         // To get the flow coordinators using zenject, we use a constructor
         public ModifierUI(MainFlowCoordinator mainFlowCoordinator, PreferencesFlowCoordinator preferencesFlowCoordinator)
         {
@@ -101,6 +102,19 @@ namespace JDFixer.UI
         //----------------------------------------------------
 
 
+        [UIValue("map_jd_rt")]
+        private string Map_JD_RT => Get_Map_JD_RT();
+
+        private string Get_Map_JD_RT()
+        {
+            if (PluginConfig.Instance.rt_display_enabled)
+            {
+                return "Map JD and RT";
+            }
+            return "Map JD";
+        }
+
+
         [UIValue("map_default_jd")]
         private string Map_Default_JD => Get_Map_Default_JD();
         //public string MapDefaultJDText => "<#ffff00>" + _selectedBeatmap.JumpDistance.ToString("0.###") + "     <#8c1aff>" + _selectedBeatmap.ReactionTime.ToString("0.#") + " ms";
@@ -154,7 +168,7 @@ namespace JDFixer.UI
                 }
 
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(RT_Value)));
-                //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ReactionTimeText))); // For old RT Display
+                //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ReactionTimeText))); // For old RT Display                
             }
         }
 
@@ -184,7 +198,7 @@ namespace JDFixer.UI
 
         [UIAction("jd_slider_formatter")]
         private string JD_Slider_Formatter(float value) => value.ToString("0.##");
-        
+
 
 
         [UIValue("min_rt_slider")]
@@ -367,15 +381,15 @@ namespace JDFixer.UI
         {
             if (PluginConfig.Instance.pref_selected == 2)
             {
-                return "<#cc99ff>JD and RT Preferences"; //#8c1aff
+                return "<#00000000>----<#cc99ff>Configure  RT  Preferences<#00000000>----"; //#8c1aff
             }
             else if (PluginConfig.Instance.pref_selected == 1)
             {
-                return "<#ffff00>JD and RT Preferences";
+                return "<#00000000>----<#ffff00>Configure  JD  Preferences<#00000000>----";
             }
             else
             {
-                return "JD and RT Preferences";
+                return "Configure  JD  and  RT  Preferences";
             }
         }
 
@@ -431,7 +445,7 @@ namespace JDFixer.UI
         [UIValue("thresholds")]
         private string Thresholds
         {
-            get => "≤ " + PluginConfig.Instance.lower_threshold.ToString() + " and " + PluginConfig.Instance.upper_threshold.ToString() + " ≤";
+            get => "≤ " + PluginConfig.Instance.lower_threshold.ToString() + " or  ≥ " + PluginConfig.Instance.upper_threshold.ToString();
         }
 
 
@@ -472,7 +486,7 @@ namespace JDFixer.UI
 
             if (rt_slider_text != null)
             {
-                rt_slider_text.color = new UnityEngine.Color(204f/255f, 153f/255f, 1f);
+                rt_slider_text.color = new UnityEngine.Color(204f / 255f, 153f / 255f, 1f);
             }
 
 
@@ -487,12 +501,12 @@ namespace JDFixer.UI
             jd_slider_range.minValue = _selectedBeatmap.MinJDSlider;
             jd_slider_range.maxValue = _selectedBeatmap.MaxJDSlider;
 
-            
+
             // These are critical:
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Min_RT_Slider)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Max_RT_Slider)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(RT_Value)));
-            
+
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Min_JD_Slider)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Max_JD_Slider)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(JD_Value)));
@@ -554,7 +568,7 @@ namespace JDFixer.UI
 
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Min_JD_Slider)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Max_JD_Slider)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(JD_Value)));            
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(JD_Value)));
         }
     }
 

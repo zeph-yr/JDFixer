@@ -7,7 +7,7 @@
 				<text text='----------------' align='Left' rich-text='true' font-color='#00000000'/>
 				<text text='~map_default_jd' min-width='29' align='Right' hover-hint='Configure UI in Mod Settings'/>
 
-				<text text='Min.' align='Left'/>
+				<text text='Min.' align='Left' font-color='#8c8c8cff'/>
 				<text text='----------------' align='Left' rich-text='true' font-color='#00000000'/>
 				<text text='~map_min_jd' min-width='29' align='Right' hover-hint='Configure UI in Mod Settings'/>
 			</grid>

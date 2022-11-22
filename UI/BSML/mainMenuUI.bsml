@@ -1,16 +1,15 @@
 ﻿<bg xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd'>
-	<vertical vertical-fit='PreferredSize' preferred-height='70'>
+	<vertical vertical-fit='PreferredSize' preferred-height='80' pad-right='15' pad-bottom='10'>
 		<horizontal preferred-width='90'>
-			<text text='JDFixer UI Settings' font-size='5' align='Center'></text>
+			<text text='JDFixer UI Settings' font-size='5' underlined='true' align='Center'></text>
 		</horizontal>
-		<checkbox-setting value ='rt_display_value' on-change='set_rt_display' text='Show Map Reaction Times' hover-hint='Show or hide the maps original and minimum reaction times'></checkbox-setting>
-		<checkbox-setting value ='legacy_display_value' on-change='set_legacy_display' apply-on-change='false' text='Separate JD and RT Sliders' hover-hint='Turn this on to use JD and RT sliders independently. Choose which slider to use in Mod Tab. You must press OK for this to take affect.'></checkbox-setting>
-		
+		<checkbox-setting value ='rt_display_value' on-change='set_rt_display' text='Show map Reaction Times' hover-hint='Show or hide the maps original and minimum Reaction Time'></checkbox-setting>
+		<checkbox-setting value ='legacy_display_value' on-change='set_legacy_display' apply-on-change='false' text='Separate JD and RT sliders' hover-hint='Turn this on to use JD and RT sliders independently. Choose which slider to use in Mod Tab. You must press OK for this to take affect.'></checkbox-setting>
 		<horizontal>
 			<text text='------' font-color='#00000000' font-size='1' align='Left'></text>
 		</horizontal>
 		<horizontal>
-			<text text='Automated Preferences Settings' font-size='5' font-color='#ffff00ff' align='Center'></text>
+			<text text='Automated Preferences Settings' font-size='5' underlined='true' font-color='#ffff00ff' align='Center'></text>
 		</horizontal>
 		<vertical vertical-fit='PreferredSize' preferred-height='10'>
 			<horizontal preferred-width='90'>
@@ -30,9 +29,6 @@
 		</horizontal>
 		<horizontal>
 			<text text='~press_ok_text' rich-text='true' align='Right'></text>
-		</horizontal>
-		<horizontal>
-			<text text='------' font-color='#00000000' align='Left'></text>
 		</horizontal>
 	</vertical>
 </bg>
