@@ -42,7 +42,7 @@
 			<horizontal>
 				<text text='----------------' min-width='29' align='Left' rich-text='true' font-size='1' font-color='#00000000'/>
 			</horizontal>
-			<increment-setting value='slider_setting_value' apply-on-change='true' bind-value='true' text='Set slider to adjust using...' integer-only='true' min='0' max='1' formatter='slider_setting_increment_formatter' hover-hint='Choose to adjust maps by JD or RT'/>
+			<increment-setting value='slider_setting_value' apply-on-change='true' bind-value='true' text='Set slider to adjust using...' integer-only='true' min='0' max='1' formatter='slider_setting_increment_formatter' hover-hint='Choose whether slider is for JD or RT.'/>
 		</vertical>
 	</settings-container>
 	<horizontal pad-top='50'>
