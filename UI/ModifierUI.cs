@@ -7,8 +7,7 @@ using Zenject;
 using System;
 using System.ComponentModel;
 using JDFixer.Interfaces;
-using UnityEngine;
-
+using BeatSaberMarkupLanguage.Parser;
 
 namespace JDFixer.UI
 {
@@ -42,6 +41,7 @@ namespace JDFixer.UI
             Instance = this;
             _mainFlow = mainFlowCoordinator;
             _prefFlow = preferencesFlowCoordinator;
+            Donate.Refresh_Text();
         }
 
         public void BeatmapInfoUpdated(BeatmapInfo beatmapInfo)
@@ -570,7 +570,44 @@ namespace JDFixer.UI
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Max_JD_Slider)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(JD_Value)));
         }
+
+
+        //===============================================================
+
+
+        [UIValue("open_donate_text")]
+        private string Open_Donate_Text => Donate.donate_clickable_text;
+
+        [UIValue("open_donate_hint")]
+        private string Open_Donate_Hint => Donate.donate_clickable_hint;
+
+        [UIParams]
+        private BSMLParserParams parserParams;
+
+        [UIAction("open_donate_modal")]
+        private void Open_Donate_Modal()
+        {
+            parserParams.EmitEvent("hide_donate_modal");
+            Donate.Refresh_Text();
+            parserParams.EmitEvent("show_donate_modal");
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Donate_Modal_Text_Dynamic)));
+        }
+
+        private void Open_Donate_Browser()
+        {
+            Donate.Open_Donate_Browser();
+        }
+
+        [UIValue("donate_modal_text_static_1")]
+        private string Donate_Modal_Text_Static_1 => Donate.donate_modal_text_static_1;
+
+        [UIValue("donate_modal_text_static_2")]
+        private string Donate_Modal_Text_Static_2 => Donate.donate_modal_text_static_2;
+
+        [UIValue("donate_modal_text_dynamic")]
+        private string Donate_Modal_Text_Dynamic => Donate.donate_modal_text_dynamic;
     }
+
 
 
     internal enum SliderSettingEnum

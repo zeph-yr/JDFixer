@@ -39,6 +39,8 @@ namespace JDFixer
             harmony.PatchAll(System.Reflection.Assembly.GetExecutingAssembly());
 
             CheckForCustomCampaigns();
+
+            UI.Donate.Refresh_Text();
         }
 
 

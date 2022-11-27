@@ -150,6 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BeatmapUtils.cs" />
+    <Compile Include="UI\Donate.cs" />
     <Compile Include="UI\LegacyModifierUI.cs" />
     <Compile Include="TimeController.cs" />
     <Compile Include="TimeSetup.cs" />
