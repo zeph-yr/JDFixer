@@ -15,7 +15,7 @@ Supports CustomCampaigns, Tournament Assistant, Multiplayer, OST / DLC / Base Ca
 - **Multiple UIs and Options** with choice of linked or single sliders for JD and RT. New purpose-built UI for Tournaments.
 - **Mod Settings menu** to easily configure UI options and Thresholds.
 
-![screenshot](https://github.com/zeph-yr/JDFixer/blob/BS_1.26/Screenshots/6.0.0_menu_main.png)
+![screenshot](https://github.com/zeph-yr/JDFixer/blob/BS_1.26/Screenshots/6.0.0_menu_main_1.png)
 ![screenshot](https://github.com/zeph-yr/JDFixer/blob/BS_1.26/Screenshots/6.0.0_mod_settings.png)
 ![screenshot](https://github.com/zeph-yr/JDFixer/blob/BS_1.26/Screenshots/6.0.0_menu_linked_1.png)
 ![screenshot](https://github.com/zeph-yr/JDFixer/blob/BS_1.26/Screenshots/6.0.0_menu_unlinked_2.png)
@@ -117,7 +117,10 @@ This works exactly the same as JD Preferences. The five examples above apply, ex
 
 ## About
 This is my first time writing a mod. I made it for my own needs but friends thought it useful so I think it would be beneficial to share it. I hope others find this useful.
-I welcome feedback and suggestions :) 
+I welcome feedback and suggestions :)
+
+## Support and Donate
+Love JDFixer and would wish to show your support? [Become a patron](https://www.patreon.com/xeph_yr) and get your name featured on the Supporters panel in-game!
 
 ## Credits
 Thanks @Shurdoof for autoupdate!
