@@ -40,12 +40,12 @@
 	</horizontal>
 	<modal id='donate_modal' show-event='show_donate_modal' hide-event='hide_donate_modal' click-off-closes='true' move-to-center='true' size-delta-x='55' size-delta-y='60'>
 		<vertical>
-			<vertical pad-left='10' pad-right='10' pad-top='5' vertical-fit='PreferredSize' preferred-height='30'>
+			<vertical pad-left='10' pad-right='10' pad-top='5' vertical-fit='PreferredSize' preferred-height='25'>
 				<horizontal preferred-width='50'>
 					<text text='~donate_modal_text_static_1' word-wrapping='true' align='Center' rich-text='true'></text>
 				</horizontal>
-				<primary-button text='Open Patreon in Desktop' font-size='3' align='Center' on-click='Open_Donate_Browser' hover-hint='Link will open in your web broswer'/>
 				<horizontal>
+					<primary-button text='Open Patreon' font-size='3' align='Center' on-click='Open_Donate_Browser' hover-hint='Link will open in your web broswer'/>
 					<text text='~donate_modal_text_static_2' word-wrapping='true' align='Right' rich-text='true'></text>
 				</horizontal>
 			</vertical>

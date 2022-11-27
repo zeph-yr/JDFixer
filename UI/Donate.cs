@@ -47,7 +47,7 @@ namespace JDFixer.UI
             }
 
             //Logger.log.Debug("reply: " + reply);
-            donate_modal_text_dynamic = "<size=85%>" + reply;
+            donate_modal_text_dynamic = reply;
         }
     }
 }
