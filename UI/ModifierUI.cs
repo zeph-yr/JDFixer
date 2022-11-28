@@ -591,6 +591,7 @@ namespace JDFixer.UI
             Donate.Refresh_Text();
             parserParams.EmitEvent("show_donate_modal");
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Donate_Modal_Text_Dynamic)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Donate_Modal_Hint_Dynamic)));
         }
 
         private void Open_Donate_Browser()
@@ -606,6 +607,9 @@ namespace JDFixer.UI
 
         [UIValue("donate_modal_text_dynamic")]
         private string Donate_Modal_Text_Dynamic => Donate.donate_modal_text_dynamic;
+
+        [UIValue("donate_modal_hint_dynamic")]
+        private string Donate_Modal_Hint_Dynamic => Donate.donate_modal_hint_dynamic;
     }
 
 
