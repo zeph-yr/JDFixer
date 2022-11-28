@@ -4,7 +4,7 @@ Was once based on Kylemc1413's NjsFixer but has grown to much more.
 
 I wanted a stripped down mod that focused only on JD modification to fix floaty maps without NJS/BPM modification since I don't use those features. I felt there was a gap between Njsfixer and Leveltweaks that isn't filled for JD-focused players and this is my interpretation for meeting those needs.
 
-Supports CustomCampaigns, Tournament Assistant, Multiplayer, OST / DLC / Base Campaign. Score posting is unaffected. For Beat Saber 1.17.1+.
+Supports CustomCampaigns, Tournament Assistant, Multiplayer, OST / DLC / Base Campaign, Chirality and more. Score posting is unaffected. For Beat Saber 1.16.1+.
 
 ## New Features
 - **Selected map's original JD and RT is displayed.** You can easily decide if you want to use JDFixer without having to play the map to feel it. Saves time.
@@ -26,10 +26,10 @@ Supports CustomCampaigns, Tournament Assistant, Multiplayer, OST / DLC / Base Ca
 - Place JDFixer.dll in Plugins folder
 - Select a map or difficulty to see its original JD and RT
 - Set up Automated Preferences to select JD or RT based on map's NJS with in-game menu (If you require finer decimal values for NJS, JD and RT, you can edit your preferences in `/UserData/JDFixer.json`)
-- To access the RT Preferences menu, set `Automated Preferences` to `ReactionTime` and click `Configure RT Preferences`
+- To access the RT Preferences menu, set `Automated Preferences` to `ReactionTime` and click `Configure RT Preferences` (the purple button)
 - Setting `Automated Preferences` to `JumpDistance` or `ReactionTime` will override the JD and RT sliders
 - If you enable `Bypass Preferences if map is closer`, you **must** set base game settings to `Dynamic Default`
-- You can configure `Bypass Preferences if NJS is` equal to, less, or greater than `Lower` and `Upper Thresholds` in Mod Settings (or `/UserData/JDFixer.json` in ≤v5.x.x)
+- You can configure `Bypass Preferences if NJS is` equal to, less, or greater than `Lower` and `Upper Thresholds` in Mod Settings (for ≤v5.x.x, edit values in `/UserData/JDFixer.json`)
 - Hover over menu in-game for additional explanations
 - **v6.0.0 for BS 1.26.0+ requires BSIPA, BSML, and SiraUtil**
 - **Not compatible with NjsFixer and LevelTweaks.** Using with these mods may result in conflicts and unexpected behavior.
@@ -38,7 +38,7 @@ Supports CustomCampaigns, Tournament Assistant, Multiplayer, OST / DLC / Base Ca
 1. **Linked JD and RT sliders:** The JD or RT slider will remember its last value when you click between maps. Scroll to the bottom of JDFixer's tab to swap. This is the default UI (v3.1.0+)
 2. **One slider for JD or RT, and a display value for other:** Go to Mod Settings and toggle on `Unlink JD and RT sliders` (for ≤v5.x.x, change `legacy_ui_enabled` in `/UserData/JDFixer.json` to "true"). Scroll to the bottom of the JDFixer's tab to swap between JD and RT
 3. **Show (or hide) the default and minimum Reaction Times for maps:** Go to Mod Settings and toggle on/off `Show map Reaction Times` (for ≤v5.x.x, change `rt_display_enabled` in `/UserData/JDFixer.json` to "false")
-4. **TA and MP dedicated UI:** Choose to set your map by JD or RT. You can only set one at a time **(v4.0.0+)**
+4. **TA and MP dedicated UI:** Choose to set your map by JD or RT. You can only set one at a time (v4.0.0+)
 5. Min and max ranges for JD and RT sliders can be changed in `/UserData/JDFixer.json`
 
 <div id="image-table">
@@ -88,8 +88,8 @@ This works exactly the same as JD Preferences. The five examples above apply, ex
 ## Tournaments and MP
 - **Tournament Assistant:** Supports Default, Dual Sync and AutoPause matches. You can only use one of the sliders at a time. As usual, enabling Preferences override both sliders. *Avoid opening the Preferences menu in TA! You will be stuck in it until you relaunch the game or the coordinator lets you out (this is by design in TA). However if you do choose to get yourself stuck inside just before a match, your match will still play fine when the coordinator starts it (but I hope you've set your Preferences correctly lol).*
 - **Multiplayer:** Shares the UI with TA. As usual, you can only use one of the sliders at a time and enabling Preferences override both sliders. It is safe to open the Preferences menu here lol.
-- **CustomCampaigns:** Comes with display for map's default JD and RT **(v3.1.0+)**
-- **OST, DLC Levels, Base Campaign:** Fully supported.
+- **CustomCampaigns:** Comes with display for map's default JD and RT (v3.1.0+)
+- **OST, DLC Levels, Base Campaign:** These are fully supported.
 
 <div id="image-table">
     <table>
