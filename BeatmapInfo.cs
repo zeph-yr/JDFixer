@@ -3,6 +3,9 @@
     public delegate void BeatmapInfoEventHandler(BeatmapInfo e);
     public class BeatmapInfo
     {
+        // 1.29.1
+        public static float speedMultiplier = 1f;
+
         public static event BeatmapInfoEventHandler SelectedChanged;
 
         public static void SetSelected(IDifficultyBeatmap diff)

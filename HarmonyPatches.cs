@@ -107,6 +107,11 @@ namespace JDFixer
                 }
             }
 
+            Logger.log.Debug("Before: " + desiredJumpDis);
+            desiredJumpDis = SpawnMovementDataUpdateHelper.Get_Modified_DesiredJD(desiredJumpDis, mapNJS);
+            Logger.log.Debug("After: " + desiredJumpDis);
+
+
             // Calculate New Offset Given Desired JD:
             float simOffset = 0;
             float numCurr = 60f / startBpm;
@@ -146,6 +151,54 @@ namespace JDFixer
             cc_level = level;
         }
     }
+
+
+    [HarmonyPatch(typeof(StandardLevelScenesTransitionSetupDataSO), "Init")]
+    internal class StandardLevelScenesTransitionSetupDataSOPatch
+    {
+        static void Postfix(GameplayModifiers gameplayModifiers, PracticeSettings practiceSettings)
+        {
+            Logger.log.Debug("StandardLevelScenesTransitionSetupDataSOPatch");
+
+            Logger.log.Debug("GameplayModifiers: " + gameplayModifiers.songSpeedMul);
+            BeatmapInfo.speedMultiplier = gameplayModifiers.songSpeedMul;
+
+            if (practiceSettings != null)
+            {
+                Logger.log.Debug("PracticeSettings: " + practiceSettings.songSpeedMul);
+                BeatmapInfo.speedMultiplier = gameplayModifiers.songSpeedMul;
+            }
+        }
+    }
+
+
+    internal class SpawnMovementDataUpdateHelper
+    {
+        internal static float Get_Modified_DesiredJD(float jumpDis, float mapNJS)
+        {
+            float new_RT = BeatmapUtils.Calculate_ReactionTime_Setpoint_Float(jumpDis, mapNJS) * BeatmapInfo.speedMultiplier;
+
+            if (PluginConfig.Instance.song_speed_setting == 2)
+            {
+                Logger.log.Debug("Get_Modified_DesiredJD: 2");
+                return BeatmapUtils.Calculate_JumpDistance_Setpoint_Float(new_RT, mapNJS);
+            }
+
+            else if (PluginConfig.Instance.song_speed_setting == 1 &&
+                    (PluginConfig.Instance.usePreferredReactionTimeValues || (PluginConfig.Instance.slider_setting == 1 && PluginConfig.Instance.usePreferredJumpDistanceValues == false)))
+            {
+                Logger.log.Debug("Get_Modified_DesiredJD: 1");
+                return BeatmapUtils.Calculate_JumpDistance_Setpoint_Float(new_RT, mapNJS);
+            }
+
+            else
+            {
+                Logger.log.Debug("Get_Modified_DesiredJD: 0");
+                return jumpDis;
+            }
+        }
+    }
+
 
     // Not supporting 1.19.0 anymore
     /*[HarmonyPatch(typeof(CoreMathUtils), "CalculateHalfJumpDurationInBeats")]

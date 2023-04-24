@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-
-namespace JDFixer
+﻿namespace JDFixer
 {
     static class BeatmapUtils
     {

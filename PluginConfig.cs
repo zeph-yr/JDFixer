@@ -52,7 +52,11 @@ namespace JDFixer
         //1.26.0 Feature update
         public virtual bool use_offset { get; set; } = false;
         public virtual float offset_fraction { get; set; } = 8f;
-        public bool af_enabled { get; set; } = true;
+
+        // 1.29.1
+        public virtual int song_speed_setting { get; set; } = 0;
+
+        public bool af_enabled { get; set; } = false;
 
 
         /// <summary>
