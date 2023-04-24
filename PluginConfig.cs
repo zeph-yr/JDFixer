@@ -16,10 +16,9 @@ namespace JDFixer
         public virtual bool enabled { get; set; } = false;
 
         
-        public virtual float jumpDistance { get; set; } = 24f;
-        //public virtual float stepJumpDistance { get; set; } = 0.1f;
-        public virtual float minJumpDistance { get; set; } = 12;
-        public virtual float maxJumpDistance { get; set; } = 35;
+        public float jumpDistance { get; set; } = 24f;
+        public virtual int minJumpDistance { get; set; } = 12;
+        public virtual int maxJumpDistance { get; set; } = 35;
         public virtual bool usePreferredJumpDistanceValues { get; set; } = false;
 
         [UseConverter(typeof(ListConverter<JDPref>))]
@@ -27,10 +26,9 @@ namespace JDFixer
         public virtual List<JDPref> preferredValues { get; set; } = new List<JDPref>();
 
 
-        public virtual float reactionTime { get; set; } = 500f;
-        //public virtual float stepReactionTime { get; set; } = 5f;
-        public virtual float minReactionTime { get; set; } = 300;
-        public virtual float maxReactionTime { get; set; } = 1600;
+        public float reactionTime { get; set; } = 500f;
+        public virtual int minReactionTime { get; set; } = 300;
+        public virtual int maxReactionTime { get; set; } = 1600;
         public virtual bool usePreferredReactionTimeValues { get; set; } = false;
 
         [UseConverter(typeof(ListConverter<RTPref>))]
@@ -43,8 +41,8 @@ namespace JDFixer
         public virtual int pref_selected { get; set; } = 0;
 
         public virtual int use_heuristic { get; set; } = 0;
-        public virtual float lower_threshold { get; set; } = 1f;
-        public virtual float upper_threshold { get; set; } = 100f;
+        public float lower_threshold { get; set; } = 1f;
+        public float upper_threshold { get; set; } = 100f;
 
         public virtual bool rt_display_enabled { get; set; } = true;
         public virtual bool legacy_display_enabled { get; set; } = false;

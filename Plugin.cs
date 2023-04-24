@@ -39,19 +39,23 @@ namespace JDFixer
             harmony.PatchAll(System.Reflection.Assembly.GetExecutingAssembly());
 
             CheckForCustomCampaigns();
+
+            UI.Donate.Refresh_Text();
         }
 
 
         [OnDisable]
         public void OnApplicationQuit()
         {
+            //Logger.log.Debug("OnApplicationQuit()");
+
+            PluginConfig.Instance.Changed();
             harmony.UnpatchSelf();
         }
 
 
         internal static bool CheckForCustomCampaigns()
         {
-
             var cc_installed = PluginManager.GetPluginFromId("CustomCampaigns");
             Logger.log.Debug("CC installed: " + cc_installed);
 

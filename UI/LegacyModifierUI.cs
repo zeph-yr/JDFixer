@@ -7,7 +7,7 @@ using Zenject;
 using System;
 using System.ComponentModel;
 using JDFixer.Interfaces;
-using UnityEngine;
+using BeatSaberMarkupLanguage.Parser;
 
 namespace JDFixer.UI
 {
@@ -23,17 +23,14 @@ namespace JDFixer.UI
 
         public void Initialize()
         {
-            //Logger.log.Debug("Legacy Init");
-
             GameplaySetup.instance.AddTab("JDFixer", "JDFixer.UI.BSML.legacyModifierUI.bsml", this, MenuType.Solo | MenuType.Campaign);
         }
 
         public void Dispose()
         {
-            //Logger.log.Debug("Legacy Dispose");
-
             if (GameplaySetup.instance != null)
             {
+                PluginConfig.Instance.Changed();
                 GameplaySetup.instance.RemoveTab("JDFixer");
             }
         }
@@ -44,6 +41,7 @@ namespace JDFixer.UI
             Instance = this;
             _mainFlow = mainFlowCoordinator;
             _prefFlow = preferencesFlowCoordinator;
+            Donate.Refresh_Text();
         }
 
         public void BeatmapInfoUpdated(BeatmapInfo beatmapInfo)
@@ -76,8 +74,6 @@ namespace JDFixer.UI
 
         internal void Refresh()
         {
-            //Logger.log.Debug("LegacyUI Refresh");
-
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Slider_Setting_Value)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Increment_Value)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Pref_Button)));
@@ -493,5 +489,45 @@ namespace JDFixer.UI
                 return false;
             }
         }
+
+
+        //===============================================================
+
+
+        [UIValue("open_donate_text")]
+        private string Open_Donate_Text => Donate.donate_clickable_text;
+
+        [UIValue("open_donate_hint")]
+        private string Open_Donate_Hint => Donate.donate_clickable_hint;
+
+        [UIParams]
+        private BSMLParserParams parserParams;
+
+        [UIAction("open_donate_modal")]
+        private void Open_Donate_Modal()
+        {
+            parserParams.EmitEvent("hide_donate_modal");
+            Donate.Refresh_Text();
+            parserParams.EmitEvent("show_donate_modal");
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Donate_Modal_Text_Dynamic)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Donate_Modal_Hint_Dynamic)));
+        }
+
+        private void Open_Donate_Browser()
+        {
+            Donate.Open_Donate_Browser();
+        }
+
+        [UIValue("donate_modal_text_static_1")]
+        private string Donate_Modal_Text_Static_1 => Donate.donate_modal_text_static_1;
+
+        [UIValue("donate_modal_text_static_2")]
+        private string Donate_Modal_Text_Static_2 => Donate.donate_modal_text_static_2;
+
+        [UIValue("donate_modal_text_dynamic")]
+        private string Donate_Modal_Text_Dynamic => Donate.donate_modal_text_dynamic;
+
+        [UIValue("donate_modal_hint_dynamic")]
+        private string Donate_Modal_Hint_Dynamic => Donate.donate_modal_hint_dynamic;
     }
 }

@@ -7,7 +7,7 @@ using Zenject;
 using System;
 using System.ComponentModel;
 using JDFixer.Interfaces;
-using UnityEngine;
+using BeatSaberMarkupLanguage.Parser;
 
 namespace JDFixer.UI
 {
@@ -34,16 +34,18 @@ namespace JDFixer.UI
 
             if (GameplaySetup.instance != null)
             {
+                PluginConfig.Instance.Changed();
                 GameplaySetup.instance.RemoveTab("JDFixer");
             }
         }
-        
+
         // To get the flow coordinators using zenject, we use a constructor
         public ModifierUI(MainFlowCoordinator mainFlowCoordinator, PreferencesFlowCoordinator preferencesFlowCoordinator)
         {
             Instance = this;
             _mainFlow = mainFlowCoordinator;
             _prefFlow = preferencesFlowCoordinator;
+            Donate.Refresh_Text();
         }
 
         public void BeatmapInfoUpdated(BeatmapInfo beatmapInfo)
@@ -65,8 +67,6 @@ namespace JDFixer.UI
 
         internal void Refresh()
         {
-            //Logger.log.Debug("ModUI Refresh");
-
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Slider_Setting_Value)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Increment_Value)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Pref_Button)));
@@ -248,7 +248,6 @@ namespace JDFixer.UI
 
         [UIAction("jd_slider_formatter")]
         private string JD_Slider_Formatter(float value) => value.ToString("0.##");
-        #endregion
 
 
         #region RT_UI
@@ -572,7 +571,7 @@ namespace JDFixer.UI
 
             if (rt_slider_text != null)
             {
-                rt_slider_text.color = new UnityEngine.Color(204f/255f, 153f/255f, 1f);
+                rt_slider_text.color = new UnityEngine.Color(204f / 255f, 153f / 255f, 1f);
             }
 
             rt_slider_range = RT_Slider.slider.GetComponentInChildren<HMUI.CustomFormatRangeValuesSlider>();
@@ -587,23 +586,12 @@ namespace JDFixer.UI
             jd_slider_range.maxValue = _selectedBeatmap.MaxJDSlider;
 
 
-            /*if (PluginConfig.Instance.use_offset)
-            {
-                JD_Slider.increments = Step_JD_Slider;
-                RT_Slider.increments = Step_RT_Slider;
-
-                rt_slider_range.numberOfSteps = Get_JD_Num_Steps();
-                jd_slider_range.numberOfSteps = Get_JD_Num_Steps();
-            }*/
-
-
             // These are critical:
             //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Step_RT_Slider)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Min_RT_Slider)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Max_RT_Slider)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(RT_Value)));
 
-            //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Step_JD_Slider)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Min_JD_Slider)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Max_JD_Slider)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(JD_Value)));
@@ -677,9 +665,50 @@ namespace JDFixer.UI
             //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Step_JD_Slider)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Min_JD_Slider)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Max_JD_Slider)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(JD_Value)));            
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(JD_Value)));
         }
+
+
+        //===============================================================
+
+
+        [UIValue("open_donate_text")]
+        private string Open_Donate_Text => Donate.donate_clickable_text;
+
+        [UIValue("open_donate_hint")]
+        private string Open_Donate_Hint => Donate.donate_clickable_hint;
+
+        [UIParams]
+        private BSMLParserParams parserParams;
+
+        [UIAction("open_donate_modal")]
+        private void Open_Donate_Modal()
+        {
+            parserParams.EmitEvent("hide_donate_modal");
+            Donate.Refresh_Text();
+            parserParams.EmitEvent("show_donate_modal");
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Donate_Modal_Text_Dynamic)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Donate_Modal_Hint_Dynamic)));
+        }
+
+        private void Open_Donate_Browser()
+        {
+            Donate.Open_Donate_Browser();
+        }
+
+        [UIValue("donate_modal_text_static_1")]
+        private string Donate_Modal_Text_Static_1 => Donate.donate_modal_text_static_1;
+
+        [UIValue("donate_modal_text_static_2")]
+        private string Donate_Modal_Text_Static_2 => Donate.donate_modal_text_static_2;
+
+        [UIValue("donate_modal_text_dynamic")]
+        private string Donate_Modal_Text_Dynamic => Donate.donate_modal_text_dynamic;
+
+        [UIValue("donate_modal_hint_dynamic")]
+        private string Donate_Modal_Hint_Dynamic => Donate.donate_modal_hint_dynamic;
     }
+
 
 
     internal enum SliderSettingEnum
@@ -687,7 +716,6 @@ namespace JDFixer.UI
         JumpDistance = 0,
         ReactionTime = 1
     }
-
 
     internal enum PreferenceEnum
     {
@@ -702,8 +730,3 @@ namespace JDFixer.UI
         On = 1
     }
 }
-
-/*		<vertical vertical-fit='PreferredSize' preferred-height='14'>
-			<slider-setting id='jd_slider' value ='jd_value' show-buttons='true' on-change='set_jd_value' apply-on-change='true' bind-value='true' text='Desired Jump Distance' increment='~step_jd_slider' min='~min_jd_slider' max='~max_jd_slider' formatter='jd_slider_formatter'></slider-setting>
-			<slider-setting id='rt_slider' value ='rt_value' show-buttons='true' on-change='set_rt_value' apply-on-change='true' bind-value='true' text='Reaction Time' increment='~step_rt_slider' min='~min_rt_slider' max='~max_rt_slider' formatter='rt_slider_formatter'></slider-setting>
-		</vertical>*/

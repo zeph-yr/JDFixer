@@ -164,7 +164,7 @@ namespace JDFixer.UI
         }
 
         [UIValue("press_ok_text")]
-        private string Press_Ok_Text = "<#ffffffff>Press OK to apply settings  <#ff0080ff>♡          <size=70%>v6.0.0 by Zephyr#9125";
+        private string Press_Ok_Text = "<#ffffffff>Press OK to apply settings  <#ff0080ff>♡       <size=70%>v6.0.0 by Zephyr#9125<#00000000>--";
     }
 
     internal enum SongSpeedEnum
