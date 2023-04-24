@@ -23,10 +23,9 @@ namespace JDFixer.UI
             }
         }
 
-        internal static string Open_Donate_Browser()
+        internal static void Open_Donate_Browser()
         {
             Process.Start("https://www.patreon.com/xeph_yr");
-            return "";
         }
 
         private static async Task Get_Donate_Modal_Text()
