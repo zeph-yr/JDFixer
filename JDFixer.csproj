@@ -164,7 +164,6 @@
     <Compile Include="UI\PreferencesListViewController.cs" />
     <Compile Include="UI\RTPreferencesListViewController.cs" />
     <Compile Include="HarmonyPatches.cs" />
-    <Compile Include="Logger.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources1.Designer.cs">
@@ -212,7 +211,13 @@
     <EmbeddedResource Include="UI\BSML\mainMenuUI.bsml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="LICENSE.txt" />
+    <None Include="LICENSE" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Notices\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="NOTICE" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

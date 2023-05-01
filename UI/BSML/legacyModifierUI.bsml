@@ -32,14 +32,14 @@
 			<grid cell-size-y='5' cell-size-x='28' spacing-x='2' align='Right'>
 				<text text='Snapped to...' align='Left'/>
 				<text text='--' align='Left' rich-text='true' font-color='#00000000'/>
-				<text text='~snapped_jd' min-width='29' align='Right' hover-hint='Configure 1/n in Mod Settings'/>
+				<text text='~snapped_jd' min-width='29' align='Right' hover-hint='Configure 1/n in Mod Settings. Automated Preferences override snapping.'/>
 			</grid>
 		</horizontal>
 		<horizontal active='~show_snapped_rt'>
 			<grid cell-size-y='5' cell-size-x='28' spacing-x='2' align='Right'>
 				<text text='Snapped to...' align='Left'/>
 				<text text='--' align='Left' rich-text='true' font-color='#00000000'/>
-				<text text='~snapped_rt' min-width='29' align='Right' hover-hint='Configure 1/n in Mod Settings'/>
+				<text text='~snapped_rt' min-width='29' align='Right' hover-hint='Configure 1/n in Mod Settings. Automated Preferences override snapping.'/>
 			</grid>
 		</horizontal>
 		<increment-setting value='increment_value' apply-on-change='true' bind-value='true' text='Automated Preferences' integer-only='true' min='0' max='2' formatter='increment_formatter' hover-hint='Autoselect JD or RT based on NJS'/>

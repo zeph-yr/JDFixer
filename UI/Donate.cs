@@ -30,7 +30,7 @@ namespace JDFixer.UI
 
         private static async Task Get_Donate_Modal_Text()
         {
-            //Logger.log.Debug("reply: " + donate_modal_text_dynamic);
+            //Plugin.Log.Debug("reply: " + donate_modal_text_dynamic);
             string reply_text = "Loading...";
             string reply_hint = "";
 
@@ -43,7 +43,7 @@ namespace JDFixer.UI
                 catch
                 {
                     reply_text = "Loading failed. Pls ping Zeph on Discord, TY!";
-                    Logger.log.Debug("Failed to fetch Donate info");
+                    Plugin.Log.Debug("Failed to fetch Donate info");
                 }
                 try
                 {
@@ -51,7 +51,7 @@ namespace JDFixer.UI
                 }
                 catch
                 {
-                    Logger.log.Debug("Failed to fetch Donate info");
+                    Plugin.Log.Debug("Failed to fetch Donate info");
                 }
             }
 
@@ -62,8 +62,8 @@ namespace JDFixer.UI
 
             if (hint_start != -1)
             {
-                //Logger.log.Debug("reply: " + reply_hint);
-                //Logger.log.Debug("start: " + hint_start + " end: " + hint_end);
+                //Plugin.Log.Debug("reply: " + reply_hint);
+                //Plugin.Log.Debug("start: " + hint_start + " end: " + hint_end);
                 donate_modal_hint_dynamic = reply_hint.Substring(hint_start + 9, hint_end - hint_start - 9); // Yes. And no, it's not wrong.
             }
         }

@@ -14,6 +14,8 @@ Supports CustomCampaigns, Tournament Assistant, Multiplayer, OST / DLC / Base Ca
 - **Upper and Lower NJS Thresholds where Preferences will be bypassed.** If a map's NJS is at or exceeds thresholds, the map will run at its original JD and RT.
 - **Multiple UIs and Options** with choice of linked or single sliders for JD and RT. New purpose-built UI for Tournaments.
 - **Mod Settings menu** to easily configure UI options and Thresholds.
+- **Snap JD and RT to fractions of a beat.** Run map at JDs and RTs that line up with multiples of a desired beat fraction.
+- **Choose whether song speed affects JD or RT settings.** Choice of keeping JD settings regardless of song speed, auto-compensating RT based on song speed, or both!
 
 ![screenshot](https://github.com/zeph-yr/JDFixer/blob/BS_1.26/Screenshots/6.0.0_menu_main_1.png)
 ![screenshot](https://github.com/zeph-yr/JDFixer/blob/BS_1.26/Screenshots/6.0.0_mod_settings.png)
@@ -30,8 +32,11 @@ Supports CustomCampaigns, Tournament Assistant, Multiplayer, OST / DLC / Base Ca
 - Setting `Automated Preferences` to `JumpDistance` or `ReactionTime` will override the JD and RT sliders
 - If you enable `Bypass Preferences if map is closer`, you **must** set base game settings to `Dynamic Default`
 - You can configure `Bypass Preferences if NJS is` equal to, less, or greater than `Lower` and `Upper Thresholds` in Mod Settings (or `/UserData/JDFixer.json` in ≤v5.x.x)
+- To enable `Snap JD and RT to beat fraction`, go to Mod Settings and toggle on `Unlink JD and RT sliders` and set the fraction's denominator (eg. 1/3rd, 1/4th, 1/64th etc) using the slider underneath
+- To configure song speed behavior, go to Mod Settings and choose one of the options. See below for a detailed explanation of how each option behaves.
+
 - Hover over menu in-game for additional explanations
-- **v6.0.0 for BS 1.26.0+ requires BSIPA, BSML, and SiraUtil**
+- **v7.0.0 for BS 1.26.0+ requires BSIPA, BSML, and SiraUtil**
 - **Not compatible with NjsFixer and LevelTweaks.** Using with these mods may result in conflicts and unexpected behavior.
 
 ## UI Customization
@@ -85,6 +90,15 @@ To run every map at a constant JD regardless of its NJS, create a single prefere
 **Reaction Time Preferences:** 
 This works exactly the same as JD Preferences. The five examples above apply, except in Reaction Time. Reaction Time is a function of the map's original NJS and Jump Distance. This means that RT Preferences automatically sets the map's JD to give your preferred RT for its given NJS.
 
+## Understanding Song Speed Options
+By base game behavior, maps played at different song speeds (for example when playing with Modifiers or at 200% on Practice Mode) maintain their JD. This is so that logically a higher song speed setting will make the map "play faster" by lowering the player's reaction time.
+
+**JD_Settings:** If you prefer the base game behavior or you prefer to always have a known JD (meaning you want to play at the JD you set, at any song speed), choose this option.
+
+**RT_Settings:** If you prefer to always have a known reaction time (and would prefer the JD to be auto-adjusted depending on the song speed to give you the RT you set), choose this option. This means when you play a map at a higher song speed, the JD will be pushed back to give the same RT as if the play was played at normal speed. Playing a map at lower song speed will bring the JD closer.
+
+**JD_RT_Respectively:** If you prefer to have both of options, depending on whether you are using the JD or RT sliders and Automated Preferencences, choose this. This means when you have the JD slider active or are using JD Automated Preferences, it will behave like the `JD_Settings` option, and when you have the RT slider active or are using RT Automated Preferences, it will behave like the `RT_Settings` option.
+
 ## Tournaments and MP
 - **Tournament Assistant:** Supports Default, Dual Sync and AutoPause matches. You can only use one of the sliders at a time. As usual, enabling Preferences override both sliders. *Avoid opening the Preferences menu in TA! You will be stuck in it until you relaunch the game or the coordinator lets you out (this is by design in TA). However if you do choose to get yourself stuck inside just before a match, your match will still play fine when the coordinator starts it (but I hope you've set your Preferences correctly lol).*
 - **Multiplayer:** Shares the UI with TA. As usual, you can only use one of the sliders at a time and enabling Preferences override both sliders. It is safe to open the Preferences menu here lol.
@@ -107,6 +121,7 @@ This works exactly the same as JD Preferences. The five examples above apply, ex
 ![screenshot](https://github.com/zeph-yr/JDFixer/blob/BS_1.26/Screenshots/6.0.0_mp.png)
 
 ## Versions
+- v7.0.0 for BS 1.26.0+
 - v6.0.0 for BS 1.26.0+
 - v5.x.x for BS 1.20.0+ only
 - 4.0.0 for BS 1.19.0 / 1.19.1

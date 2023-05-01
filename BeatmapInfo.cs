@@ -39,7 +39,7 @@
             MinJDSlider = 0f;
             MaxJDSlider = 50f;
 
-            // 1.26.0
+            // 1.26.0-1.29.0 Feature update
             JDOffsetQuantum = 0.1f;
             RTOffsetQuantum = 5f;
         }
@@ -82,22 +82,15 @@
                 MaxJDSlider = PluginConfig.Instance.maxReactionTime * NJS / 500;
             }
 
-            // 1.26.0
+            // 1.26.0-1.29.0 Feature update
             Offset = offset;
             JDOffsetQuantum = BeatmapUtils.CalculateJumpDistance(bpm, njs, offset + 1 / PluginConfig.Instance.offset_fraction) - BeatmapUtils.CalculateJumpDistance(bpm, njs, offset);
             RTOffsetQuantum = JDOffsetQuantum * 500 / NJS;
 
-            /*if (PluginConfig.Instance.use_offset)
-            {
-                BeatmapOffsets.Create_Snap_Points(ref BeatmapOffsets.JD_Snap_Points, ref BeatmapOffsets.JD_Offset_Points, Offset, JumpDistance, UnitJDOffset, MinJDSlider, MaxJDSlider);
-                BeatmapOffsets.Create_Snap_Points(ref BeatmapOffsets.RT_Snap_Points, ref BeatmapOffsets.RT_Offset_Points, Offset, ReactionTime, UnitRTOffset, MinRTSlider, MaxRTSlider);
-            }*/
-
-
-            //Logger.log.Debug("BeatmapInfo minJD: " + PluginConfig.Instance.minJumpDistance);
-            //Logger.log.Debug("BeatmapInfo maxJD: " + PluginConfig.Instance.maxJumpDistance);
-            //Logger.log.Debug("BeatmapInfo minRT: " + MinRTSlider);
-            //Logger.log.Debug("BeatmapInfo maxRT: " + MaxRTSlider);
+            //Plugin.Log.Debug("BeatmapInfo minJD: " + PluginConfig.Instance.minJumpDistance);
+            //Plugin.Log.Debug("BeatmapInfo maxJD: " + PluginConfig.Instance.maxJumpDistance);
+            //Plugin.Log.Debug("BeatmapInfo minRT: " + MinRTSlider);
+            //Plugin.Log.Debug("BeatmapInfo maxRT: " + MaxRTSlider);
         }
 
         public float JumpDistance { get; }
@@ -113,7 +106,7 @@
         public float MinJDSlider { get; }
         public float MaxJDSlider { get; }
 
-        // 1.26.0
+        // 1.26.0-1.29.0 Feature update
         public float Offset { get; }
         public float JDOffsetQuantum { get; }
         public float RTOffsetQuantum { get; }

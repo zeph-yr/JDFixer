@@ -15,7 +15,7 @@ namespace JDFixer
             
             //if (true)
             {
-                //Logger.log.Debug("TimeSetup Inject");
+                //Plugin.Log.Debug("TimeSetup Inject");
 
                 zenjector.Install<JDFixerTimeInstaller>(Location.GameCore);
             }
@@ -29,7 +29,7 @@ namespace JDFixer
             
             //if (true)
             {
-                //Logger.log.Debug("TimeSetup Patch");
+                //Plugin.Log.Debug("TimeSetup Patch");
 
                 var original = AccessTools.Method(typeof(BeatmapObjectSpawnMovementData), nameof(BeatmapObjectSpawnMovementData.GetJumpingNoteSpawnData));
                 var postfix = AccessTools.Method(typeof(TimeControllerPatch), nameof(TimeControllerPatch.Postfix));

@@ -29,7 +29,7 @@ namespace JDFixer
 
         private void Start()
         {
-            //Logger.log.Debug("TimeController Start");
+            //Plugin.Log.Debug("TimeController Start");
 
             GameObject canvasGo = new GameObject("Canvas");
             canvasGo.transform.parent = transform;

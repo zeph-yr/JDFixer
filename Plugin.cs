@@ -3,6 +3,7 @@ using IPA;
 using IPA.Config;
 using IPA.Config.Stores;
 using IPA.Loader;
+using IPALogger = IPA.Logging.Logger;
 using JDFixer.Installers;
 using SiraUtil.Zenject;
 
@@ -14,11 +15,12 @@ namespace JDFixer
         public static Harmony harmony;
         //internal static string game_version = "";
 
+        internal static IPALogger Log { get; private set; }
 
         [Init]
-        public Plugin(IPA.Logging.Logger logger, Config conf, Zenjector zenjector)
+        public Plugin(IPALogger logger, Config conf, Zenjector zenjector)
         {
-            Logger.log = logger;
+            Plugin.Log = logger;
             PluginConfig.Instance = conf.Generated<PluginConfig>();
 
             zenjector.Install<JDFixerMenuInstaller>(Location.Menu);
@@ -29,10 +31,10 @@ namespace JDFixer
         [OnEnable]
         public void OnApplicationStart()
         {
-            Logger.log.Debug("OnApplicationStart()");
+            Plugin.Log.Debug("OnApplicationStart()");
 
             //game_version = IPA.Utilities.UnityGame.GameVersion.ToString();
-            //Logger.log.Debug(game_version);
+            //Plugin.Log.Debug(game_version);
 
             harmony = new Harmony("com.zephyr.BeatSaber.JDFixer");
             //TimeSetup.Patch();
@@ -55,7 +57,7 @@ namespace JDFixer
         internal static bool CheckForCustomCampaigns()
         {
             var cc_installed = PluginManager.GetPluginFromId("CustomCampaigns");
-            Logger.log.Debug("CC installed: " + cc_installed);
+            Plugin.Log.Debug("CC installed: " + cc_installed);
 
             return cc_installed != null;
         }

@@ -1,0 +1,36 @@
+﻿    JDFixer
+    Copyright (C) 2023 Zeph-yr
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published
+    by the Free Software Foundation version 3 of the License with Additional Terms.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+    As special exceptions the Additional Terms on the work licensed herein,
+    pursuant to Section 7 of Affero General Public License are as follows:
+
+    1. If you distribute any portion or version of the work, you must license it
+    under GNU AGPL version 3 with these same additional terms stated in this notice.
+    You may not supplement the terms of the license with any additional terms.
+
+    2. Pursuant to AGPLv3, Section 7 (b): You must retain and display all copyright 
+    and attribution notices indicating the work was created "by Zephyr#9125" and the
+    location of original repository "https://github.com/zeph-yr/JDFixer". You may 
+    not modify or remove information relating to the author, including donation
+    information, from the work.
+
+    3. Pursuant to AGPLv3, Section 7 (d): No Trademark License - This license 
+    does not grant you rights to use any contributors' name, logo, or trademarks
+    beyond the reasonable extent of using any contributors' names for the purpose
+    of attribution.
+
+    Contents in the "Screenshots" directory are not part of the Program and
+    remain the exclusive property of their copyright holders.
+    Attributions for older versions of JDFixer are in the "Notices" directory.

@@ -7,7 +7,7 @@
 			<checkbox-setting value ='legacy_display_value' on-change='set_legacy_display' apply-on-change='false' text='Separate JD and RT sliders' hover-hint='Turn this on to use JD and RT sliders independently. Choose which slider to use in Mod Tab. Must press OK for this to take affect.'></checkbox-setting>
 			<checkbox-setting value ='use_offset_value' on-change='set_use_offset' apply-on-change='false' text='Snap JD and RT to fractions of a beat' hover-hint='Run map at multiples of its offset based on fractions of a beat. Must enable Separate JD and RT sliders to use this'></checkbox-setting>
 			<slider-setting id='offset_fraction_slider' value ='offset_fraction_value' show-buttons='true' on-change='set_offset_fraction' apply-on-change='true' bind-value='true' text='Beat fraction (1/n)' increment='1' min='2' max='64' hover-hint='Set value for n'></slider-setting>
-			<increment-setting value='song_speed_increment_value' apply-on-change='true' bind-value='true' text='For song speed, use...' integer-only='true' min='0' max='2' formatter='song_speed_increment_formatter' hover-hint='Choose whether song speed affects JD and RT settings. See manual for complete explanation.'/>
+			<increment-setting value='song_speed_increment_value' apply-on-change='true' bind-value='true' text='For song speed, use...' integer-only='true' min='0' max='2' formatter='song_speed_increment_formatter' hover-hint='Choose whether song speed affects JD and RT settings and Automated Preferences. See manual for complete explanation.'/>
 		<horizontal>
 			<text text='------' font-color='#00000000' font-size='1' align='Left'></text>
 		</horizontal>

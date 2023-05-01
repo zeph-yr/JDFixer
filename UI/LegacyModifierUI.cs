@@ -58,8 +58,8 @@ namespace JDFixer.UI
 
             if (PluginConfig.Instance.use_offset)
             {
-                //Logger.log.Debug("Map JD: " + _selectedBeatmap.JumpDistance + " " + _selectedBeatmap.MinJDSlider + " " + _selectedBeatmap.MaxJDSlider);
-                //Logger.log.Debug("Map RT: " + _selectedBeatmap.ReactionTime + " " + _selectedBeatmap.MinRTSlider + " " + _selectedBeatmap.MaxRTSlider);
+                //Plugin.Log.Debug("Map JD: " + _selectedBeatmap.JumpDistance + " " + _selectedBeatmap.MinJDSlider + " " + _selectedBeatmap.MaxJDSlider);
+                //Plugin.Log.Debug("Map RT: " + _selectedBeatmap.ReactionTime + " " + _selectedBeatmap.MinRTSlider + " " + _selectedBeatmap.MaxRTSlider);
 
                 BeatmapOffsets.Create_Snap_Points(ref BeatmapOffsets.JD_Snap_Points, ref BeatmapOffsets.JD_Offset_Points, _selectedBeatmap.Offset, _selectedBeatmap.JumpDistance, _selectedBeatmap.JDOffsetQuantum, _selectedBeatmap.MinJDSlider, _selectedBeatmap.MaxJDSlider);
                 BeatmapOffsets.Create_Snap_Points(ref BeatmapOffsets.RT_Snap_Points, ref BeatmapOffsets.RT_Offset_Points, _selectedBeatmap.Offset, _selectedBeatmap.ReactionTime, _selectedBeatmap.RTOffsetQuantum, _selectedBeatmap.MinRTSlider, _selectedBeatmap.MaxRTSlider);
@@ -87,7 +87,7 @@ namespace JDFixer.UI
 
         internal void Refresh_BeatmapOffsets()
         {
-            Logger.log.Debug("Refresh_BeatmapOffsets");
+            Plugin.Log.Debug("Refresh_BeatmapOffsets");
 
             BeatmapOffsets.Calculate_Nearest_JD_Snap_Point(JD_Value);
             BeatmapOffsets.Calculate_Nearest_RT_Snap_Point(RT_Value);
@@ -398,7 +398,7 @@ namespace JDFixer.UI
         [UIAction("#post-parse")]
         private void PostParse()
         {
-            Logger.log.Debug("PostParse");
+            Plugin.Log.Debug("PostParse");
 
             jd_slider_text = JD_Slider.slider.GetComponentInChildren<CurvedTextMeshPro>();
 
@@ -438,7 +438,7 @@ namespace JDFixer.UI
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Show_JD_Slider)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Show_RT_Slider)));
 
-                // 1.26.0
+                // 1.26.0-1.29.0 Feature update
                 if (PluginConfig.Instance.use_offset)
                 {
                     Refresh_BeatmapOffsets();

@@ -519,7 +519,7 @@ namespace JDFixer.UI
         // Must "recalculate" them here then trigger everything to update
         private void RefreshSliderMinMax()
         {
-            Logger.log.Debug("Refresh Slider Min Max");
+            Plugin.Log.Debug("Refresh Slider Min Max");
             rt_slider_range = RT_Slider.slider.GetComponentInChildren<HMUI.CustomFormatRangeValuesSlider>();
             jd_slider_range = JD_Slider.slider.GetComponentInChildren<HMUI.CustomFormatRangeValuesSlider>();
 

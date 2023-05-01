@@ -14,7 +14,7 @@ namespace JDFixer
                 return;
             }
 
-           Logger.log.Debug("Start Map");
+           Plugin.Log.Debug("Start Map");
 
             // BS 1.19.0
             noteJumpValueType = BeatmapObjectSpawnMovementData.NoteJumpValueType.BeatOffset;
@@ -27,7 +27,7 @@ namespace JDFixer
             float noteJumpStartBeatOffset = noteJumpValue;  
 
             float mapNJS = startNoteJumpMovementSpeed;
-            Logger.log.Debug("mapNJS:" + mapNJS.ToString());
+            Plugin.Log.Debug("mapNJS:" + mapNJS.ToString());
 
             if (mapNJS <= 0.01) // Just in case?
                 mapNJS = 10;
@@ -45,8 +45,9 @@ namespace JDFixer
                 desiredJumpDis = PluginConfig.Instance.reactionTime * mapNJS / 500;
             }
 
-            // 1.26.0
-            if (PluginConfig.Instance.use_offset && PluginConfig.Instance.legacy_display_enabled)
+            // 1.26.0-1.29.0 Feature update
+            if (PluginConfig.Instance.use_offset && PluginConfig.Instance.legacy_display_enabled && 
+                PluginConfig.Instance.use_rt_pref == false && PluginConfig.Instance.use_jd_pref == false)
             {
                 if (PluginConfig.Instance.slider_setting == 0)
                 {
@@ -63,21 +64,27 @@ namespace JDFixer
             {
                 if (mapNJS <= PluginConfig.Instance.lower_threshold || mapNJS >= PluginConfig.Instance.upper_threshold)
                 {
-                    Logger.log.Debug("Using Threshold");
-                    return;
+                    Plugin.Log.Debug("Using Threshold");
+                    
+                    //return;
+                    desiredJumpDis = BeatmapInfo.Selected.JumpDistance;
+                    goto SongSpeed; // Yes, a goto.
                 }
-
+                
                 var rt_pref = PluginConfig.Instance.rt_preferredValues.FirstOrDefault(x => x.njs <= mapNJS);
-                Logger.log.Debug("Using Preference");
+                Plugin.Log.Debug("Using Preference");
 
                 if (rt_pref != null)
                     desiredJumpDis = rt_pref.reactionTime * mapNJS / 500;
 
                 if (BeatmapUtils.CalculateJumpDistance(startBpm, mapNJS, noteJumpStartBeatOffset) <= desiredJumpDis && PluginConfig.Instance.use_heuristic == 1)
                 {
-                    Logger.log.Debug("Not Fixing: Original JD below or equal setpoint");
-                    Logger.log.Debug($"BPM/NJS/Offset {startBpm}/{startNoteJumpMovementSpeed}/{noteJumpStartBeatOffset}");
-                    return;
+                    Plugin.Log.Debug("Not Fixing: Original JD below or equal setpoint");
+                    Plugin.Log.Debug($"BPM/NJS/Offset {startBpm}/{startNoteJumpMovementSpeed}/{noteJumpStartBeatOffset}");
+                    
+                    //return;
+                    desiredJumpDis = BeatmapInfo.Selected.JumpDistance;
+                    goto SongSpeed;
                 }
             }
 
@@ -86,12 +93,15 @@ namespace JDFixer
             {
                 if (mapNJS <= PluginConfig.Instance.lower_threshold || mapNJS >= PluginConfig.Instance.upper_threshold)
                 {
-                    Logger.log.Debug("Using Threshold");
-                    return;
+                    Plugin.Log.Debug("Using Threshold");
+
+                    //return;
+                    desiredJumpDis = BeatmapInfo.Selected.JumpDistance;
+                    goto SongSpeed;
                 }
 
                 var pref = PluginConfig.Instance.preferredValues.FirstOrDefault(x => x.njs <= mapNJS);
-                Logger.log.Debug("Using Preference");
+                Plugin.Log.Debug("Using Preference");
 
                 if (pref != null)
                     desiredJumpDis = pref.jumpDistance;
@@ -101,13 +111,17 @@ namespace JDFixer
                 // mapper is lower than my pick, it's probably more optimal than my pick.
                 if (BeatmapUtils.CalculateJumpDistance(startBpm, mapNJS, noteJumpStartBeatOffset) <= desiredJumpDis && PluginConfig.Instance.use_heuristic == 1)
                 {
-                    Logger.log.Debug("Not Fixing: Original JD below or equal setpoint");
-                    Logger.log.Debug($"BPM/NJS/Offset {startBpm}/{startNoteJumpMovementSpeed}/{noteJumpStartBeatOffset}");
-                    return;
+                    Plugin.Log.Debug("Not Fixing: Original JD below or equal setpoint");
+                    Plugin.Log.Debug($"BPM/NJS/Offset {startBpm}/{startNoteJumpMovementSpeed}/{noteJumpStartBeatOffset}");
+                    
+                    //return;
+                    desiredJumpDis = BeatmapInfo.Selected.JumpDistance;
+                    goto SongSpeed;
                 }
             }
 
             // 1.29.1
+            SongSpeed:
             desiredJumpDis = SpawnMovementDataUpdateHelper.Get_Modified_DesiredJD(desiredJumpDis, mapNJS);
 
             // Calculate New Offset Given Desired JD:
@@ -133,8 +147,8 @@ namespace JDFixer
             //noteJumpStartBeatOffset = simOffset;
             noteJumpValue = simOffset;  // 1.19.0+
 
-            //Logger.log.Debug($"HalfJumpCurrent: {num2Curr} | DesiredHalfJump {desiredHalfJumpDur} | DesiredJumpDis {desiredJumpDis} | CurrJumpDis {jumpDisCurr} | Simulated Offset {simOffset}");
-            Logger.log.Debug($"DesiredJumpDis {desiredJumpDis} | Simulated Offset {simOffset}");
+            //Plugin.Log.Debug($"HalfJumpCurrent: {num2Curr} | DesiredHalfJump {desiredHalfJumpDur} | DesiredJumpDis {desiredJumpDis} | CurrJumpDis {jumpDisCurr} | Simulated Offset {simOffset}");
+            Plugin.Log.Debug($"DesiredJumpDis {desiredJumpDis} | Simulated Offset {simOffset}");
         }
     }
 
@@ -242,7 +256,7 @@ namespace JDFixer
             {
                 //float jumpDuration = __result.jumpDuration * (1 + TimeController.audioTime.songTime / TimeController.length * 0.75f); // * 1 might be more funny lol
                 float jumpDuration = (float)(__result.jumpDuration * (1 + 0.30 * Math.Abs(Math.Sin(4 * Math.PI * (TimeController.audioTime.songTime - 5f) / TimeController.length))));
-                //Logger.log.Debug("jumpDuration: " + jumpDuration);
+                //Plugin.Log.Debug("jumpDuration: " + jumpDuration);
 
                 return new BeatmapObjectSpawnMovementData.NoteSpawnData(__result.moveStartPos, __result.moveEndPos, __result.jumpEndPos, __result.jumpGravity, __result.moveDuration, jumpDuration);
             }

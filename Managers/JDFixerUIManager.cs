@@ -18,7 +18,7 @@ namespace JDFixer.Managers
         [Inject]
         public JDFixerUIManager(StandardLevelDetailViewController standardLevelDetailViewController, MissionSelectionMapViewController missionSelectionMapViewController, MainMenuViewController mainMenuViewController, List<IBeatmapInfoUpdater> iBeatmapInfoUpdaters)
         {
-            //Logger.log.Debug("JDFixerUIManager()");
+            //Plugin.Log.Debug("JDFixerUIManager()");
 
             levelDetail = standardLevelDetailViewController;
             missionSelection = missionSelectionMapViewController;
@@ -30,7 +30,7 @@ namespace JDFixer.Managers
 
         public void Initialize()
         {
-            //Logger.log.Debug("Initialize()");
+            //Plugin.Log.Debug("Initialize()");
 
             levelDetail.didChangeDifficultyBeatmapEvent += LevelDetail_didChangeDifficultyBeatmapEvent;
             levelDetail.didChangeContentEvent += LevelDetail_didChangeContentEvent;
@@ -50,7 +50,7 @@ namespace JDFixer.Managers
 
         public void Dispose()
         {
-            //Logger.log.Debug("Dispose()");
+            //Plugin.Log.Debug("Dispose()");
 
             levelDetail.didChangeDifficultyBeatmapEvent -= LevelDetail_didChangeDifficultyBeatmapEvent;
             levelDetail.didChangeContentEvent -= LevelDetail_didChangeContentEvent;
@@ -64,7 +64,7 @@ namespace JDFixer.Managers
 
         private void LevelDetail_didChangeDifficultyBeatmapEvent(StandardLevelDetailViewController arg1, IDifficultyBeatmap arg2)
         {
-            //Logger.log.Debug("LevelDetail_didChangeDifficultyBeatmapEvent()");
+            //Plugin.Log.Debug("LevelDetail_didChangeDifficultyBeatmapEvent()");
 
             if (arg1 != null && arg2 != null)
             {
@@ -75,12 +75,12 @@ namespace JDFixer.Managers
 
         private void LevelDetail_didChangeContentEvent(StandardLevelDetailViewController arg1, StandardLevelDetailViewController.ContentType arg2)
         {
-            //Logger.log.Debug("LevelDetail_didChangeContentEvent()");          
+            //Plugin.Log.Debug("LevelDetail_didChangeContentEvent()");          
             
             if (arg1 != null && arg1.selectedDifficultyBeatmap != null)
             {
-                //Logger.log.Debug("NJS: " + arg1.selectedDifficultyBeatmap.noteJumpMovementSpeed);
-                //Logger.log.Debug("Offset: " + arg1.selectedDifficultyBeatmap.noteJumpStartBeatOffset);
+                //Plugin.Log.Debug("NJS: " + arg1.selectedDifficultyBeatmap.noteJumpMovementSpeed);
+                //Plugin.Log.Debug("Offset: " + arg1.selectedDifficultyBeatmap.noteJumpStartBeatOffset);
 
                 DiffcultyBeatmapUpdated(arg1.selectedDifficultyBeatmap);
             }
@@ -95,25 +95,25 @@ namespace JDFixer.Managers
 
             if (arg2.missionData != null && arg2.missionData.beatmapCharacteristic != null)
             {
-                Logger.log.Debug("In CC, MissionNode exists");
+                Plugin.Log.Debug("In CC, MissionNode exists");
 
-                //Logger.log.Debug("MissionNode - missionid: " + arg2.missionId); //"<color=#0a92ea>[STND]</color> Holdin' Oneb28Easy-1"
-                //Logger.log.Debug("MissionNode - difficulty: " + arg2.missionData.beatmapDifficulty); // "Easy" etc
-                //Logger.log.Debug("MissionNode - characteristic: " + arg2.missionData.beatmapCharacteristic.serializedName); //"Standard" etc
+                //Plugin.Log.Debug("MissionNode - missionid: " + arg2.missionId); //"<color=#0a92ea>[STND]</color> Holdin' Oneb28Easy-1"
+                //Plugin.Log.Debug("MissionNode - difficulty: " + arg2.missionData.beatmapDifficulty); // "Easy" etc
+                //Plugin.Log.Debug("MissionNode - characteristic: " + arg2.missionData.beatmapCharacteristic.serializedName); //"Standard" etc
 
 
                 if (MissionSelectionPatch.cc_level != null) // lol null check just to print?
                 {
                     // If a map is not dled, this will be the previous selected node's map
-                    Logger.log.Debug("CC Level: " + MissionSelectionPatch.cc_level.levelID);  // For cross check with arg2.missionId
+                    Plugin.Log.Debug("CC Level: " + MissionSelectionPatch.cc_level.levelID);  // For cross check with arg2.missionId
 
                     IDifficultyBeatmap difficulty_beatmap = CustomCampaigns.Utils.BeatmapUtils.GetMatchingBeatmapDifficulty(MissionSelectionPatch.cc_level.levelID, arg2.missionData.beatmapCharacteristic, arg2.missionData.beatmapDifficulty);
 
                     if (difficulty_beatmap != null) // lol null check just to print?
                     {
-                        //Logger.log.Debug("MissionNode Diff: " + difficulty_beatmap.difficulty);  // For cross check with arg2.missionData.beatmapDifficulty
-                        //Logger.log.Debug("MissionNode Offset: " + difficulty_beatmap.noteJumpStartBeatOffset);
-                        //Logger.log.Debug("MissionNode NJS: " + difficulty_beatmap.noteJumpMovementSpeed);
+                        //Plugin.Log.Debug("MissionNode Diff: " + difficulty_beatmap.difficulty);  // For cross check with arg2.missionData.beatmapDifficulty
+                        //Plugin.Log.Debug("MissionNode Offset: " + difficulty_beatmap.noteJumpStartBeatOffset);
+                        //Plugin.Log.Debug("MissionNode NJS: " + difficulty_beatmap.noteJumpMovementSpeed);
 
                         DiffcultyBeatmapUpdated(difficulty_beatmap);
                     }
@@ -138,7 +138,7 @@ namespace JDFixer.Managers
 
         private void MainMenu_didDeactivateEvent(bool removedFromHierarchy, bool screenSystemDisabling)
         {
-            //Logger.log.Debug("MainMenu_didDeactivate");
+            //Plugin.Log.Debug("MainMenu_didDeactivate");
 
             if (UI.LegacyModifierUI.Instance != null)
             {
@@ -159,7 +159,7 @@ namespace JDFixer.Managers
 
         private void DiffcultyBeatmapUpdated(IDifficultyBeatmap difficultyBeatmap)
         {
-            //Logger.log.Debug("DiffcultyBeatmapUpdated()");
+            //Plugin.Log.Debug("DiffcultyBeatmapUpdated()");
 
             foreach (var beatmapInfoUpdater in beatmapInfoUpdaters)
             {
