@@ -7,7 +7,7 @@ namespace JDFixer.UI
     internal class Donate
     {
         internal static string donate_clickable_text = "<#00000000>------------<#ff0080ff><size=85%>♡ Donate";
-        internal static string donate_clickable_hint = "If you'd like to support me";
+        internal static string donate_clickable_hint = "If you'd like to support my work";
 
         internal static string donate_modal_text_static_1 = "<size=85%><#ffff00ff><u>Support JDFixer</u><size=75%><#cc99ffff>\nHave you have been enjoying my creations and\nyou wish to support me?";
         internal static string donate_modal_text_static_2 = "<size=70%><#ff0080ff>With much love, ♡ Zeph<#00000000>------";
