@@ -182,18 +182,15 @@ namespace JDFixer
 
             if (PluginConfig.Instance.song_speed_setting == 1)
             {
-                Logger.log.Debug("Get_Modified_DesiredJD: 2");
                 return BeatmapUtils.Calculate_JumpDistance_Setpoint_Float(new_RT, mapNJS);
             }
             else if (PluginConfig.Instance.song_speed_setting == 2 &&
                     (PluginConfig.Instance.use_rt_pref || (PluginConfig.Instance.slider_setting == 1 && PluginConfig.Instance.use_jd_pref == false)))
             {
-                Logger.log.Debug("Get_Modified_DesiredJD: 1");
                 return BeatmapUtils.Calculate_JumpDistance_Setpoint_Float(new_RT, mapNJS);
             }
             else
             {
-                Logger.log.Debug("Get_Modified_DesiredJD: 0");
                 return jumpDis;
             }
         }

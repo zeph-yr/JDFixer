@@ -22,7 +22,7 @@ namespace JDFixer
             PluginConfig.Instance = conf.Generated<PluginConfig>();
 
             zenjector.Install<JDFixerMenuInstaller>(Location.Menu);
-            TimeSetup.Inject(zenjector);
+            //TimeSetup.Inject(zenjector);
         }
 
 
@@ -35,7 +35,7 @@ namespace JDFixer
             //Logger.log.Debug(game_version);
 
             harmony = new Harmony("com.zephyr.BeatSaber.JDFixer");
-            TimeSetup.Patch();
+            //TimeSetup.Patch();
             harmony.PatchAll(System.Reflection.Assembly.GetExecutingAssembly());
 
             CheckForCustomCampaigns();
@@ -47,8 +47,6 @@ namespace JDFixer
         [OnDisable]
         public void OnApplicationQuit()
         {
-            //Logger.log.Debug("OnApplicationQuit()");
-
             PluginConfig.Instance.Changed();
             harmony.UnpatchSelf();
         }

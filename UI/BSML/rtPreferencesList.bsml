@@ -1,22 +1,21 @@
 ﻿<bg xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd'>
 	<vertical>
 		<horizontal preferred-width='80' child-control-width='true'>
-			<text text="Maps will automatically run using the [NJS | RT] setting that is equal or lower than the selected map's NJS. For constant RT across all maps, use [0 NJS | Your RT]" align='Center' word-wrapping='true' font-size='3' font-color='#cc99ffff'/>
+			<text text="Maps will automatically run using the [NJS | RT] setting that is equal or lower than the selected map's NJS. For constant RT across all maps, use [0 NJS | Desired RT]" align='Center' word-wrapping='true' font-size='3' font-color='#cc99ffff'/>
 		</horizontal>
 		<list id='pref_list' list-style='Simple' select-cell='select_pref' stick-scrolling="true" show-scrollbar="true"></list>
 		<horizontal>
-			<button pref-height='8' align='Center' text='Add' event-click='add_pressed'></button>
-			<button pref-height='8' align='Center' text='Remove Selected' on-click='remove_pressed'></button>
+			<button align='Center' text='Add' event-click='add_pressed'></button>
+			<button align='Center' text='Remove Selected' on-click='remove_pressed'></button>
 		</horizontal>
 	</vertical>
-
-	<modal id='AddModal' show-event='add_pressed' hide-event='closeModals' click-off-closes='false' size-delta-x='120' size-delta-y='40'>
-		<settings-container child-expand-height='false' pad-top='3' pad-bottom='3' child-control-width='true' child-expand-width='true' anchor-pos-y='-3' size-delta-y='0'>
-			<slider-setting id='njs_slider' show-buttons='true' value='njs_value' on-change='set_njs' text='NJS' increment='0.5' min='0' max='50' ></slider-setting>
-			<slider-setting id='rt_slider' show-buttons='true' value ='rt_value' on-change='set_rt' text='Desired Reaction Time' increment='1' min='~min_rt_slider' max='~max_rt_slider' formatter='rt_slider_formatter'></slider-setting>
+	<modal id='pref_modal' show-event='add_pressed' hide-event='hide_pref_modal' click-off-closes='true' move-to-center='true' size-delta-x='106' size-delta-y='34'>
+		<settings-container child-control-width='true' child-expand-width='true' anchor-pos-y='-3' size-delta-y='0'>
+			<slider-setting id='njs_slider' show-buttons='true' value='njs_value' on-change='set_njs_value' text='NJS' increment='0.5' min='0' max='50' ></slider-setting>
+			<slider-setting id='rt_slider' show-buttons='true' value ='rt_value' on-change='set_rt_value' text='Desired Reaction Time' increment='1' min='~min_rt_slider' max='~max_rt_slider' formatter='rt_slider_formatter'></slider-setting>
 			<horizontal>
-				<button text='Add' on-click='add_pressed' click-event='closeModals'></button>
-				<button text='Cancel' click-event='closeModals'></button>
+				<button text='Add' on-click='add_pressed' click-event='hide_pref_modal'></button>
+				<button text='Cancel' click-event='hide_pref_modal'></button>
 			</horizontal>
 		</settings-container>
 	</modal>

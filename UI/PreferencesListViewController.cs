@@ -11,25 +11,24 @@ namespace JDFixer.UI
     public class PreferencesListViewController : BSMLResourceViewController, INotifyPropertyChanged
     {
         public override string ResourceName => "JDFixer.UI.BSML.preferencesList.bsml";
-        //public event PropertyChangedEventHandler PropertyChanged;
 
 
         [UIComponent("njs_slider")]
         private SliderSetting NJS_Slider;
 
-        private float _new_njs = 16f;
+        private float New_NJS_Value = 16f;
 
         [UIValue("njs_value")]
         public float NJS_Value
         {
-            get => _new_njs;
+            get => New_NJS_Value;
             set
             {
-                _new_njs = value;
+                New_NJS_Value = value;
             }
         }
-        [UIAction("set_njs")]
-        void Set_NJS(float value)
+        [UIAction("set_njs_value")]
+        void Set_NJS_Value(float value)
         {
             NJS_Value = value;
         }
@@ -43,64 +42,44 @@ namespace JDFixer.UI
         [UIComponent("jd_slider")]
         private SliderSetting JD_Slider;
 
-        private float _new_jd = 23f;
+        private float New_JD_Value = 18f;
 
         [UIValue("jd_value")]
         public float JD_Value
         {
-            get => _new_jd;
+            get => New_JD_Value;
             set
             {
-                _new_jd = value;
+                New_JD_Value = value;
             }
         }
-
-        [UIAction("set_jd")]
-        void Set_JD(float value)
+        [UIAction("set_jd_value")]
+        void Set_JD_Value(float value)
         {
             JD_Value = value;
         }
 
 
         [UIComponent("pref_list")]
-        public CustomListTableData prefList;
-        private JDPref _selectedPref = null;
+        public CustomListTableData Pref_List;
+        private JDPref Selected_Pref = null;
 
-        /*[UIValue("prefIsSelected")]
-        public bool prefIsSelected
-        {
-            get => _selectedPref != null;
-            set
-            {
-                //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(prefIsSelected)));
-            }
-        }*/
-
-        /*[UIComponent("leftButton")]
-        private RectTransform leftButton;
-        
-        [UIComponent("rightButton")]
-        private RectTransform rightButton;*/
 
         [UIAction("select_pref")]
         private void Select_Pref(TableView tableView, int row)
         {
-            //Logger.log.Debug("Selected row " + row);
-
-            _selectedPref = PluginConfig.Instance.preferredValues[row];
-            //prefIsSelected = prefIsSelected;
-            //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(prefIsSelected)));
+            Selected_Pref = PluginConfig.Instance.preferredValues[row];
         }
 
 
         [UIAction("add_pressed")]
         private void Add_Pressed()
         {
-            if (PluginConfig.Instance.preferredValues.Any(x => x.njs == _new_njs))
+            if (PluginConfig.Instance.preferredValues.Any(x => x.njs == New_NJS_Value))
             {
-                PluginConfig.Instance.preferredValues.RemoveAll(x => x.njs == _new_njs);
+                PluginConfig.Instance.preferredValues.RemoveAll(x => x.njs == New_NJS_Value);
             }
-            PluginConfig.Instance.preferredValues.Add(new JDPref(_new_njs, _new_jd));
+            PluginConfig.Instance.preferredValues.Add(new JDPref(New_NJS_Value, New_JD_Value));
             Reload_List_From_Config();
         }
 
@@ -108,18 +87,18 @@ namespace JDFixer.UI
         [UIAction("remove_pressed")]
         private void Remove_Pressed()
         {
-            if (_selectedPref == null)
+            if (Selected_Pref == null)
             {
                 return;
             }
-            PluginConfig.Instance.preferredValues.RemoveAll(x => x == _selectedPref);
+            PluginConfig.Instance.preferredValues.RemoveAll(x => x == Selected_Pref);
             Reload_List_From_Config();
         }
 
 
         private void Reload_List_From_Config()
         {
-            prefList.data.Clear();
+            Pref_List.data.Clear();
 
             if (PluginConfig.Instance.preferredValues == null)
             {
@@ -130,14 +109,12 @@ namespace JDFixer.UI
 
             foreach (var pref in PluginConfig.Instance.preferredValues)
             {
-                prefList.data.Add(new CustomListTableData.CustomCellInfo($"{pref.njs} NJS | {pref.jumpDistance} Jump Distance"));
+                Pref_List.data.Add(new CustomListTableData.CustomCellInfo($"{pref.njs} NJS | {pref.jumpDistance} Jump Distance"));
             }
 
-            prefList.tableView.ReloadData();
-            prefList.tableView.ClearSelection();
-            _selectedPref = null;
-            //prefIsSelected = prefIsSelected;
-            //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(prefIsSelected)));
+            Pref_List.tableView.ReloadData();
+            Pref_List.tableView.ClearSelection();
+            Selected_Pref = null;
         }
 
 

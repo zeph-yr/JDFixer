@@ -25,7 +25,7 @@ namespace JDFixer.UI
             showBackButton = true;
             SetTitle("JDFixer Preferences");
 
-            if (PluginConfig.Instance.usePreferredReactionTimeValues)
+            if (PluginConfig.Instance.use_rt_pref)
                 ProvideInitialViewControllers(_rtPrefListView);
             else
                 ProvideInitialViewControllers(_prefListView);

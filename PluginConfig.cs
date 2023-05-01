@@ -19,7 +19,7 @@ namespace JDFixer
         public float jumpDistance { get; set; } = 24f;
         public virtual int minJumpDistance { get; set; } = 12;
         public virtual int maxJumpDistance { get; set; } = 35;
-        public virtual bool usePreferredJumpDistanceValues { get; set; } = false;
+        public virtual bool use_jd_pref { get; set; } = false;
 
         [UseConverter(typeof(ListConverter<JDPref>))]
         [NonNullable]
@@ -29,7 +29,7 @@ namespace JDFixer
         public float reactionTime { get; set; } = 500f;
         public virtual int minReactionTime { get; set; } = 300;
         public virtual int maxReactionTime { get; set; } = 1600;
-        public virtual bool usePreferredReactionTimeValues { get; set; } = false;
+        public virtual bool use_rt_pref { get; set; } = false;
 
         [UseConverter(typeof(ListConverter<RTPref>))]
         [NonNullable]
@@ -77,7 +77,7 @@ namespace JDFixer
     public class JDPref
     {
         public float njs = 16f;
-        public float jumpDistance = 24f;
+        public float jumpDistance = 18f;
 
         public JDPref()
         {

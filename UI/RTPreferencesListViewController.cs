@@ -11,26 +11,24 @@ namespace JDFixer.UI
     public class RTPreferencesListViewController : BSMLResourceViewController, INotifyPropertyChanged
     {
         public override string ResourceName => "JDFixer.UI.BSML.rtPreferencesList.bsml";
-        //public event PropertyChangedEventHandler propertyChanged;
 
 
         [UIComponent("njs_slider")]
         private SliderSetting NJS_Slider;
 
-        private float _new_njs = 16f;
+        private float New_NJS_Value = 16f;
 
         [UIValue("njs_value")]
         public float NJS_Value
         {
-            get => _new_njs;
+            get => New_NJS_Value;
             set
             {
-                _new_njs = value;
+                New_NJS_Value = value;
             }
         }
-
-        [UIAction("set_njs")]
-        void Set_NJS(float value)
+        [UIAction("set_njs_value")]
+        void Set_NJS_Value(float value)
         {
             NJS_Value = value;
         }
@@ -44,20 +42,19 @@ namespace JDFixer.UI
         [UIComponent("rt_slider")]
         private SliderSetting RT_Slider;
 
-        private float _new_rt = 500f;
+        private float New_RT_Value = 500f;
 
         [UIValue("rt_value")]
         public float RT_Value
         {
-            get => _new_rt;
+            get => New_RT_Value;
             set
             {
-                _new_rt = value;
+                New_RT_Value = value;
             }
         }
-
-        [UIAction("set_rt")]
-        void Set_RT(float value)
+        [UIAction("set_rt_value")]
+        void Set_RT_Value(float value)
         {
             RT_Value = value;
         }
@@ -67,27 +64,24 @@ namespace JDFixer.UI
 
 
         [UIComponent("pref_list")]
-        public CustomListTableData prefList;
-        private RTPref _selectedPref = null;
+        public CustomListTableData Pref_List;
+        private RTPref Selected_Pref = null;
 
         [UIAction("select_pref")]
         private void Select_Pref(TableView tableView, int row)
         {
-            //Logger.log.Debug("Selected row " + row);
-
-            _selectedPref = PluginConfig.Instance.rt_preferredValues[row];
-            //propertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(prefIsSelected)));
+            Selected_Pref = PluginConfig.Instance.rt_preferredValues[row];
         }
 
 
         [UIAction("add_pressed")]
         private void Add_Pressed()
         {
-            if (PluginConfig.Instance.rt_preferredValues.Any(x => x.njs == _new_njs))
+            if (PluginConfig.Instance.rt_preferredValues.Any(x => x.njs == New_NJS_Value))
             {
-                PluginConfig.Instance.rt_preferredValues.RemoveAll(x => x.njs == _new_njs);
+                PluginConfig.Instance.rt_preferredValues.RemoveAll(x => x.njs == New_NJS_Value);
             }
-            PluginConfig.Instance.rt_preferredValues.Add(new RTPref(_new_njs, _new_rt));
+            PluginConfig.Instance.rt_preferredValues.Add(new RTPref(New_NJS_Value, New_RT_Value));
             Reload_List_From_Config();
         }
 
@@ -95,17 +89,17 @@ namespace JDFixer.UI
         [UIAction("remove_pressed")]
         private void Remove_Pressed()
         {
-            if (_selectedPref == null)
+            if (Selected_Pref == null)
                 return;
 
-            PluginConfig.Instance.rt_preferredValues.RemoveAll(x => x == _selectedPref);
+            PluginConfig.Instance.rt_preferredValues.RemoveAll(x => x == Selected_Pref);
             Reload_List_From_Config();
         }
 
 
         private void Reload_List_From_Config()
         {
-            prefList.data.Clear();
+            Pref_List.data.Clear();
 
             if (PluginConfig.Instance.rt_preferredValues == null)
                 return;
@@ -114,15 +108,12 @@ namespace JDFixer.UI
 
             foreach (var pref in PluginConfig.Instance.rt_preferredValues)
             {
-                prefList.data.Add(new CustomListTableData.CustomCellInfo($"{pref.njs} NJS | {pref.reactionTime} ms"));
+                Pref_List.data.Add(new CustomListTableData.CustomCellInfo($"{pref.njs} NJS | {pref.reactionTime} ms"));
             }
 
-            prefList.tableView.ReloadData();
-            prefList.tableView.ClearSelection();
-            _selectedPref = null;
-            //prefIsSelected = prefIsSelected;
-            //prefIsSelected = false;
-            //propertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(prefIsSelected)));
+            Pref_List.tableView.ReloadData();
+            Pref_List.tableView.ClearSelection();
+            Selected_Pref = null;
         }
 
 
