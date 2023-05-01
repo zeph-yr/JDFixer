@@ -15,7 +15,8 @@ Supports CustomCampaigns, Tournament Assistant, all flavors of Multiplayer, OST 
 - **Multiple UIs and Options** with choice of linked or single sliders for JD and RT. New purpose-built UI for Tournaments.
 - **Mod Settings menu** to easily configure UI options and Thresholds.
 - **Snap JD and RT to fractions of a beat.** Run map at JDs and RTs that line up with multiples of a desired beat fraction.
-- **Choose whether song speed affects JD or RT settings.** Choice of keeping JD settings regardless of song speed in Practice mode and Modifiers, auto-compensating RT based on song speed, or both!
+- **Choose whether song speed affects JD or RT settings and Automated Preferences.** Choice of keeping JD settings regardless of song speed, auto-compensating RT based on song speed, or both! Applies to Practice mode and modifiers in Solo / MP / Party.
+
 
 ![screenshot](https://github.com/zeph-yr/JDFixer/blob/BS_1.26/Screenshots/6.0.0_menu_main_1.png)
 ![screenshot](https://github.com/zeph-yr/JDFixer/blob/BS_1.26_Offset/Screenshots/v7/7.0.0_mod_settings_3.png)
@@ -28,13 +29,13 @@ Supports CustomCampaigns, Tournament Assistant, all flavors of Multiplayer, OST 
 ## How To Use
 - Place JDFixer.dll in Plugins folder
 - Select a map or difficulty to see its original JD and RT
-- Set up Automated Preferences to select JD or RT based on map's NJS with in-game menu (If you require finer decimal values for NJS, JD and RT, you can edit your preferences in `/UserData/JDFixer.json`)
+- Set up Automated Preferences to select JD or RT based on map's NJS with in-game menu (If you require finer decimal values for NJS, JD and RT, you can edit the preferences in `/UserData/JDFixer.json`)
 - To access the RT Preferences menu, set `Automated Preferences` to `ReactionTime` and click `Configure RT Preferences`
 - Setting `Automated Preferences` to `JumpDistance` or `ReactionTime` will override the JD and RT sliders
 - If you enable `Bypass Preferences if map is closer`, you **must** set base game settings to `Dynamic Default`
 - You can configure `Bypass Preferences if NJS is` equal to, less, or greater than `Lower` and `Upper Thresholds` in Mod Settings (or `/UserData/JDFixer.json` in ≤v5.x.x)
-- To enable `Snap JD and RT to beat fraction`, go to Mod Settings and toggle on `Unlink JD and RT sliders` and set the fraction's denominator (eg. 1/3rd, 1/4th, 1/64th etc) using the slider underneath
-- To configure song speed behavior, go to Mod Settings and choose one of the options. See below for a detailed explanation of how each option behaves.
+- To enable `Snap JD and RT to beat fraction`, go to Mod Settings and toggle on `Separate JD and RT sliders` and set the fraction's denominator (eg. 1/3rd, 1/4th, 1/64th etc) using the slider
+- To configure song speed behavior, go to Mod Settings and choose one of the options. See [below](https://github.com/zeph-yr/JDFixer/edit/BS_1.26_Offset/README.md#understanding-song-speed-options) for a detailed explanation of how each option behaves.
 - Hover over menu in-game for additional explanations
 - **v7.0.0 for BS 1.26.0+ requires BSIPA, BSML, and SiraUtil**
 - **Not compatible with NjsFixer and LevelTweaks.** Using with these mods may result in conflicts and unexpected behavior.
@@ -101,7 +102,7 @@ To use this feature, toggle `ON` `Separate JD and RT sliders`, `Snap JD and RT t
 ![screenshot](https://github.com/zeph-yr/JDFixer/blob/BS_1.26_Offset/Screenshots/v7/7.0.0_beat_fraction_2.png)
 
 ## Understanding Song Speed Options
-By base game behavior, maps played at different song speeds (for example when playing with Modifiers or at 200% on Practice Mode) maintain their JD. This is so that logically a higher song speed setting will make the map "play faster" by lowering the player's reaction time.
+By base game behavior, maps played at different song speeds (for example when playing with Modifiers or at 200% on Practice Mode) maintain their JD. This is so that logically a higher song speed setting will make the map "play faster" and increases the difficulty by lowering the player's reaction time.
 
 - **JD_Settings:** If you prefer the base game behavior or you prefer to always have a known JD (meaning you want to play at the JD you set, at any song speed), choose this option.
 
@@ -115,7 +116,7 @@ By base game behavior, maps played at different song speeds (for example when pl
 - **Tournament Assistant:** Supports Default, Dual Sync and AutoPause matches. You can only use one of the sliders at a time. As usual, enabling Preferences override both sliders. *Avoid opening the Preferences menu in TA! You will be stuck in it until you relaunch the game or the coordinator lets you out (this is by design in TA). However if you do choose to get yourself stuck inside just before a match, your match will still play fine when the coordinator starts it (but I hope you've set your Preferences correctly lol).*
 - **Multiplayer:** Shares the UI with TA. As usual, you can only use one of the sliders at a time and enabling Preferences override both sliders. It is safe to open the Preferences menu here lol.
 - **CustomCampaigns:** Comes with display for map's default JD and RT **(v3.1.0+)**
-- **OST, DLC Levels, Base Campaign:** Fully supported.
+- **OST, DLC Levels, Base Campaign** are fully supported.
 
 <div id="image-table">
     <table>
