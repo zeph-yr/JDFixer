@@ -31,7 +31,8 @@
 			<text text='------' font-color='#00000000' font-size='1' align='Left'></text>
 		</horizontal>
 		<horizontal>
-			<text text='~press_ok_text' rich-text='true' align='Right'></text>
+			<text text='~press_ok_text_1' rich-text='true' align='Right'></text>
+			<text text='~press_ok_text_2' rich-text='true' align='Right' hover-hint='~press_ok_hint_2'></text>
 		</horizontal>
 	</vertical>
 </bg>
