@@ -90,6 +90,13 @@ To run every map at a constant JD regardless of its NJS, create a single prefere
 **Reaction Time Preferences:** 
 This works exactly the same as JD Preferences. The five examples above apply, except in Reaction Time. Reaction Time is a function of the map's original NJS and Jump Distance. This means that RT Preferences automatically sets the map's JD to give your preferred RT for its given NJS.
 
+## Understanding Snapping to Beat Fractions
+The snap display consists of 4 numbers (A, B) X Y
+**A:** This is how many fractions of a beat relative to the map's default offset, that the map will run at, given the current JD or RT slider value
+**B:** This is equivalent absolute offset that the will map run at.
+**X:** This is the equivalent JD that the map will snap to and run at
+**Y:** This is the equivalent RT that the map will snap to and run at.
+
 ## Understanding Song Speed Options
 By base game behavior, maps played at different song speeds (for example when playing with Modifiers or at 200% on Practice Mode) maintain their JD. This is so that logically a higher song speed setting will make the map "play faster" by lowering the player's reaction time.
 
