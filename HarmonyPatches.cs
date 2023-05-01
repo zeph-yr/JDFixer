@@ -59,7 +59,7 @@ namespace JDFixer
             }
 
             // NJS-RT setpoints from Preferences
-            if (PluginConfig.Instance.usePreferredReactionTimeValues)
+            if (PluginConfig.Instance.use_rt_pref)
             {
                 if (mapNJS <= PluginConfig.Instance.lower_threshold || mapNJS >= PluginConfig.Instance.upper_threshold)
                 {
@@ -82,7 +82,7 @@ namespace JDFixer
             }
 
             // NJS-JD setpoints from Preferences
-            else if (PluginConfig.Instance.usePreferredJumpDistanceValues)
+            else if (PluginConfig.Instance.use_jd_pref)
             {
                 if (mapNJS <= PluginConfig.Instance.lower_threshold || mapNJS >= PluginConfig.Instance.upper_threshold)
                 {
@@ -107,10 +107,8 @@ namespace JDFixer
                 }
             }
 
-            Logger.log.Debug("Before: " + desiredJumpDis);
+            // 1.29.1
             desiredJumpDis = SpawnMovementDataUpdateHelper.Get_Modified_DesiredJD(desiredJumpDis, mapNJS);
-            Logger.log.Debug("After: " + desiredJumpDis);
-
 
             // Calculate New Offset Given Desired JD:
             float simOffset = 0;
@@ -145,7 +143,6 @@ namespace JDFixer
     internal class MissionSelectionPatch
     {
         internal static IPreviewBeatmapLevel cc_level = null;
-
         static void Postfix(IPreviewBeatmapLevel level)
         {
             cc_level = level;
@@ -158,16 +155,21 @@ namespace JDFixer
     {
         static void Postfix(GameplayModifiers gameplayModifiers, PracticeSettings practiceSettings)
         {
-            Logger.log.Debug("StandardLevelScenesTransitionSetupDataSOPatch");
-
-            Logger.log.Debug("GameplayModifiers: " + gameplayModifiers.songSpeedMul);
             BeatmapInfo.speedMultiplier = gameplayModifiers.songSpeedMul;
-
             if (practiceSettings != null)
             {
-                Logger.log.Debug("PracticeSettings: " + practiceSettings.songSpeedMul);
-                BeatmapInfo.speedMultiplier = gameplayModifiers.songSpeedMul;
+                BeatmapInfo.speedMultiplier = practiceSettings.songSpeedMul;
             }
+        }
+    }
+
+
+    [HarmonyPatch(typeof(MultiplayerLevelScenesTransitionSetupDataSO), "Init")]
+    internal class MultiplayerLevelScenesTransitionSetupDataSOPatch
+    {
+        static void Postfix(GameplayModifiers gameplayModifiers)
+        {
+            BeatmapInfo.speedMultiplier = gameplayModifiers.songSpeedMul;
         }
     }
 
@@ -178,19 +180,17 @@ namespace JDFixer
         {
             float new_RT = BeatmapUtils.Calculate_ReactionTime_Setpoint_Float(jumpDis, mapNJS) * BeatmapInfo.speedMultiplier;
 
-            if (PluginConfig.Instance.song_speed_setting == 2)
+            if (PluginConfig.Instance.song_speed_setting == 1)
             {
                 Logger.log.Debug("Get_Modified_DesiredJD: 2");
                 return BeatmapUtils.Calculate_JumpDistance_Setpoint_Float(new_RT, mapNJS);
             }
-
-            else if (PluginConfig.Instance.song_speed_setting == 1 &&
-                    (PluginConfig.Instance.usePreferredReactionTimeValues || (PluginConfig.Instance.slider_setting == 1 && PluginConfig.Instance.usePreferredJumpDistanceValues == false)))
+            else if (PluginConfig.Instance.song_speed_setting == 2 &&
+                    (PluginConfig.Instance.use_rt_pref || (PluginConfig.Instance.slider_setting == 1 && PluginConfig.Instance.use_jd_pref == false)))
             {
                 Logger.log.Debug("Get_Modified_DesiredJD: 1");
                 return BeatmapUtils.Calculate_JumpDistance_Setpoint_Float(new_RT, mapNJS);
             }
-
             else
             {
                 Logger.log.Debug("Get_Modified_DesiredJD: 0");

@@ -55,8 +55,7 @@ namespace JDFixer.UI
 
 
         //=============================================================================================
-
-
+        
         [UIValue("enabled")]
         private bool Enabled
         {
@@ -90,9 +89,9 @@ namespace JDFixer.UI
         private string Slider_Setting_Increment_Formatter(int value) => ((SliderSettingEnum)value).ToString();
 
 
-
         //=============================================================================================
         // JD and RT Sliders
+
         [UIValue("jd_text")]
         private string JD_Text => Get_JD_Text();
 
@@ -190,7 +189,6 @@ namespace JDFixer.UI
 
 
         //=============================================================================================
-        // Bottom Section
 
         [UIValue("increment_value")]
         private int Increment_Value
@@ -213,18 +211,18 @@ namespace JDFixer.UI
         {
             if (PluginConfig.Instance.pref_selected == 2)
             {
-                PluginConfig.Instance.usePreferredJumpDistanceValues = false;
-                PluginConfig.Instance.usePreferredReactionTimeValues = true;
+                PluginConfig.Instance.use_jd_pref = false;
+                PluginConfig.Instance.use_rt_pref = true;
             }
             else if (PluginConfig.Instance.pref_selected == 1)
             {
-                PluginConfig.Instance.usePreferredJumpDistanceValues = true;
-                PluginConfig.Instance.usePreferredReactionTimeValues = false;
+                PluginConfig.Instance.use_jd_pref = true;
+                PluginConfig.Instance.use_rt_pref = false;
             }
             else
             {
-                PluginConfig.Instance.usePreferredJumpDistanceValues = false;
-                PluginConfig.Instance.usePreferredReactionTimeValues = false;
+                PluginConfig.Instance.use_jd_pref = false;
+                PluginConfig.Instance.use_rt_pref = false;
             }
 
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Pref_Button)));
@@ -304,7 +302,6 @@ namespace JDFixer.UI
         }
 
 
-
         //=============================================================================================
         
         private CurvedTextMeshPro jd_slider_text;
@@ -318,7 +315,7 @@ namespace JDFixer.UI
 
             if (jd_slider_text != null && rt_slider_text != null)
             {
-                if (PluginConfig.Instance.usePreferredJumpDistanceValues || PluginConfig.Instance.usePreferredReactionTimeValues)
+                if (PluginConfig.Instance.use_jd_pref || PluginConfig.Instance.use_rt_pref)
                 {
                     jd_slider_text.color = new UnityEngine.Color(0.3f, 0.3f, 0.3f);
                     rt_slider_text.color = new UnityEngine.Color(0.3f, 0.3f, 0.3f);
@@ -347,7 +344,6 @@ namespace JDFixer.UI
 
 
         //===============================================================
-
 
         [UIValue("open_donate_text")]
         private string Open_Donate_Text => Donate.donate_clickable_text;

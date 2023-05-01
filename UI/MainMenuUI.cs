@@ -2,14 +2,11 @@
 using System;
 using BeatSaberMarkupLanguage.Attributes;
 using BeatSaberMarkupLanguage.Components.Settings;
-using System.ComponentModel;
 
 namespace JDFixer.UI
 {
-    public class MainMenuUI : IInitializable, IDisposable//, INotifyPropertyChanged
+    public class MainMenuUI : IInitializable, IDisposable
     {
-        //public event PropertyChangedEventHandler PropertyChanged;
-
         public MainMenuUI()
         {
 
@@ -61,22 +58,6 @@ namespace JDFixer.UI
         }
 
 
-        /*[UIValue("")]
-        private bool Song_Speed_Value
-        {
-            get => PluginConfig.Instance.song_speed_setting;
-            set
-            {
-                PluginConfig.Instance.song_speed_setting = value;
-            }
-        }
-        [UIAction("set_song_speed")]
-        private void Set_Song_Speed(bool value)
-        {
-            Song_Speed_Value = value;
-        }*/
-
-
         [UIValue("song_speed_increment_value")]
         private int Song_Speed_Increment_Value
         {
@@ -84,7 +65,6 @@ namespace JDFixer.UI
             set
             {
                 PluginConfig.Instance.song_speed_setting = value;
-                //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Song_Speed_Increment_Value)));
             }
         }
         [UIAction("song_speed_increment_formatter")]
@@ -164,13 +144,13 @@ namespace JDFixer.UI
         }
 
         [UIValue("press_ok_text")]
-        private string Press_Ok_Text = "<#ffffffff>Press OK to apply settings  <#ff0080ff>♡       <size=70%>v6.0.0 by Zephyr#9125<#00000000>--";
+        private string Press_Ok_Text = "<#ffffffff>Press OK to apply settings  <#ff0080ff>♡       <size=70%>v7.0.0 by Zephyr#9125<#00000000>--";
     }
 
     internal enum SongSpeedEnum
     {
-        Off = 0,
-        ReactionTimeOnly = 1,
-        Always
+        JD_Settings = 0,
+        RT_Settings = 1,
+        JD_RT_Respectively
     }
 }
