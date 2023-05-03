@@ -59,7 +59,7 @@ Supports CustomCampaigns, Tournament Assistant, all flavors of Multiplayer, OST 
         </tr>
     </table>
 </div>
-Above Left: Show map Reaction Times is ON. Above Right is OFF.
+<i>Above Left: Show map Reaction Times is ON. Above Right is OFF.</i>
 
 ## Understanding Preferences Behavior
 Suppose your Jump Distance Preferences contain these NJS-JD pairs: 22-18, 21-16, 18-15.
@@ -92,31 +92,33 @@ To run every map at a constant JD regardless of its NJS, create a single prefere
 This works exactly the same as JD Preferences. The five examples above apply, except in Reaction Time. Reaction Time is a function of the map's original NJS and Jump Distance. This means that RT Preferences automatically sets the map's JD to give your preferred RT for its given NJS.
 
 ## Understanding Snapping to Beat Fractions
-The snap display consists of 4 values (A, B) JD RT:
-- **A:** This is how many fractions of a beat relative to the map's default offset, that the map will run at, given the current JD or RT slider value.
-- **B:** This is equivalent absolute offset that the will map run at.
+To use this feature, toggle on `Separate JD and RT sliders`, `Snap JD and RT to fractions of a beat` and set the `Beat Fraction (1/n)` in Mod Settings. Enabling Automated Preferences overrides the snapped value. **The snap display consists of four values (A, B) JD RT.**
+
+**Given the current JD or RT slider value:**
+- **A:** This is how many fractions of a beat relative to the map's default offset that the map will run at.
+- **B:** This is the equivalent absolute offset that the will map run at.
 - **JD:** This is the equivalent JD that the map will snap to and run at.
 - **RT:** This is the equivalent RT that the map will snap to and run at.
-To use this feature, toggle `ON` `Separate JD and RT sliders`, `Snap JD and RT to fractions of a beat` and set the `Beat Fraction (1/n)` in Mod Settings. Running a map with Automated Preferences will override the snapped value.
 
 ![screenshot](https://github.com/zeph-yr/JDFixer/blob/BS_1.26_Offset/Screenshots/v7/7.0.0_beat_fraction_2.png)
 
 ## Understanding Song Speed Options
-By base game behavior, maps played at different song speeds (for example when playing with Modifiers or at 200% on Practice Mode) maintain their JD. This is so that logically a higher song speed setting will make the map "play faster" and increases the difficulty by lowering the player's reaction time.
+By base game behavior, maps maintain their JD when played at different song speeds (e.g. when playing with Modifiers or 200% on Practice Mode). This is so logically, higher song speed settings make maps "play faster" and increases the difficulty by lowering the player's reaction time.
 
-- **JD_Settings:** If you prefer the base game behavior or you prefer to always have a known JD (meaning you want to play at the JD you set, at any song speed), choose this option.
+**JDFixer can change this. Choose one of the options:**
+- **JD_Settings:** If you prefer the base game behavior or you prefer to always have a known JD (meaning you want to play at the JD you set, at any song speed). This behaves the same as JDFixer v6.0.0 and below and is the default option.
 
-- **RT_Settings:** If you prefer to always have a known reaction time (and would prefer the JD to be auto-adjusted depending on the song speed to give you the RT you set), choose this option. This means when you play a map at a higher song speed, the JD will be pushed back to give the same RT as if the play was played at normal speed. Playing a map at lower song speed will bring the JD closer.
+- **RT_Settings:** If you prefer to always have a known reaction time (and would prefer the JD to be auto-adjusted depending on the song speed to give the RT you set). This means when the map is run at a higher song speed, the JD will be pushed back to give the same RT as if the map is being played at normal speed. Likewise, playing the map at lower song speed will bring the JD closer.
 
-- **JD_RT_Respectively:** If you prefer to have both of options, depending on whether you are using the JD or RT sliders and Automated Preferencences, choose this. This means when you have the JD slider active or are using JD Automated Preferences, it will behave like the `JD_Settings` option, and when you have the RT slider active or are using RT Automated Preferences, it will behave like the `RT_Settings` option.
+- **JD_RT_Respectively:** If you prefer to have both of options, depending on whether you are using the JD or RT sliders and Automated Preferencences. This means when the JD slider is active or JD Automated Preferences is enabled, it will behave like the `JD_Settings` option, and when the RT slider is active or RT Automated Preferences is enabled, it will behave like the `RT_Settings` option.
 
 ![screenshot](https://github.com/zeph-yr/JDFixer/blob/BS_1.26_Offset/Screenshots/v7/7.0.0_mod_settings_song_speed_1.png)
 
 ## Tournaments and MP
-- **Tournament Assistant:** Supports Default, Dual Sync and AutoPause matches. You can only use one of the sliders at a time. As usual, enabling Preferences override both sliders. *Avoid opening the Preferences menu in TA! You will be stuck in it until you relaunch the game or the coordinator lets you out (this is by design in TA). However if you do choose to get yourself stuck inside just before a match, your match will still play fine when the coordinator starts it (but I hope you've set your Preferences correctly lol).*
+- **Tournament Assistant:** Supports Default, Dual Sync and AutoPause matches. You can only use one of the sliders at a time. As usual, enabling Preferences override both sliders. ***Avoid opening the Preferences menu in TA!*** *You will be stuck in it until you relaunch the game or the coordinator lets you out (this is by design in TA). However if you do choose to get yourself stuck inside just before a match, your match will still play fine when the coordinator starts it (but I hope you've set your Preferences correctly or left the slider in a sane spot lol).*
 - **Multiplayer:** Shares the UI with TA. As usual, you can only use one of the sliders at a time and enabling Preferences override both sliders. It is safe to open the Preferences menu here lol.
 - **CustomCampaigns:** Comes with display for map's default JD and RT **(v3.1.0+)**
-- **OST, DLC Levels, Base Campaign** are fully supported.
+- **OST, DLC Levels and Base Campaign** are fully supported.
 
 <div id="image-table">
     <table>
@@ -147,8 +149,8 @@ By base game behavior, maps played at different song speeds (for example when pl
 This is my first time writing a mod. I made it for my own needs but friends thought it useful so I think it would be beneficial to share it. I hope others find this useful.
 I welcome feedback and suggestions :)
 
-## Support and Donate
-Love JDFixer and would wish to show your support? [Become a patron](https://www.patreon.com/xeph_yr) and get your name featured on the Supporters panel in-game!
+## Donate and Support
+❤️ Love JDFixer and want to show your support? [Donate on Patreon](https://www.patreon.com/xeph_yr) or [buy a me a ☕](https://ko-fi.com/zeph_yr) and get your name featured in the Supporters panel in-game!❤️
 
 ## Credits
 Thanks @Shurdoof for autoupdate!
