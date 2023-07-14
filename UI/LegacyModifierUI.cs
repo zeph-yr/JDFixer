@@ -398,8 +398,6 @@ namespace JDFixer.UI
         [UIAction("#post-parse")]
         private void PostParse()
         {
-            Plugin.Log.Debug("PostParse");
-
             jd_slider_text = JD_Slider.slider.GetComponentInChildren<CurvedTextMeshPro>();
 
             if (jd_slider_text != null)

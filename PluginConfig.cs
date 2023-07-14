@@ -7,6 +7,7 @@ using IPA.Config.Stores.Converters;
 
 [assembly: InternalsVisibleTo(GeneratedStore.AssemblyVisibilityTarget)]
 
+
 namespace JDFixer
 {
     internal class PluginConfig
