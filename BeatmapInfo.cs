@@ -1,14 +1,12 @@
 ﻿namespace JDFixer
 {
-    public delegate void BeatmapInfoEventHandler(BeatmapInfo e);
     public class BeatmapInfo
     {
-        // 1.29.1
-        public static float speedMultiplier = 1f;
+        internal delegate void BeatmapInfoEventHandler(BeatmapInfo e);
 
-        public static event BeatmapInfoEventHandler SelectedChanged;
+        internal static event BeatmapInfoEventHandler SelectedChanged;
 
-        public static void SetSelected(IDifficultyBeatmap diff)
+        internal static void SetSelected(IDifficultyBeatmap diff)
         {
             var updatedMapInfo = diff == null ? Empty : new BeatmapInfo(diff);
             Selected = updatedMapInfo;
@@ -18,7 +16,7 @@
 
         public static BeatmapInfo Selected { get; private set; } = Empty;
 
-        public static BeatmapInfo Empty { get; } = new BeatmapInfo();
+        internal static BeatmapInfo Empty { get; } = new BeatmapInfo();
 
         private BeatmapInfo()
         {
@@ -44,7 +42,7 @@
             RTOffsetQuantum = 5f;
         }
 
-        public BeatmapInfo(IDifficultyBeatmap diff)
+        internal BeatmapInfo(IDifficultyBeatmap diff)
         {
             if (diff == null)
             {
@@ -93,6 +91,9 @@
             //Plugin.Log.Debug("BeatmapInfo maxRT: " + MaxRTSlider);
         }
 
+        // 1.29.1
+        internal static float speedMultiplier = 1f;
+
         public float JumpDistance { get; }
         public float MinJumpDistance { get; }
         public float NJS { get; }
@@ -100,15 +101,15 @@
         public float MinReactionTime { get; }
 
         // Experimental
-        public float MinRTSlider { get; }
-        public float MaxRTSlider { get; }
+        internal float MinRTSlider { get; }
+        internal float MaxRTSlider { get; }
 
-        public float MinJDSlider { get; }
-        public float MaxJDSlider { get; }
+        internal float MinJDSlider { get; }
+        internal float MaxJDSlider { get; }
 
         // 1.26.0-1.29.0 Feature update
         public float Offset { get; }
-        public float JDOffsetQuantum { get; }
-        public float RTOffsetQuantum { get; }
+        internal float JDOffsetQuantum { get; }
+        internal float RTOffsetQuantum { get; }
     }
 }

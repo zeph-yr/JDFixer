@@ -4,9 +4,9 @@ using Zenject;
 
 namespace JDFixer.UI
 {
-    public class PreferencesFlowCoordinator : FlowCoordinator
+    internal sealed class PreferencesFlowCoordinator : FlowCoordinator
     {
-        public FlowCoordinator _parentFlow;
+        internal FlowCoordinator _parentFlow;
         private PreferencesListViewController _prefListView;
         private RTPreferencesListViewController _rtPrefListView;
 
@@ -14,7 +14,7 @@ namespace JDFixer.UI
          * We would do the same for ViewControllers if we wanna ask for stuff from Zenject
          */
         [Inject]
-        public void Construct(PreferencesListViewController preferencesListViewController, RTPreferencesListViewController rTPreferencesListViewController)
+        private void Construct(PreferencesListViewController preferencesListViewController, RTPreferencesListViewController rTPreferencesListViewController)
         {
             _prefListView = preferencesListViewController;
             _rtPrefListView = rTPreferencesListViewController;

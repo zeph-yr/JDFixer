@@ -8,7 +8,7 @@ using System.ComponentModel;
 
 namespace JDFixer.UI
 {
-    public class RTPreferencesListViewController : BSMLResourceViewController, INotifyPropertyChanged
+    internal sealed class RTPreferencesListViewController : BSMLResourceViewController, INotifyPropertyChanged
     {
         public override string ResourceName => "JDFixer.UI.BSML.rtPreferencesList.bsml";
 
@@ -19,7 +19,7 @@ namespace JDFixer.UI
         private float New_NJS_Value = 16f;
 
         [UIValue("njs_value")]
-        public float NJS_Value
+        private float NJS_Value
         {
             get => New_NJS_Value;
             set
@@ -28,7 +28,7 @@ namespace JDFixer.UI
             }
         }
         [UIAction("set_njs_value")]
-        void Set_NJS_Value(float value)
+        private void Set_NJS_Value(float value)
         {
             NJS_Value = value;
         }
@@ -45,7 +45,7 @@ namespace JDFixer.UI
         private float New_RT_Value = 500f;
 
         [UIValue("rt_value")]
-        public float RT_Value
+        private float RT_Value
         {
             get => New_RT_Value;
             set
@@ -54,7 +54,7 @@ namespace JDFixer.UI
             }
         }
         [UIAction("set_rt_value")]
-        void Set_RT_Value(float value)
+        private void Set_RT_Value(float value)
         {
             RT_Value = value;
         }
@@ -64,7 +64,7 @@ namespace JDFixer.UI
 
 
         [UIComponent("pref_list")]
-        public CustomListTableData Pref_List;
+        private CustomListTableData Pref_List;
         private RTPref Selected_Pref = null;
 
         [UIAction("select_pref")]

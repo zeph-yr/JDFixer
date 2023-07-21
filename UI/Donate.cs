@@ -14,6 +14,7 @@ namespace JDFixer.UI
 
         internal static string donate_modal_text_dynamic = "";
         internal static string donate_modal_hint_dynamic = "";
+        internal static string donate_update_dynamic = "";
 
         internal static void Refresh_Text()
         {
@@ -33,6 +34,7 @@ namespace JDFixer.UI
             //Plugin.Log.Debug("reply: " + donate_modal_text_dynamic);
             string reply_text = "Loading...";
             string reply_hint = "";
+            string reply_update = "";
 
             using (WebClient client = new WebClient())
             {
@@ -53,6 +55,14 @@ namespace JDFixer.UI
                 {
                     Plugin.Log.Debug("Failed to fetch Donate info");
                 }
+                try
+                {
+                    reply_update = await client.DownloadStringTaskAsync("https://raw.githubusercontent.com/zeph-yr/Shoutouts/main/whatsnew.txt");
+                }
+                catch
+                {
+                    Plugin.Log.Debug("Failed to fetch Donate info");
+                }
             }
 
             donate_modal_text_dynamic = reply_text;
@@ -65,6 +75,13 @@ namespace JDFixer.UI
                 //Plugin.Log.Debug("reply: " + reply_hint);
                 //Plugin.Log.Debug("start: " + hint_start + " end: " + hint_end);
                 donate_modal_hint_dynamic = reply_hint.Substring(hint_start + 9, hint_end - hint_start - 9); // Yes. And no, it's not wrong.
+            }
+
+            int update_start = reply_update.IndexOf("[JDFIXER]");
+            int update_end = reply_update.IndexOf("###", update_start);
+            if (update_start != -1)
+            {
+                donate_update_dynamic = reply_update.Substring(update_start + 9, update_end - update_start - 9);
             }
         }
     }

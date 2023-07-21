@@ -2,7 +2,7 @@
 
 namespace JDFixer
 {
-    class BeatmapOffsets
+    internal static class BeatmapOffsets
     {
         internal static List<float> JD_Snap_Points = new List<float>();
         internal static List<float> RT_Snap_Points = new List<float>();

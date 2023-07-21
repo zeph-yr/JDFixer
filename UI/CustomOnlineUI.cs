@@ -10,7 +10,7 @@ using BeatSaberMarkupLanguage.Parser;
 
 namespace JDFixer.UI
 {
-    public class CustomOnlineUI : IInitializable, IDisposable, INotifyPropertyChanged
+    internal sealed class CustomOnlineUI : IInitializable, IDisposable, INotifyPropertyChanged
     {
         internal static CustomOnlineUI Instance { get; private set; }
         private readonly MainFlowCoordinator _mainFlow;
@@ -22,6 +22,8 @@ namespace JDFixer.UI
         public void Initialize()
         {
             GameplaySetup.instance.AddTab("JDFixer-TA/MP", "JDFixer.UI.BSML.customOnlineUI.bsml", this, MenuType.Custom | MenuType.Online);
+            Donate.Refresh_Text();
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Donate_Update_Dynamic)));
         }
 
         public void Dispose()
@@ -34,7 +36,7 @@ namespace JDFixer.UI
         }
 
         // To get the flow coordinators using zenject, we use a constructor
-        public CustomOnlineUI(MainFlowCoordinator mainFlowCoordinator, PreferencesFlowCoordinator preferencesFlowCoordinator)
+        private CustomOnlineUI(MainFlowCoordinator mainFlowCoordinator, PreferencesFlowCoordinator preferencesFlowCoordinator)
         {
             Instance = this;
             _mainFlow = mainFlowCoordinator;
@@ -310,6 +312,11 @@ namespace JDFixer.UI
         [UIAction("#post-parse")]
         private void PostParse()
         {
+            if (JD_Slider == null || RT_Slider == null)
+            {
+                return;
+            }
+
             jd_slider_text = JD_Slider.slider.GetComponentInChildren<CurvedTextMeshPro>();
             rt_slider_text = RT_Slider.slider.GetComponentInChildren<CurvedTextMeshPro>();
 
@@ -380,5 +387,8 @@ namespace JDFixer.UI
 
         [UIValue("donate_modal_hint_dynamic")]
         private string Donate_Modal_Hint_Dynamic => Donate.donate_modal_hint_dynamic;
+
+        [UIValue("donate_update_dynamic")]
+        private string Donate_Update_Dynamic => Donate.donate_update_dynamic;
     }
 }

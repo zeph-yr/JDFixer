@@ -7,7 +7,7 @@ namespace JDFixer
     [HarmonyPatch(typeof(BeatmapObjectSpawnMovementData), "Init")]
     internal class SpawnMovementDataUpdatePatch
     {
-        public static void Prefix(ref float startNoteJumpMovementSpeed, float startBpm, /*ref float noteJumpStartBeatOffset,*/ ref BeatmapObjectSpawnMovementData.NoteJumpValueType noteJumpValueType, ref float noteJumpValue)
+        internal static void Prefix(ref float startNoteJumpMovementSpeed, float startBpm, /*ref float noteJumpStartBeatOffset,*/ ref BeatmapObjectSpawnMovementData.NoteJumpValueType noteJumpValueType, ref float noteJumpValue)
         {
             if (PluginConfig.Instance.enabled == false)
             {
@@ -157,7 +157,7 @@ namespace JDFixer
     internal class MissionSelectionPatch
     {
         internal static IPreviewBeatmapLevel cc_level = null;
-        static void Postfix(IPreviewBeatmapLevel level)
+        internal static void Postfix(IPreviewBeatmapLevel level)
         {
             cc_level = level;
         }
@@ -167,7 +167,7 @@ namespace JDFixer
     [HarmonyPatch(typeof(StandardLevelScenesTransitionSetupDataSO), "Init")]
     internal class StandardLevelScenesTransitionSetupDataSOPatch
     {
-        static void Postfix(GameplayModifiers gameplayModifiers, PracticeSettings practiceSettings)
+        internal static void Postfix(GameplayModifiers gameplayModifiers, PracticeSettings practiceSettings)
         {
             BeatmapInfo.speedMultiplier = gameplayModifiers.songSpeedMul;
             if (practiceSettings != null)
@@ -181,7 +181,7 @@ namespace JDFixer
     [HarmonyPatch(typeof(MultiplayerLevelScenesTransitionSetupDataSO), "Init")]
     internal class MultiplayerLevelScenesTransitionSetupDataSOPatch
     {
-        static void Postfix(GameplayModifiers gameplayModifiers)
+        internal static void Postfix(GameplayModifiers gameplayModifiers)
         {
             BeatmapInfo.speedMultiplier = gameplayModifiers.songSpeedMul;
         }
@@ -248,8 +248,7 @@ namespace JDFixer
 
     internal class TimeControllerPatch
     {
-        internal static DateTime af = new DateTime(DateTime.Now.Year, 4, 1);
-
+        private static DateTime af = new DateTime(DateTime.Now.Year, 4, 1);
         internal static BeatmapObjectSpawnMovementData.NoteSpawnData Postfix(BeatmapObjectSpawnMovementData.NoteSpawnData __result)
         {
             if (DateTime.Now >= af && TimeController.audioTime.songTime >= 5f)

@@ -11,7 +11,7 @@ using BeatSaberMarkupLanguage.Parser;
 
 namespace JDFixer.UI
 {
-    internal class LegacyModifierUI : IInitializable, IDisposable, INotifyPropertyChanged, IBeatmapInfoUpdater
+    internal sealed class LegacyModifierUI : IInitializable, IDisposable, INotifyPropertyChanged, IBeatmapInfoUpdater
     {
         internal static LegacyModifierUI Instance { get; set; }
         private readonly MainFlowCoordinator _mainFlow;
@@ -24,6 +24,8 @@ namespace JDFixer.UI
         public void Initialize()
         {
             GameplaySetup.instance.AddTab("JDFixer", "JDFixer.UI.BSML.legacyModifierUI.bsml", this, MenuType.Solo | MenuType.Campaign);
+            Donate.Refresh_Text();
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Donate_Update_Dynamic)));
         }
 
         public void Dispose()
@@ -36,7 +38,7 @@ namespace JDFixer.UI
         }
 
         // To get the flow coordinators using zenject, we use a constructor
-        public LegacyModifierUI(MainFlowCoordinator mainFlowCoordinator, PreferencesFlowCoordinator preferencesFlowCoordinator)
+        private LegacyModifierUI(MainFlowCoordinator mainFlowCoordinator, PreferencesFlowCoordinator preferencesFlowCoordinator)
         {
             Instance = this;
             _mainFlow = mainFlowCoordinator;
@@ -121,7 +123,6 @@ namespace JDFixer.UI
 
         [UIValue("map_jd_rt")]
         private string Map_JD_RT => Get_Map_JD_RT();
-
         private string Get_Map_JD_RT()
         {
             if (PluginConfig.Instance.rt_display_enabled)
@@ -134,7 +135,6 @@ namespace JDFixer.UI
 
         [UIValue("map_default_jd")]
         private string Map_Default_JD => Get_Map_Default_JD();
-
         private string Get_Map_Default_JD()
         {
             if (PluginConfig.Instance.rt_display_enabled)
@@ -146,7 +146,6 @@ namespace JDFixer.UI
 
         [UIValue("map_min_jd")]
         private string Map_Min_JD => Get_Map_Min_JD();
-
         private string Get_Map_Min_JD()
         {
             if (PluginConfig.Instance.rt_display_enabled)
@@ -158,7 +157,6 @@ namespace JDFixer.UI
 
         [UIValue("snapped_jd")]
         private string Snapped_JD => Get_Snapped_JD();
-
         private string Get_Snapped_JD()
         {            
             BeatmapOffsets.Calculate_Nearest_JD_Snap_Point(JD_Value);
@@ -170,7 +168,6 @@ namespace JDFixer.UI
 
         [UIValue("snapped_rt")]
         private string Snapped_RT => Get_Snapped_RT();
-
         private string Get_Snapped_RT()
         {
             BeatmapOffsets.Calculate_Nearest_RT_Snap_Point(RT_Value);
@@ -255,7 +252,7 @@ namespace JDFixer.UI
 
 
         [UIValue("rt_display")]
-        public string RT_Display => BeatmapUtils.Calculate_ReactionTime_Setpoint_String(JD_Value, _selectedBeatmap.NJS);
+        private string RT_Display => BeatmapUtils.Calculate_ReactionTime_Setpoint_String(JD_Value, _selectedBeatmap.NJS);
         [UIValue("show_rt_display")]
         private bool Show_RT_Display => PluginConfig.Instance.use_offset == false && Show_JD_Slider;
 
@@ -398,15 +395,18 @@ namespace JDFixer.UI
         [UIAction("#post-parse")]
         private void PostParse()
         {
-            jd_slider_text = JD_Slider.slider.GetComponentInChildren<CurvedTextMeshPro>();
+            if (JD_Slider == null || RT_Slider == null)
+            {
+                return;
+            }
 
+            jd_slider_text = JD_Slider.slider.GetComponentInChildren<CurvedTextMeshPro>();
             if (jd_slider_text != null)
             {
                 jd_slider_text.color = new UnityEngine.Color(1f, 1f, 0f);
             }
 
             rt_slider_text = RT_Slider.slider.GetComponentInChildren<CurvedTextMeshPro>();
-
             if (rt_slider_text != null)
             {
                 rt_slider_text.color = new UnityEngine.Color(204f / 255f, 153f / 255f, 1f);
@@ -518,5 +518,8 @@ namespace JDFixer.UI
 
         [UIValue("donate_modal_hint_dynamic")]
         private string Donate_Modal_Hint_Dynamic => Donate.donate_modal_hint_dynamic;
+
+        [UIValue("donate_update_dynamic")]
+        private string Donate_Update_Dynamic => Donate.donate_update_dynamic;
     }
 }

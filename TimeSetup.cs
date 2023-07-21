@@ -5,7 +5,7 @@ using System;
 
 namespace JDFixer
 {
-    class TimeSetup
+    internal class TimeSetup
     {
         internal static void Inject(Zenjector zenjector)
         {

@@ -6,7 +6,7 @@ using Zenject;
 
 namespace JDFixer
 {
-    public class TimeController : MonoBehaviour
+    internal class TimeController : MonoBehaviour
     {
         internal static AudioTimeSyncController audioTime;
         internal static float length = 0.001f;
@@ -18,7 +18,7 @@ namespace JDFixer
         private static bool earthday = false;
 
         [Inject]
-        public void Construct(AudioTimeSyncController audioTimeSyncController, TimeTweeningManager timeTweeningManager)
+        internal void Construct(AudioTimeSyncController audioTimeSyncController, TimeTweeningManager timeTweeningManager)
         {
             audioTime = audioTimeSyncController;
             length = audioTime.songEndTime;

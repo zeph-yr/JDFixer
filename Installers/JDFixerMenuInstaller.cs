@@ -4,7 +4,7 @@ using Zenject;
 
 namespace JDFixer.Installers
 {
-    internal class JDFixerMenuInstaller : Installer
+    internal sealed class JDFixerMenuInstaller : Installer
     {
         public override void InstallBindings()
         {
@@ -32,7 +32,7 @@ namespace JDFixer.Installers
         }
     }
 
-    internal class JDFixerTimeInstaller : Installer
+    internal sealed class JDFixerTimeInstaller : Installer
     {
         public override void InstallBindings()
         {

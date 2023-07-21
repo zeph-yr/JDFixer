@@ -6,17 +6,17 @@ using Zenject;
 
 namespace JDFixer.Managers
 {
-    class JDFixerUIManager : IInitializable, IDisposable
+    internal class JDFixerUIManager : IInitializable, IDisposable
     {
-        public static StandardLevelDetailViewController levelDetail;
-        public static MissionSelectionMapViewController missionSelection;
-        public static MainMenuViewController mainMenu;
+        private static StandardLevelDetailViewController levelDetail;
+        private static MissionSelectionMapViewController missionSelection;
+        private static MainMenuViewController mainMenu;
 
         private readonly List<IBeatmapInfoUpdater> beatmapInfoUpdaters;
 
 
         [Inject]
-        public JDFixerUIManager(StandardLevelDetailViewController standardLevelDetailViewController, MissionSelectionMapViewController missionSelectionMapViewController, MainMenuViewController mainMenuViewController, List<IBeatmapInfoUpdater> iBeatmapInfoUpdaters)
+        private JDFixerUIManager(StandardLevelDetailViewController standardLevelDetailViewController, MissionSelectionMapViewController missionSelectionMapViewController, MainMenuViewController mainMenuViewController, List<IBeatmapInfoUpdater> iBeatmapInfoUpdaters)
         {
             //Plugin.Log.Debug("JDFixerUIManager()");
 

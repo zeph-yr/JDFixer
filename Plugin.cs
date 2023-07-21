@@ -10,7 +10,7 @@ using SiraUtil.Zenject;
 namespace JDFixer
 {
     [Plugin(RuntimeOptions.DynamicInit)]
-    public class Plugin
+    public sealed class Plugin
     {
         public static Harmony harmony;
         //internal static string game_version = "";
@@ -31,7 +31,7 @@ namespace JDFixer
         [OnEnable]
         public void OnApplicationStart()
         {
-            Plugin.Log.Debug("OnApplicationStart()");
+            //Plugin.Log.Debug("OnApplicationStart()");
 
             //game_version = IPA.Utilities.UnityGame.GameVersion.ToString();
             //Plugin.Log.Debug(game_version);
@@ -39,9 +39,7 @@ namespace JDFixer
             harmony = new Harmony("com.zephyr.BeatSaber.JDFixer");
             //TimeSetup.Patch();
             harmony.PatchAll(System.Reflection.Assembly.GetExecutingAssembly());
-
             CheckForCustomCampaigns();
-
             UI.Donate.Refresh_Text();
         }
 

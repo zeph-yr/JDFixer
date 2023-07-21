@@ -1,6 +1,6 @@
 ﻿namespace JDFixer
 {
-    static class BeatmapUtils
+    public static class BeatmapUtils
     {
         public static float CalculateJumpDistance(float bpm, float njs, float offset)
         {
