@@ -573,9 +573,13 @@ namespace JDFixer.UI
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Donate_Modal_Hint_Dynamic)));
         }
 
-        private void Open_Donate_Browser()
+        private void Open_Donate_Patreon()
         {
-            Donate.Open_Donate_Browser();
+            Donate.Patreon();
+        }
+        private void Open_Donate_Kofi()
+        {
+            Donate.Kofi();
         }
 
         [UIValue("donate_modal_text_static_1")]

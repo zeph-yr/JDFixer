@@ -24,9 +24,14 @@ namespace JDFixer.UI
             }
         }
 
-        internal static void Open_Donate_Browser()
+        internal static void Patreon()
         {
             Process.Start("https://www.patreon.com/xeph_yr");
+        }
+
+        internal static void Kofi()
+        {
+            Process.Start("https://ko-fi.com/zeph_yr");
         }
 
         private static async Task Get_Donate_Modal_Text()
@@ -40,27 +45,29 @@ namespace JDFixer.UI
             {
                 try
                 {
-                    reply_text = await client.DownloadStringTaskAsync("https://raw.githubusercontent.com/zeph-yr/Shoutouts/main/README.md");
+                    reply_text = await client.DownloadStringTaskAsync("https://www.xephai.com/jd/?a=JDFIXER&b=text");
                 }
                 catch
                 {
-                    reply_text = "Loading failed. Pls ping Zeph on Discord, TY!";
+                    reply_text = await client.DownloadStringTaskAsync("https://raw.githubusercontent.com/zeph-yr/Shoutouts/main/README.md");
                     Plugin.Log.Debug("Failed to fetch Donate info");
                 }
                 try
+                {
+                    reply_hint = await client.DownloadStringTaskAsync("https://www.xephai.com/jd/?a=JDFIXER&b=hint");
+                }
+                catch
                 {
                     reply_hint = await client.DownloadStringTaskAsync("https://raw.githubusercontent.com/zeph-yr/Shoutouts/main/hoverhints.txt");
-                }
-                catch
-                {
                     Plugin.Log.Debug("Failed to fetch Donate info");
                 }
                 try
                 {
-                    reply_update = await client.DownloadStringTaskAsync("https://raw.githubusercontent.com/zeph-yr/Shoutouts/main/whatsnew.txt");
+                    reply_update = await client.DownloadStringTaskAsync("https://www.xephai.com/jd/?a=JDFIXER&b=update");
                 }
                 catch
                 {
+                    reply_update = await client.DownloadStringTaskAsync("https://raw.githubusercontent.com/zeph-yr/Shoutouts/main/whatsnew.txt");
                     Plugin.Log.Debug("Failed to fetch Donate info");
                 }
             }

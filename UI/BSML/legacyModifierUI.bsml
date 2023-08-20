@@ -61,7 +61,7 @@
 	</settings-container>
 	<vertical pad-top='50' align='Center'>
 		<horizontal>
-			<text text='Instructions at github.com/zeph-yr/JDFixer     v7.0.2' font-color='#ff0080ff' font-size='3' align='Right' hover-hint="Read this to get the most out of the features"></text>
+			<text text='Instructions at github.com/zeph-yr/JDFixer     v7.1.0' font-color='#ff0080ff' font-size='3' align='Right' hover-hint="Read this to get the most out of the features"></text>
 			<clickable-text text='~open_donate_text' rich-text='true' font-color='#ff0080ff' align='Left' click-event='show_donate_modal' on-click='open_donate_modal' hover-hint='~open_donate_hint'/>
 		</horizontal>
 		<horizontal>
@@ -74,7 +74,8 @@
 						<text text='~donate_modal_text_static_1' word-wrapping='true' align='Center' rich-text='true'></text>
 					</horizontal>
 					<horizontal preferred-width='56'>
-						<primary-button text='Open Patreon' font-size='3' align='Center' on-click='Open_Donate_Browser' hover-hint='Link opens in web broswer'/>
+						<primary-button text='Patreon' font-size='3' align='Center' on-click='Open_Donate_Patreon' hover-hint='Link opens in web broswer'/>
+						<primary-button text='Kofi' font-size='3' align='Center' on-click='Open_Donate_Kofi' hover-hint='Link opens in web broswer'/>
 						<text text='~donate_modal_text_static_2' word-wrapping='true' align='Right' rich-text='true'></text>
 					</horizontal>
 				</vertical>

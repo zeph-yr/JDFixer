@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("www.xephai.com")]
 [assembly: AssemblyProduct("JDFixer")]
-[assembly: AssemblyCopyright("Copyright © 2023 Zephyr")]
+[assembly: AssemblyCopyright("Copyright © 2021 - 2023 Zephyr")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

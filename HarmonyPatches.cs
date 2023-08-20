@@ -67,7 +67,7 @@ namespace JDFixer
                     Plugin.Log.Debug("Using Threshold");
                     
                     //return;
-                    desiredJumpDis = BeatmapInfo.Selected.JumpDistance;
+                    desiredJumpDis = BeatmapUtils.CalculateJumpDistance(startBpm, mapNJS, noteJumpStartBeatOffset);
                     goto SongSpeed; // Yes, a goto.
                 }
                 
@@ -81,9 +81,9 @@ namespace JDFixer
                 {
                     Plugin.Log.Debug("Not Fixing: Original JD below or equal setpoint");
                     Plugin.Log.Debug($"BPM/NJS/Offset {startBpm}/{startNoteJumpMovementSpeed}/{noteJumpStartBeatOffset}");
-                    
+
                     //return;
-                    desiredJumpDis = BeatmapInfo.Selected.JumpDistance;
+                    desiredJumpDis = BeatmapUtils.CalculateJumpDistance(startBpm, mapNJS, noteJumpStartBeatOffset);
                     goto SongSpeed;
                 }
             }
@@ -94,9 +94,9 @@ namespace JDFixer
                 if (mapNJS <= PluginConfig.Instance.lower_threshold || mapNJS >= PluginConfig.Instance.upper_threshold)
                 {
                     Plugin.Log.Debug("Using Threshold");
-
+                    Plugin.Log.Debug("selected:" + BeatmapUtils.CalculateJumpDistance(startBpm, mapNJS, noteJumpStartBeatOffset));
                     //return;
-                    desiredJumpDis = BeatmapInfo.Selected.JumpDistance;
+                    desiredJumpDis = BeatmapUtils.CalculateJumpDistance(startBpm, mapNJS, noteJumpStartBeatOffset);
                     goto SongSpeed;
                 }
 
@@ -113,9 +113,9 @@ namespace JDFixer
                 {
                     Plugin.Log.Debug("Not Fixing: Original JD below or equal setpoint");
                     Plugin.Log.Debug($"BPM/NJS/Offset {startBpm}/{startNoteJumpMovementSpeed}/{noteJumpStartBeatOffset}");
-                    
+
                     //return;
-                    desiredJumpDis = BeatmapInfo.Selected.JumpDistance;
+                    desiredJumpDis = BeatmapUtils.CalculateJumpDistance(startBpm, mapNJS, noteJumpStartBeatOffset);
                     goto SongSpeed;
                 }
             }

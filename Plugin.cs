@@ -32,7 +32,6 @@ namespace JDFixer
         public void OnApplicationStart()
         {
             //Plugin.Log.Debug("OnApplicationStart()");
-
             //game_version = IPA.Utilities.UnityGame.GameVersion.ToString();
             //Plugin.Log.Debug(game_version);
 
