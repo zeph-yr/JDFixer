@@ -21,7 +21,7 @@
 	</settings-container>
 	<vertical pad-top='50' align='Center'>
 		<horizontal>
-			<text text='Instructions at github.com/zeph-yr/JDFixer     v7.1.0' font-color='#ff0080ff' font-size='3' align='Right' hover-hint="Read this to get the most out of the features"></text>
+			<text text='Instructions at github.com/zeph-yr/JDFixer     v7.1.1' font-color='#ff0080ff' font-size='3' align='Right' hover-hint="Read this to get the most out of the features"></text>
 			<clickable-text text='~open_donate_text' rich-text='true' font-color='#ff0080ff' align='Left' click-event='show_donate_modal' on-click='open_donate_modal' hover-hint='~open_donate_hint'/>
 		</horizontal>
 		<horizontal>
