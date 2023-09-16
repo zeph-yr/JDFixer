@@ -147,12 +147,13 @@ By base game behavior, maps maintain their JD when played at different song spee
 - v2.1.0 is not compatible with settings files from previous versions: Delete or rename your old JDFixer.json and allow the mod to generate a new one. Re-enter your settings in-game. If you are knowledgeable, you can copy the relevant data from the old json file to the new one. Just make sure you do it correctly.
 
 ## About
+Copyright © 2021 - 2023 Zephyr | www.xephai.com
+
 This is my first time writing a mod. I made it for my own needs but friends thought it useful so I think it would be beneficial to share it. I hope others find this useful.
-I welcome feedback and suggestions :)
 
 ## Donate and Support
 ❤️ Love JDFixer and want to show your support? [Donate on Patreon](https://www.patreon.com/xeph_yr) or [buy a me a ☕](https://ko-fi.com/zeph_yr) and get your name featured in the Supporters panel in-game!❤️
 
-## Credits
+## TYs
 Thanks @Shurdoof for autoupdate!
-Thanks Kyle for the original [NjsFixer](https://github.com/Kylemc1413/NjsFixer) and thanks to the cool peeps in BSMG for the help and advice :)
+Thanks Kyle for the original [NjsFixer](https://github.com/Kylemc1413/NjsFixer) and thanks to the cool peeps in BSMG for the help and advice when I first started out :)
