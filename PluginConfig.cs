@@ -10,6 +10,37 @@ namespace JDFixer
 {
     internal class PluginConfig
     {
+        public void OnLoad()
+        {
+            Plugin.Log.Info("Loaded plugin config");
+
+            var converted = false;
+            converted |= TryConvertJD();
+            converted |= TryConvertRT();
+            
+            if (!converted) return;
+            
+            Plugin.Log.Info("Converted legacy preferred values");
+        }
+
+        private bool TryConvertJD()
+        {
+            if (preferredValues == null) return false;
+            
+            preferredValues_jd.Add(preferredValues);
+            preferredValues = null;
+            return true;
+        }
+        private bool TryConvertRT()
+        {
+            if (rt_preferredValues == null) return false;
+            
+            preferredValues_rt.Add(rt_preferredValues);
+            rt_preferredValues = null;
+            return true;
+        }
+        
+
         internal static PluginConfig Instance { get; set; }
 
         internal virtual bool enabled { get; set; } = false;
@@ -18,22 +49,33 @@ namespace JDFixer
         internal float jumpDistance { get; set; } = 24f;
         internal virtual int minJumpDistance { get; set; } = 12;
         internal virtual int maxJumpDistance { get; set; } = 35;
-        internal virtual bool use_jd_pref { get; set; } = false;
+        internal virtual int use_jd_pref { get; set; } = -1;
 
-        [UseConverter(typeof(ListConverter<JDPref>))]
+        [UseConverter(typeof(ListConverter<List<JDPref>>))]
         [NonNullable]
-        internal virtual List<JDPref> preferredValues { get; set; } = new List<JDPref>();
+        internal virtual List<List<JDPref>> preferredValues_jd { get; set; } = new List<List<JDPref>>();
+
+        /// <summary>
+        /// Legacy config value for JumpDistance preferred-values
+        /// </summary>
+        [UseConverter(typeof(ListConverter<JDPref>))]
+        protected virtual List<JDPref> preferredValues { get; set; }
 
 
         internal float reactionTime { get; set; } = 500f;
         internal virtual int minReactionTime { get; set; } = 300;
         internal virtual int maxReactionTime { get; set; } = 1600;
-        internal virtual bool use_rt_pref { get; set; } = false;
+        internal virtual int use_rt_pref { get; set; } = -1;
 
-        [UseConverter(typeof(ListConverter<RTPref>))]
+        [UseConverter(typeof(ListConverter<List<RTPref>>))]
         [NonNullable]
-        internal virtual List<RTPref> rt_preferredValues { get; set; } = new List<RTPref>();
+        internal virtual List<List<RTPref>> preferredValues_rt { get; set; } = new List<List<RTPref>>();
 
+        /// <summary>
+        /// Legacy config value for ReactionTime preferred-values
+        /// </summary>
+        [UseConverter(typeof(ListConverter<RTPref>))]
+        protected virtual List<RTPref> rt_preferredValues { get; set; } = null;
 
         //1.19.1 Feature update
         internal virtual int slider_setting { get; set; } = 0;

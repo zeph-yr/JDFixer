@@ -22,22 +22,23 @@ namespace JDFixer.UI
 
         public void Initialize()
         {
-            GameplaySetup.Instance.AddTab("JDFixer", "JDFixer.UI.BSML.modifierUI.bsml", this, MenuType.Solo | MenuType.Campaign);
+            GameplaySetup.Instance.AddTab("JDFixer", "JDFixer.UI.BSML.modifierUI.bsml", this,
+                MenuType.Solo | MenuType.Campaign);
             Donate.Refresh_Text();
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Donate_Update_Dynamic)));
         }
 
+
         public void Dispose()
         {
-            if (GameplaySetup.Instance != null)
-            {
-                PluginConfig.Instance.Changed();
-                GameplaySetup.Instance.RemoveTab("JDFixer");
-            }
+            if (GameplaySetup.Instance == null) return;
+            PluginConfig.Instance.Changed();
+            GameplaySetup.Instance.RemoveTab("JDFixer");
         }
 
         // To get the flow coordinators using zenject, we use a constructor
-        private ModifierUI(MainFlowCoordinator mainFlowCoordinator, PreferencesFlowCoordinator preferencesFlowCoordinator)
+        private ModifierUI(MainFlowCoordinator mainFlowCoordinator,
+            PreferencesFlowCoordinator preferencesFlowCoordinator)
         {
             Instance = this;
             _mainFlow = mainFlowCoordinator;
@@ -58,8 +59,8 @@ namespace JDFixer.UI
         internal void Refresh()
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Slider_Setting_Value)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Increment_Value)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Pref_Button)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IncrementValue)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PrefButton)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Heuristic_Increment_Value)));
         }
 
@@ -70,11 +71,9 @@ namespace JDFixer.UI
         private bool Enabled
         {
             get => PluginConfig.Instance.enabled;
-            set
-            {
-                PluginConfig.Instance.enabled = value;
-            }
+            set => PluginConfig.Instance.enabled = value;
         }
+
         [UIAction("set_enabled")]
         private void SetEnabled(bool value)
         {
@@ -82,50 +81,48 @@ namespace JDFixer.UI
         }
 
 
-        [UIValue("map_jd_rt")]
-        private string Map_JD_RT => Get_Map_JD_RT();
+        [UIValue("map_jd_rt")] private string Map_JD_RT => Get_Map_JD_RT();
+
         private string Get_Map_JD_RT()
         {
-            if (PluginConfig.Instance.rt_display_enabled)
-            {
-                return "Map JD and RT";
-            }
-            return "Map JD";
+            return PluginConfig.Instance.rt_display_enabled ? "Map JD and RT" : "Map JD";
         }
 
 
-        [UIValue("map_default_jd")]
-        private string Map_Default_JD => Get_Map_Default_JD();
+        [UIValue("map_default_jd")] private string Map_Default_JD => Get_Map_Default_JD();
+
         private string Get_Map_Default_JD()
         {
             if (PluginConfig.Instance.rt_display_enabled)
-                return "<#ffff00>" + _selectedBeatmap.JumpDistance.ToString("0.##") + "     <#8c1aff>" + _selectedBeatmap.ReactionTime.ToString("0") + " ms";
+                return "<#ffff00>" + _selectedBeatmap.JumpDistance.ToString("0.##") + "     <#8c1aff>" +
+                       _selectedBeatmap.ReactionTime.ToString("0") + " ms";
 
             return "<#ffff00>" + _selectedBeatmap.JumpDistance.ToString("0.##");
         }
 
 
-        [UIValue("map_min_jd")]
-        private string Map_Min_JD => Get_Map_Min_JD();
+        [UIValue("map_min_jd")] private string Map_Min_JD => Get_Map_Min_JD();
+
         private string Get_Map_Min_JD()
         {
             if (PluginConfig.Instance.rt_display_enabled)
-                return "<#8c8c8c>" + _selectedBeatmap.MinJumpDistance.ToString("0.##") + "     <#8c8c8c>" + _selectedBeatmap.MinReactionTime.ToString("0" + " ms");
+                return "<#8c8c8c>" + _selectedBeatmap.MinJumpDistance.ToString("0.##") + "     <#8c8c8c>" +
+                       _selectedBeatmap.MinReactionTime.ToString("0" + " ms");
 
             return "<#8c8c8c>" + _selectedBeatmap.MinJumpDistance.ToString("0.##");
         }
 
-        
+
         [UIValue("min_jd_slider")]
         private float Min_JD_Slider => _selectedBeatmap.MinJDSlider; //PluginConfig.Instance.minJumpDistance;
+
         [UIValue("max_jd_slider")]
         private float Max_JD_Slider => _selectedBeatmap.MaxJDSlider; //PluginConfig.Instance.maxJumpDistance;
 
-        [UIComponent("jd_slider")]
-        private SliderSetting JD_Slider;
+        [UIComponent("jd_slider")] private SliderSetting JD_Slider;
 
         [UIValue("jd_value")]
-        private float JD_Value
+        private float JDValue
         {
             get => Get_Jump_Distance(); //PluginConfig.Instance.jumpDistance; //GetJumpDistance();
             set
@@ -148,7 +145,7 @@ namespace JDFixer.UI
                     }
                 }
 
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(RT_Value)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(RTValue)));
                 //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ReactionTimeText))); // For old RT Display                
             }
         }
@@ -174,18 +171,16 @@ namespace JDFixer.UI
         [UIAction("set_jd_value")]
         private void Set_JD_Value(float value)
         {
-            JD_Value = value;
+            JDValue = value;
         }
 
         [UIAction("jd_slider_formatter")]
         private string JD_Slider_Formatter(float value) => value.ToString("0.##");
 
 
-        [UIValue("min_rt_slider")]
-        private float Min_RT_Slider => _selectedBeatmap.MinRTSlider; //Get_Min_RT();
+        [UIValue("min_rt_slider")] private float Min_RT_Slider => _selectedBeatmap.MinRTSlider; //Get_Min_RT();
 
-        [UIValue("max_rt_slider")]
-        private float Max_RT_Slider => _selectedBeatmap.MaxRTSlider; //Get_Max_RT();
+        [UIValue("max_rt_slider")] private float Max_RT_Slider => _selectedBeatmap.MaxRTSlider; //Get_Max_RT();
 
         /*public float Get_Min_RT()
         {
@@ -212,11 +207,10 @@ namespace JDFixer.UI
 
         //=============================================================
 
-        [UIComponent("rt_slider")]
-        private SliderSetting RT_Slider;
+        [UIComponent("rt_slider")] private SliderSetting RT_Slider;
 
         [UIValue("rt_value")]
-        private float RT_Value
+        private float RTValue
         {
             get => Get_Reaction_Time(); //CalculateReactionTime_Float(PluginConfig.Instance.jumpDistance);
             set
@@ -233,7 +227,7 @@ namespace JDFixer.UI
                     PluginConfig.Instance.reactionTime = value;
                 }
 
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(JD_Value)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(JDValue)));
                 //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ReactionTimeText))); // For validation               
             }
         }
@@ -243,18 +237,17 @@ namespace JDFixer.UI
         {
             if (PluginConfig.Instance.slider_setting == 0)
             {
-                return BeatmapUtils.Calculate_ReactionTime_Setpoint_Float(PluginConfig.Instance.jumpDistance, _selectedBeatmap.NJS);
+                return BeatmapUtils.Calculate_ReactionTime_Setpoint_Float(PluginConfig.Instance.jumpDistance,
+                    _selectedBeatmap.NJS);
             }
-            else
-            {
-                return PluginConfig.Instance.reactionTime;
-            }
+
+            return PluginConfig.Instance.reactionTime;
         }
 
         [UIAction("set_rt_value")]
         private void Set_RT_Value(float value)
         {
-            RT_Value = value;
+            RTValue = value;
         }
 
         [UIAction("rt_slider_formatter")]
@@ -265,120 +258,102 @@ namespace JDFixer.UI
         // New for BS 1.19.0
 
         [UIValue("increment_value")]
-        private int Increment_Value
+        private int IncrementValue
         {
             get => PluginConfig.Instance.pref_selected;
             set
             {
                 PluginConfig.Instance.pref_selected = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Increment_Value)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IncrementValue)));
 
                 Set_Preference_Mode();
             }
         }
-
-        [UIAction("increment_formatter")]
-        private string Increment_Formatter(int value) => ((PreferenceEnum)value).ToString();
-
         private void Set_Preference_Mode()
         {
-            if (PluginConfig.Instance.pref_selected == 2)
+            var selectedEntry = PluginConfig.Instance.pref_selected;
+
+            if (selectedEntry == 0)
             {
-                PluginConfig.Instance.use_jd_pref = false;
-                PluginConfig.Instance.use_rt_pref = true;
-            }
-            else if (PluginConfig.Instance.pref_selected == 1)
-            {
-                PluginConfig.Instance.use_jd_pref = true;
-                PluginConfig.Instance.use_rt_pref = false;
+                PluginConfig.Instance.use_jd_pref = -1;
+                PluginConfig.Instance.use_rt_pref = -1;
             }
             else
             {
-                PluginConfig.Instance.use_jd_pref = false;
-                PluginConfig.Instance.use_rt_pref = false;
+                var jdSize = PluginConfig.Instance.preferredValues_jd.Count;
+
+                if (selectedEntry <= jdSize + 1)
+                {
+                    PluginConfig.Instance.use_jd_pref = selectedEntry - 1;
+                    PluginConfig.Instance.use_rt_pref = -1;
+                }
+                else
+                {
+                    PluginConfig.Instance.use_jd_pref = -1;
+                    PluginConfig.Instance.use_rt_pref = selectedEntry - jdSize;
+                }
             }
 
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Pref_Button)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PrefButton)));
         }
 
-
-        //=============================================================
-        // Old JD Preferences and RT Preferences Toggles: Replaced with Increment Setting
-
-        //<checkbox-setting value = 'usePrefJumpValues' on-change='setUsePrefJumpValues' text='Use JD Preferences'></checkbox-setting>
-        //<checkbox-setting value = 'rtEnabled' on-change='setRTEnabled' text='Use RT Preferences' hover-hint='Overrides JD Preferences if enabled'></checkbox-setting>
-
-        /*[UIValue("usePrefJumpValues")]
-        public bool usePrefJumpValues
+        [UIAction("increment_formatter")]
+        private string Increment_Formatter(int value) => Get_Current_Prefs_Text();
+        private string Get_Current_Prefs_Text()
         {
-            get => PluginConfig.Instance.usePreferredJumpDistanceValues;
-            set
+            var selectedEntry = PluginConfig.Instance.pref_selected;
+            var jdSize = PluginConfig.Instance.preferredValues_jd.Count;
+            
+            if (selectedEntry == 0) return "None";
+
+            if ((selectedEntry == 1 && jdSize == 0) || (selectedEntry <= jdSize))
             {
-                PluginConfig.Instance.usePreferredJumpDistanceValues = value;
+                return "<#ffff00>[JD] " + selectedEntry;
             }
-        }
-        [UIAction("setUsePrefJumpValues")]
-        public void SetUsePrefJumpValues(bool value)
-        {
-            usePrefJumpValues = value;
 
-            //if (value)
-            //{
-            //    PluginConfig.Instance.rt_enabled = false;
-            //    NotifyPropertyChanged(nameof(RTEnabled));
-            //}
+            return "<#cc99ff>[RT] " + (selectedEntry - jdSize);
         }
 
+        [UIValue("prefs_max")] private float PrefsMax => Get_Prefs_Bound();
 
-        // Reaction Time Mode
-        [UIValue("rtEnabled")]
-        public bool RTEnabled
+        private float Get_Prefs_Bound()
         {
-            get => PluginConfig.Instance.rt_enabled;
-            set
-            {
-                PluginConfig.Instance.rt_enabled = value;
-            }
+            // Allow display of initial configs
+            var c = PluginConfig.Instance.preferredValues_jd.Count != 0
+                ? PluginConfig.Instance.preferredValues_jd.Count
+                : 1;
+            c += PluginConfig.Instance.preferredValues_rt.Count != 0
+                ? PluginConfig.Instance.preferredValues_rt.Count
+                : 1;
+            return c;
         }
-        [UIAction("setRTEnabled")]
-        public void SetRTEnabled(bool value)
-        {
-            RTEnabled = value;
 
-            //if (value)
-            //{
-            //    PluginConfig.Instance.usePreferredJumpDistanceValues = false;
-            //    NotifyPropertyChanged(nameof(usePrefJumpValues));
-            //}
-        }*/
-        //=============================================================
 
-        [UIValue("pref_button")]
-        private string Pref_Button => Get_Pref_Button();
+        [UIValue("pref_button")] private string PrefButton => Get_Pref_Button();
 
         private string Get_Pref_Button()
         {
-            if (PluginConfig.Instance.pref_selected == 2)
-            {
-                return "<#00000000>----<#cc99ff>Configure  RT  Preferences<#00000000>----"; //#8c1aff
-            }
-            else if (PluginConfig.Instance.pref_selected == 1)
-            {
-                return "<#00000000>----<#ffff00>Configure  JD  Preferences<#00000000>----";
-            }
-            else
+            var selectedEntry = PluginConfig.Instance.pref_selected;
+            var jdSize = PluginConfig.Instance.preferredValues_jd.Count;
+
+            if (selectedEntry == 0)
             {
                 return "Configure  JD  and  RT  Preferences";
             }
+
+            if ((selectedEntry == 1 && jdSize == 0) || (selectedEntry <= jdSize))
+                return "<#00000000>----<#ffff00>Configure  JD  Preferences<#00000000>----";
+
+            return "<#00000000>----<#cc99ff>Configure  RT  Preferences<#00000000>----";
         }
 
         [UIAction("pref_button_clicked")]
         private void Pref_Button_Clicked()
         {
-            /* Kyle used to have a helper function which you also used (DeepestChildFlowCoordinator). 
+            /* Kyle used to have a helper function which you also used (DeepestChildFlowCoordinator).
              * Beat Games has added this to the game since, so we can just use something they helpfully provided us
              */
-            FlowCoordinator currentFlow = _mainFlow.YoungestChildFlowCoordinatorOrSelf();
+            var currentFlow = _mainFlow.YoungestChildFlowCoordinatorOrSelf();
             // We need to give our current flow coordinator to the pref flow so it can exit
             _prefFlow._parentFlow = currentFlow;
             currentFlow.PresentFlowCoordinator(_prefFlow);
@@ -424,7 +399,8 @@ namespace JDFixer.UI
         [UIValue("thresholds")]
         private string Thresholds
         {
-            get => "≤ " + PluginConfig.Instance.lower_threshold.ToString() + " or  ≥ " + PluginConfig.Instance.upper_threshold.ToString();
+            get => "≤ " + PluginConfig.Instance.lower_threshold.ToString() + " or  ≥ " +
+                   PluginConfig.Instance.upper_threshold.ToString();
         }
 
 
@@ -483,11 +459,11 @@ namespace JDFixer.UI
             // These are critical:
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Min_RT_Slider)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Max_RT_Slider)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(RT_Value)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(RTValue)));
 
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Min_JD_Slider)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Max_JD_Slider)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(JD_Value)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(JDValue)));
         }
 
 
@@ -543,24 +519,21 @@ namespace JDFixer.UI
 
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Min_RT_Slider)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Max_RT_Slider)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(RT_Value)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(RTValue)));
 
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Min_JD_Slider)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Max_JD_Slider)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(JD_Value)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(JDValue)));
         }
 
 
         //===============================================================
 
-        [UIValue("open_donate_text")]
-        private string Open_Donate_Text => Donate.donate_clickable_text;
+        [UIValue("open_donate_text")] private string Open_Donate_Text => Donate.donate_clickable_text;
 
-        [UIValue("open_donate_hint")]
-        private string Open_Donate_Hint => Donate.donate_clickable_hint;
+        [UIValue("open_donate_hint")] private string Open_Donate_Hint => Donate.donate_clickable_hint;
 
-        [UIParams]
-        private BSMLParserParams parserParams;
+        [UIParams] private BSMLParserParams parserParams;
 
         [UIAction("open_donate_modal")]
         private void Open_Donate_Modal()
@@ -576,6 +549,7 @@ namespace JDFixer.UI
         {
             Donate.Patreon();
         }
+
         private void Open_Donate_Kofi()
         {
             Donate.Kofi();
@@ -593,8 +567,7 @@ namespace JDFixer.UI
         [UIValue("donate_modal_hint_dynamic")]
         private string Donate_Modal_Hint_Dynamic => Donate.donate_modal_hint_dynamic;
 
-        [UIValue("donate_update_dynamic")]
-        private string Donate_Update_Dynamic => Donate.donate_update_dynamic;
+        [UIValue("donate_update_dynamic")] private string Donate_Update_Dynamic => Donate.donate_update_dynamic;
     }
 
 
@@ -602,13 +575,6 @@ namespace JDFixer.UI
     {
         JumpDistance = 0,
         ReactionTime = 1
-    }
-
-    internal enum PreferenceEnum
-    {
-        Off = 0,
-        JumpDistance = 1,
-        ReactionTime = 2
     }
 
     internal enum HeuristicEnum

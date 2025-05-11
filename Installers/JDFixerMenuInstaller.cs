@@ -27,7 +27,7 @@ namespace JDFixer.Installers
             Container.Bind<PreferencesFlowCoordinator>().FromNewComponentOnNewGameObject().AsSingle();
 
             // Even though ViewControllers are also Unity Components, we bind them with this helper method provided by SiraUtil (FromNewComponentAsViewController)
-            Container.Bind<PreferencesListViewController>().FromNewComponentAsViewController().AsSingle();
+            Container.Bind<JDPreferencesListViewController>().FromNewComponentAsViewController().AsSingle();
             Container.Bind<RTPreferencesListViewController>().FromNewComponentAsViewController().AsSingle();
         }
     }

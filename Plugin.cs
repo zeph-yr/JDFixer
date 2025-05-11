@@ -20,8 +20,9 @@ namespace JDFixer
         [Init]
         public Plugin(IPALogger logger, Config conf, Zenjector zenjector)
         {
-            Plugin.Log = logger;
+            Log = logger;
             PluginConfig.Instance = conf.Generated<PluginConfig>();
+            PluginConfig.Instance.OnLoad();
 
             zenjector.Install<JDFixerMenuInstaller>(Location.Menu);
             //TimeSetup.Inject(zenjector);
@@ -54,7 +55,7 @@ namespace JDFixer
         internal static bool CheckForCustomCampaigns()
         {
             var cc_installed = PluginManager.GetPluginFromId("CustomCampaigns");
-            Plugin.Log.Debug("CC installed: " + cc_installed);
+            Log.Debug("CC installed: " + cc_installed);
 
             return cc_installed != null;
         }
