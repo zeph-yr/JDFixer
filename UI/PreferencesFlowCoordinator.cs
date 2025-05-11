@@ -25,8 +25,6 @@ namespace JDFixer.UI
             showBackButton = true;
             SetTitle("JDFixer Preferences");
             
-            Plugin.Log.Info("Load prefs: "+PluginConfig.Instance.use_jd_pref + " " + PluginConfig.Instance.use_rt_pref + " " + PluginConfig.Instance.pref_selected);
-
             // Handle PluginConfig.Instance.pref_selected == 0 case
             if (PluginConfig.Instance.use_jd_pref == -1 && PluginConfig.Instance.use_rt_pref == -1)
                 PluginConfig.Instance.use_jd_pref = 0;

@@ -214,7 +214,7 @@ namespace JDFixer.UI
             {
                 var jdSize = PluginConfig.Instance.preferredValues_jd.Count;
 
-                if (selectedEntry <= jdSize + 1)
+                if (selectedEntry <= jdSize)
                 {
                     PluginConfig.Instance.use_jd_pref = selectedEntry - 1;
                     PluginConfig.Instance.use_rt_pref = -1;
@@ -222,7 +222,7 @@ namespace JDFixer.UI
                 else
                 {
                     PluginConfig.Instance.use_jd_pref = -1;
-                    PluginConfig.Instance.use_rt_pref = selectedEntry - jdSize;
+                    PluginConfig.Instance.use_rt_pref = selectedEntry - jdSize - 1;
                 }
             }
 

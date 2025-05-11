@@ -6,40 +6,64 @@ using IPA.Config.Stores.Converters;
 
 
 [assembly: InternalsVisibleTo(GeneratedStore.AssemblyVisibilityTarget)]
+
 namespace JDFixer
 {
     internal class PluginConfig
     {
         public void OnLoad()
         {
-            Plugin.Log.Info("Loaded plugin config");
+            CheckConflicts();
 
             var converted = false;
             converted |= TryConvertJD();
             converted |= TryConvertRT();
-            
+
             if (!converted) return;
-            
+
             Plugin.Log.Info("Converted legacy preferred values");
         }
 
         private bool TryConvertJD()
         {
             if (preferredValues == null) return false;
-            
+
             preferredValues_jd.Add(preferredValues);
             preferredValues = null;
             return true;
         }
+
         private bool TryConvertRT()
         {
             if (rt_preferredValues == null) return false;
-            
+
             preferredValues_rt.Add(rt_preferredValues);
             rt_preferredValues = null;
             return true;
         }
-        
+
+        private void CheckConflicts()
+        {
+            if (pref_selected > preferredValues_jd.Count + preferredValues_rt.Count)
+            {
+                Plugin.Log.Info(string.Format("Invalid pref_selected value was reset ({0} > {1})", pref_selected,
+                    preferredValues_jd.Count + preferredValues_rt.Count));
+                pref_selected = 0;
+            }
+
+            if (use_jd_pref >= preferredValues_jd.Count)
+            {
+                Plugin.Log.Info("Invalid use_jd_pref value was reset");
+                use_jd_pref = -1;
+            }
+
+            if (use_rt_pref >= preferredValues_rt.Count)
+            {
+                Plugin.Log.Info("Invalid use_rt_pref value was reset");
+                use_rt_pref = -1;
+            }
+        }
+
 
         internal static PluginConfig Instance { get; set; }
 
@@ -122,7 +146,6 @@ namespace JDFixer
 
         public JDPref()
         {
-
         }
 
         internal JDPref(float njs, float jumpDistance)
@@ -140,7 +163,6 @@ namespace JDFixer
 
         public RTPref()
         {
-
         }
 
         internal RTPref(float njs, float reactionTime)
