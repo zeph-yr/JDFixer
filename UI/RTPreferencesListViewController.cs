@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using HMUI;
 using BeatSaberMarkupLanguage.Attributes;
 using BeatSaberMarkupLanguage.Components;
@@ -70,18 +71,18 @@ namespace JDFixer.UI
         [UIAction("select_pref")]
         private void Select_Pref(TableView tableView, int row)
         {
-            Selected_Pref = PluginConfig.Instance.rt_preferredValues[row];
+            Selected_Pref = PluginConfig.Instance.preferredValues_rt[PluginConfig.Instance.use_rt_pref][row];
         }
 
 
         [UIAction("add_pressed")]
         private void Add_Pressed()
         {
-            if (PluginConfig.Instance.rt_preferredValues.Any(x => x.njs == New_NJS_Value))
+            if (PluginConfig.Instance.preferredValues_rt[PluginConfig.Instance.use_rt_pref].Any(x => x.njs == New_NJS_Value))
             {
-                PluginConfig.Instance.rt_preferredValues.RemoveAll(x => x.njs == New_NJS_Value);
+                PluginConfig.Instance.preferredValues_rt[PluginConfig.Instance.use_rt_pref].RemoveAll(x => x.njs == New_NJS_Value);
             }
-            PluginConfig.Instance.rt_preferredValues.Add(new RTPref(New_NJS_Value, New_RT_Value));
+            PluginConfig.Instance.preferredValues_rt[PluginConfig.Instance.use_rt_pref].Add(new RTPref(New_NJS_Value, New_RT_Value));
             Reload_List_From_Config();
         }
 
@@ -92,7 +93,7 @@ namespace JDFixer.UI
             if (Selected_Pref == null)
                 return;
 
-            PluginConfig.Instance.rt_preferredValues.RemoveAll(x => x == Selected_Pref);
+            PluginConfig.Instance.preferredValues_rt[PluginConfig.Instance.use_rt_pref].RemoveAll(x => x == Selected_Pref);
             Reload_List_From_Config();
         }
 
@@ -101,14 +102,24 @@ namespace JDFixer.UI
         {
             Pref_List.Data.Clear();
 
-            if (PluginConfig.Instance.rt_preferredValues == null)
+            var index = PluginConfig.Instance.use_rt_pref;
+            
+            if (PluginConfig.Instance.preferredValues_rt == null)
                 return;
-
-            PluginConfig.Instance.rt_preferredValues.Sort((x, y) => y.njs.CompareTo(x.njs));
-
-            foreach (var pref in PluginConfig.Instance.rt_preferredValues)
+            
+            // First element to start with
+            if (PluginConfig.Instance.preferredValues_rt.Count == 0)
             {
-                Pref_List.Data.Add(new CustomListTableData.CustomCellInfo($"{pref.njs} NJS | {pref.reactionTime} ms"));
+                PluginConfig.Instance.preferredValues_rt.Add(new List<RTPref>());
+            }
+
+
+            PluginConfig.Instance.preferredValues_rt[index].Sort((x, y) => y.njs.CompareTo(x.njs));
+            
+            foreach (var pref in PluginConfig.Instance.preferredValues_rt[index])
+            {
+                Pref_List.Data.Add(
+                    new CustomListTableData.CustomCellInfo($"{pref.njs} NJS | {pref.reactionTime} ms"));
             }
 
             Pref_List.TableView.ReloadData();

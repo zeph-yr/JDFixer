@@ -7,14 +7,15 @@ namespace JDFixer
     [HarmonyPatch(typeof(VariableMovementDataProvider), "Init")]
     internal class VariableMovementDataProviderPatch
     {
-        internal static void Prefix(ref float noteJumpMovementSpeed, float bpm, ref BeatmapObjectSpawnMovementData.NoteJumpValueType noteJumpValueType, ref float noteJumpValue)
-        { 
+        internal static void Prefix(ref float noteJumpMovementSpeed, float bpm,
+            ref BeatmapObjectSpawnMovementData.NoteJumpValueType noteJumpValueType, ref float noteJumpValue)
+        {
             if (PluginConfig.Instance.enabled == false)
             {
                 return;
             }
 
-           Plugin.Log.Debug("Start Map");
+            Plugin.Log.Debug("Start Map");
 
             // BS 1.19.0
             noteJumpValueType = BeatmapObjectSpawnMovementData.NoteJumpValueType.BeatOffset;
@@ -47,9 +48,9 @@ namespace JDFixer
 
             // 1.26.0-1.29.0 Feature update
             if (PluginConfig.Instance.use_offset && PluginConfig.Instance.legacy_display_enabled &&
-                PluginConfig.Instance.use_rt_pref == false && PluginConfig.Instance.use_jd_pref == false)
+                PluginConfig.Instance.use_rt_pref == -1 && PluginConfig.Instance.use_jd_pref == -1)
             {
-                if (PluginConfig.Instance.slider_setting == 0)
+                if (PluginConfig.Instance.slider_setting == -1)
                 {
                     desiredJumpDis = BeatmapOffsets.jd_snap_value;
                 }
@@ -60,7 +61,7 @@ namespace JDFixer
             }
 
             // NJS-RT setpoints from Preferences
-            if (PluginConfig.Instance.use_rt_pref)
+            if (PluginConfig.Instance.use_rt_pref != -1)
             {
                 if (mapNJS <= PluginConfig.Instance.lower_threshold || mapNJS >= PluginConfig.Instance.upper_threshold)
                 {
@@ -71,13 +72,14 @@ namespace JDFixer
                     goto SongSpeed; // Yes, a goto.
                 }
 
-                var rt_pref = PluginConfig.Instance.rt_preferredValues.FirstOrDefault(x => x.njs <= mapNJS);
+                var rtPref = PluginConfig.Instance.preferredValues_rt[PluginConfig.Instance.use_rt_pref].FirstOrDefault(x => x.njs <= mapNJS);
                 Plugin.Log.Debug("Using Preference");
 
-                if (rt_pref != null)
-                    desiredJumpDis = rt_pref.reactionTime * mapNJS / 500;
+                if (rtPref != null)
+                    desiredJumpDis = rtPref.reactionTime * mapNJS / 500;
 
-                if (BeatmapUtils.CalculateJumpDistance(bpm, mapNJS, noteJumpStartBeatOffset) <= desiredJumpDis && PluginConfig.Instance.use_heuristic == 1)
+                if (BeatmapUtils.CalculateJumpDistance(bpm, mapNJS, noteJumpStartBeatOffset) <= desiredJumpDis &&
+                    PluginConfig.Instance.use_heuristic == 1)
                 {
                     Plugin.Log.Debug("Not Fixing: Original JD below or equal setpoint");
                     Plugin.Log.Debug($"BPM/NJS/Offset {bpm}/{noteJumpMovementSpeed}/{noteJumpStartBeatOffset}");
@@ -89,18 +91,19 @@ namespace JDFixer
             }
 
             // NJS-JD setpoints from Preferences
-            else if (PluginConfig.Instance.use_jd_pref)
+            else if (PluginConfig.Instance.use_jd_pref != -1)
             {
                 if (mapNJS <= PluginConfig.Instance.lower_threshold || mapNJS >= PluginConfig.Instance.upper_threshold)
                 {
                     Plugin.Log.Debug("Using Threshold");
-                    Plugin.Log.Debug("selected:" + BeatmapUtils.CalculateJumpDistance(bpm, mapNJS, noteJumpStartBeatOffset));
+                    Plugin.Log.Debug("selected:" +
+                                     BeatmapUtils.CalculateJumpDistance(bpm, mapNJS, noteJumpStartBeatOffset));
                     //return;
                     desiredJumpDis = BeatmapUtils.CalculateJumpDistance(bpm, mapNJS, noteJumpStartBeatOffset);
                     goto SongSpeed;
                 }
 
-                var pref = PluginConfig.Instance.preferredValues.FirstOrDefault(x => x.njs <= mapNJS);
+                var pref = PluginConfig.Instance.preferredValues_jd[PluginConfig.Instance.use_jd_pref].FirstOrDefault(x => x.njs <= mapNJS);
                 Plugin.Log.Debug("Using Preference");
 
                 if (pref != null)
@@ -109,7 +112,8 @@ namespace JDFixer
                 // Heuristic: If map's original JD is less than the matching preference entry, play map at original JD
                 // Rationale: I created this mod because I don't like floaty maps. If the original JD chosen by the
                 // mapper is lower than my pick, it's probably more optimal than my pick.
-                if (BeatmapUtils.CalculateJumpDistance(bpm, mapNJS, noteJumpStartBeatOffset) <= desiredJumpDis && PluginConfig.Instance.use_heuristic == 1)
+                if (BeatmapUtils.CalculateJumpDistance(bpm, mapNJS, noteJumpStartBeatOffset) <= desiredJumpDis &&
+                    PluginConfig.Instance.use_heuristic == 1)
                 {
                     Plugin.Log.Debug("Not Fixing: Original JD below or equal setpoint");
                     Plugin.Log.Debug($"BPM/NJS/Offset {bpm}/{noteJumpMovementSpeed}/{noteJumpStartBeatOffset}");
@@ -145,7 +149,7 @@ namespace JDFixer
             simOffset = (num2Curr * jumpDurMul) - num2Curr;
 
             //noteJumpStartBeatOffset = simOffset;
-            noteJumpValue = simOffset;  // 1.19.0+
+            noteJumpValue = simOffset; // 1.19.0+
 
             //Plugin.Log.Debug($"HalfJumpCurrent: {num2Curr} | DesiredHalfJump {desiredHalfJumpDur} | DesiredJumpDis {desiredJumpDis} | CurrJumpDis {jumpDisCurr} | Simulated Offset {simOffset}");
             Plugin.Log.Debug($"DesiredJumpDis {desiredJumpDis} | Simulated Offset {simOffset}");
@@ -157,6 +161,7 @@ namespace JDFixer
     internal class MissionSelectionPatch
     {
         internal static BeatmapLevel cc_level = null;
+
         internal static void Postfix(BeatmapLevel level)
         {
             cc_level = level;
@@ -167,7 +172,8 @@ namespace JDFixer
     [HarmonyPatch]
     internal class StandardLevelScenesTransitionSetupDataSOPatch
     {
-        private static MethodBase TargetMethod() => AccessTools.FirstMethod(typeof(StandardLevelScenesTransitionSetupDataSO),
+        private static MethodBase TargetMethod() => AccessTools.FirstMethod(
+            typeof(StandardLevelScenesTransitionSetupDataSO),
             m => m.Name == nameof(StandardLevelScenesTransitionSetupDataSO.Init) &&
                  m.GetParameters().All(p => p.ParameterType != typeof(IBeatmapLevelData)));
 
@@ -196,21 +202,22 @@ namespace JDFixer
     {
         internal static float Get_Modified_DesiredJD(float jumpDis, float mapNJS)
         {
-            float new_RT = BeatmapUtils.Calculate_ReactionTime_Setpoint_Float(jumpDis, mapNJS) * BeatmapInfo.speedMultiplier;
+            float new_RT = BeatmapUtils.Calculate_ReactionTime_Setpoint_Float(jumpDis, mapNJS) *
+                           BeatmapInfo.speedMultiplier;
 
             if (PluginConfig.Instance.song_speed_setting == 1)
             {
                 return BeatmapUtils.Calculate_JumpDistance_Setpoint_Float(new_RT, mapNJS);
             }
-            else if (PluginConfig.Instance.song_speed_setting == 2 &&
-                    (PluginConfig.Instance.use_rt_pref || (PluginConfig.Instance.slider_setting == 1 && PluginConfig.Instance.use_jd_pref == false)))
+
+            if (PluginConfig.Instance.song_speed_setting == 2 &&
+                (PluginConfig.Instance.use_rt_pref != -1 || (PluginConfig.Instance.slider_setting == 1 &&
+                                                            PluginConfig.Instance.use_jd_pref == -1)))
             {
                 return BeatmapUtils.Calculate_JumpDistance_Setpoint_Float(new_RT, mapNJS);
             }
-            else
-            {
-                return jumpDis;
-            }
+
+            return jumpDis;
         }
     }
 

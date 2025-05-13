@@ -1,4 +1,4 @@
-﻿<bg xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='https://monkeymanboy.github.io/BSML-Docs/ https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd'>
+﻿<bg xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='https://monkeymanboy.github.io/BSML-Docs/ https://monkeymanboy.github.io/BSML-Docs/BSMLSchema.xsd'>
 	<vertical vertical-fit='PreferredSize' preferred-height='75' pad-right='20' pad-top='1' pad-bottom='3'>
 		<horizontal preferred-width='90'>
 			<text text='JDFixer UI Options' font-size='5' underlined='true' align='Center'></text>

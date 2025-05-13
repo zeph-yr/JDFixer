@@ -7,16 +7,16 @@ namespace JDFixer.UI
     internal sealed class PreferencesFlowCoordinator : FlowCoordinator
     {
         internal FlowCoordinator _parentFlow;
-        private PreferencesListViewController _prefListView;
+        private JDPreferencesListViewController _prefListView;
         private RTPreferencesListViewController _rtPrefListView;
 
         /* Since this is binded as a unity component, our "Constructor" is actually a method called Construct (with an inject attribute)
          * We would do the same for ViewControllers if we wanna ask for stuff from Zenject
          */
         [Inject]
-        private void Construct(PreferencesListViewController preferencesListViewController, RTPreferencesListViewController rTPreferencesListViewController)
+        private void Construct(JDPreferencesListViewController jdPreferencesListViewController, RTPreferencesListViewController rTPreferencesListViewController)
         {
-            _prefListView = preferencesListViewController;
+            _prefListView = jdPreferencesListViewController;
             _rtPrefListView = rTPreferencesListViewController;
         }
 
@@ -24,11 +24,15 @@ namespace JDFixer.UI
         {
             showBackButton = true;
             SetTitle("JDFixer Preferences");
-
-            if (PluginConfig.Instance.use_rt_pref)
-                ProvideInitialViewControllers(_rtPrefListView);
-            else
+            
+            // Handle PluginConfig.Instance.pref_selected == 0 case
+            if (PluginConfig.Instance.use_jd_pref == -1 && PluginConfig.Instance.use_rt_pref == -1)
+                PluginConfig.Instance.use_jd_pref = 0;
+            
+            if (PluginConfig.Instance.use_jd_pref != -1)
                 ProvideInitialViewControllers(_prefListView);
+            else
+                ProvideInitialViewControllers(_rtPrefListView);
         }
 
         protected override void BackButtonWasPressed(ViewController topViewController)

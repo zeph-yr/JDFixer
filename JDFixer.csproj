@@ -72,7 +72,7 @@
       <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\Core.dll</HintPath>
     </Reference>
     <Reference Include="Custom Campaigns">
-      <HintPath>$(BeatSaberDir)\Plugins\Custom Campaigns.dll</HintPath>
+      <HintPath>$(BeatSaberDir)\Plugins\_unused\Custom Campaigns.dll</HintPath>
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -195,7 +195,7 @@
     <Compile Include="Managers\JDFixerUIManager.cs" />
     <Compile Include="PluginConfig.cs" />
     <Compile Include="UI\MainMenuUI.cs" />
-    <Compile Include="UI\PreferencesListViewController.cs" />
+    <Compile Include="UI\JDPreferencesListViewController.cs" />
     <Compile Include="UI\RTPreferencesListViewController.cs" />
     <Compile Include="HarmonyPatches.cs" />
     <Compile Include="Plugin.cs" />
