@@ -113,17 +113,13 @@ namespace JDFixer.UI
                 PluginConfig.Instance.preferredValues_rt.Add(new List<RTPref>());
             }
 
-            // Handle out of bounds config
-            if (PluginConfig.Instance.preferredValues_rt.Count <= index)
-            {
-                PluginConfig.Instance.use_rt_pref = PluginConfig.Instance.preferredValues_rt.Count-1;
-            }
 
             PluginConfig.Instance.preferredValues_rt[index].Sort((x, y) => y.njs.CompareTo(x.njs));
             
             foreach (var pref in PluginConfig.Instance.preferredValues_rt[index])
             {
-                Pref_List.Data.Add(new CustomListTableData.CustomCellInfo($"{pref.njs} NJS | {pref.reactionTime} ms"));
+                Pref_List.Data.Add(
+                    new CustomListTableData.CustomCellInfo($"{pref.njs} NJS | {pref.reactionTime} ms"));
             }
 
             Pref_List.TableView.ReloadData();

@@ -110,12 +110,6 @@ namespace JDFixer.UI
                 PluginConfig.Instance.preferredValues_jd.Add(new List<JDPref>());
             }
 
-            // Handle out of bounds config
-            if (PluginConfig.Instance.preferredValues_jd.Count <= index)
-            {
-                PluginConfig.Instance.use_rt_pref = PluginConfig.Instance.preferredValues_jd.Count-1;
-            }
-
 
             PluginConfig.Instance.preferredValues_jd[index]
                 .Sort((x, y) => y.njs.CompareTo(x.njs));
