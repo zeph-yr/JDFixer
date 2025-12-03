@@ -167,17 +167,21 @@ namespace JDFixer
     [HarmonyPatch]
     internal class StandardLevelScenesTransitionSetupDataSOPatch
     {
-        private static MethodBase TargetMethod() => AccessTools.FirstMethod(typeof(StandardLevelScenesTransitionSetupDataSO),
-            m => m.Name == nameof(StandardLevelScenesTransitionSetupDataSO.Init) &&
-                 m.GetParameters().All(p => p.ParameterType != typeof(IBeatmapLevelData)));
-
-        internal static void Postfix(GameplayModifiers gameplayModifiers, PracticeSettings practiceSettings)
+        private static MethodBase TargetMethod()
         {
-            BeatmapInfo.speedMultiplier = gameplayModifiers.songSpeedMul;
-            if (practiceSettings != null)
-            {
-                BeatmapInfo.speedMultiplier = practiceSettings.songSpeedMul;
-            }
+            return AccessTools.FirstMethod(
+                typeof(StandardLevelScenesTransitionSetupDataSO),
+                m => m.Name == "Init" &&
+                     m.GetParameters().Length == 20 
+            );
+        }
+
+        internal static void Postfix(
+            GameplayModifiers gameplayModifiers,
+            PracticeSettings practiceSettings
+        )
+        {
+            BeatmapInfo.speedMultiplier = practiceSettings?.songSpeedMul ?? gameplayModifiers.songSpeedMul;
         }
     }
 
