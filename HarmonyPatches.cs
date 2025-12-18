@@ -172,7 +172,7 @@ namespace JDFixer
             return AccessTools.FirstMethod(
                 typeof(StandardLevelScenesTransitionSetupDataSO),
                 m => m.Name == "Init" &&
-                     m.GetParameters().Length == 20 
+                     m.GetParameters().Length == 18 
             );
         }
 
